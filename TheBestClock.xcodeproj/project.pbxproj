@@ -97,12 +97,10 @@
 		D4135996218E763F00768430 /* TheBestClock */ = {
 			isa = PBXGroup;
 			children = (
-				D4135997218E763F00768430 /* AppDelegate.swift */,
-				D4135999218E763F00768430 /* ViewController.swift */,
-				D413599B218E763F00768430 /* Main.storyboard */,
-				D413599E218E764100768430 /* Assets.xcassets */,
-				D41359A0218E764100768430 /* LaunchScreen.storyboard */,
-				D41359A3218E764100768430 /* Info.plist */,
+				D41359C7218E76A500768430 /* App */,
+				D41359C8218E76B600768430 /* View Controllers */,
+				D41359C5218E768600768430 /* Bumdle Resources */,
+				D41359C6218E769400768430 /* Meta */,
 			);
 			path = TheBestClock;
 			sourceTree = "<group>";
@@ -123,6 +121,40 @@
 				D41359B9218E764100768430 /* Info.plist */,
 			);
 			path = TheBestClockUITests;
+			sourceTree = "<group>";
+		};
+		D41359C5218E768600768430 /* Bumdle Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D413599B218E763F00768430 /* Main.storyboard */,
+				D413599E218E764100768430 /* Assets.xcassets */,
+				D41359A0218E764100768430 /* LaunchScreen.storyboard */,
+			);
+			path = "Bumdle Resources";
+			sourceTree = "<group>";
+		};
+		D41359C6218E769400768430 /* Meta */ = {
+			isa = PBXGroup;
+			children = (
+				D41359A3218E764100768430 /* Info.plist */,
+			);
+			path = Meta;
+			sourceTree = "<group>";
+		};
+		D41359C7218E76A500768430 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D4135997218E763F00768430 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D41359C8218E76B600768430 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D4135999218E763F00768430 /* ViewController.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,7 +395,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -418,7 +450,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -434,7 +466,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53V4JS928;
-				INFOPLIST_FILE = TheBestClock/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/TheBestClock/Meta/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -452,7 +485,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53V4JS928;
-				INFOPLIST_FILE = TheBestClock/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/TheBestClock/Meta/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
