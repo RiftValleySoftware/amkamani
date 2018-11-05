@@ -1,43 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main Screen View Controller-->
+        <!--The Best Clock-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainScreenViewController" customModule="TheBestClock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="The Best Clock" id="BYZ-38-t0r" customClass="MainScreenViewController" customModule="TheBestClock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ot-f1-EK6">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7io-PK-JhC" customClass="TheBestClockVerticalBrightnessSliderView" customModule="TheBestClock" customModuleProvider="target">
+                                <rect key="frame" x="4" y="40" width="40" height="607"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="1ii-dZ-f2j"/>
+                                </constraints>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Qhc-dq-gps"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="TsO-cr-uPW"/>
+                                    <action selector="brightnessSliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="N5d-Yd-M3d"/>
                                 </connections>
-                            </pickerView>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tA9-HM-M61" customClass="TheBestClockMainDisplayView" customModule="TheBestClock" customModuleProvider="target">
+                                <rect key="frame" x="44" y="20" width="331" height="647"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDL-S8-BKg">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ot-f1-EK6">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="Qhc-dq-gps"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="TsO-cr-uPW"/>
+                                        </connections>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="5Ot-f1-EK6" secondAttribute="trailing" id="36s-0v-j2N"/>
+                                    <constraint firstItem="5Ot-f1-EK6" firstAttribute="top" secondItem="KDL-S8-BKg" secondAttribute="top" id="S9p-ty-QGr"/>
+                                    <constraint firstAttribute="bottom" secondItem="5Ot-f1-EK6" secondAttribute="bottom" id="Wxw-pB-XlK"/>
+                                    <constraint firstItem="5Ot-f1-EK6" firstAttribute="leading" secondItem="KDL-S8-BKg" secondAttribute="leading" id="sk8-4P-euq"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="4Dn-no-ExP" appends="YES" id="tSU-SU-ZZ3"/>
+                                </connections>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="5Ot-f1-EK6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="89b-3a-zXE"/>
-                            <constraint firstItem="5Ot-f1-EK6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Wex-Tz-zJN"/>
-                            <constraint firstItem="5Ot-f1-EK6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ood-T5-Mht"/>
-                            <constraint firstItem="5Ot-f1-EK6" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="pqn-yC-joS"/>
+                            <constraint firstItem="7io-PK-JhC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="2wA-yR-ETY"/>
+                            <constraint firstItem="7io-PK-JhC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="CkD-kH-pE3"/>
+                            <constraint firstItem="tA9-HM-M61" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="NpL-em-auG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KDL-S8-BKg" secondAttribute="bottom" id="TNe-HS-9MG"/>
+                            <constraint firstItem="tA9-HM-M61" firstAttribute="leading" secondItem="7io-PK-JhC" secondAttribute="trailing" id="b0b-DW-nDv"/>
+                            <constraint firstItem="KDL-S8-BKg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cQw-xG-9T7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="tA9-HM-M61" secondAttribute="bottom" id="hC8-jM-IwC"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tA9-HM-M61" secondAttribute="trailing" id="hEH-Xe-xHX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KDL-S8-BKg" secondAttribute="trailing" id="m6a-Ix-nrb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7io-PK-JhC" secondAttribute="bottom" constant="20" id="oaY-3L-atN"/>
+                            <constraint firstItem="KDL-S8-BKg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yD8-CT-Enu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="EtU-wI-Juo" appends="YES" id="aW8-EU-Gzn"/>
+                        </connections>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
+                        <outlet property="brightnessSlider" destination="7io-PK-JhC" id="AAh-kC-gSO"/>
                         <outlet property="mainDisplayPickerView" destination="5Ot-f1-EK6" id="giA-vX-QuX"/>
+                        <outlet property="mainNumberDisplayView" destination="tA9-HM-M61" id="4MX-Vs-nAa"/>
+                        <outlet property="mainPickerContainerView" destination="KDL-S8-BKg" id="Qml-Ag-nxF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="EtU-wI-Juo">
+                    <connections>
+                        <action selector="longPressInMainNumber:" destination="BYZ-38-t0r" id="AUf-KP-3un"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="4Dn-no-ExP">
+                    <connections>
+                        <action selector="doneButtonHit:" destination="BYZ-38-t0r" id="DlY-vB-mpZ"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="26.408450704225352" y="52.5"/>
+            <point key="canvasLocation" x="319" y="44"/>
         </scene>
     </scenes>
 </document>

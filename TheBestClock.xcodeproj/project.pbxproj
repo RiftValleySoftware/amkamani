@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,8 @@
 		D41359AD218E764100768430 /* TheBestClockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41359AC218E764100768430 /* TheBestClockTests.swift */; };
 		D41359B8218E764100768430 /* TheBestClockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41359B7218E764100768430 /* TheBestClockUITests.swift */; };
 		D46F045E21905DC10045FBB2 /* Anonymous Pro Minus B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D46F045C21905DC10045FBB2 /* Anonymous Pro Minus B.ttf */; };
+		D46F84602190CA1F0026C9AD /* TheBestClockMainDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */; };
+		D46F84622190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */; };
 		D4B704072190B9940094E320 /* RevealServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B704062190B9940094E320 /* RevealServer.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */; };
 /* End PBXBuildFile section */
@@ -54,6 +56,8 @@
 		D41359B7218E764100768430 /* TheBestClockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockUITests.swift; sourceTree = "<group>"; };
 		D41359B9218E764100768430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D46F045C21905DC10045FBB2 /* Anonymous Pro Minus B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Anonymous Pro Minus B.ttf"; sourceTree = "<group>"; };
+		D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockMainDisplayView.swift; sourceTree = "<group>"; };
+		D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockVerticalBrightnessSliderView.swift; sourceTree = "<group>"; };
 		D4B704062190B9940094E320 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "Pods/Reveal-SDK/RevealServer-19/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "let's go digital regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,6 +179,8 @@
 			isa = PBXGroup;
 			children = (
 				D4135999218E763F00768430 /* MainScreenViewController.swift */,
+				D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */,
+				D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -280,7 +286,7 @@
 				};
 			};
 			buildConfigurationList = D413598F218E763F00768430 /* Build configuration list for PBXProject "TheBestClock" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -399,6 +405,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D413599A218E763F00768430 /* MainScreenViewController.swift in Sources */,
+				D46F84622190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift in Sources */,
+				D46F84602190CA1F0026C9AD /* TheBestClockMainDisplayView.swift in Sources */,
 				D4135998218E763F00768430 /* TheBestClockAppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -581,6 +589,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Reveal-SDK/RevealServer-19/iOS",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/TheBestClock/Meta/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -589,6 +598,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.TheBestClock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -605,6 +615,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Reveal-SDK/RevealServer-19/iOS",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/TheBestClock/Meta/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -613,6 +624,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.TheBestClock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
