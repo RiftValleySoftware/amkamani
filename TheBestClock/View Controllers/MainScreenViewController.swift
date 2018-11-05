@@ -9,6 +9,7 @@
 */
 
 import UIKit
+import MediaPlayer
 
 /* ###################################################################################################################################### */
 // MARK: - Extensions -
@@ -97,6 +98,13 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     /**
      */
+    func reportError(heading inHeadingKey: String, text inDetailedTextKey: String) {
+        
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     @IBAction func brightnessSliderChanged(_ sender: TheBestClockVerticalBrightnessSliderView) {
         self.selectedBrightness = max(self._minimumBrightness, sender.brightness)
         self.updateMainTime()
@@ -123,6 +131,24 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     /**
      */
+    func requestAccessToMediaLibrary() {
+        MPMediaLibrary.requestAuthorization() { status in
+            switch status {
+            case.authorized:
+                break
+            
+            case .denied:
+                break
+                
+            default:
+                break
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     private func _getFontSize(_ inFontName: String, size inSize: CGSize) -> CGFloat {
         let text = "88:88"
         var fontSize: CGFloat = inSize.width * 2
@@ -139,6 +165,22 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
         
         return fontSize
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @objc(_TtCC12TheBestClock24MainScreenViewController24TheBestClockAlarmSetting)class TheBestClockAlarmSetting: NSObject, NSCoding {
+        var alarmTimeInSeconds: Int = 0
+        var playlistID: UUID = UUID()
+        var snoozing: Bool = false
+        
+        func encode(with aCoder: NSCoder) {
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            super.init()
+        }
     }
     
     /* ################################################################## */
