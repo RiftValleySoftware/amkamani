@@ -14,6 +14,8 @@
 		D41359A2218E764100768430 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41359A0218E764100768430 /* LaunchScreen.storyboard */; };
 		D41359AD218E764100768430 /* TheBestClockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41359AC218E764100768430 /* TheBestClockTests.swift */; };
 		D41359B8218E764100768430 /* TheBestClockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41359B7218E764100768430 /* TheBestClockUITests.swift */; };
+		D46F045E21905DC10045FBB2 /* Anonymous Pro Minus B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D46F045C21905DC10045FBB2 /* Anonymous Pro Minus B.ttf */; };
+		D4B704072190B9940094E320 /* RevealServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B704062190B9940094E320 /* RevealServer.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		67ADC8B37E0BB5AC5821F6D6 /* Pods_TheBestClock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheBestClock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		82D270D278F3C1E6B66A85EC /* Pods-TheBestClock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheBestClock.debug.xcconfig"; path = "Target Support Files/Pods-TheBestClock/Pods-TheBestClock.debug.xcconfig"; sourceTree = "<group>"; };
+		C55EF5B8125BCF2F431A69AF /* Pods-TheBestClock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheBestClock.release.xcconfig"; path = "Target Support Files/Pods-TheBestClock/Pods-TheBestClock.release.xcconfig"; sourceTree = "<group>"; };
 		D4135994218E763F00768430 /* TheBestClock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheBestClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4135997218E763F00768430 /* TheBestClockAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockAppDelegate.swift; sourceTree = "<group>"; };
 		D4135999218E763F00768430 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +53,8 @@
 		D41359B3218E764100768430 /* TheBestClockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheBestClockUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41359B7218E764100768430 /* TheBestClockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockUITests.swift; sourceTree = "<group>"; };
 		D41359B9218E764100768430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D46F045C21905DC10045FBB2 /* Anonymous Pro Minus B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Anonymous Pro Minus B.ttf"; sourceTree = "<group>"; };
+		D4B704062190B9940094E320 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "Pods/Reveal-SDK/RevealServer-19/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "let's go digital regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4B704072190B9940094E320 /* RevealServer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +84,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A7DE492AABB4E6094A94D6D2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				82D270D278F3C1E6B66A85EC /* Pods-TheBestClock.debug.xcconfig */,
+				C55EF5B8125BCF2F431A69AF /* Pods-TheBestClock.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		D413598B218E763F00768430 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +100,8 @@
 				D41359AB218E764100768430 /* TheBestClockTests */,
 				D41359B6218E764100768430 /* TheBestClockUITests */,
 				D4135995218E763F00768430 /* Products */,
+				A7DE492AABB4E6094A94D6D2 /* Pods */,
+				EF02A0F6866AEB1885ED33AE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,7 +120,7 @@
 			children = (
 				D41359C7218E76A500768430 /* App */,
 				D41359C8218E76B600768430 /* View Controllers */,
-				D41359C5218E768600768430 /* Bumdle Resources */,
+				D41359C5218E768600768430 /* Bundle Resources */,
 				D41359C6218E769400768430 /* Meta */,
 			);
 			path = TheBestClock;
@@ -125,7 +144,7 @@
 			path = TheBestClockUITests;
 			sourceTree = "<group>";
 		};
-		D41359C5218E768600768430 /* Bumdle Resources */ = {
+		D41359C5218E768600768430 /* Bundle Resources */ = {
 			isa = PBXGroup;
 			children = (
 				D4FDA6F1218FA519009F08C2 /* Fonts */,
@@ -133,7 +152,7 @@
 				D413599B218E763F00768430 /* Main.storyboard */,
 				D41359A0218E764100768430 /* LaunchScreen.storyboard */,
 			);
-			path = "Bumdle Resources";
+			path = "Bundle Resources";
 			sourceTree = "<group>";
 		};
 		D41359C6218E769400768430 /* Meta */ = {
@@ -163,9 +182,19 @@
 		D4FDA6F1218FA519009F08C2 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				D46F045C21905DC10045FBB2 /* Anonymous Pro Minus B.ttf */,
 				D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		EF02A0F6866AEB1885ED33AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D4B704062190B9940094E320 /* RevealServer.framework */,
+				67ADC8B37E0BB5AC5821F6D6 /* Pods_TheBestClock.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,9 +204,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D41359BC218E764100768430 /* Build configuration list for PBXNativeTarget "TheBestClock" */;
 			buildPhases = (
+				42206B368767EFD288F5F0C8 /* [CP] Check Pods Manifest.lock */,
+				D46F045F2190B4370045FBB2 /* SwiftLINT */,
 				D4135990218E763F00768430 /* Sources */,
 				D4135991218E763F00768430 /* Frameworks */,
 				D4135992218E763F00768430 /* Resources */,
+				AE86AD044DF38E34692AE005 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -275,6 +307,7 @@
 				D41359A2218E764100768430 /* LaunchScreen.storyboard in Resources */,
 				D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */,
 				D413599F218E764100768430 /* Assets.xcassets in Resources */,
+				D46F045E21905DC10045FBB2 /* Anonymous Pro Minus B.ttf in Resources */,
 				D413599D218E763F00768430 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,6 +327,71 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		42206B368767EFD288F5F0C8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TheBestClock-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AE86AD044DF38E34692AE005 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TheBestClock/Pods-TheBestClock-frameworks.sh",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer-19/iOS/RevealServer.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TheBestClock/Pods-TheBestClock-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D46F045F2190B4370045FBB2 /* SwiftLINT */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLINT;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D4135990218E763F00768430 /* Sources */ = {
@@ -474,10 +572,15 @@
 		};
 		D41359BD218E764100768430 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 82D270D278F3C1E6B66A85EC /* Pods-TheBestClock.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53V4JS928;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Reveal-SDK/RevealServer-19/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/TheBestClock/Meta/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -493,10 +596,15 @@
 		};
 		D41359BE218E764100768430 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C55EF5B8125BCF2F431A69AF /* Pods-TheBestClock.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53V4JS928;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Reveal-SDK/RevealServer-19/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/TheBestClock/Meta/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

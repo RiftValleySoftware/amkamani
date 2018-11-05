@@ -11,6 +11,26 @@
 import UIKit
 
 /* ###################################################################################################################################### */
+// MARK: - Extensions -
+/* ###################################################################################################################################### */
+/**
+ */
+extension UIColor {
+    /* ################################################################## */
+    /**
+     This just allows us to get an HSB color from a standard UIColor.
+     From here: https://stackoverflow.com/a/30713456/879365
+     
+     - returns: A tuple, containing the HSBA color.
+     */
+    var hsba:(h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat) {
+        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        return (h: h, s: s, b: b, a: a)
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Main Class -
 /* ###################################################################################################################################### */
 /**
@@ -18,22 +38,14 @@ import UIKit
 class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     /// This is a list of a subset of fonts likely to be on the device. We want to reduce the choices for the user.
     private let _screenForThese: [String] = ["AmericanTypewriter-Bold",
-                                             "AmericanTypewriter-Light",
                                              "AppleColorEmoji",
                                              "AppleSDGothicNeo-Bold",
                                              "AppleSDGothicNeo-Thin",
-                                             "AppleSDGothicNeo-UltraLight",
                                              "Arial-BoldItalicMT",
-                                             "Arial-BoldMT",
-                                             "Arial-ItalicMT",
-                                             "ArialMT",
                                              "Avenir-Black",
-                                             "Avenir-Light",
                                              "AvenirNextCondensed-UltraLight",
                                              "Baskerville",
-                                             "Baskerville-Bold",
                                              "Baskerville-BoldItalic",
-                                             "Baskerville-Italic",
                                              "BodoniSvtyTwoITCTT-Bold",
                                              "BradleyHandITCTT-Bold",
                                              "ChalkboardSE-Bold",
@@ -41,9 +53,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                              "Cochin-Bold",
                                              "Copperplate-Bold",
                                              "Copperplate-Light",
-                                             "Courier",
                                              "Courier-Bold",
-                                             "Didot",
                                              "Didot-Bold",
                                              "EuphemiaUCAS-Bold",
                                              "Futura-CondensedExtraBold",
@@ -52,49 +62,40 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                              "Georgia-Bold",
                                              "GillSans-Light",
                                              "GillSans-UltraBold",
-                                             "Helvetica",
                                              "Helvetica-Bold",
                                              "HelveticaNeue-UltraLight",
                                              "HoeflerText-Black",
-                                             "Let's Go Digital",
-                                             "MarkerFelt-Thin",
                                              "MarkerFelt-Wide",
                                              "Menlo-Bold",
-                                             "Menlo-Regular",
                                              "Noteworthy-Bold",
-                                             "Noteworthy-Light",
                                              "Palatino-Roman",
                                              "Papyrus",
-                                             "SavoyeLetPlain",
                                              "Thonburi-Bold",
-                                             "Thonburi-Light",
                                              "TimesNewRomanPS-BoldMT",
                                              "TimesNewRomanPS-ItalicMT",
-                                             "TimesNewRomanPSMT",
-                                             "TrebuchetMS",
                                              "TrebuchetMS-Bold",
-                                             "TrebuchetMS-Italic",
-                                             "Verdana",
                                              "Verdana-Bold"]
     
-    private var _fontSelection: [String] = ["Let's Go Digital"] // We'll have our embedded "digital" font as the initial one.
+    private var _fontSelection: [String] = []
+    private var _colorSelection: [UIColor] = []
+    private var _backgroundColor: UIColor = UIColor.gray
+    
+    internal var selectedFontIndex: Int = 0
+    internal var selectedColorIndex: Int = 0
 
-    @IBOutlet weak var mainPickerView: UIPickerView!
+    @IBOutlet weak var mainDisplayPickerView: UIPickerView!
     
     /* ################################################################## */
     /**
      */
-    private func _getFontSize(_ inFontName: String) -> CGFloat {
-        var frame = self.mainPickerView.bounds
-        frame.size.height = self.pickerView(self.mainPickerView, rowHeightForComponent: 0)
+    private func _getFontSize(_ inFontName: String, size inSize: CGSize) -> CGFloat {
         let text = "88:88"
-        var fontSize: CGFloat = frame.size.width * 2
+        var fontSize: CGFloat = inSize.width * 2
         while fontSize > 0 {
             if let font = UIFont(name: inFontName, size: fontSize) {
-                let fitSize = CGSize(width: frame.size.width, height: frame.size.height)
-                let rect = text.boundingRect(with: fitSize, options: [.usesDeviceMetrics], attributes: [NSAttributedString.Key.font: font], context: nil)
+                let rect = text.boundingRect(with: inSize, options: [], attributes: [NSAttributedString.Key.font: font], context: nil)
                 
-                if rect.size.height <= frame.size.height, rect.size.width <= frame.size.width {
+                if rect.size.height < inSize.height, rect.size.width < inSize.width {
                     break
                 }
                 
@@ -105,15 +106,32 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         return fontSize
     }
 
-    private var _currentTimeString: (time: String, amPm: String) {
+    /* ################################################################## */
+    /**
+     This struct will contain all the info we need to display our time and date.
+     */
+    internal struct TimeDateContainer {
+        /// This is the time, as a locale-adjusted string. It will always use a colon separator between hours and seconds.
+        var time: String
+        /// If the time is ante meridian, then this will contain the locale-adjusted "AM" or "PM".
+        var amPm: String
+        /// This will contain the date, as abbreviated weekday abbreviated month name, day of the month, year.
+        var date: String
+    }
+    
+    /* ################################################################## */
+    /**
+     This calculates all the time and date information when it is called.
+     */
+    internal var _currentTimeString: TimeDateContainer {
         let formatter = DateFormatter()
         formatter.locale = Locale.current
         formatter.dateStyle = .none
         formatter.timeStyle = .short
         
-        let dateString = formatter.string(from: Date())
-        let amRange = dateString.range(of: formatter.amSymbol)
-        let pmRange = dateString.range(of: formatter.pmSymbol)
+        let test = formatter.string(from: Date())
+        let amRange = test.range(of: formatter.amSymbol)
+        let pmRange = test.range(of: formatter.pmSymbol)
         
         let is24 = (pmRange == nil && amRange == nil)
 
@@ -123,9 +141,92 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         formatter.dateFormat = "a"
         let amPMString = is24 ? "" : formatter.string(from: Date())
         
-        return (time: timeString, amPm: amPMString)
+        formatter.dateFormat = "EEE, MMM d, y"
+
+        let dateString = formatter.string(from: Date())
+        
+        return TimeDateContainer(time: timeString, amPm: amPMString, date: dateString)
     }
     
+    /* ################################################################## */
+    /**
+     */
+    internal func _createDisplayView(_ inContainerView: UIView, index inIndex: Int) -> UIView {
+        for subView in inContainerView.subviews {
+            subView.removeFromSuperview()
+        }
+        
+        if let sublayers = inContainerView.layer.sublayers {
+            for subLayer in sublayers {
+                subLayer.removeFromSuperlayer()
+            }
+        }
+
+        var frame = inContainerView.bounds
+        frame.size.height = inContainerView.bounds.height
+        let fontName = self._fontSelection[inIndex]
+        let fontSize = self._getFontSize(fontName, size: frame.size)
+        
+        if 0 < fontSize, let font = UIFont(name: fontName, size: fontSize) {
+            let text = self._currentTimeString.time
+            
+            let displayLabelGradient = UIView(frame: frame)
+            let gradient = CAGradientLayer()
+            let hue = self._colorSelection[self.selectedColorIndex].hsba.h
+            let endColor = 0 == self.selectedColorIndex ? UIColor.lightGray : UIColor(hue: hue, saturation: 1.0, brightness: 0.9, alpha: 1.0)
+            let startColor = 0 == self.selectedColorIndex ? UIColor.white : UIColor(hue: hue, saturation: 0.85, brightness: 1.25, alpha: 1.0)
+            gradient.colors = [startColor.cgColor, endColor.cgColor]
+            gradient.startPoint = CGPoint(x: 0.5, y: 0)
+            gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+            gradient.frame = frame
+            displayLabelGradient.layer.addSublayer(gradient)
+            
+            let displayLabel = UILabel(frame: frame)
+            displayLabel.font = font
+            displayLabel.adjustsFontSizeToFitWidth = true
+            displayLabel.textAlignment = .center
+            displayLabel.baselineAdjustment = .alignCenters
+            displayLabel.text = text
+            displayLabelGradient.addSubview(displayLabel)
+            inContainerView.addSubview(displayLabelGradient)
+            inContainerView.mask = displayLabel
+            
+            displayLabelGradient.translatesAutoresizingMaskIntoConstraints = false
+            
+            inContainerView.addConstraints([
+                NSLayoutConstraint(item: displayLabelGradient,
+                                   attribute: .top,
+                                   relatedBy: .equal,
+                                   toItem: inContainerView,
+                                   attribute: .top,
+                                   multiplier: 1.0,
+                                   constant: 0),
+                NSLayoutConstraint(item: displayLabelGradient,
+                                   attribute: .left,
+                                   relatedBy: .equal,
+                                   toItem: inContainerView,
+                                   attribute: .left,
+                                   multiplier: 1.0,
+                                   constant: 0),
+                NSLayoutConstraint(item: displayLabelGradient,
+                                   attribute: .bottom,
+                                   relatedBy: .equal,
+                                   toItem: inContainerView,
+                                   attribute: .bottom,
+                                   multiplier: 1.0,
+                                   constant: 0),
+                NSLayoutConstraint(item: displayLabelGradient,
+                                   attribute: .right,
+                                   relatedBy: .equal,
+                                   toItem: inContainerView,
+                                   attribute: .right,
+                                   multiplier: 1.0,
+                                   constant: 0)])
+        }
+
+        return inContainerView
+    }
+
     /* ################################################################## */
     /**
      */
@@ -139,62 +240,81 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
         
         self._fontSelection.sort()
-        
-        for index in 0..<self._fontSelection.count {
-            if "Let's Go Digital" == self._fontSelection[index] {
-                self.mainPickerView.selectRow(index, inComponent: 0, animated: false)
-                break
-            }
+        self._fontSelection.insert(contentsOf: ["Let's Go Digital", "AnonymousProMinus-Bold"], at: 0)
+
+        self._colorSelection = [UIColor.white]
+        // We generate a series of colors, fully saturated, from orange to red, and include white.
+        for hue: CGFloat in stride(from: 0.05, to: 1.0, by: 0.05) {
+            let color = UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+            self._colorSelection.append(color)
         }
+        
+        self.mainDisplayPickerView.backgroundColor = self._backgroundColor
+        self.mainDisplayPickerView.selectRow(self.selectedFontIndex, inComponent: 1, animated: false)
+        self.mainDisplayPickerView.selectRow(self.selectedColorIndex, inComponent: 0, animated: false)
     }
     
     /* ################################################################## */
     /**
      */
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return 2
     }
     
     /* ################################################################## */
     /**
      */
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self._fontSelection.count
+        return 0 == component ? self._colorSelection.count : self._fontSelection.count
     }
     
     /* ################################################################## */
     /**
      */
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        let frame = pickerView.bounds
-        return frame.size.height * 0.75
+        return pickerView.bounds.size.height * 0.5
     }
     
     /* ################################################################## */
     /**
      */
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let fontName = self._fontSelection[row]
-        let fontSize = self._getFontSize(fontName)
-        
-        var frame = pickerView.bounds
-        frame.size.height = self.pickerView(pickerView, rowHeightForComponent: component)
-        let ret = UIView(frame:frame)
-        
-        if 0 < fontSize, let font = UIFont(name: fontName, size: fontSize) {
-            let text = self._currentTimeString.time
-
-            let displayLabel = UILabel(frame: frame)
-            
-            displayLabel.font = font
-            displayLabel.adjustsFontSizeToFitWidth = true
-            displayLabel.textAlignment = .center
-            displayLabel.baselineAdjustment = .alignCenters
-            displayLabel.text = text
-            ret.addSubview(displayLabel)
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        if 0 == component {
+            return pickerView.bounds.size.width * 0.15
+        } else {
+            return pickerView.bounds.size.width * 0.85
         }
-        
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing inView: UIView?) -> UIView {
+        let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: self.pickerView(pickerView, widthForComponent: component), height: self.pickerView(pickerView, rowHeightForComponent: component)))
+        var ret = UIView(frame: frame)
+
+        if 0 == component {
+            let insetView = UIView(frame: frame.insetBy(dx: pickerView.bounds.size.width * 0.01, dy: pickerView.bounds.size.width * 0.01))
+            insetView.backgroundColor = self._colorSelection[row]
+            ret.addSubview(insetView)
+        } else {
+            let frame = CGRect(x: 0, y: 0, width: self.pickerView(pickerView, widthForComponent: component), height: self.pickerView(pickerView, rowHeightForComponent: component))
+            let reusingView = nil != inView ? inView!: UIView(frame: frame)
+            ret = self._createDisplayView(reusingView, index: row)
+        }
+        ret.backgroundColor = UIColor.clear
         return ret
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if 0 == component {
+            self.selectedColorIndex = row
+        } else {
+            self.selectedFontIndex = row
+        }
+        pickerView.reloadComponent(1)
+    }
 }
-

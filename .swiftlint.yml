@@ -1,0 +1,33 @@
+disabled_rules:
+- identifier_name
+- nesting
+- function_parameter_count
+- function_body_length
+- trailing_whitespace
+- type_name
+- file_length
+- type_body_length
+- large_tuple
+
+opt_in_rules:
+- control_statement
+- empty_count
+- trailing_newline
+- colon
+- comma
+
+excluded:
+- Package.swift
+- Pods/Reveal-SDK
+- Pods/Headers
+- Pods/SwiftLint
+- Pods/Target\ Support\ Files
+- Pods/Local\ Podspecs
+
+line_length:
+- 400 # warning
+- 500 # error
+
+cyclomatic_complexity:
+- 17 # warning
+- 20 # error
