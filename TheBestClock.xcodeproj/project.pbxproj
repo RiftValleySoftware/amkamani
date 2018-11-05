@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D4135998218E763F00768430 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4135997218E763F00768430 /* AppDelegate.swift */; };
-		D413599A218E763F00768430 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4135999218E763F00768430 /* ViewController.swift */; };
+		D4135998218E763F00768430 /* TheBestClockAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4135997218E763F00768430 /* TheBestClockAppDelegate.swift */; };
+		D413599A218E763F00768430 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4135999218E763F00768430 /* MainScreenViewController.swift */; };
 		D413599D218E763F00768430 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D413599B218E763F00768430 /* Main.storyboard */; };
 		D413599F218E764100768430 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D413599E218E764100768430 /* Assets.xcassets */; };
 		D41359A2218E764100768430 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41359A0218E764100768430 /* LaunchScreen.storyboard */; };
 		D41359AD218E764100768430 /* TheBestClockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41359AC218E764100768430 /* TheBestClockTests.swift */; };
 		D41359B8218E764100768430 /* TheBestClockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41359B7218E764100768430 /* TheBestClockUITests.swift */; };
+		D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,8 +36,8 @@
 
 /* Begin PBXFileReference section */
 		D4135994218E763F00768430 /* TheBestClock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheBestClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4135997218E763F00768430 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D4135999218E763F00768430 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D4135997218E763F00768430 /* TheBestClockAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockAppDelegate.swift; sourceTree = "<group>"; };
+		D4135999218E763F00768430 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		D413599C218E763F00768430 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D413599E218E764100768430 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D41359A1218E764100768430 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +48,7 @@
 		D41359B3218E764100768430 /* TheBestClockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheBestClockUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41359B7218E764100768430 /* TheBestClockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockUITests.swift; sourceTree = "<group>"; };
 		D41359B9218E764100768430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "let's go digital regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,8 +128,9 @@
 		D41359C5218E768600768430 /* Bumdle Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D413599B218E763F00768430 /* Main.storyboard */,
+				D4FDA6F1218FA519009F08C2 /* Fonts */,
 				D413599E218E764100768430 /* Assets.xcassets */,
+				D413599B218E763F00768430 /* Main.storyboard */,
 				D41359A0218E764100768430 /* LaunchScreen.storyboard */,
 			);
 			path = "Bumdle Resources";
@@ -144,7 +147,7 @@
 		D41359C7218E76A500768430 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				D4135997218E763F00768430 /* AppDelegate.swift */,
+				D4135997218E763F00768430 /* TheBestClockAppDelegate.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -152,9 +155,17 @@
 		D41359C8218E76B600768430 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D4135999218E763F00768430 /* ViewController.swift */,
+				D4135999218E763F00768430 /* MainScreenViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		D4FDA6F1218FA519009F08C2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D41359A2218E764100768430 /* LaunchScreen.storyboard in Resources */,
+				D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */,
 				D413599F218E764100768430 /* Assets.xcassets in Resources */,
 				D413599D218E763F00768430 /* Main.storyboard in Resources */,
 			);
@@ -288,8 +300,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D413599A218E763F00768430 /* ViewController.swift in Sources */,
-				D4135998218E763F00768430 /* AppDelegate.swift in Sources */,
+				D413599A218E763F00768430 /* MainScreenViewController.swift in Sources */,
+				D4135998218E763F00768430 /* TheBestClockAppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
