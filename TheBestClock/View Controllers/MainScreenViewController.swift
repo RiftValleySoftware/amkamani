@@ -75,11 +75,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                              "TimesNewRomanPS-ItalicMT",
                                              "TrebuchetMS-Bold",
                                              "Verdana-Bold"]
+    private let _minimumBrightness: CGFloat = 0.05
+    private let _amPmLabelFontSize: CGFloat = 40
     
     private var _fontSelection: [String] = []
     private var _colorSelection: [UIColor] = []
     private var _backgroundColor: UIColor = UIColor.gray
-    private var _minimumBrightness: CGFloat = 0.05
     private var _ticker: Timer!
     
     var selectedFontIndex: Int = 0
@@ -91,6 +92,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var mainPickerContainerView: UIView!
     @IBOutlet weak var brightnessSlider: TheBestClockVerticalBrightnessSliderView!
+    @IBOutlet weak var amPmLabel: UILabel!
     
     /* ################################################################## */
     /**
@@ -186,6 +188,28 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     func updateMainTime() {
         _ = self.createDisplayView(self.mainNumberDisplayView, index: self.selectedFontIndex)
+        self.setAMPMLabel()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func setAMPMLabel() {
+        self.amPmLabel.backgroundColor = UIColor.clear
+        var textColor: UIColor
+        if 0 == self.selectedColorIndex {
+            textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
+        } else {
+            let hue = self._colorSelection[self.selectedColorIndex].hsba.h
+            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.4 * self.selectedBrightness, alpha: 1.0)
+        }
+
+        self.amPmLabel.font = UIFont(name: self._fontSelection[self.selectedFontIndex], size: self._amPmLabelFontSize)
+        self.amPmLabel.text = self.currentTimeString.amPm
+        self.amPmLabel.adjustsFontSizeToFitWidth = true
+        self.amPmLabel.textAlignment = .center
+        self.amPmLabel.baselineAdjustment = .alignCenters
+        self.amPmLabel.textColor = textColor
     }
 
     /* ################################################################## */
@@ -222,8 +246,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 startColor = UIColor(white: 1.25 * self.selectedBrightness, alpha: 1.0)
             } else {
                 let hue = self._colorSelection[self.selectedColorIndex].hsba.h
-                endColor = 0 == self.selectedColorIndex ? UIColor.lightGray : UIColor(hue: hue, saturation: 1.0, brightness: 0.9 * self.selectedBrightness, alpha: 1.0)
-                startColor = 0 == self.selectedColorIndex ? UIColor.white : UIColor(hue: hue, saturation: 0.85, brightness: 1.25 * self.selectedBrightness, alpha: 1.0)
+                endColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.9 * self.selectedBrightness, alpha: 1.0)
+                startColor = UIColor(hue: hue, saturation: 0.85, brightness: 1.25 * self.selectedBrightness, alpha: 1.0)
             }
             
             self._backgroundColor = UIColor(white: 0.5 * self.selectedBrightness, alpha: 1.0)
