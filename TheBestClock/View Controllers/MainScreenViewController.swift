@@ -40,7 +40,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /// This is a list of a subset of fonts likely to be on the device. We want to reduce the choices for the user.
     private let _screenForThese: [String] = ["AmericanTypewriter-Bold",
                                              "AppleColorEmoji",
-                                             "AppleSDGothicNeo-Bold",
                                              "AppleSDGothicNeo-Thin",
                                              "Arial-BoldItalicMT",
                                              "Avenir-Black",
@@ -59,7 +58,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                              "EuphemiaUCAS-Bold",
                                              "Futura-CondensedExtraBold",
                                              "Futura-Medium",
-                                             "GeezaPro-Bold",
                                              "Georgia-Bold",
                                              "GillSans-Light",
                                              "GillSans-UltraBold",
@@ -67,11 +65,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                              "HelveticaNeue-UltraLight",
                                              "HoeflerText-Black",
                                              "MarkerFelt-Wide",
-                                             "Menlo-Bold",
                                              "Noteworthy-Bold",
                                              "Palatino-Roman",
                                              "Papyrus",
-                                             "Thonburi-Bold",
                                              "TimesNewRomanPS-BoldMT",
                                              "TimesNewRomanPS-ItalicMT",
                                              "TrebuchetMS-Bold",
@@ -190,22 +186,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.colorDisplayPickerView.backgroundColor = self._backgroundColor
         self.fontDisplayPickerView.selectRow(self.selectedFontIndex, inComponent: 0, animated: false)
         self.colorDisplayPickerView.selectRow(self.selectedColorIndex, inComponent: 0, animated: false)
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    @objc(_TtCC12TheBestClock24MainScreenViewController24TheBestClockAlarmSetting)class TheBestClockAlarmSetting: NSObject, NSCoding {
-        var alarmTimeInSeconds: Int = 0
-        var playlistID: UUID = UUID()
-        var snoozing: Bool = false
-        
-        func encode(with aCoder: NSCoder) {
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            super.init()
-        }
     }
     
     /* ################################################################## */

@@ -21,19 +21,31 @@ class TheBestClockPrefs {
     /* ################################################################## */
     /** This is the key for the prefs used by this app. */
     private static let _mainPrefsKey: String = "TheBestClockPrefs"
-
+    
     /* ################################################################## */
     // MARK: Private Variable Properties
     /* ################################################################## */
     /** We load the user prefs into this Dictionary object. */
     private var _loadedPrefs: NSMutableDictionary! = nil
     
+    private var _alarms: [TheBestClockAlarmSetting] = [TheBestClockAlarmSetting(),
+                                                       TheBestClockAlarmSetting(),
+                                                       TheBestClockAlarmSetting(),
+                                                       TheBestClockAlarmSetting()
+        ]
+    
     /* ################################################################## */
     // MARK: Private Enums
     /* ################################################################## */
     /** These are the keys we use for our persistent prefs dictionary. */
     private enum PrefsKeys: String {
-        case selectedColor, selectedFont, brightnessLevel
+        case selectedColor, selectedFont, brightnessLevel, alarms
+    }
+    
+    /* ################################################################## */
+    /** These are the keys we use for our alarms dictionary. */
+    private enum AlarmPrefsKeys: String {
+        case alarmTimeInSeconds, playlistID
     }
 
     /* ################################################################## */
@@ -123,7 +135,74 @@ class TheBestClockPrefs {
         }
         return weekdaySymbols[index].firstUppercased
     }
+    
+    /* ################################################################## */
+    // MARK: Internal Owned Classes
+    /* ################################################################## */
+    /**
+     */
+    @objc(_TtCC12TheBestClock24MainScreenViewController24TheBestClockAlarmSetting)class TheBestClockAlarmSetting: NSObject, NSCoding {
+        var alarmTimeInSeconds: Int = 0
+        var playlistID: UUID = UUID()
+        var snoozing: Bool = false
+        
+        /* ################################################################## */
+        /**
+         */
+        func encode(with aCoder: NSCoder) {
+            aCoder.encode(self.alarmTimeInSeconds, forKey: TheBestClockPrefs.AlarmPrefsKeys.alarmTimeInSeconds.rawValue)
+            aCoder.encode(self.playlistID, forKey: TheBestClockPrefs.AlarmPrefsKeys.playlistID.rawValue)
+        }
+        
+        /* ################################################################## */
+        /**
+         */
+        override init() {
+            super.init()
+        }
+        
+        /* ################################################################## */
+        /**
+         */
+        required init?(coder aDecoder: NSCoder) {
+            super.init()
+            
+            if let playListID = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.playlistID.rawValue) as? UUID {
+                self.playlistID = playListID
+            }
+            
+            if let alarmTimeInSeconds = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.playlistID.rawValue) as? NSNumber {
+                self.alarmTimeInSeconds = alarmTimeInSeconds.intValue
+            } else {
+                self.alarmTimeInSeconds = 0
+            }
+        }
+    }
 
+    /* ################################################################## */
+    /**
+     - returns: An Array of alarm settings objects.
+     */
+    var alarms: [TheBestClockAlarmSetting] {
+        get {
+            if self._loadPrefs() {
+                if let alarms = self._loadedPrefs.object(forKey: type(of: self).PrefsKeys.alarms.rawValue) as? [TheBestClockAlarmSetting] {
+                    self._alarms = alarms
+                }
+            }
+            
+            return self._alarms
+        }
+        
+        set {
+            self._alarms = newValue
+            if self._loadPrefs() {
+                self._loadedPrefs.setObject(self._alarms, forKey: type(of: self).PrefsKeys.alarms.rawValue as NSString)
+                self._savePrefs()
+            }
+        }
+    }
+    
     /* ################################################################## */
     // MARK: Instance Calculated Properties
     /* ################################################################## */
