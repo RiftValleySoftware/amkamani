@@ -45,7 +45,7 @@ class TheBestClockPrefs {
     /* ################################################################## */
     /** These are the keys we use for our alarms dictionary. */
     private enum AlarmPrefsKeys: String {
-        case alarmTimeInSeconds, playlistID
+        case alarmTimeInSeconds, playlistID, isActive
     }
 
     /* ################################################################## */
@@ -144,6 +144,7 @@ class TheBestClockPrefs {
     @objc(_TtCC12TheBestClock24MainScreenViewController24TheBestClockAlarmSetting)class TheBestClockAlarmSetting: NSObject, NSCoding {
         var alarmTimeInSeconds: Int = 0
         var playlistID: UUID = UUID()
+        var isActive: Bool = false
         var snoozing: Bool = false
         
         /* ################################################################## */
@@ -152,6 +153,7 @@ class TheBestClockPrefs {
         func encode(with aCoder: NSCoder) {
             aCoder.encode(self.alarmTimeInSeconds, forKey: TheBestClockPrefs.AlarmPrefsKeys.alarmTimeInSeconds.rawValue)
             aCoder.encode(self.playlistID, forKey: TheBestClockPrefs.AlarmPrefsKeys.playlistID.rawValue)
+            aCoder.encode(self.isActive, forKey: TheBestClockPrefs.AlarmPrefsKeys.isActive.rawValue)
         }
         
         /* ################################################################## */
@@ -167,10 +169,14 @@ class TheBestClockPrefs {
         required init?(coder aDecoder: NSCoder) {
             super.init()
             
+            if let isActive = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.isActive.rawValue) as? Bool {
+                self.isActive = isActive
+            }
+            
             if let playListID = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.playlistID.rawValue) as? UUID {
                 self.playlistID = playListID
             }
-            
+
             if let alarmTimeInSeconds = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.playlistID.rawValue) as? NSNumber {
                 self.alarmTimeInSeconds = alarmTimeInSeconds.intValue
             } else {

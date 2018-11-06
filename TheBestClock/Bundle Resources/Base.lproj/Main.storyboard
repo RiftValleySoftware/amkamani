@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tA9-HM-M61" customClass="TheBestClockMainDisplayView" customModule="TheBestClock" customModuleProvider="target">
-                                <rect key="frame" x="8" y="80" width="359" height="579"/>
+                                <rect key="frame" x="8" y="80" width="359" height="547"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="none" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="qOc-ks-FdF">
@@ -41,7 +41,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7io-PK-JhC" customClass="TheBestClockVerticalBrightnessSliderView" customModule="TheBestClock" customModuleProvider="target">
-                                <rect key="frame" x="4" y="40" width="80" height="607"/>
+                                <rect key="frame" x="4" y="80" width="80" height="547"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -52,6 +52,13 @@
                                     <outletCollection property="gestureRecognizers" destination="R9p-eS-CRg" appends="YES" id="W98-pD-KI0"/>
                                     <outletCollection property="gestureRecognizers" destination="JuB-FM-I8Y" appends="YES" id="ehN-j8-H9E"/>
                                 </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e9A-iM-9M5">
+                                <rect key="frame" x="8" y="627" width="359" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="eV1-kN-N9n"/>
+                                </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDL-S8-BKg">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
@@ -89,21 +96,24 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="qOc-ks-FdF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="0au-jr-8mN"/>
-                            <constraint firstItem="7io-PK-JhC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="2wA-yR-ETY"/>
                             <constraint firstItem="pSU-VZ-odd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3OI-sk-XYJ"/>
                             <constraint firstItem="7io-PK-JhC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="CkD-kH-pE3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pSU-VZ-odd" secondAttribute="trailing" constant="8" id="JNg-Ny-wNw"/>
+                            <constraint firstItem="tA9-HM-M61" firstAttribute="bottom" secondItem="e9A-iM-9M5" secondAttribute="top" id="MC8-JJ-0wu"/>
                             <constraint firstItem="tA9-HM-M61" firstAttribute="top" secondItem="qOc-ks-FdF" secondAttribute="bottom" id="NpL-em-auG"/>
+                            <constraint firstItem="e9A-iM-9M5" firstAttribute="top" secondItem="7io-PK-JhC" secondAttribute="bottom" id="Qkl-2J-5Cp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="e9A-iM-9M5" secondAttribute="bottom" id="RB4-Kz-y8W"/>
+                            <constraint firstItem="7io-PK-JhC" firstAttribute="top" secondItem="qOc-ks-FdF" secondAttribute="bottom" id="Sm9-e3-TgO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KDL-S8-BKg" secondAttribute="bottom" id="TNe-HS-9MG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qOc-ks-FdF" secondAttribute="trailing" constant="8" id="WSx-ez-pQf"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7io-PK-JhC" secondAttribute="bottom" constant="20" id="YJs-DT-xvC"/>
                             <constraint firstItem="KDL-S8-BKg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cQw-xG-9T7"/>
                             <constraint firstItem="tA9-HM-M61" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="dnB-0k-m0u"/>
                             <constraint firstItem="qOc-ks-FdF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="giX-eb-KtX"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="tA9-HM-M61" secondAttribute="bottom" constant="8" id="hC8-jM-IwC"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tA9-HM-M61" secondAttribute="trailing" constant="8" id="hEH-Xe-xHX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KDL-S8-BKg" secondAttribute="trailing" id="m6a-Ix-nrb"/>
                             <constraint firstItem="pSU-VZ-odd" firstAttribute="top" secondItem="qOc-ks-FdF" secondAttribute="bottom" id="rTL-h8-KBX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="e9A-iM-9M5" secondAttribute="trailing" constant="8" id="tpB-cq-3Ip"/>
+                            <constraint firstItem="e9A-iM-9M5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="vdl-qR-tnD"/>
                             <constraint firstItem="KDL-S8-BKg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yD8-CT-Enu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -114,6 +124,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
+                        <outlet property="alarmContainerView" destination="e9A-iM-9M5" id="Bxt-A5-lw9"/>
                         <outlet property="amPmLabel" destination="pSU-VZ-odd" id="QvK-BM-h5v"/>
                         <outlet property="brightnessSlider" destination="7io-PK-JhC" id="AAh-kC-gSO"/>
                         <outlet property="colorDisplayPickerView" destination="kZZ-i4-PZy" id="pKh-sI-pln"/>

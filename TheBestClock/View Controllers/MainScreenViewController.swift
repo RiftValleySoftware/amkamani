@@ -105,6 +105,84 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     /**
      */
+    private func _setUpAlarms() {
+        // Take out the trash.
+        for subview in self.alarmContainerView.subviews {
+            subview.removeFromSuperview()
+        }
+        
+        let alarms = self._prefs.alarms
+        if !alarms.isEmpty {
+            let percentage = CGFloat(1) / CGFloat(alarms.count)   // THis will be used for our auto-layout stuff.
+            var prevButton: TheBestClockAlarmView!
+            for alarm in alarms {
+                let alarmButton = TheBestClockAlarmView(alarmRecord: alarm,
+                                                        fontName: self._fontSelection[self.selectedFontIndex],
+                                                        fontColor: 0 == self.selectedColorIndex ? nil : self._colorSelection[self.selectedColorIndex],
+                                                        brightness: self.selectedBrightness,
+                                                        desiredFontSize: 40,
+                                                        controller: self)
+                self.addAlarmView(alarmButton, percentage: percentage, previousView: prevButton)
+                prevButton = alarmButton
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func addAlarmView(_ inSubView: TheBestClockAlarmView, percentage inPercentage: CGFloat, previousView inPreviousView: TheBestClockAlarmView!) {
+        self.alarmContainerView.addSubview(inSubView)
+        
+        inSubView.translatesAutoresizingMaskIntoConstraints = false
+        
+        var leftConstraint: NSLayoutConstraint!
+
+        if nil == inPreviousView {
+            leftConstraint = NSLayoutConstraint(item: inSubView,
+                                                attribute: .left,
+                                                relatedBy: .equal,
+                                                toItem: self.alarmContainerView,
+                                                attribute: .left,
+                                                multiplier: 1.0,
+                                                constant: 0)
+        } else {
+            leftConstraint = NSLayoutConstraint(item: inSubView,
+                                                attribute: .left,
+                                                relatedBy: .equal,
+                                                toItem: inPreviousView,
+                                                attribute: .right,
+                                                multiplier: 1.0,
+                                                constant: 0)
+        }
+        
+        self.alarmContainerView.addConstraints([leftConstraint,
+            NSLayoutConstraint(item: inSubView,
+                               attribute: .top,
+                               relatedBy: .equal,
+                               toItem: self.alarmContainerView,
+                               attribute: .top,
+                               multiplier: 1.0,
+                               constant: 0),
+            NSLayoutConstraint(item: inSubView,
+                               attribute: .bottom,
+                               relatedBy: .equal,
+                               toItem: self.alarmContainerView,
+                               attribute: .bottom,
+                               multiplier: 1.0,
+                               constant: 0),
+            NSLayoutConstraint(item: inSubView,
+                               attribute: .width,
+                               relatedBy: .equal,
+                               toItem: self.alarmContainerView,
+                               attribute: .width,
+                               multiplier: inPercentage,
+                               constant: 1)])
+    }
+
+    /* ################################################################## */
+    /**
+     */
     private func _getFontSize(_ inFontName: String, size inSize: CGSize) -> CGFloat {
         return self.mainNumberDisplayView.bounds.size.height
     }
@@ -123,6 +201,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var amPmLabel: UILabel!
     /// This is the label that displays today's date.
     @IBOutlet weak var dateDisplayLabel: UILabel!
+    /// This view will hold our alarm displays.
+    @IBOutlet weak var alarmContainerView: UIView!
     
     /* ################################################################## */
     /**
@@ -147,7 +227,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     var selectedBrightness: CGFloat = 1.0 {
         didSet {
-            self._prefs?.brightnessLevel = self.selectedBrightness
+            self._prefs?.brightnessLevel = min(1.0, self.selectedBrightness)
         }
     }
 
@@ -155,7 +235,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /**
      */
     @IBAction func brightnessSliderChanged(_ sender: TheBestClockVerticalBrightnessSliderView) {
-        self.selectedBrightness = max(self._minimumBrightness, sender.brightness)
+        self.selectedBrightness = max(self._minimumBrightness, min(sender.brightness, 1.0))
         self.updateMainTime()
     }
     
@@ -170,6 +250,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self._fontSizeCache = 0
         mainPickerContainerView.isHidden = true
         self.updateMainTime()
+        self._setUpAlarms()
     }
     
     /* ################################################################## */
@@ -267,6 +348,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.selectedColorIndex = self._prefs.selectedColor
         self.selectedBrightness = self._prefs.brightnessLevel
         self.updateMainTime()   // This will update the time. It will also set up our various labels and background colors.
+        self._setUpAlarms()
     }
     
     /* ################################################################## */
