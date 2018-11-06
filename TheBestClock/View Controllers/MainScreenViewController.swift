@@ -79,6 +79,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private let _minimumBrightness: CGFloat = 0.05
     private let _amPmLabelFontSize: CGFloat = 30
     private let _dateLabelFontSize: CGFloat = 50
+    
+    private var _prefs = TheBestClockPrefs()
 
     private var _fontSelection: [String] = []
     private var _colorSelection: [UIColor] = []
@@ -120,9 +122,23 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var amPmLabel: UILabel!
     @IBOutlet weak var dateDisplayLabel: UILabel!
     
-    var selectedFontIndex: Int = 0
-    var selectedColorIndex: Int = 0
-    var selectedBrightness: CGFloat = 1.0
+    var selectedFontIndex: Int = 0 {
+        didSet {
+                self._prefs.selectedFont = self.selectedFontIndex
+        }
+    }
+    
+    var selectedColorIndex: Int = 0 {
+        didSet {
+            self._prefs.selectedColor = self.selectedColorIndex
+        }
+    }
+    
+    var selectedBrightness: CGFloat = 1.0 {
+        didSet {
+            self._prefs.brightnessLevel = self.selectedBrightness
+        }
+    }
 
     /* ################################################################## */
     /**
@@ -232,6 +248,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self._colorSelection.append(color)
         }
         
+        self.selectedFontIndex = self._prefs.selectedFont
+        self.selectedColorIndex = self._prefs.selectedColor
+        self.selectedBrightness = self._prefs.brightnessLevel
+
         self.updateMainTime()
         
         self.mainDisplayPickerView.backgroundColor = UIColor.darkGray

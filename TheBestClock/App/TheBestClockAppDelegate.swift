@@ -23,6 +23,18 @@ extension String {
     var localizedVariant: String {
         return NSLocalizedString(self, comment: "")
     }
+
+    /* ################################################################## */
+    /**
+     This extension lets us uppercase only the first letter of the string (used for weekdays).
+     From here: https://stackoverflow.com/a/28288340/879365
+     
+     - returns: The string, with only the first letter uppercased.
+     */
+    var firstUppercased: String {
+        guard let first = first else { return "" }
+        return String(first).uppercased() + dropFirst()
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -66,6 +78,24 @@ extension UIView {
                                attribute: .right,
                                multiplier: 1.0,
                                constant: 0)])
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns: the first responder view. Nil, if no view is a first responder.
+     */
+    var currentFirstResponder: UIResponder! {
+        if self.isFirstResponder {
+            return self
+        }
+        
+        for view in self.subviews {
+            if let responder = view.currentFirstResponder {
+                return responder
+            }
+        }
+        
+        return nil
     }
 }
 
