@@ -78,7 +78,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                              "Verdana-Bold"]
     private let _minimumBrightness: CGFloat = 0.05
     private let _amPmLabelFontSize: CGFloat = 30
-    private let _dateLabelFontSize: CGFloat = 50
+    private let _dateLabelFontSize: CGFloat = 40
     
     private var _prefs: TheBestClockPrefs!
 
@@ -166,7 +166,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     /**
      */
-    @IBAction func doneButtonHit(_ sender: Any) {
+    @IBAction func closeAppearanceEditor(_ sender: Any) {
+        self.fontDisplayPickerView.delegate = nil
+        self.fontDisplayPickerView.dataSource = nil
+        self.colorDisplayPickerView.delegate = nil
+        self.colorDisplayPickerView.dataSource = nil
         self._fontSizeCache = 0
         mainPickerContainerView.isHidden = true
         self.updateMainTime()
@@ -177,10 +181,15 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     @IBAction func openAppearanceEditor(_ sender: Any) {
         self.mainPickerContainerView.isHidden = false
+        self.fontDisplayPickerView.delegate = self
+        self.fontDisplayPickerView.dataSource = self
+        self.colorDisplayPickerView.delegate = self
+        self.colorDisplayPickerView.dataSource = self
         self.mainPickerContainerView.backgroundColor = self._backgroundColor
         self.fontDisplayPickerView.backgroundColor = self._backgroundColor
         self.colorDisplayPickerView.backgroundColor = self._backgroundColor
-        self.fontDisplayPickerView.reloadComponent(0)
+        self.fontDisplayPickerView.selectRow(self.selectedFontIndex, inComponent: 0, animated: false)
+        self.colorDisplayPickerView.selectRow(self.selectedColorIndex, inComponent: 0, animated: false)
     }
     
     /* ################################################################## */
@@ -234,10 +243,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         formatter.dateFormat = "a"
         let amPMString = is24 ? "" : formatter.string(from: Date())
         
-        formatter.timeStyle = .none
-        formatter.dateStyle = .full
+        let stringFormatter = DateFormatter()
+        stringFormatter.locale = Locale.current
+        stringFormatter.timeStyle = .none
+        stringFormatter.dateStyle = .full
 
-        let dateString = formatter.string(from: Date())
+        let dateString = stringFormatter.string(from: Date())
         
         return TimeDateContainer(time: timeString, amPm: amPMString, date: dateString)
     }
@@ -256,7 +267,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 }
             }
         }
-        
         // So we have a predictable order.
         self._fontSelection.sort()
         
@@ -276,12 +286,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.selectedFontIndex = self._prefs.selectedFont
         self.selectedColorIndex = self._prefs.selectedColor
         self.selectedBrightness = self._prefs.brightnessLevel
-
         self.updateMainTime()   // This will update the time. It will also set up our various labels and background colors.
-        
-        // Select the previous color and font (or initial).
-        self.fontDisplayPickerView.selectRow(self.selectedFontIndex, inComponent: 0, animated: false)
-        self.colorDisplayPickerView.selectRow(self.selectedColorIndex, inComponent: 0, animated: false)
     }
     
     /* ################################################################## */

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CAC7995832AE4CEE58C4C761 /* Pods_TheBestClock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67ADC8B37E0BB5AC5821F6D6 /* Pods_TheBestClock.framework */; };
 		D4135998218E763F00768430 /* TheBestClockAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4135997218E763F00768430 /* TheBestClockAppDelegate.swift */; };
 		D413599A218E763F00768430 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4135999218E763F00768430 /* MainScreenViewController.swift */; };
 		D413599D218E763F00768430 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D413599B218E763F00768430 /* Main.storyboard */; };
@@ -18,7 +19,6 @@
 		D46F84602190CA1F0026C9AD /* TheBestClockMainDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */; };
 		D46F84622190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */; };
 		D487C1062191CE2F00FBDC77 /* TheBestClockPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C1052191CE2E00FBDC77 /* TheBestClockPrefs.swift */; };
-		D4B704072190B9940094E320 /* RevealServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B704062190B9940094E320 /* RevealServer.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -69,7 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4B704072190B9940094E320 /* RevealServer.framework in Frameworks */,
+				CAC7995832AE4CEE58C4C761 /* Pods_TheBestClock.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,7 +218,6 @@
 				D4135990218E763F00768430 /* Sources */,
 				D4135991218E763F00768430 /* Frameworks */,
 				D4135992218E763F00768430 /* Resources */,
-				AE86AD044DF38E34692AE005 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -358,28 +357,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AE86AD044DF38E34692AE005 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TheBestClock/Pods-TheBestClock-frameworks.sh",
-				"${PODS_ROOT}/Reveal-SDK/RevealServer-19/iOS/RevealServer.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TheBestClock/Pods-TheBestClock-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D46F045F2190B4370045FBB2 /* SwiftLINT */ = {
@@ -597,10 +574,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53V4JS928;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/Reveal-SDK/RevealServer-19/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/TheBestClock/Meta/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -623,10 +597,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53V4JS928;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/Reveal-SDK/RevealServer-19/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/TheBestClock/Meta/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

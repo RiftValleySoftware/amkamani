@@ -50,6 +50,7 @@
                                 <connections>
                                     <action selector="brightnessSliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="N5d-Yd-M3d"/>
                                     <outletCollection property="gestureRecognizers" destination="R9p-eS-CRg" appends="YES" id="W98-pD-KI0"/>
+                                    <outletCollection property="gestureRecognizers" destination="JuB-FM-I8Y" appends="YES" id="ehN-j8-H9E"/>
                                 </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDL-S8-BKg">
@@ -60,18 +61,10 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="wFQ-t7-MfD"/>
                                         </constraints>
-                                        <connections>
-                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="JdA-FG-VsS"/>
-                                            <outlet property="delegate" destination="BYZ-38-t0r" id="4Hu-xt-WZw"/>
-                                        </connections>
                                     </pickerView>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ot-f1-EK6">
                                         <rect key="frame" x="88" y="0.0" width="287" height="647"/>
                                         <gestureRecognizers/>
-                                        <connections>
-                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="Qhc-dq-gps"/>
-                                            <outlet property="delegate" destination="BYZ-38-t0r" id="TsO-cr-uPW"/>
-                                        </connections>
                                     </pickerView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -139,7 +132,7 @@
                 </pongPressGestureRecognizer>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="4Dn-no-ExP">
                     <connections>
-                        <action selector="doneButtonHit:" destination="BYZ-38-t0r" id="DlY-vB-mpZ"/>
+                        <action selector="closeAppearanceEditor:" destination="BYZ-38-t0r" id="DlY-vB-mpZ"/>
                     </connections>
                 </pongPressGestureRecognizer>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="dY2-H1-4Xj">
@@ -149,7 +142,7 @@
                 </tapGestureRecognizer>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="vTV-mt-vNG">
                     <connections>
-                        <action selector="doneButtonHit:" destination="BYZ-38-t0r" id="SSd-aq-jQJ"/>
+                        <action selector="closeAppearanceEditor:" destination="BYZ-38-t0r" id="SSd-aq-jQJ"/>
                     </connections>
                 </tapGestureRecognizer>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="R9p-eS-CRg">
@@ -157,6 +150,7 @@
                         <action selector="longPressGestureReconizerHit:" destination="sxl-mT-yL0" id="2A1-YJ-FzZ"/>
                     </connections>
                 </pongPressGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="JuB-FM-I8Y"/>
             </objects>
             <point key="canvasLocation" x="317.60000000000002" y="43.628185907046479"/>
         </scene>
