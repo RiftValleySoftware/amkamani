@@ -56,14 +56,19 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
             path.addLine(to: bottomPoint)
             path.addLine(to: topRightPoint)
             path.addArc(withCenter: arcCenterPoint, radius: self.bounds.midX, startAngle: 0, endAngle: CGFloat.pi, clockwise: false)
+            
+            let gradient = CAGradientLayer()
+            let endColor = UIColor.white == self.endColor ? UIColor(white: self.brightness, alpha: 1.0) : UIColor(hue: self.endColor.hsba.h, saturation: 1.0, brightness: self.brightness, alpha: 1.0)
+            gradient.colors = [UIColor.black.cgColor, endColor.cgColor]
+            gradient.startPoint = CGPoint(x: 0.5, y: 1.0)
+            gradient.endPoint = CGPoint(x: 0.5, y: 0)
+            gradient.frame = self.bounds
+
             let shape = CAShapeLayer()
             shape.path = path.cgPath
-            if endColor == UIColor.white {
-                shape.fillColor = UIColor(white: self.brightness, alpha: 1.0).cgColor
-            } else {
-                shape.fillColor = UIColor(hue: endColor.hsba.h, saturation: 1.0, brightness: self.brightness, alpha: 1.0).cgColor
-            }
-            self.layer.addSublayer(shape)
+            gradient.mask = shape
+            
+            self.layer.addSublayer(gradient)
         }
     }
 
