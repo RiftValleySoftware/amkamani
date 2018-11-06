@@ -14,79 +14,98 @@ import UIKit
 // MARK: - Main Class -
 /* ###################################################################################################################################### */
 /**
+ This is a special control that is normally invisible, and apprears when the user starts a pan.
+ We use this to act as a brigthness slider for the clock. The top is the brightest, the bottom is the darkest.
+ The view is updated with the current color from the main controller as it is panned.
  */
+@IBDesignable
 class TheBestClockVerticalBrightnessSliderView: UIControl {
-    var endColor: UIColor = UIColor.white
-    var brightness: CGFloat = 1.0
+    @IBInspectable var endColor: UIColor = UIColor.white
+    @IBInspectable var brightness: CGFloat = 1.0
 
     /* ################################################################## */
     /**
+     We make sure that the control has no subviews and no sublayers, and that we are transparent.
      */
     override func layoutSubviews() {
+        self.backgroundColor = UIColor.clear    // Make sure that our background color is clear.
         super.layoutSubviews()
-        self.backgroundColor = UIColor.clear
     }
     
     /* ################################################################## */
     /**
+     This draws an "elongated upside-down teardrop" that appears while the control is being manipulated.
+     The fill color is the current selected value.
+     
+     - parameter inRect: ignored
      */
-    override func draw(_ rect: CGRect) {
+    override func draw(_ inRect: CGRect) {
         if let sublayers = self.layer.sublayers {
             for subLayer in sublayers {
                 subLayer.removeFromSuperlayer()
             }
         }
 
-        let topLeftPoint = CGPoint(x: 0, y: 0)
-        let topRightPoint = CGPoint(x: self.bounds.size.width, y: 0)
-        let bottomPoint = CGPoint(x: self.bounds.midX, y: bounds.size.height)
-        let path = UIBezierPath()
-        path.move(to: topLeftPoint)
-        path.addLine(to: bottomPoint)
-        path.addLine(to: topRightPoint)
-        path.addLine(to: topLeftPoint)
-        let shape = CAShapeLayer()
-        shape.path = path.cgPath
-        if endColor == UIColor.white {
-            shape.fillColor = UIColor(white: self.brightness, alpha: 1.0).cgColor
-        } else {
-            shape.fillColor = UIColor(hue: endColor.hsba.h, saturation: 1.0, brightness: self.brightness, alpha: 1.0).cgColor
+        if self.isTracking {
+            let topLeftPoint = CGPoint(x: 0, y: self.bounds.midX)
+            let arcCenterPoint = CGPoint(x: self.bounds.midX, y: self.bounds.midX)
+            let topRightPoint = CGPoint(x: self.bounds.size.width, y: self.bounds.midX)
+            let bottomPoint = CGPoint(x: self.bounds.midX, y: bounds.size.height)
+            let path = UIBezierPath()
+            path.move(to: topLeftPoint)
+            path.addLine(to: bottomPoint)
+            path.addLine(to: topRightPoint)
+            path.addArc(withCenter: arcCenterPoint, radius: self.bounds.midX, startAngle: 0, endAngle: CGFloat.pi, clockwise: false)
+            let shape = CAShapeLayer()
+            shape.path = path.cgPath
+            if endColor == UIColor.white {
+                shape.fillColor = UIColor(white: self.brightness, alpha: 1.0).cgColor
+            } else {
+                shape.fillColor = UIColor(hue: endColor.hsba.h, saturation: 1.0, brightness: self.brightness, alpha: 1.0).cgColor
+            }
+            self.layer.addSublayer(shape)
         }
-        self.layer.addSublayer(shape)
     }
 
     /* ################################################################## */
     /**
      */
-    override public func beginTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
+    override func beginTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
+        let touchLocation = inTouch.location(in: self)
+        self.brightness = (self.bounds.size.height - touchLocation.y) / self.bounds.size.height
+        
+        let ret = super.beginTracking(inTouch, with: inEvent)
+        
         DispatchQueue.main.async {
+            self.sendActions(for: .valueChanged)
             self.setNeedsDisplay()
         }
         
-        return super.beginTracking(inTouch, with: inEvent)
+        return ret
     }
     
     /* ################################################################## */
     /**
      */
-    override public func continueTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
+    override func continueTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         
         let touchLocation = inTouch.location(in: self)
-        
         self.brightness = (self.bounds.size.height - touchLocation.y) / self.bounds.size.height
-        self.sendActions(for: .valueChanged)
 
+        let ret = super.continueTracking(inTouch, with: inEvent)
+        
         DispatchQueue.main.async {
+            self.sendActions(for: .valueChanged)
             self.setNeedsDisplay()
         }
         
-        return super.continueTracking(inTouch, with: inEvent)
+        return ret
     }
     
     /* ################################################################## */
     /**
      */
-    override public func endTracking(_ inTouch: UITouch?, with inEvent: UIEvent?) {
+    override func endTracking(_ inTouch: UITouch?, with inEvent: UIEvent?) {
         DispatchQueue.main.async {
             self.setNeedsDisplay()
         }
@@ -97,8 +116,9 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
     /* ################################################################## */
     /**
      */
-    override public func cancelTracking(with inEvent: UIEvent?) {
+    override func cancelTracking(with inEvent: UIEvent?) {
         DispatchQueue.main.async {
+            self.sendActions(for: .valueChanged)
             self.setNeedsDisplay()
         }
         

@@ -83,61 +83,19 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private var _colorSelection: [UIColor] = []
     private var _backgroundColor: UIColor = UIColor.gray
     private var _ticker: Timer!
-    
-    var selectedFontIndex: Int = 0
-    var selectedColorIndex: Int = 0
-    var selectedBrightness: CGFloat = 1.0
-
-    @IBOutlet weak var mainDisplayPickerView: UIPickerView!
-    @IBOutlet weak var mainNumberDisplayView: UIView!
-    @IBOutlet weak var doneButton: UIButton!
-    @IBOutlet weak var mainPickerContainerView: UIView!
-    @IBOutlet weak var brightnessSlider: TheBestClockVerticalBrightnessSliderView!
-    @IBOutlet weak var amPmLabel: UILabel!
-    
-    /* ################################################################## */
-    /**
-     */
-    func reportError(heading inHeadingKey: String, text inDetailedTextKey: String) {
-        
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBAction func brightnessSliderChanged(_ sender: TheBestClockVerticalBrightnessSliderView) {
-        self.selectedBrightness = max(self._minimumBrightness, sender.brightness)
-        self.updateMainTime()
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBAction func doneButtonHit(_ sender: Any) {
-        mainPickerContainerView.isHidden = true
-        self.updateMainTime()
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBAction func longPressInMainNumber(_ sender: UILongPressGestureRecognizer) {
-        mainPickerContainerView.isHidden = false
-        mainPickerContainerView.backgroundColor = self._backgroundColor
-        mainDisplayPickerView.backgroundColor = self._backgroundColor
-        mainDisplayPickerView.reloadComponent(1)
-    }
+    private var _fontSizeCache: CGFloat = 0
 
     /* ################################################################## */
     /**
      */
-    func requestAccessToMediaLibrary() {
-        MPMediaLibrary.requestAuthorization() { status in
+    private func _requestAccessToMediaLibrary() {
+        MPMediaLibrary.requestAuthorization { status in
             switch status {
             case.authorized:
                 break
-            
+                
             case .denied:
+                TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
                 break
                 
             default:
@@ -165,6 +123,43 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
         
         return fontSize
+    }
+
+    @IBOutlet weak var mainDisplayPickerView: UIPickerView!
+    @IBOutlet weak var mainNumberDisplayView: UIView!
+    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var mainPickerContainerView: UIView!
+    @IBOutlet weak var brightnessSlider: TheBestClockVerticalBrightnessSliderView!
+    @IBOutlet weak var amPmLabel: UILabel!
+
+    var selectedFontIndex: Int = 0
+    var selectedColorIndex: Int = 0
+    var selectedBrightness: CGFloat = 1.0
+
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func brightnessSliderChanged(_ sender: TheBestClockVerticalBrightnessSliderView) {
+        self.selectedBrightness = max(self._minimumBrightness, sender.brightness)
+        self.updateMainTime()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func doneButtonHit(_ sender: Any) {
+        mainPickerContainerView.isHidden = true
+        self.updateMainTime()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func longPressInMainNumber(_ sender: UILongPressGestureRecognizer) {
+        mainPickerContainerView.isHidden = false
+        mainPickerContainerView.backgroundColor = self._backgroundColor
+        mainDisplayPickerView.backgroundColor = self._backgroundColor
+        mainDisplayPickerView.reloadComponent(1)
     }
     
     /* ################################################################## */
@@ -224,7 +219,76 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         return TimeDateContainer(time: timeString, amPm: amPMString, date: dateString)
     }
+
+    /* ################################################################## */
+    /**
+     */
+    override func viewDidLoad() {
+        for fontFamilyName in UIFont.familyNames {
+            for fontName in UIFont.fontNames(forFamilyName: fontFamilyName) {
+                if self._screenForThese.contains(fontName) {
+                    self._fontSelection.append(fontName)
+                }
+            }
+        }
+        
+        self._fontSelection.sort()
+        self._fontSelection.insert(contentsOf: ["Let's Go Digital", "AnonymousProMinus-Bold"], at: 0)
+        
+        self._colorSelection = [UIColor.white]
+        // We generate a series of colors, fully saturated, from orange to red, and include white.
+        for hue: CGFloat in stride(from: 0.05, to: 1.0, by: 0.05) {
+            let color = UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+            self._colorSelection.append(color)
+        }
+        
+        self.updateMainTime()
+        
+        self.mainDisplayPickerView.backgroundColor = UIColor.darkGray
+        self.mainDisplayPickerView.selectRow(self.selectedFontIndex, inComponent: 1, animated: false)
+        self.mainDisplayPickerView.selectRow(self.selectedColorIndex, inComponent: 0, animated: false)
+    }
     
+    /* ################################################################## */
+    /**
+     */
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self._fontSizeCache = 0
+        self.updateMainTime()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self._fontSizeCache = 0
+        UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
+        self._ticker = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [unowned self] _ in
+            DispatchQueue.main.async {
+                self.updateMainTime()
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func viewWillDisappear(_ animated: Bool) {
+        UIApplication.shared.isIdleTimerDisabled = false
+        self._ticker.invalidate()
+        self._ticker = nil
+        super.viewWillDisappear(animated)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+
     /* ################################################################## */
     /**
      */
@@ -275,7 +339,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         var frame = inContainerView.bounds
         frame.size.height = inContainerView.bounds.height
         let fontName = self._fontSelection[inIndex]
-        let fontSize = self._getFontSize(fontName, size: frame.size)
+        let fontSize = 0 == self._fontSizeCache ? self._getFontSize(fontName, size: frame.size) : self._fontSizeCache
+        self._fontSizeCache = fontSize
         
         if 0 < fontSize, let font = UIFont(name: fontName, size: fontSize) {
             let text = self.currentTimeString.time
@@ -292,7 +357,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 startColor = UIColor(hue: hue, saturation: 0.85, brightness: 1.25 * self.selectedBrightness, alpha: 1.0)
             }
             
-            self._backgroundColor = UIColor(white: 0.5 * self.selectedBrightness, alpha: 1.0)
+            // The background can get darker than the text.
+            let backgroundBrightness = (self.selectedBrightness + self._minimumBrightness) * (self.selectedBrightness - self._minimumBrightness)
+            self._backgroundColor = UIColor(white: 0.5 * backgroundBrightness, alpha: 1.0)
             
             self.view.backgroundColor = self._backgroundColor
             let displayLabelGradient = UIView(frame: frame)
@@ -318,71 +385,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         return inContainerView
     }
-
-    /* ################################################################## */
-    /**
-     */
-    override func viewDidLoad() {
-        for fontFamilyName in UIFont.familyNames {
-            for fontName in UIFont.fontNames(forFamilyName: fontFamilyName) {
-                if self._screenForThese.contains(fontName) {
-                    self._fontSelection.append(fontName)
-                }
-            }
-        }
-        
-        self._fontSelection.sort()
-        self._fontSelection.insert(contentsOf: ["Let's Go Digital", "AnonymousProMinus-Bold"], at: 0)
-
-        self._colorSelection = [UIColor.white]
-        // We generate a series of colors, fully saturated, from orange to red, and include white.
-        for hue: CGFloat in stride(from: 0.05, to: 1.0, by: 0.05) {
-            let color = UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-            self._colorSelection.append(color)
-        }
-        
-        self.updateMainTime()
-        
-        self.mainDisplayPickerView.backgroundColor = UIColor.darkGray
-        self.mainDisplayPickerView.selectRow(self.selectedFontIndex, inComponent: 1, animated: false)
-        self.mainDisplayPickerView.selectRow(self.selectedColorIndex, inComponent: 0, animated: false)
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.updateMainTime()
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self._ticker = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [unowned self] _ in
-            DispatchQueue.main.async {
-                self.updateMainTime()
-            }
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    override func viewWillDisappear(_ animated: Bool) {
-        self._ticker.invalidate()
-        self._ticker = nil
-        super.viewWillDisappear(animated)
-    }
-
-    /* ################################################################## */
-    /**
-     */
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
-    }
     
     /* ################################################################## */
     /**
@@ -390,7 +392,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return 0 == component ? self._colorSelection.count : self._fontSelection.count
     }
-    
+
     /* ################################################################## */
     /**
      */
@@ -437,6 +439,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self.selectedColorIndex = row
             pickerView.reloadComponent(1)
         } else {
+            self._fontSizeCache = 0
             self.selectedFontIndex = row
         }
     }

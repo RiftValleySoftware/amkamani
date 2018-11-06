@@ -1,0 +1,13 @@
+/**
+ © Copyright 2018, The Great Rift Valley Software Company. All rights reserved.
+ 
+ This code is proprietary and confidential code,
+ It is NOT to be reused or combined into any application,
+ unless done so, specifically under written license from The Great Rift Valley Software Company.
+ 
+ The Great Rift Valley Software Company: https://riftvalleysoftware.com
+ */
+
+"ERROR_HEADER_MEDIA"                        =       "DEVICE MEDIA ERROR";
+"ERROR_TEXT_MEDIA_PERMISSION_DENIED"        =       "You are not allowed to read any media from this device.";
+"BASIC-OK-BUTTON"                           =       "OK";
