@@ -77,6 +77,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private let _dateLabelFontSize: CGFloat = 40
     
     private var _prefs: TheBestClockPrefs!
+    private var _alarmButtons: [TheBestClockAlarmView] = []
 
     private var _fontSelection: [String] = []
     private var _colorSelection: [UIColor] = []
@@ -112,6 +113,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
         
         let alarms = self._prefs.alarms
+        self._alarmButtons = []
+        
         if !alarms.isEmpty {
             let percentage = CGFloat(1) / CGFloat(alarms.count)   // THis will be used for our auto-layout stuff.
             var prevButton: TheBestClockAlarmView!
@@ -120,8 +123,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                                         fontName: self._fontSelection[self.selectedFontIndex],
                                                         fontColor: 0 == self.selectedColorIndex ? nil : self._colorSelection[self.selectedColorIndex],
                                                         brightness: self.selectedBrightness,
-                                                        desiredFontSize: 40,
-                                                        controller: self)
+                                                        desiredFontSize: 40)
                 self.addAlarmView(alarmButton, percentage: percentage, previousView: prevButton)
                 prevButton = alarmButton
             }
@@ -133,6 +135,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     func addAlarmView(_ inSubView: TheBestClockAlarmView, percentage inPercentage: CGFloat, previousView inPreviousView: TheBestClockAlarmView!) {
         self.alarmContainerView.addSubview(inSubView)
+        self._alarmButtons.append(inSubView)
+        inSubView.addTarget(self, action: #selector(type(of: self).alarmStateChanged(_:)), for: .valueChanged)
         
         inSubView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -229,6 +233,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         didSet {
             self._prefs?.brightnessLevel = min(1.0, self.selectedBrightness)
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func alarmStateChanged(_ sender: TheBestClockAlarmView) {
     }
 
     /* ################################################################## */

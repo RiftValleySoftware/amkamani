@@ -22,7 +22,6 @@ class TheBestClockAlarmView: UIControl {
     var fontColor: UIColor!
     var brightness: CGFloat = 1.0
     var desiredFontSize: CGFloat = 0
-    var myController: MainScreenViewController!
     
     @IBOutlet var displayLabel: UILabel!
     
@@ -34,8 +33,7 @@ class TheBestClockAlarmView: UIControl {
             fontName inFontName: String,
             fontColor inFontColor: UIColor!,
             brightness inBrightness: CGFloat,
-            desiredFontSize inDesiredFontSize: CGFloat,
-            controller inController: MainScreenViewController
+            desiredFontSize inDesiredFontSize: CGFloat
         ) {
         super.init(frame: inFrame)
         
@@ -44,7 +42,6 @@ class TheBestClockAlarmView: UIControl {
         self.fontColor = inFontColor
         self.brightness = inBrightness
         self.desiredFontSize = inDesiredFontSize
-        self.myController = inController
         self.backgroundColor = UIColor.clear
     }
     
