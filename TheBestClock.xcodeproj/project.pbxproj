@@ -15,7 +15,6 @@
 		D41359AD218E764100768430 /* TheBestClockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41359AC218E764100768430 /* TheBestClockTests.swift */; };
 		D41359B8218E764100768430 /* TheBestClockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41359B7218E764100768430 /* TheBestClockUITests.swift */; };
 		D46682A821911F5E00471BC0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46682A621911F5E00471BC0 /* Localizable.strings */; };
-		D46F045E21905DC10045FBB2 /* Anonymous Pro Minus B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D46F045C21905DC10045FBB2 /* Anonymous Pro Minus B.ttf */; };
 		D46F84602190CA1F0026C9AD /* TheBestClockMainDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */; };
 		D46F84622190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */; };
 		D487C1062191CE2F00FBDC77 /* TheBestClockPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C1052191CE2E00FBDC77 /* TheBestClockPrefs.swift */; };
@@ -58,7 +57,6 @@
 		D41359B7218E764100768430 /* TheBestClockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockUITests.swift; sourceTree = "<group>"; };
 		D41359B9218E764100768430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D46682A721911F5E00471BC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		D46F045C21905DC10045FBB2 /* Anonymous Pro Minus B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Anonymous Pro Minus B.ttf"; sourceTree = "<group>"; };
 		D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockMainDisplayView.swift; sourceTree = "<group>"; };
 		D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockVerticalBrightnessSliderView.swift; sourceTree = "<group>"; };
 		D487C1052191CE2E00FBDC77 /* TheBestClockPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockPrefs.swift; sourceTree = "<group>"; };
@@ -194,7 +192,6 @@
 		D4FDA6F1218FA519009F08C2 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				D46F045C21905DC10045FBB2 /* Anonymous Pro Minus B.ttf */,
 				D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */,
 			);
 			path = Fonts;
@@ -320,7 +317,6 @@
 				D46682A821911F5E00471BC0 /* Localizable.strings in Resources */,
 				D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */,
 				D413599F218E764100768430 /* Assets.xcassets in Resources */,
-				D46F045E21905DC10045FBB2 /* Anonymous Pro Minus B.ttf in Resources */,
 				D413599D218E763F00768430 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

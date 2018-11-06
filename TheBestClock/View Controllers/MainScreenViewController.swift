@@ -80,7 +80,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private let _amPmLabelFontSize: CGFloat = 30
     private let _dateLabelFontSize: CGFloat = 50
     
-    private var _prefs = TheBestClockPrefs()
+    private var _prefs: TheBestClockPrefs!
 
     private var _fontSelection: [String] = []
     private var _colorSelection: [UIColor] = []
@@ -113,30 +113,45 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         return self.mainNumberDisplayView.bounds.size.height
     }
 
-    @IBOutlet weak var mainDisplayPickerView: UIPickerView!
+    /// This is the UIPickerView that is used to select the font.
+    @IBOutlet weak var fontDisplayPickerView: UIPickerView!
+    /// This is the UIPickerView that is used to select the color.
     @IBOutlet weak var colorDisplayPickerView: UIPickerView!
+    /// This is the main view, holding the standard display items.
     @IBOutlet weak var mainNumberDisplayView: UIView!
-    @IBOutlet weak var doneButton: UIButton!
+    /// This is a normally hidden view that holds the color and font selection UIPickerViews
     @IBOutlet weak var mainPickerContainerView: UIView!
+    /// This is the hidden slider for changing the brightness.
     @IBOutlet weak var brightnessSlider: TheBestClockVerticalBrightnessSliderView!
+    /// This is the label that displays ante meridian (AM/PM).
     @IBOutlet weak var amPmLabel: UILabel!
+    /// This is the label that displays today's date.
     @IBOutlet weak var dateDisplayLabel: UILabel!
     
+    /* ################################################################## */
+    /**
+     */
     var selectedFontIndex: Int = 0 {
         didSet {
-                self._prefs.selectedFont = self.selectedFontIndex
+            self._prefs?.selectedFont = self.selectedFontIndex
         }
     }
     
+    /* ################################################################## */
+    /**
+     */
     var selectedColorIndex: Int = 0 {
         didSet {
-            self._prefs.selectedColor = self.selectedColorIndex
+            self._prefs?.selectedColor = self.selectedColorIndex
         }
     }
     
+    /* ################################################################## */
+    /**
+     */
     var selectedBrightness: CGFloat = 1.0 {
         didSet {
-            self._prefs.brightnessLevel = self.selectedBrightness
+            self._prefs?.brightnessLevel = self.selectedBrightness
         }
     }
 
@@ -163,9 +178,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func openAppearanceEditor(_ sender: Any) {
         self.mainPickerContainerView.isHidden = false
         self.mainPickerContainerView.backgroundColor = self._backgroundColor
-        self.mainDisplayPickerView.backgroundColor = self._backgroundColor
+        self.fontDisplayPickerView.backgroundColor = self._backgroundColor
         self.colorDisplayPickerView.backgroundColor = self._backgroundColor
-        self.mainDisplayPickerView.reloadComponent(0)
+        self.fontDisplayPickerView.reloadComponent(0)
     }
     
     /* ################################################################## */
@@ -219,7 +234,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         formatter.dateFormat = "a"
         let amPMString = is24 ? "" : formatter.string(from: Date())
         
-        formatter.dateFormat = "EEE, MMM d, y"
+        formatter.timeStyle = .none
+        formatter.dateStyle = .full
 
         let dateString = formatter.string(from: Date())
         
@@ -228,8 +244,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     /* ################################################################## */
     /**
+     This is called when the resources and storyboard are all loaded up for the first time.
+     We use this to initialize most of our settings.
      */
     override func viewDidLoad() {
+        // We start by setting up our font and color Arrays.
         for fontFamilyName in UIFont.familyNames {
             for fontName in UIFont.fontNames(forFamilyName: fontFamilyName) {
                 if self._screenForThese.contains(fontName) {
@@ -238,30 +257,37 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
         }
         
+        // So we have a predictable order.
         self._fontSelection.sort()
-        self._fontSelection.insert(contentsOf: ["Let's Go Digital", "AnonymousProMinus-Bold"], at: 0)
         
+        // We add this to the beginning.
+        self._fontSelection.insert(contentsOf: ["Let's Go Digital"], at: 0)
+        
+        // The first index is white.
         self._colorSelection = [UIColor.white]
-        // We generate a series of colors, fully saturated, from orange to red, and include white.
-        for hue: CGFloat in stride(from: 0.05, to: 1.0, by: 0.05) {
+        // We generate a series of colors, fully saturated, from red (orangeish) to red (purpleish).
+        for hue: CGFloat in stride(from: 0.0, to: 1.0, by: 0.05) {
             let color = UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
             self._colorSelection.append(color)
         }
-        
+
+        // Set up our persistent prefs, reading in any previously stored prefs.
+        self._prefs = TheBestClockPrefs()
         self.selectedFontIndex = self._prefs.selectedFont
         self.selectedColorIndex = self._prefs.selectedColor
         self.selectedBrightness = self._prefs.brightnessLevel
 
-        self.updateMainTime()
+        self.updateMainTime()   // This will update the time. It will also set up our various labels and background colors.
         
-        self.mainDisplayPickerView.backgroundColor = UIColor.darkGray
-        self.mainDisplayPickerView.selectRow(self.selectedFontIndex, inComponent: 0, animated: false)
-        self.colorDisplayPickerView.backgroundColor = UIColor.darkGray
+        // Select the previous color and font (or initial).
+        self.fontDisplayPickerView.selectRow(self.selectedFontIndex, inComponent: 0, animated: false)
         self.colorDisplayPickerView.selectRow(self.selectedColorIndex, inComponent: 0, animated: false)
     }
     
     /* ################################################################## */
     /**
+     This is called when we are about to layout our views (like when we rotate).
+     We redraw everything, and force a new font size setting by zeroing the "cache."
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -271,6 +297,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     /* ################################################################## */
     /**
+     This is called when the view is about to appear.
+     We make sure that we redraw everything with a zeroed cache, and start the "don't sleep" thingy.
+     We also start a one-second timer.
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -285,6 +314,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     /* ################################################################## */
     /**
+     When the view will disappear, we stop the caffiene drip, and the timer.
      */
     override func viewWillDisappear(_ animated: Bool) {
         UIApplication.shared.isIdleTimerDisabled = false
@@ -295,6 +325,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     /* ################################################################## */
     /**
+     This simply redraws the main time and the two adjacent labels.
      */
     func updateMainTime() {
         _ = self.createDisplayView(self.mainNumberDisplayView, index: self.selectedFontIndex)
@@ -304,6 +335,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     /* ################################################################## */
     /**
+     This sets (or clears) the ante meridian label. We use a solid bright text color.
      */
     func setAMPMLabel() {
         self.amPmLabel.backgroundColor = UIColor.clear
@@ -312,7 +344,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
         } else {
             let hue = self._colorSelection[self.selectedColorIndex].hsba.h
-            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.4 * self.selectedBrightness, alpha: 1.0)
+            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.3 * self.selectedBrightness, alpha: 1.0)
         }
         
         self.amPmLabel.font = UIFont(name: self._fontSelection[self.selectedFontIndex], size: self._amPmLabelFontSize)
@@ -325,6 +357,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     /* ################################################################## */
     /**
+     This sets the date label. We use a solid bright text color.
      */
     func setDateDisplayLabel() {
         self.dateDisplayLabel.backgroundColor = UIColor.clear
@@ -340,12 +373,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.dateDisplayLabel.text = self.currentTimeString.date
         self.dateDisplayLabel.adjustsFontSizeToFitWidth = true
         self.dateDisplayLabel.textAlignment = .center
-        self.dateDisplayLabel.baselineAdjustment = .alignCenters
         self.dateDisplayLabel.textColor = textColor
     }
 
     /* ################################################################## */
     /**
+     This creates the display, as a gradient-filled font.
      */
     func createDisplayView(_ inContainerView: UIView, index inIndex: Int) -> UIView {
         for subView in inContainerView.subviews {
@@ -396,6 +429,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             displayLabelGradient.layer.addSublayer(gradient)
             
             let displayLabel = UILabel(frame: frame)
+            displayLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+            displayLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
             displayLabel.font = font
             displayLabel.adjustsFontSizeToFitWidth = true
             displayLabel.textAlignment = .center
@@ -413,40 +448,55 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     /* ################################################################## */
     /**
+     There can only be one...
+     
+     - parameter in: The UIPickerView being queried.
+     
+     - returns: 1 (all the time)
      */
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in inPickerView: UIPickerView) -> Int {
         return 1
     }
 
     /* ################################################################## */
     /**
+     This simply returns the number of rows in the pickerview. It will switch on which picker is calling it.
+     
+     - parameter inPickerView: The UIPickerView being queried.
      */
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.colorDisplayPickerView == pickerView ? self._colorSelection.count : self._fontSelection.count
+    func pickerView(_ inPickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.colorDisplayPickerView == inPickerView ? self._colorSelection.count : self._fontSelection.count
     }
 
     /* ################################################################## */
     /**
+     This will send the proper height for the picker row. The color picker is small squares.
+     
+     - parameter inPickerView: The UIPickerView being queried.
      */
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return self.colorDisplayPickerView == pickerView ? 80 : pickerView.bounds.size.height * 0.4
+    func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return self.colorDisplayPickerView == inPickerView ? 80 : inPickerView.bounds.size.height * 0.4
     }
     
     /* ################################################################## */
     /**
+     This generates one row's content, depending on which picker is being specified.
+     
+     - parameter inPickerView: The UIPickerView being queried.
      */
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing inView: UIView?) -> UIView {
-        let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: pickerView.bounds.size.width, height: self.pickerView(pickerView, rowHeightForComponent: component)))
+    func pickerView(_ inPickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing inView: UIView?) -> UIView {
+        let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: inPickerView.bounds.size.width, height: self.pickerView(inPickerView, rowHeightForComponent: component)))
         var ret = UIView(frame: frame)
 
-        if self.colorDisplayPickerView == pickerView {
-            let insetView = UIView(frame: frame.insetBy(dx: pickerView.bounds.size.width * 0.01, dy: pickerView.bounds.size.width * 0.01))
+        // Color picker is simple color squares.
+        if self.colorDisplayPickerView == inPickerView {
+            let insetView = UIView(frame: frame.insetBy(dx: inPickerView.bounds.size.width * 0.01, dy: inPickerView.bounds.size.width * 0.01))
             insetView.backgroundColor = self._colorSelection[row]
             ret.addSubview(insetView)
-        } else {
-            let frame = CGRect(x: 0, y: 0, width: pickerView.bounds.size.width, height: self.pickerView(pickerView, rowHeightForComponent: component))
+        } else {    // We send generated times for the font selector.
+            let frame = CGRect(x: 0, y: 0, width: inPickerView.bounds.size.width, height: self.pickerView(inPickerView, rowHeightForComponent: component))
             let reusingView = nil != inView ? inView!: UIView(frame: frame)
-            self._fontSizeCache = self.pickerView(pickerView, rowHeightForComponent: 0)
+            self._fontSizeCache = self.pickerView(inPickerView, rowHeightForComponent: 0)
             ret = self.createDisplayView(reusingView, index: row)
         }
         ret.backgroundColor = UIColor.clear
@@ -455,11 +505,14 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     /* ################################################################## */
     /**
+     This is called when a picker row is selected, and sets the value for that picker.
+     
+     - parameter inPickerView: The UIPickerView being queried.
      */
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if self.colorDisplayPickerView == pickerView {
+    func pickerView(_ inPickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if self.colorDisplayPickerView == inPickerView {
             self.selectedColorIndex = row
-            self.mainDisplayPickerView.reloadComponent(0)
+            self.fontDisplayPickerView.reloadComponent(0)
         } else {
             self.selectedFontIndex = row
         }

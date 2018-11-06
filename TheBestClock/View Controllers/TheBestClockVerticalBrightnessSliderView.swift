@@ -22,7 +22,10 @@ import UIKit
 class TheBestClockVerticalBrightnessSliderView: UIControl {
     @IBInspectable var endColor: UIColor = UIColor.white
     @IBInspectable var brightness: CGFloat = 1.0
-
+    
+    @IBAction func longPressGestureReconizerHit(_ sender: Any) {
+    }
+    
     /* ################################################################## */
     /**
      We make sure that the control has no subviews and no sublayers, and that we are transparent.
@@ -71,7 +74,22 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
             self.layer.addSublayer(gradient)
         }
     }
-
+    
+    /* ################################################################## */
+    /**
+     */
+    override func touchesBegan(_ inTouches: Set<UITouch>, with inEvent: UIEvent?) {
+        if let touchLocation = inTouches.first?.location(in: self) {
+            self.brightness = (self.bounds.size.height - touchLocation.y) / self.bounds.size.height
+            DispatchQueue.main.async {
+                self.sendActions(for: .valueChanged)
+                self.setNeedsDisplay()
+            }
+        }
+        
+        super.touchesBegan(inTouches, with: inEvent)
+    }
+    
     /* ################################################################## */
     /**
      */

@@ -19,20 +19,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tA9-HM-M61" customClass="TheBestClockMainDisplayView" customModule="TheBestClock" customModuleProvider="target">
-                                <rect key="frame" x="8" y="70" width="359" height="589"/>
+                                <rect key="frame" x="8" y="80" width="359" height="579"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOc-ks-FdF">
-                                <rect key="frame" x="8" y="20" width="359" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="none" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="qOc-ks-FdF">
+                                <rect key="frame" x="8" y="20" width="359" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="ctS-Ni-SYl"/>
+                                    <constraint firstAttribute="height" constant="60" placeholder="YES" id="ctS-Ni-SYl"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="clip" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="pSU-VZ-odd">
-                                <rect key="frame" x="0.0" y="70" width="367" height="30"/>
+                                <rect key="frame" x="0.0" y="80" width="367" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="sAX-rN-rNp"/>
                                 </constraints>
@@ -43,11 +43,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7io-PK-JhC" customClass="TheBestClockVerticalBrightnessSliderView" customModule="TheBestClock" customModuleProvider="target">
                                 <rect key="frame" x="4" y="40" width="80" height="607"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="1ii-dZ-f2j"/>
                                 </constraints>
                                 <connections>
                                     <action selector="brightnessSliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="N5d-Yd-M3d"/>
+                                    <outletCollection property="gestureRecognizers" destination="R9p-eS-CRg" appends="YES" id="W98-pD-KI0"/>
                                 </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDL-S8-BKg">
@@ -100,7 +102,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pSU-VZ-odd" secondAttribute="trailing" constant="8" id="JNg-Ny-wNw"/>
                             <constraint firstItem="tA9-HM-M61" firstAttribute="top" secondItem="qOc-ks-FdF" secondAttribute="bottom" id="NpL-em-auG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KDL-S8-BKg" secondAttribute="bottom" id="TNe-HS-9MG"/>
-                            <constraint firstItem="qOc-ks-FdF" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-8" id="WSx-ez-pQf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qOc-ks-FdF" secondAttribute="trailing" constant="8" id="WSx-ez-pQf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7io-PK-JhC" secondAttribute="bottom" constant="20" id="YJs-DT-xvC"/>
                             <constraint firstItem="KDL-S8-BKg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cQw-xG-9T7"/>
                             <constraint firstItem="tA9-HM-M61" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="dnB-0k-m0u"/>
@@ -108,7 +110,6 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="tA9-HM-M61" secondAttribute="bottom" constant="8" id="hC8-jM-IwC"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tA9-HM-M61" secondAttribute="trailing" constant="8" id="hEH-Xe-xHX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KDL-S8-BKg" secondAttribute="trailing" id="m6a-Ix-nrb"/>
-                            <constraint firstItem="qOc-ks-FdF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="myK-Tq-Nrc"/>
                             <constraint firstItem="pSU-VZ-odd" firstAttribute="top" secondItem="qOc-ks-FdF" secondAttribute="bottom" id="rTL-h8-KBX"/>
                             <constraint firstItem="KDL-S8-BKg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yD8-CT-Enu"/>
                         </constraints>
@@ -124,12 +125,13 @@
                         <outlet property="brightnessSlider" destination="7io-PK-JhC" id="AAh-kC-gSO"/>
                         <outlet property="colorDisplayPickerView" destination="kZZ-i4-PZy" id="pKh-sI-pln"/>
                         <outlet property="dateDisplayLabel" destination="qOc-ks-FdF" id="CL8-LF-o4o"/>
-                        <outlet property="mainDisplayPickerView" destination="5Ot-f1-EK6" id="giA-vX-QuX"/>
+                        <outlet property="fontDisplayPickerView" destination="5Ot-f1-EK6" id="giA-vX-QuX"/>
                         <outlet property="mainNumberDisplayView" destination="tA9-HM-M61" id="4MX-Vs-nAa"/>
                         <outlet property="mainPickerContainerView" destination="KDL-S8-BKg" id="Qml-Ag-nxF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="sxl-mT-yL0" userLabel="Exit" sceneMemberID="exit"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="EtU-wI-Juo">
                     <connections>
                         <action selector="openAppearanceEditor:" destination="BYZ-38-t0r" id="AUf-KP-3un"/>
@@ -150,6 +152,11 @@
                         <action selector="doneButtonHit:" destination="BYZ-38-t0r" id="SSd-aq-jQJ"/>
                     </connections>
                 </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="R9p-eS-CRg">
+                    <connections>
+                        <action selector="longPressGestureReconizerHit:" destination="sxl-mT-yL0" id="2A1-YJ-FzZ"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="317.60000000000002" y="43.628185907046479"/>
         </scene>
