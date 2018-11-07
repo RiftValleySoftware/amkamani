@@ -79,7 +79,7 @@ class TheBestClockAlarmView: UIControl {
         var alpha: CGFloat
         
         let activeAlpha = CGFloat(1.0)
-        let inactiveAlpha = CGFloat(0.5)
+        let inactiveAlpha = CGFloat(0.25)
         
         if self.isTracking, self.isHighlighted {
             alpha = self.alarmRecord.isActive ? inactiveAlpha : activeAlpha
