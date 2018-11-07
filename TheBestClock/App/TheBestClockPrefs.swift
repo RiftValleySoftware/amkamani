@@ -30,7 +30,6 @@ class TheBestClockPrefs {
     
     private var _alarms: [TheBestClockAlarmSetting] = [TheBestClockAlarmSetting(),
                                                        TheBestClockAlarmSetting(),
-                                                       TheBestClockAlarmSetting(),
                                                        TheBestClockAlarmSetting()
         ]
     
@@ -151,9 +150,9 @@ class TheBestClockPrefs {
         /**
          */
         func encode(with aCoder: NSCoder) {
-            aCoder.encode(self.alarmTimeInSeconds, forKey: TheBestClockPrefs.AlarmPrefsKeys.alarmTimeInSeconds.rawValue)
+            aCoder.encode(self.alarmTimeInSeconds as NSNumber, forKey: TheBestClockPrefs.AlarmPrefsKeys.alarmTimeInSeconds.rawValue)
             aCoder.encode(self.playlistID, forKey: TheBestClockPrefs.AlarmPrefsKeys.playlistID.rawValue)
-            aCoder.encode(self.isActive, forKey: TheBestClockPrefs.AlarmPrefsKeys.isActive.rawValue)
+            aCoder.encode(self.isActive as NSNumber, forKey: TheBestClockPrefs.AlarmPrefsKeys.isActive.rawValue)
         }
         
         /* ################################################################## */
@@ -168,11 +167,11 @@ class TheBestClockPrefs {
          */
         required init?(coder aDecoder: NSCoder) {
             super.init()
-            
-            if let isActive = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.isActive.rawValue) as? Bool {
-                self.isActive = isActive
+
+            if let isActive = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.isActive.rawValue) as? NSNumber {
+                self.isActive = isActive.boolValue
             }
-            
+        
             if let playListID = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.playlistID.rawValue) as? UUID {
                 self.playlistID = playListID
             }
@@ -192,8 +191,10 @@ class TheBestClockPrefs {
     var alarms: [TheBestClockAlarmSetting] {
         get {
             if self._loadPrefs() {
-                if let alarms = self._loadedPrefs.object(forKey: type(of: self).PrefsKeys.alarms.rawValue) as? [TheBestClockAlarmSetting] {
-                    self._alarms = alarms
+                if let unarchivedObject = self._loadedPrefs.object(forKey: type(of: self).PrefsKeys.alarms.rawValue) as? Data {
+                    if let alarms = NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject) as? [TheBestClockAlarmSetting] {
+                        self._alarms = alarms
+                    }
                 }
             }
             
@@ -203,7 +204,8 @@ class TheBestClockPrefs {
         set {
             self._alarms = newValue
             if self._loadPrefs() {
-                self._loadedPrefs.setObject(self._alarms, forKey: type(of: self).PrefsKeys.alarms.rawValue as NSString)
+                let archivedObject = NSKeyedArchiver.archivedData(withRootObject: self._alarms)
+                self._loadedPrefs.setObject(archivedObject, forKey: type(of: self).PrefsKeys.alarms.rawValue as NSString)
                 self._savePrefs()
             }
         }

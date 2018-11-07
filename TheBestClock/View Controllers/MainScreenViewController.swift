@@ -75,7 +75,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private let _minimumBrightness: CGFloat = 0.05
     private let _amPmLabelFontSize: CGFloat = 30
     private let _dateLabelFontSize: CGFloat = 40
-    
+    private let _alarmsFontSize: CGFloat = 40
+
     private var _prefs: TheBestClockPrefs!
     private var _alarmButtons: [TheBestClockAlarmView] = []
 
@@ -119,17 +120,29 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let percentage = CGFloat(1) / CGFloat(alarms.count)   // THis will be used for our auto-layout stuff.
             var prevButton: TheBestClockAlarmView!
             for alarm in alarms {
-                let alarmButton = TheBestClockAlarmView(alarmRecord: alarm,
-                                                        fontName: self._fontSelection[self.selectedFontIndex],
-                                                        fontColor: 0 == self.selectedColorIndex ? nil : self._colorSelection[self.selectedColorIndex],
-                                                        brightness: self.selectedBrightness,
-                                                        desiredFontSize: 40)
+                let alarmButton = TheBestClockAlarmView(alarmRecord: alarm)
                 self.addAlarmView(alarmButton, percentage: percentage, previousView: prevButton)
                 prevButton = alarmButton
             }
+            
+            self._updateAlarms()
         }
     }
     
+    /* ################################################################## */
+    /**
+     */
+    private func _updateAlarms() {
+        let alarms = self._alarmButtons
+        
+        for alarm in alarms {
+            alarm.brightness = self.selectedBrightness
+            alarm.fontColor = 0 == self.selectedColorIndex ? nil : self._colorSelection[self.selectedColorIndex]
+            alarm.fontName = self._fontSelection[self.selectedFontIndex]
+            alarm.desiredFontSize = self._alarmsFontSize
+        }
+    }
+
     /* ################################################################## */
     /**
      */
@@ -190,6 +203,49 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private func _getFontSize(_ inFontName: String, size inSize: CGSize) -> CGFloat {
         return self.mainNumberDisplayView.bounds.size.height
     }
+    
+    /* ################################################################## */
+    /**
+     This sets (or clears) the ante meridian label. We use a solid bright text color.
+     */
+    private func _setAMPMLabel() {
+        self.amPmLabel.backgroundColor = UIColor.clear
+        var textColor: UIColor
+        if 0 == self.selectedColorIndex {
+            textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
+        } else {
+            let hue = self._colorSelection[self.selectedColorIndex].hsba.h
+            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.3 * self.selectedBrightness, alpha: 1.0)
+        }
+        
+        self.amPmLabel.font = UIFont(name: self._fontSelection[self.selectedFontIndex], size: self._amPmLabelFontSize)
+        self.amPmLabel.text = self.currentTimeString.amPm
+        self.amPmLabel.adjustsFontSizeToFitWidth = true
+        self.amPmLabel.textAlignment = .right
+        self.amPmLabel.baselineAdjustment = .alignCenters
+        self.amPmLabel.textColor = textColor
+    }
+    
+    /* ################################################################## */
+    /**
+     This sets the date label. We use a solid bright text color.
+     */
+    private func _setDateDisplayLabel() {
+        self.dateDisplayLabel.backgroundColor = UIColor.clear
+        var textColor: UIColor
+        if 0 == self.selectedColorIndex {
+            textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
+        } else {
+            let hue = self._colorSelection[self.selectedColorIndex].hsba.h
+            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.4 * self.selectedBrightness, alpha: 1.0)
+        }
+        
+        self.dateDisplayLabel.font = UIFont(name: self._fontSelection[self.selectedFontIndex], size: self._dateLabelFontSize)
+        self.dateDisplayLabel.text = self.currentTimeString.date
+        self.dateDisplayLabel.adjustsFontSizeToFitWidth = true
+        self.dateDisplayLabel.textAlignment = .center
+        self.dateDisplayLabel.textColor = textColor
+    }
 
     /// This is the UIPickerView that is used to select the font.
     @IBOutlet weak var fontDisplayPickerView: UIPickerView!
@@ -239,6 +295,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /**
      */
     @IBAction func alarmStateChanged(_ sender: TheBestClockAlarmView) {
+        for index in 0..<self._alarmButtons.count where self._alarmButtons[index] == sender {
+            if let alarmRecord = sender.alarmRecord {
+                self._prefs.alarms[index] = alarmRecord
+            }
+        }
     }
 
     /* ################################################################## */
@@ -247,6 +308,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func brightnessSliderChanged(_ sender: TheBestClockVerticalBrightnessSliderView) {
         self.selectedBrightness = max(self._minimumBrightness, min(sender.brightness, 1.0))
         self.updateMainTime()
+        self._updateAlarms()
     }
     
     /* ################################################################## */
@@ -406,51 +468,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     func updateMainTime() {
         _ = self.createDisplayView(self.mainNumberDisplayView, index: self.selectedFontIndex)
-        self.setAMPMLabel()
-        self.setDateDisplayLabel()
-    }
-    
-    /* ################################################################## */
-    /**
-     This sets (or clears) the ante meridian label. We use a solid bright text color.
-     */
-    func setAMPMLabel() {
-        self.amPmLabel.backgroundColor = UIColor.clear
-        var textColor: UIColor
-        if 0 == self.selectedColorIndex {
-            textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
-        } else {
-            let hue = self._colorSelection[self.selectedColorIndex].hsba.h
-            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.3 * self.selectedBrightness, alpha: 1.0)
-        }
-        
-        self.amPmLabel.font = UIFont(name: self._fontSelection[self.selectedFontIndex], size: self._amPmLabelFontSize)
-        self.amPmLabel.text = self.currentTimeString.amPm
-        self.amPmLabel.adjustsFontSizeToFitWidth = true
-        self.amPmLabel.textAlignment = .right
-        self.amPmLabel.baselineAdjustment = .alignCenters
-        self.amPmLabel.textColor = textColor
-    }
-    
-    /* ################################################################## */
-    /**
-     This sets the date label. We use a solid bright text color.
-     */
-    func setDateDisplayLabel() {
-        self.dateDisplayLabel.backgroundColor = UIColor.clear
-        var textColor: UIColor
-        if 0 == self.selectedColorIndex {
-            textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
-        } else {
-            let hue = self._colorSelection[self.selectedColorIndex].hsba.h
-            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.4 * self.selectedBrightness, alpha: 1.0)
-        }
-        
-        self.dateDisplayLabel.font = UIFont(name: self._fontSelection[self.selectedFontIndex], size: self._dateLabelFontSize)
-        self.dateDisplayLabel.text = self.currentTimeString.date
-        self.dateDisplayLabel.adjustsFontSizeToFitWidth = true
-        self.dateDisplayLabel.textAlignment = .center
-        self.dateDisplayLabel.textColor = textColor
+        self._setAMPMLabel()
+        self._setDateDisplayLabel()
+        self._updateAlarms()
     }
 
     /* ################################################################## */

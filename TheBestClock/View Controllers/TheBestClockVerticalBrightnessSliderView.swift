@@ -111,7 +111,6 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
     /**
      */
     override func continueTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
-        
         let touchLocation = inTouch.location(in: self)
         self.brightness = (self.bounds.size.height - touchLocation.y) / self.bounds.size.height
 
