@@ -253,9 +253,22 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     /**
      */
+    private func _flashDisplay(_ inUIColor: UIColor, duration: TimeInterval = 0.75) {
+        DispatchQueue.main.async {
+            self.alarmDisplayView.backgroundColor = inUIColor
+            self.alarmDisplayView.alpha = 1.0
+            UIView.animate(withDuration: duration, animations: {
+                self.alarmDisplayView.alpha = 0.0
+            })
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     */
     private func _aooGah(_ inIndex: Int) {
-        self.alarmDisplayView.backgroundColor = self._colorSelection[self.selectedColorIndex]
         self.alarmDisplayView.isHidden = false
+        self._flashDisplay(self._colorSelection[self.selectedColorIndex])
     }
     
     /* ################################################################## */
