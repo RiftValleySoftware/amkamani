@@ -12,31 +12,11 @@ import UIKit
 import MediaPlayer
 
 /* ###################################################################################################################################### */
-// MARK: - Extensions -
-/* ###################################################################################################################################### */
-/**
- */
-extension UIColor {
-    /* ################################################################## */
-    /**
-     This just allows us to get an HSB color from a standard UIColor.
-     From here: https://stackoverflow.com/a/30713456/879365
-     
-     - returns: A tuple, containing the HSBA color.
-     */
-    var hsba:(h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat) {
-        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
-        return (h: h, s: s, b: b, a: a)
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - Main Class -
 /* ###################################################################################################################################### */
 /**
  */
-class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, TheBestClockAlarmViewDelegate {
     /// This is a list of a subset of fonts likely to be on the device. We want to reduce the choices for the user.
     private let _screenForThese: [String] = ["AmericanTypewriter-Bold",
                                              "AppleColorEmoji",
@@ -85,6 +65,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private var _backgroundColor: UIColor = UIColor.gray
     private var _ticker: Timer!
     private var _fontSizeCache: CGFloat = 0
+    private var _currentlyEditingAlarmIndex: Int = -1
 
     /* ################################################################## */
     /**
@@ -119,9 +100,14 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if !alarms.isEmpty {
             let percentage = CGFloat(1) / CGFloat(alarms.count)   // THis will be used for our auto-layout stuff.
             var prevButton: TheBestClockAlarmView!
+            var index = 0
+            
             for alarm in alarms {
                 let alarmButton = TheBestClockAlarmView(alarmRecord: alarm)
                 self.addAlarmView(alarmButton, percentage: percentage, previousView: prevButton)
+                alarmButton.delegate = self
+                alarmButton.index = index
+                index += 1
                 prevButton = alarmButton
             }
             
@@ -246,7 +232,39 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.dateDisplayLabel.textAlignment = .center
         self.dateDisplayLabel.textColor = textColor
     }
-
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _checkAlarmStatus() {
+        var index = 0
+        // If we have an active alarm, then we throw the switch, iGor.
+        for alarm in self._prefs.alarms {
+            if alarm.alarming {
+                self._aooGah(index)
+            } else if alarm.snoozing {
+                self._zzzz(index)
+            }
+            
+            index += 1
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _aooGah(_ inIndex: Int) {
+        self.alarmDisplayView.backgroundColor = self._colorSelection[self.selectedColorIndex]
+        self.alarmDisplayView.isHidden = false
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _zzzz(_ inIndex: Int) {
+        print("zzzz-zzzz-zzzzz")
+    }
+    
     /// This is the UIPickerView that is used to select the font.
     @IBOutlet weak var fontDisplayPickerView: UIPickerView!
     /// This is the UIPickerView that is used to select the color.
@@ -263,6 +281,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var dateDisplayLabel: UILabel!
     /// This view will hold our alarm displays.
     @IBOutlet weak var alarmContainerView: UIView!
+    /// This is a view that will cover the screen if the user wants to edit an alarm.
+    @IBOutlet weak var editAlarmScreenContainer: UIView!
+    /// This is the date picker in the alarm time editor.
+    @IBOutlet weak var editAlarmTimeDatePicker: UIDatePicker!
+    /// This will be the flashing view that appears when there's an alarm.
+    @IBOutlet weak var alarmDisplayView: UIView!
     
     /* ################################################################## */
     /**
@@ -290,7 +314,35 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self._prefs?.brightnessLevel = min(1.0, self.selectedBrightness)
         }
     }
-    
+
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func hitTheSnooze(_ inGestureRecognizer: UITapGestureRecognizer) {
+        for index in 0..<self._prefs.alarms.count where self._prefs.alarms[index].alarming {
+            self._prefs.alarms[index].snoozing = true
+        }
+        self.alarmDisplayView.isHidden = true
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func alarmTimeDatePickerChanged(_ inDatePicker: UIDatePicker) {
+        if 0 <= self._currentlyEditingAlarmIndex, self._prefs.alarms.count > self._currentlyEditingAlarmIndex {
+            let date = inDatePicker.date
+            
+            let calendar = Calendar.current
+            
+            let hour = calendar.component(.hour, from: date)
+            let minutes = calendar.component(.minute, from: date)
+            
+            let time = hour * 100 + minutes
+            self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.alarmTime = time
+            self._prefs.alarms[self._currentlyEditingAlarmIndex] = self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord
+        }
+    }
+
     /* ################################################################## */
     /**
      */
@@ -298,6 +350,13 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         for index in 0..<self._alarmButtons.count where self._alarmButtons[index] == sender {
             if let alarmRecord = sender.alarmRecord {
                 self._prefs.alarms[index] = alarmRecord
+            }
+        }
+        
+        if 0 <= sender.index, self._prefs.alarms.count > sender.index {
+            // If we are activating an alarm that is set for midnight, we will open the editor.
+            if self._prefs.alarms[sender.index].isActive, 0 == self._prefs.alarms[sender.index].alarmTime {
+                self.openAlarmEditor(sender.index)
             }
         }
     }
@@ -308,7 +367,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func brightnessSliderChanged(_ sender: TheBestClockVerticalBrightnessSliderView) {
         self.selectedBrightness = max(self._minimumBrightness, min(sender.brightness, 1.0))
         self.updateMainTime()
-        self._updateAlarms()
     }
     
     /* ################################################################## */
@@ -320,15 +378,52 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.colorDisplayPickerView.delegate = nil
         self.colorDisplayPickerView.dataSource = nil
         self._fontSizeCache = 0
-        mainPickerContainerView.isHidden = true
+        self.mainPickerContainerView.isHidden = true
         self.updateMainTime()
-        self._setUpAlarms()
+        self.startTicker()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func closeAlarmEditorScreen(_ sender: Any) {
+        if 0 <= self._currentlyEditingAlarmIndex, self._prefs.alarms.count > self._currentlyEditingAlarmIndex {
+            self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive = true
+            self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isActive = true
+            self._currentlyEditingAlarmIndex = -1
+            self.editAlarmScreenContainer.isHidden = true
+            self.updateMainTime()
+            self.startTicker()
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    func openAlarmEditorScreen() {
+        self.stopTicker()
+        if 0 <= self._currentlyEditingAlarmIndex, self._prefs.alarms.count > self._currentlyEditingAlarmIndex {
+            let time = self._prefs.alarms[self._currentlyEditingAlarmIndex].alarmTime
+            let hours = time / 100
+            let minutes = time - (hours * 100)
+            
+            var dateComponents = DateComponents()
+            dateComponents.hour = hours
+            dateComponents.minute = minutes
+            
+            let userCalendar = Calendar.current
+            if let pickerDate = userCalendar.date(from: dateComponents) {
+                self.editAlarmTimeDatePicker.setDate(pickerDate, animated: false)
+            }
+            self.editAlarmScreenContainer.isHidden = false
+        }
     }
     
     /* ################################################################## */
     /**
      */
     @IBAction func openAppearanceEditor(_ sender: Any) {
+        self.stopTicker()
         self.mainPickerContainerView.isHidden = false
         self.fontDisplayPickerView.delegate = self
         self.fontDisplayPickerView.dataSource = self
@@ -385,7 +480,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         return TimeDateContainer(time: timeString, amPm: amPMString, date: dateString)
     }
-
+    
     /* ################################################################## */
     /**
      This is called when the resources and storyboard are all loaded up for the first time.
@@ -443,12 +538,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self._fontSizeCache = 0
-        UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
-        self._ticker = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [unowned self] _ in
-            DispatchQueue.main.async {
-                self.updateMainTime()
-            }
-        }
+        self.startTicker()
     }
     
     /* ################################################################## */
@@ -456,10 +546,34 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      When the view will disappear, we stop the caffiene drip, and the timer.
      */
     override func viewWillDisappear(_ animated: Bool) {
-        UIApplication.shared.isIdleTimerDisabled = false
-        self._ticker.invalidate()
-        self._ticker = nil
+        self.stopTicker()
         super.viewWillDisappear(animated)
+    }
+
+    /* ################################################################## */
+    /**
+     This starts our regular 1-second ticker.
+     */
+    func startTicker() {
+        UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
+        self._ticker = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [unowned self] _ in
+            DispatchQueue.main.async {
+                self.updateMainTime()
+                self._checkAlarmStatus()
+            }
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     This stops our regular 1-second ticker.
+     */
+    func stopTicker() {
+        if nil != self._ticker {
+            UIApplication.shared.isIdleTimerDisabled = false
+            self._ticker.invalidate()
+            self._ticker = nil
+        }
     }
 
     /* ################################################################## */
@@ -562,7 +676,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      - parameter inPickerView: The UIPickerView being queried.
      */
     func pickerView(_ inPickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.colorDisplayPickerView == inPickerView ? self._colorSelection.count : self._fontSelection.count
+        return self.colorDisplayPickerView == inPickerView ? self._colorSelection.count : (self.fontDisplayPickerView == inPickerView) ? self._fontSelection.count : 0
     }
 
     /* ################################################################## */
@@ -572,7 +686,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      - parameter inPickerView: The UIPickerView being queried.
      */
     func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return self.colorDisplayPickerView == inPickerView ? 80 : inPickerView.bounds.size.height * 0.4
+        return self.colorDisplayPickerView == inPickerView ? 80 : (self.fontDisplayPickerView == inPickerView) ? inPickerView.bounds.size.height * 0.4 : 0
     }
     
     /* ################################################################## */
@@ -590,7 +704,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let insetView = UIView(frame: frame.insetBy(dx: inPickerView.bounds.size.width * 0.01, dy: inPickerView.bounds.size.width * 0.01))
             insetView.backgroundColor = self._colorSelection[row]
             ret.addSubview(insetView)
-        } else {    // We send generated times for the font selector.
+        } else if self.fontDisplayPickerView == inPickerView {    // We send generated times for the font selector.
             let frame = CGRect(x: 0, y: 0, width: inPickerView.bounds.size.width, height: self.pickerView(inPickerView, rowHeightForComponent: component))
             let reusingView = nil != inView ? inView!: UIView(frame: frame)
             self._fontSizeCache = self.pickerView(inPickerView, rowHeightForComponent: 0)
@@ -610,8 +724,20 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if self.colorDisplayPickerView == inPickerView {
             self.selectedColorIndex = row
             self.fontDisplayPickerView.reloadComponent(0)
-        } else {
+        } else if self.fontDisplayPickerView == inPickerView {
             self.selectedFontIndex = row
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func openAlarmEditor(_ inAlarmIndex: Int) {
+        if 0 <= inAlarmIndex, self._prefs.alarms.count > inAlarmIndex {
+            self._currentlyEditingAlarmIndex = inAlarmIndex
+            self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive = true
+            self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isActive = true
+            self.openAlarmEditorScreen()
         }
     }
 }

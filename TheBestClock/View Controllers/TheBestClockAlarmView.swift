@@ -10,12 +10,21 @@
 
 import UIKit
 
+protocol TheBestClockAlarmViewDelegate: class {
+    /* ################################################################## */
+    /**
+     */
+    func openAlarmEditor(_ alarmIndex: Int)
+}
+
 /* ###################################################################################################################################### */
 // MARK: - Main Class -
 /* ###################################################################################################################################### */
 /**
  */
 class TheBestClockAlarmView: UIControl {
+    weak var delegate: TheBestClockAlarmViewDelegate!
+    var index: Int = 0
     /// This holds our state for the alarm we're displaying.
     var alarmRecord: TheBestClockPrefs.TheBestClockAlarmSetting!
     var fontName: String = ""
@@ -30,6 +39,7 @@ class TheBestClockAlarmView: UIControl {
     }
     
     @IBOutlet var displayLabel: UILabel!
+    var longPressGestureRecognizer: UILongPressGestureRecognizer!
     
     /* ################################################################## */
     /**
@@ -62,6 +72,12 @@ class TheBestClockAlarmView: UIControl {
             self.displayLabel.setContentCompressionResistancePriority(.required, for: .vertical)
             self.displayLabel.backgroundColor = UIColor.clear
         }
+        
+        if nil == self.longPressGestureRecognizer {
+            self.longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(type(of: self).longPressGesture(_:)))
+            self.addGestureRecognizer(self.longPressGestureRecognizer)
+        }
+        
         self.backgroundColor = UIColor.clear
         self.displayLabel.frame = frame
         self.addSubview(self.displayLabel)
@@ -73,7 +89,7 @@ class TheBestClockAlarmView: UIControl {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         self.displayLabel.font = UIFont(name: self.fontName, size: self.desiredFontSize)
-        self.displayLabel.text = "12:00AM"
+        self.displayLabel.text = ""
         var textColor: UIColor
         let brightness = self.brightness
         var alpha: CGFloat
@@ -90,8 +106,26 @@ class TheBestClockAlarmView: UIControl {
         if nil == self.fontColor {
             textColor = UIColor(white: brightness, alpha: alpha)
         } else {
-            textColor = UIColor(hue: self.fontColor.hsba.h, saturation: 1.0, brightness: 1.3 * brightness, alpha: alpha)
+            textColor = UIColor(hue: self.fontColor.hsba.h, saturation: 1.0, brightness: 0.85 * brightness, alpha: alpha)
         }
+        
+        let time = self.alarmRecord.alarmTime
+        let hours = time / 100
+        let minutes = time - (hours * 100)
+        
+        var dateComponents = DateComponents()
+        dateComponents.hour = hours
+        dateComponents.minute = minutes
+        
+        let userCalendar = Calendar.current
+        if let pickerDate = userCalendar.date(from: dateComponents) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeStyle = .short
+            dateFormatter.dateStyle = .none
+            
+            self.displayLabel.text = dateFormatter.string(from: pickerDate)
+        }
+
         self.displayLabel.textColor = textColor
     }
     
@@ -155,5 +189,12 @@ class TheBestClockAlarmView: UIControl {
         }
         
         super.cancelTracking(with: inEvent)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func longPressGesture(_ inGestureRecognizer: UILongPressGestureRecognizer) {
+        self.delegate?.openAlarmEditor(self.index)
     }
 }

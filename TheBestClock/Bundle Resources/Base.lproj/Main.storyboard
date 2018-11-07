@@ -95,12 +95,52 @@
                                     <outletCollection property="gestureRecognizers" destination="vTV-mt-vNG" appends="YES" id="a9A-RP-ngU"/>
                                 </connections>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g5Y-c0-3tI">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Epq-FZ-noz">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="162"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="gQC-pg-9Lp"/>
+                                        </constraints>
+                                        <date key="date" timeIntervalSinceReferenceDate="563297011.76202798">
+                                            <!--2018-11-07 15:23:31 +0000-->
+                                        </date>
+                                        <connections>
+                                            <action selector="alarmTimeDatePickerChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="WEV-hf-zyM"/>
+                                        </connections>
+                                    </datePicker>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Epq-FZ-noz" secondAttribute="trailing" id="2FJ-rH-g9j"/>
+                                    <constraint firstItem="Epq-FZ-noz" firstAttribute="height" secondItem="g5Y-c0-3tI" secondAttribute="height" multiplier="0.25" priority="999" id="7Lc-Fq-Z10"/>
+                                    <constraint firstItem="Epq-FZ-noz" firstAttribute="leading" secondItem="g5Y-c0-3tI" secondAttribute="leading" id="hcF-MD-DAY"/>
+                                    <constraint firstItem="Epq-FZ-noz" firstAttribute="top" secondItem="g5Y-c0-3tI" secondAttribute="top" id="xIc-pJ-4e9"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Hck-7h-yTT" appends="YES" id="t92-ru-51c"/>
+                                    <outletCollection property="gestureRecognizers" destination="gdg-lB-Zmz" appends="YES" id="TEA-wW-7Cc"/>
+                                </connections>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yuf-MI-OfS">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="qzH-bp-wEr" appends="YES" id="dBE-2X-bxh"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="qOc-ks-FdF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="0au-jr-8mN"/>
                             <constraint firstItem="pSU-VZ-odd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3OI-sk-XYJ"/>
+                            <constraint firstItem="yuf-MI-OfS" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="46a-RS-nVp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yuf-MI-OfS" secondAttribute="trailing" id="A2i-S2-fSm"/>
                             <constraint firstItem="7io-PK-JhC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="CkD-kH-pE3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pSU-VZ-odd" secondAttribute="trailing" constant="8" id="JNg-Ny-wNw"/>
                             <constraint firstItem="tA9-HM-M61" firstAttribute="bottom" secondItem="e9A-iM-9M5" secondAttribute="top" id="MC8-JJ-0wu"/>
@@ -109,13 +149,19 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="e9A-iM-9M5" secondAttribute="bottom" id="RB4-Kz-y8W"/>
                             <constraint firstItem="7io-PK-JhC" firstAttribute="top" secondItem="qOc-ks-FdF" secondAttribute="bottom" id="Sm9-e3-TgO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KDL-S8-BKg" secondAttribute="bottom" id="TNe-HS-9MG"/>
+                            <constraint firstItem="g5Y-c0-3tI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Tlt-gN-u5g"/>
+                            <constraint firstItem="g5Y-c0-3tI" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Tw6-ov-JH5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qOc-ks-FdF" secondAttribute="trailing" constant="8" id="WSx-ez-pQf"/>
                             <constraint firstItem="KDL-S8-BKg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cQw-xG-9T7"/>
+                            <constraint firstItem="g5Y-c0-3tI" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="ddE-C8-1qt"/>
                             <constraint firstItem="tA9-HM-M61" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="dnB-0k-m0u"/>
+                            <constraint firstItem="yuf-MI-OfS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="f0z-ss-q9v"/>
                             <constraint firstItem="qOc-ks-FdF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="giX-eb-KtX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tA9-HM-M61" secondAttribute="trailing" constant="8" id="hEH-Xe-xHX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KDL-S8-BKg" secondAttribute="trailing" id="m6a-Ix-nrb"/>
+                            <constraint firstItem="yuf-MI-OfS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="nr9-ds-5Y8"/>
                             <constraint firstItem="pSU-VZ-odd" firstAttribute="top" secondItem="qOc-ks-FdF" secondAttribute="bottom" id="rTL-h8-KBX"/>
+                            <constraint firstItem="g5Y-c0-3tI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="s7o-wI-qof"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="e9A-iM-9M5" secondAttribute="trailing" constant="8" id="tpB-cq-3Ip"/>
                             <constraint firstItem="e9A-iM-9M5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="vdl-qR-tnD"/>
                             <constraint firstItem="KDL-S8-BKg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yD8-CT-Enu"/>
@@ -128,10 +174,13 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
                         <outlet property="alarmContainerView" destination="e9A-iM-9M5" id="Bxt-A5-lw9"/>
+                        <outlet property="alarmDisplayView" destination="yuf-MI-OfS" id="3SH-Af-kbr"/>
                         <outlet property="amPmLabel" destination="pSU-VZ-odd" id="QvK-BM-h5v"/>
                         <outlet property="brightnessSlider" destination="7io-PK-JhC" id="AAh-kC-gSO"/>
                         <outlet property="colorDisplayPickerView" destination="kZZ-i4-PZy" id="pKh-sI-pln"/>
                         <outlet property="dateDisplayLabel" destination="qOc-ks-FdF" id="CL8-LF-o4o"/>
+                        <outlet property="editAlarmScreenContainer" destination="g5Y-c0-3tI" id="rwd-Vp-EnO"/>
+                        <outlet property="editAlarmTimeDatePicker" destination="Epq-FZ-noz" id="GuW-2j-icQ"/>
                         <outlet property="fontDisplayPickerView" destination="5Ot-f1-EK6" id="giA-vX-QuX"/>
                         <outlet property="mainNumberDisplayView" destination="tA9-HM-M61" id="4MX-Vs-nAa"/>
                         <outlet property="mainPickerContainerView" destination="KDL-S8-BKg" id="Qml-Ag-nxF"/>
@@ -165,6 +214,21 @@
                     </connections>
                 </pongPressGestureRecognizer>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="JuB-FM-I8Y"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="Hck-7h-yTT">
+                    <connections>
+                        <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" id="fQI-zM-d1n"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="gdg-lB-Zmz">
+                    <connections>
+                        <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" id="gBA-oe-8wM"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <tapGestureRecognizer id="qzH-bp-wEr">
+                    <connections>
+                        <action selector="hitTheSnooze:" destination="BYZ-38-t0r" id="Ob9-eX-P6D"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="317.60000000000002" y="43.628185907046479"/>
         </scene>
