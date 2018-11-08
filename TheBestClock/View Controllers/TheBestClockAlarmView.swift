@@ -23,6 +23,8 @@ protocol TheBestClockAlarmViewDelegate: class {
 /**
  */
 class TheBestClockAlarmView: UIControl {
+    private var _currentAlpha: CGFloat = 1.0
+    
     weak var delegate: TheBestClockAlarmViewDelegate!
     var index: Int = 0
     /// This holds our state for the alarm we're displaying.
@@ -196,5 +198,18 @@ class TheBestClockAlarmView: UIControl {
      */
     @IBAction func longPressGesture(_ inGestureRecognizer: UILongPressGestureRecognizer) {
         self.delegate?.openAlarmEditor(self.index)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func snore() {
+        let oldAlpha = self.displayLabel.alpha
+        UIView.animate(withDuration: 0.5, animations: { [unowned self] in
+            self.displayLabel.alpha = 0.25
+        })
+        UIView.animate(withDuration: 0.5, animations: { [unowned self] in
+            self.displayLabel.alpha = oldAlpha
+        })
     }
 }

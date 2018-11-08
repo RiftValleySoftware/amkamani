@@ -20,19 +20,12 @@ import UIKit
  */
 @IBDesignable
 class TheBestClockVerticalBrightnessSliderView: UIControl {
+    var _gradientLayer: CAGradientLayer!
+    
     @IBInspectable var endColor: UIColor = UIColor.white
     @IBInspectable var brightness: CGFloat = 1.0
     
     @IBAction func longPressGestureReconizerHit(_ sender: Any) {
-    }
-    
-    /* ################################################################## */
-    /**
-     We make sure that the control has no subviews and no sublayers, and that we are transparent.
-     */
-    override func layoutSubviews() {
-        self.backgroundColor = UIColor.clear    // Make sure that our background color is clear.
-        super.layoutSubviews()
     }
     
     /* ################################################################## */
@@ -43,12 +36,8 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
      - parameter inRect: ignored
      */
     override func draw(_ inRect: CGRect) {
-        if let sublayers = self.layer.sublayers {
-            for subLayer in sublayers {
-                subLayer.removeFromSuperlayer()
-            }
-        }
-
+        self._gradientLayer?.removeFromSuperlayer()
+        self.backgroundColor = UIColor.clear    // Make sure that our background color is clear.
         if self.isTracking {
             let topLeftPoint = CGPoint(x: 0, y: self.bounds.midX)
             let arcCenterPoint = CGPoint(x: self.bounds.midX, y: self.bounds.midX)
@@ -60,18 +49,17 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
             path.addLine(to: topRightPoint)
             path.addArc(withCenter: arcCenterPoint, radius: self.bounds.midX, startAngle: 0, endAngle: CGFloat.pi, clockwise: false)
             
-            let gradient = CAGradientLayer()
+            self._gradientLayer = CAGradientLayer()
             let endColor = UIColor.white == self.endColor ? UIColor(white: self.brightness, alpha: 1.0) : UIColor(hue: self.endColor.hsba.h, saturation: 1.0, brightness: self.brightness, alpha: 1.0)
-            gradient.colors = [UIColor.black.cgColor, endColor.cgColor]
-            gradient.startPoint = CGPoint(x: 0.5, y: 1.0)
-            gradient.endPoint = CGPoint(x: 0.5, y: 0)
-            gradient.frame = self.bounds
+            self._gradientLayer.colors = [UIColor.black.cgColor, endColor.cgColor]
+            self._gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
+            self._gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
+            self._gradientLayer.frame = self.bounds
 
             let shape = CAShapeLayer()
             shape.path = path.cgPath
-            gradient.mask = shape
-            
-            self.layer.addSublayer(gradient)
+            self._gradientLayer.mask = shape
+            self.layer.addSublayer(self._gradientLayer)
         }
     }
     

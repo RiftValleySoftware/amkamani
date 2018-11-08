@@ -66,7 +66,33 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private var _ticker: Timer!
     private var _fontSizeCache: CGFloat = 0
     private var _currentlyEditingAlarmIndex: Int = -1
-
+    
+    /* ################################################################## */
+    /// This is the UIPickerView that is used to select the font.
+    @IBOutlet weak var fontDisplayPickerView: UIPickerView!
+    /// This is the UIPickerView that is used to select the color.
+    @IBOutlet weak var colorDisplayPickerView: UIPickerView!
+    /// This is the main view, holding the standard display items.
+    @IBOutlet weak var mainNumberDisplayView: UIView!
+    /// This is a normally hidden view that holds the color and font selection UIPickerViews
+    @IBOutlet weak var mainPickerContainerView: UIView!
+    /// This is the hidden slider for changing the brightness.
+    @IBOutlet weak var brightnessSlider: TheBestClockVerticalBrightnessSliderView!
+    /// This is the label that displays ante meridian (AM/PM).
+    @IBOutlet weak var amPmLabel: UILabel!
+    /// This is the label that displays today's date.
+    @IBOutlet weak var dateDisplayLabel: UILabel!
+    /// This view will hold our alarm displays.
+    @IBOutlet weak var alarmContainerView: UIView!
+    /// This is a view that will cover the screen if the user wants to edit an alarm.
+    @IBOutlet weak var editAlarmScreenContainer: UIView!
+    /// This is the date picker in the alarm time editor.
+    @IBOutlet weak var editAlarmTimeDatePicker: UIDatePicker!
+    /// This will be the container for the flashing view that appears when there's an alarm.
+    @IBOutlet weak var alarmDisplayView: UIView!
+    /// This is the view that will actually display the flashes.
+    @IBOutlet weak var flasherView: UIView!
+    
     /* ################################################################## */
     /**
      */
@@ -104,7 +130,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             
             for alarm in alarms {
                 let alarmButton = TheBestClockAlarmView(alarmRecord: alarm)
-                self.addAlarmView(alarmButton, percentage: percentage, previousView: prevButton)
+                self._addAlarmView(alarmButton, percentage: percentage, previousView: prevButton)
                 alarmButton.delegate = self
                 alarmButton.index = index
                 index += 1
@@ -132,7 +158,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     /**
      */
-    func addAlarmView(_ inSubView: TheBestClockAlarmView, percentage inPercentage: CGFloat, previousView inPreviousView: TheBestClockAlarmView!) {
+    private func _addAlarmView(_ inSubView: TheBestClockAlarmView, percentage inPercentage: CGFloat, previousView inPreviousView: TheBestClockAlarmView!) {
         self.alarmContainerView.addSubview(inSubView)
         self._alarmButtons.append(inSubView)
         inSubView.addTarget(self, action: #selector(type(of: self).alarmStateChanged(_:)), for: .valueChanged)
@@ -181,13 +207,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                attribute: .width,
                                multiplier: inPercentage,
                                constant: 1)])
-    }
-
-    /* ################################################################## */
-    /**
-     */
-    private func _getFontSize(_ inFontName: String, size inSize: CGSize) -> CGFloat {
-        return self.mainNumberDisplayView.bounds.size.height
     }
     
     /* ################################################################## */
@@ -253,19 +272,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     /**
      */
-    private func _flashDisplay(_ inUIColor: UIColor, duration: TimeInterval = 0.75) {
-        DispatchQueue.main.async {
-            self.alarmDisplayView.backgroundColor = inUIColor
-            self.alarmDisplayView.alpha = 1.0
-            UIView.animate(withDuration: duration, animations: {
-                self.alarmDisplayView.alpha = 0.0
-            })
-        }
-    }
-
-    /* ################################################################## */
-    /**
-     */
     private func _aooGah(_ inIndex: Int) {
         self.alarmDisplayView.isHidden = false
         self._flashDisplay(self._colorSelection[self.selectedColorIndex])
@@ -274,32 +280,24 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     /**
      */
-    private func _zzzz(_ inIndex: Int) {
-        print("zzzz-zzzz-zzzzz")
+    private func _flashDisplay(_ inUIColor: UIColor) {
+        self.flasherView.backgroundColor = inUIColor
+        self.flasherView.alpha = 0
+        UIView.animate(withDuration: 0.05, animations: { [unowned self] in
+            self.flasherView.alpha = 1.0
+        })
+        UIView.animate(withDuration: 0.7, animations: { [unowned self] in
+            self.flasherView.alpha = 0.0
+        })
     }
-    
-    /// This is the UIPickerView that is used to select the font.
-    @IBOutlet weak var fontDisplayPickerView: UIPickerView!
-    /// This is the UIPickerView that is used to select the color.
-    @IBOutlet weak var colorDisplayPickerView: UIPickerView!
-    /// This is the main view, holding the standard display items.
-    @IBOutlet weak var mainNumberDisplayView: UIView!
-    /// This is a normally hidden view that holds the color and font selection UIPickerViews
-    @IBOutlet weak var mainPickerContainerView: UIView!
-    /// This is the hidden slider for changing the brightness.
-    @IBOutlet weak var brightnessSlider: TheBestClockVerticalBrightnessSliderView!
-    /// This is the label that displays ante meridian (AM/PM).
-    @IBOutlet weak var amPmLabel: UILabel!
-    /// This is the label that displays today's date.
-    @IBOutlet weak var dateDisplayLabel: UILabel!
-    /// This view will hold our alarm displays.
-    @IBOutlet weak var alarmContainerView: UIView!
-    /// This is a view that will cover the screen if the user wants to edit an alarm.
-    @IBOutlet weak var editAlarmScreenContainer: UIView!
-    /// This is the date picker in the alarm time editor.
-    @IBOutlet weak var editAlarmTimeDatePicker: UIDatePicker!
-    /// This will be the flashing view that appears when there's an alarm.
-    @IBOutlet weak var alarmDisplayView: UIView!
+
+    /* ################################################################## */
+    /**
+     */
+    private func _zzzz(_ inIndex: Int) {
+        let sleepy = self._alarmButtons[inIndex]
+        sleepy.snore()
+    }
     
     /* ################################################################## */
     /**
@@ -402,7 +400,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func closeAlarmEditorScreen(_ sender: Any) {
         if 0 <= self._currentlyEditingAlarmIndex, self._prefs.alarms.count > self._currentlyEditingAlarmIndex {
             self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive = true
+            self._prefs.alarms[self._currentlyEditingAlarmIndex].snoozing = false
             self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isActive = true
+            self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.snoozing = false
             self._currentlyEditingAlarmIndex = -1
             self.editAlarmScreenContainer.isHidden = true
             self.updateMainTime()
@@ -569,12 +569,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     func startTicker() {
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
-        self._ticker = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [unowned self] _ in
-            DispatchQueue.main.async {
-                self.updateMainTime()
-                self._checkAlarmStatus()
-            }
-        }
+        self._ticker = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(type(of: self).checkTicker(_:)), userInfo: nil, repeats: true)
     }
 
     /* ################################################################## */
@@ -586,6 +581,17 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             UIApplication.shared.isIdleTimerDisabled = false
             self._ticker.invalidate()
             self._ticker = nil
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     This is called from the timer.
+     */
+    @objc func checkTicker(_ inTimer: Timer) {
+        DispatchQueue.main.async {
+            self.updateMainTime()
+            self._checkAlarmStatus()
         }
     }
 
