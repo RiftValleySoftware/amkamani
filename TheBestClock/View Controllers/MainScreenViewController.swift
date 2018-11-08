@@ -569,7 +569,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     func startTicker() {
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
-        self._ticker = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(type(of: self).checkTicker(_:)), userInfo: nil, repeats: true)
+        if nil == self._ticker {
+            self._ticker = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(type(of: self).checkTicker(_:)), userInfo: nil, repeats: true)
+        }
     }
 
     /* ################################################################## */
@@ -590,6 +592,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     @objc func checkTicker(_ inTimer: Timer) {
         DispatchQueue.main.async {
+            if !UIApplication.shared.isIdleTimerDisabled {
+                print("AAAUGH!")
+            }
             self.updateMainTime()
             self._checkAlarmStatus()
         }

@@ -56,6 +56,26 @@
                                     <outletCollection property="gestureRecognizers" destination="JuB-FM-I8Y" appends="YES" id="ehN-j8-H9E"/>
                                 </connections>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yuf-MI-OfS">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NOd-rj-VcR">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="NOd-rj-VcR" secondAttribute="bottom" id="3A6-pt-x4P"/>
+                                    <constraint firstItem="NOd-rj-VcR" firstAttribute="top" secondItem="yuf-MI-OfS" secondAttribute="top" id="AbE-DA-mxX"/>
+                                    <constraint firstItem="NOd-rj-VcR" firstAttribute="leading" secondItem="yuf-MI-OfS" secondAttribute="leading" id="HLv-TN-Rlv"/>
+                                    <constraint firstAttribute="trailing" secondItem="NOd-rj-VcR" secondAttribute="trailing" id="afw-V7-TrM"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="qzH-bp-wEr" appends="YES" id="dBE-2X-bxh"/>
+                                </connections>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e9A-iM-9M5">
                                 <rect key="frame" x="8" y="627" width="359" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -123,26 +143,6 @@
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="Hck-7h-yTT" appends="YES" id="t92-ru-51c"/>
                                     <outletCollection property="gestureRecognizers" destination="gdg-lB-Zmz" appends="YES" id="TEA-wW-7Cc"/>
-                                </connections>
-                            </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yuf-MI-OfS">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <subviews>
-                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NOd-rj-VcR">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="NOd-rj-VcR" secondAttribute="bottom" id="3A6-pt-x4P"/>
-                                    <constraint firstItem="NOd-rj-VcR" firstAttribute="top" secondItem="yuf-MI-OfS" secondAttribute="top" id="AbE-DA-mxX"/>
-                                    <constraint firstItem="NOd-rj-VcR" firstAttribute="leading" secondItem="yuf-MI-OfS" secondAttribute="leading" id="HLv-TN-Rlv"/>
-                                    <constraint firstAttribute="trailing" secondItem="NOd-rj-VcR" secondAttribute="trailing" id="afw-V7-TrM"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="qzH-bp-wEr" appends="YES" id="dBE-2X-bxh"/>
                                 </connections>
                             </view>
                         </subviews>
