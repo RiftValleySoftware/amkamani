@@ -56,6 +56,14 @@
                                     <outletCollection property="gestureRecognizers" destination="JuB-FM-I8Y" appends="YES" id="ehN-j8-H9E"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e9A-iM-9M5">
+                                <rect key="frame" x="8" y="627" width="359" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="eV1-kN-N9n"/>
+                                </constraints>
+                            </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yuf-MI-OfS">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
@@ -74,15 +82,8 @@
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="qzH-bp-wEr" appends="YES" id="dBE-2X-bxh"/>
+                                    <outletCollection property="gestureRecognizers" destination="yOI-ks-4mc" appends="YES" id="3CY-Vv-Z40"/>
                                 </connections>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e9A-iM-9M5">
-                                <rect key="frame" x="8" y="627" width="359" height="40"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="eV1-kN-N9n"/>
-                                </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDL-S8-BKg">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
@@ -97,6 +98,19 @@
                                         <rect key="frame" x="88" y="0.0" width="287" height="647"/>
                                         <gestureRecognizers/>
                                     </pickerView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZl-tK-oiX">
+                                        <rect key="frame" x="345" y="617" width="22" height="22"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="22" id="8Fl-m9-Yh3"/>
+                                            <constraint firstAttribute="height" constant="22" id="h34-Cv-fmL"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="openInfo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jqY-vv-TGO"/>
+                                            <outletCollection property="gestureRecognizers" destination="ibw-BF-gbI" appends="YES" id="x7I-kr-yP0"/>
+                                            <outletCollection property="gestureRecognizers" destination="Ohm-3E-kKF" appends="YES" id="NpP-9A-Urz"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -105,8 +119,10 @@
                                     <constraint firstAttribute="trailing" secondItem="5Ot-f1-EK6" secondAttribute="trailing" id="36s-0v-j2N"/>
                                     <constraint firstItem="5Ot-f1-EK6" firstAttribute="leading" secondItem="kZZ-i4-PZy" secondAttribute="trailing" constant="8" id="Nme-eL-dKb"/>
                                     <constraint firstItem="5Ot-f1-EK6" firstAttribute="top" secondItem="KDL-S8-BKg" secondAttribute="top" id="S9p-ty-QGr"/>
+                                    <constraint firstAttribute="trailing" secondItem="SZl-tK-oiX" secondAttribute="trailing" constant="8" id="WvP-fy-IcC"/>
                                     <constraint firstAttribute="bottom" secondItem="5Ot-f1-EK6" secondAttribute="bottom" id="Wxw-pB-XlK"/>
                                     <constraint firstItem="kZZ-i4-PZy" firstAttribute="leading" secondItem="KDL-S8-BKg" secondAttribute="leading" id="m7L-7u-LPQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="SZl-tK-oiX" secondAttribute="bottom" constant="8" id="nwI-Hc-yOA"/>
                                     <constraint firstAttribute="bottom" secondItem="kZZ-i4-PZy" secondAttribute="bottom" id="ouF-tl-jNY"/>
                                     <constraint firstItem="kZZ-i4-PZy" firstAttribute="top" secondItem="KDL-S8-BKg" secondAttribute="top" id="vnR-aU-Oni"/>
                                 </constraints>
@@ -118,27 +134,51 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g5Y-c0-3tI">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
-                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Epq-FZ-noz">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="162"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SpK-gg-rNb">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
+                                        <subviews>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Epq-FZ-noz">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="216"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="gQC-pg-9Lp"/>
+                                                </constraints>
+                                                <date key="date" timeIntervalSinceReferenceDate="563297011.76202798">
+                                                    <!--2018-11-07 15:23:31 +0000-->
+                                                </date>
+                                                <connections>
+                                                    <action selector="alarmTimeDatePickerChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="WEV-hf-zyM"/>
+                                                </connections>
+                                            </datePicker>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="gQC-pg-9Lp"/>
+                                            <constraint firstAttribute="trailing" secondItem="Epq-FZ-noz" secondAttribute="trailing" id="BgS-kX-wPE"/>
+                                            <constraint firstItem="Epq-FZ-noz" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="fKl-1J-Cri"/>
+                                            <constraint firstItem="Epq-FZ-noz" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="top" id="lAn-pP-Gow"/>
                                         </constraints>
-                                        <date key="date" timeIntervalSinceReferenceDate="563297011.76202798">
-                                            <!--2018-11-07 15:23:31 +0000-->
-                                        </date>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="43b-Pc-iFX">
+                                        <rect key="frame" x="0.0" y="607" width="375" height="40"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="XXO-zr-CMc"/>
+                                        </constraints>
                                         <connections>
-                                            <action selector="alarmTimeDatePickerChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="WEV-hf-zyM"/>
+                                            <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pSu-7g-ckf"/>
                                         </connections>
-                                    </datePicker>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Epq-FZ-noz" secondAttribute="trailing" id="2FJ-rH-g9j"/>
-                                    <constraint firstItem="Epq-FZ-noz" firstAttribute="height" secondItem="g5Y-c0-3tI" secondAttribute="height" multiplier="0.25" priority="999" id="7Lc-Fq-Z10"/>
-                                    <constraint firstItem="Epq-FZ-noz" firstAttribute="leading" secondItem="g5Y-c0-3tI" secondAttribute="leading" id="hcF-MD-DAY"/>
-                                    <constraint firstItem="Epq-FZ-noz" firstAttribute="top" secondItem="g5Y-c0-3tI" secondAttribute="top" id="xIc-pJ-4e9"/>
+                                    <constraint firstItem="43b-Pc-iFX" firstAttribute="leading" secondItem="g5Y-c0-3tI" secondAttribute="leading" id="5bF-TI-NUT"/>
+                                    <constraint firstItem="SpK-gg-rNb" firstAttribute="top" secondItem="g5Y-c0-3tI" secondAttribute="top" id="Cyp-Ht-WjZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="SpK-gg-rNb" secondAttribute="trailing" id="XwG-rh-s7B"/>
+                                    <constraint firstItem="SpK-gg-rNb" firstAttribute="leading" secondItem="g5Y-c0-3tI" secondAttribute="leading" id="d63-90-lQk"/>
+                                    <constraint firstAttribute="bottom" secondItem="43b-Pc-iFX" secondAttribute="bottom" id="meP-3o-aND"/>
+                                    <constraint firstAttribute="trailing" secondItem="43b-Pc-iFX" secondAttribute="trailing" id="mmV-Jg-HyN"/>
+                                    <constraint firstAttribute="bottom" secondItem="SpK-gg-rNb" secondAttribute="bottom" constant="40" id="wSl-nO-IEp"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="Hck-7h-yTT" appends="YES" id="t92-ru-51c"/>
@@ -185,18 +225,22 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
-                        <outlet property="alarmContainerView" destination="e9A-iM-9M5" id="Bxt-A5-lw9"/>
+                        <outlet property="alarmContainerView" destination="e9A-iM-9M5" id="6UP-GQ-yr1"/>
                         <outlet property="alarmDisplayView" destination="yuf-MI-OfS" id="3SH-Af-kbr"/>
                         <outlet property="amPmLabel" destination="pSU-VZ-odd" id="QvK-BM-h5v"/>
                         <outlet property="brightnessSlider" destination="7io-PK-JhC" id="AAh-kC-gSO"/>
                         <outlet property="colorDisplayPickerView" destination="kZZ-i4-PZy" id="pKh-sI-pln"/>
                         <outlet property="dateDisplayLabel" destination="qOc-ks-FdF" id="CL8-LF-o4o"/>
+                        <outlet property="dismissAlarmEditorButton" destination="43b-Pc-iFX" id="gqq-VL-6MR"/>
                         <outlet property="editAlarmScreenContainer" destination="g5Y-c0-3tI" id="rwd-Vp-EnO"/>
+                        <outlet property="editAlarmScreenMaskView" destination="SpK-gg-rNb" id="zOB-Xb-8pg"/>
                         <outlet property="editAlarmTimeDatePicker" destination="Epq-FZ-noz" id="GuW-2j-icQ"/>
                         <outlet property="flasherView" destination="NOd-rj-VcR" id="qY1-CC-fTM"/>
                         <outlet property="fontDisplayPickerView" destination="5Ot-f1-EK6" id="giA-vX-QuX"/>
+                        <outlet property="infoButton" destination="SZl-tK-oiX" id="cQy-hO-Vx1"/>
                         <outlet property="mainNumberDisplayView" destination="tA9-HM-M61" id="4MX-Vs-nAa"/>
                         <outlet property="mainPickerContainerView" destination="KDL-S8-BKg" id="Qml-Ag-nxF"/>
+                        <segue destination="7ze-OY-b4R" kind="presentation" identifier="open-info" id="U3E-Be-YOf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -242,8 +286,39 @@
                         <action selector="hitTheSnooze:" destination="BYZ-38-t0r" id="Ob9-eX-P6D"/>
                     </connections>
                 </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="yOI-ks-4mc">
+                    <connections>
+                        <action selector="shutUpAlready:" destination="BYZ-38-t0r" id="bhg-yw-V5Z"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ibw-BF-gbI"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="Ohm-3E-kKF"/>
             </objects>
             <point key="canvasLocation" x="317.60000000000002" y="43.628185907046479"/>
+        </scene>
+        <!--The Best Clock About Screen View Controller-->
+        <scene sceneID="iYY-ZI-elm">
+            <objects>
+                <viewController id="7ze-OY-b4R" customClass="TheBestClockAboutScreenViewController" customModule="TheBestClock" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LbW-TP-6mb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                        <viewLayoutGuide key="safeArea" id="GgS-f6-WgC"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="XeW-dk-bdd" appends="YES" id="G14-T6-Bwo"/>
+                        </connections>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j4c-lY-58v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="XeW-dk-bdd">
+                    <connections>
+                        <action selector="dismissTapped:" destination="7ze-OY-b4R" id="BHZ-1Q-nN1"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1212" y="44"/>
         </scene>
     </scenes>
 </document>

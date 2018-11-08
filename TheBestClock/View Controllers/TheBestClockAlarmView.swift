@@ -205,10 +205,10 @@ class TheBestClockAlarmView: UIControl {
      */
     func snore() {
         let oldAlpha = self.displayLabel.alpha
-        UIView.animate(withDuration: 0.5, animations: { [unowned self] in
-            self.displayLabel.alpha = 0.25
+        UIView.animate(withDuration: 0.2, animations: { [unowned self] in
+            self.displayLabel.alpha = 0.125
         })
-        UIView.animate(withDuration: 0.5, animations: { [unowned self] in
+        UIView.animate(withDuration: 0.75, animations: { [unowned self] in
             self.displayLabel.alpha = oldAlpha
         })
     }

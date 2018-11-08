@@ -117,6 +117,27 @@ extension UIView {
     }
 }
 
+/* ###################################################################################################################################### */
+/**
+ */
+extension UIImage {
+    /* ################################################################## */
+    /**
+     From here: https://stackoverflow.com/a/33675160/879365
+     */
+    public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        color.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        guard let cgImage = image?.cgImage else { return nil }
+        self.init(cgImage: cgImage)
+    }
+}
+
 /* ################################################################################################################################## */
 // MARK: - Prefs Class -
 /* ###################################################################################################################################### */
@@ -314,9 +335,15 @@ class TheBestClockPrefs {
             }
             
             set {
-                var now = Date()
-                now.addTimeInterval(TimeInterval(self._snoozeTimeInMinutes * 60))
-                self.lastSnoozeTime = newValue ? now : nil
+                if self.isActive, self.alarming, newValue {
+                    var now = Date()
+                    now.addTimeInterval(TimeInterval(self._snoozeTimeInMinutes * 60))
+                    self.lastSnoozeTime = now
+                } else {
+                    if !newValue || !self.isActive {
+                        self.lastSnoozeTime = nil
+                    }
+                }
             }
         }
         
@@ -353,15 +380,21 @@ class TheBestClockPrefs {
     var alarms: [TheBestClockAlarmSetting] {
         get {
             if self._alarms.isEmpty {
+                for _ in 0..<self._numberOfAlarms {
+                    self._alarms.append(TheBestClockAlarmSetting())
+                }
                 if self._loadPrefs() {
                     if let unarchivedObject = self._loadedPrefs.object(forKey: type(of: self).PrefsKeys.alarms.rawValue) as? Data {
                         if let alarms = NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject) as? [TheBestClockAlarmSetting] {
                             self._alarms = alarms
                         }
-                    }
-                } else {
-                    for _ in 0..<self._numberOfAlarms {
-                        self._alarms.append(TheBestClockAlarmSetting())
+                        
+                        // We do this if we have an issue with the loaded prefs.
+                        if self._alarms.isEmpty || self._alarms.count != self._numberOfAlarms {
+                            for _ in 0..<self._numberOfAlarms {
+                                self._alarms.append(TheBestClockAlarmSetting())
+                            }
+                        }
                     }
                 }
             }

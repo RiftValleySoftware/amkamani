@@ -20,6 +20,7 @@
 		D46F84602190CA1F0026C9AD /* TheBestClockMainDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */; };
 		D46F84622190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */; };
 		D487C1062191CE2F00FBDC77 /* TheBestClockPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C1052191CE2E00FBDC77 /* TheBestClockPrefs.swift */; };
+		D4D4AD462194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4AD452194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift */; };
 		D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockVerticalBrightnessSliderView.swift; sourceTree = "<group>"; };
 		D487C1052191CE2E00FBDC77 /* TheBestClockPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockPrefs.swift; sourceTree = "<group>"; };
 		D4B704062190B9940094E320 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "Pods/Reveal-SDK/RevealServer-19/iOS/RevealServer.framework"; sourceTree = "<group>"; };
+		D4D4AD452194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockAboutScreenViewController.swift; sourceTree = "<group>"; };
 		D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "let's go digital regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -188,6 +190,7 @@
 				D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */,
 				D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */,
 				D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */,
+				D4D4AD452194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				D422FE3E21922C5E0022423B /* TheBestClockAlarmView.swift in Sources */,
 				D46F84602190CA1F0026C9AD /* TheBestClockMainDisplayView.swift in Sources */,
 				D4135998218E763F00768430 /* TheBestClockAppDelegate.swift in Sources */,
+				D4D4AD462194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
