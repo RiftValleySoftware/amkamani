@@ -180,6 +180,167 @@ extension UIImage {
 }
 
 /* ################################################################################################################################## */
+// MARK: Alarm Class
+/* ################################################################################################################################## */
+/**
+ */
+class TheBestClockAlarmSetting: NSObject, NSCoding {
+    /* ################################################################## */
+    /** These are the keys we use for our alarms dictionary. */
+    private enum AlarmPrefsKeys: String {
+        case alarmTime, isActive, isVibrateOn, selectedSoundMode, selectedSoundIndex
+    }
+    
+    private let _snoozeTimeInMinutes: Int = 9
+    private let _alarmTimeInMinutes: Int = 15
+    
+    var alarmTime: Int = 0
+    var isVibrateOn: Bool = false
+    var selectedSoundMode: Int = 0
+    var selectedSoundIndex: Int = 0
+    var isActive: Bool = false {
+        didSet {
+            if !self.isActive || (self.isActive != oldValue) {
+                self.lastSnoozeTime = nil
+            }
+        }
+    }
+
+    var lastSnoozeTime: Date!
+
+    /* ################################################################## */
+    /**
+     */
+    func encode(with aCoder: NSCoder) {
+        let alarmTime = NSNumber(value: self.alarmTime)
+        aCoder.encode(alarmTime, forKey: AlarmPrefsKeys.alarmTime.rawValue)
+        let isActive = NSNumber(value: self.isActive)
+        aCoder.encode(isActive, forKey: AlarmPrefsKeys.isActive.rawValue)
+        let isVibrateOn = NSNumber(value: self.isVibrateOn)
+        aCoder.encode(isVibrateOn, forKey: AlarmPrefsKeys.isVibrateOn.rawValue)
+        let selectedSoundIndex = NSNumber(value: self.selectedSoundIndex)
+        aCoder.encode(selectedSoundIndex, forKey: AlarmPrefsKeys.selectedSoundIndex.rawValue)
+        let selectedSoundMode = NSNumber(value: self.selectedSoundMode)
+        aCoder.encode(selectedSoundMode, forKey: AlarmPrefsKeys.selectedSoundMode.rawValue)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override init() {
+        super.init()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    init (alarmRecord inAlarmToCopy: TheBestClockAlarmSetting) {
+        super.init()
+        self.selectedSoundMode = inAlarmToCopy.selectedSoundMode
+        self.selectedSoundIndex = inAlarmToCopy.selectedSoundIndex
+        self.isVibrateOn = inAlarmToCopy.isVibrateOn
+        self.isActive = inAlarmToCopy.isActive
+        self.alarmTime = inAlarmToCopy.alarmTime
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    required init?(coder aDecoder: NSCoder) {
+        super.init()
+        
+        if let selectedSoundMode = aDecoder.decodeObject(forKey: AlarmPrefsKeys.selectedSoundMode.rawValue) as? NSNumber {
+            self.selectedSoundMode = selectedSoundMode.intValue
+        }
+        
+        if let selectedSoundIndex = aDecoder.decodeObject(forKey: AlarmPrefsKeys.selectedSoundIndex.rawValue) as? NSNumber {
+            self.selectedSoundIndex = selectedSoundIndex.intValue
+        }
+        
+        if let isVibrateOn = aDecoder.decodeObject(forKey: AlarmPrefsKeys.isVibrateOn.rawValue) as? NSNumber {
+            self.isVibrateOn = isVibrateOn.boolValue
+        }
+        
+        if let isActive = aDecoder.decodeObject(forKey: AlarmPrefsKeys.isActive.rawValue) as? NSNumber {
+            self.isActive = isActive.boolValue
+        }
+        
+        if let alarmTime = aDecoder.decodeObject(forKey: AlarmPrefsKeys.alarmTime.rawValue) as? NSNumber {
+            self.alarmTime = alarmTime.intValue
+        } else {
+            self.alarmTime = 0
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override var description: String {
+        return "[isActive: " + (self.isActive ? "true" : "false") + ", time: \(self.alarmTime), isVibrateOn: \(self.isVibrateOn), selectedSoundIndex: \(self.selectedSoundIndex), selectedSoundMode: \(self.selectedSoundMode)]"
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    var snoozing: Bool {
+        get {
+            return nil != self.lastSnoozeTime
+        }
+        
+        set {
+            if self.isActive, newValue {
+                var now = Date()
+                now.addTimeInterval(TimeInterval(self._snoozeTimeInMinutes * 60))
+                self.lastSnoozeTime = now
+            } else {
+                if (!newValue || !self.isActive) && nil != self.lastSnoozeTime {
+                    self.lastSnoozeTime = nil
+                }
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    var alarming: Bool {
+        let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: Date())
+        if self.isActive, let hour = dateComponents.hour, let minute = dateComponents.minute {
+            if self.snoozing {
+                let interval = self.lastSnoozeTime.timeIntervalSinceNow
+                if 0 > interval {
+                    return true
+                }
+            } else {
+                var meTime = hour * 100 + minute
+                if self._alarmTimeInMinutes > meTime {
+                    meTime = 2400 + meTime - self._alarmTimeInMinutes
+                }
+                
+                var alarmTimeHours = self.alarmTime / 100
+                let alarmTimeMinutes = self.alarmTime - (alarmTimeHours * 100)
+                var newAlarmTimeMinutes = alarmTimeMinutes + self._alarmTimeInMinutes
+                
+                while 60 < newAlarmTimeMinutes {
+                    alarmTimeHours += 1
+                    newAlarmTimeMinutes -= 60
+                }
+                
+                while 2359 < alarmTimeHours {
+                    alarmTimeHours -= 24
+                }
+                
+                let timeRange = self.alarmTime..<(alarmTimeHours * 100 + newAlarmTimeMinutes)
+                
+                return timeRange.contains(meTime)
+            }
+        }
+        
+        return false
+    }
+}
+
+/* ################################################################################################################################## */
 // MARK: - Prefs Class -
 /* ###################################################################################################################################### */
 /**
@@ -210,21 +371,7 @@ class TheBestClockPrefs {
     }
     
     /* ################################################################## */
-    /** These are the keys we use for our alarms dictionary. */
-    private enum AlarmPrefsKeys: String {
-        case alarmTime, isActive, isVibrateOn
-    }
-
-    /* ################################################################## */
     // MARK: Private Instance Methods
-    /* ################################################################## */
-    /**
-     This method simply saves the main preferences Dictionary into the standard user defaults.
-     */
-    private func _savePrefs() {
-        UserDefaults.standard.set(self._loadedPrefs, forKey: type(of: self)._mainPrefsKey)
-    }
-    
     /* ################################################################## */
     /**
      This method loads the main prefs into our instance storage.
@@ -236,8 +383,22 @@ class TheBestClockPrefs {
     private func _loadPrefs() -> Bool {
         if let temp = UserDefaults.standard.object(forKey: type(of: self)._mainPrefsKey) as? NSDictionary {
             self._loadedPrefs = NSMutableDictionary(dictionary: temp)
+            for index in 0..<self._numberOfAlarms {
+                if self._alarms.count == index {
+                    self._alarms.append(TheBestClockAlarmSetting())
+                }
+                if let unarchivedObject = self._loadedPrefs.object(forKey: (type(of: self).PrefsKeys.alarms.rawValue + String(index)) as NSString) as? Data {
+                    if let alarm = NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject) as? TheBestClockAlarmSetting {
+                        self._alarms[index] = alarm
+                    }
+                }
+            }
         } else {
             self._loadedPrefs = NSMutableDictionary()
+        }
+        
+        for index in 0..<self._numberOfAlarms where self._alarms.count == index {
+            self._alarms.append(TheBestClockAlarmSetting())
         }
         
         return nil != self._loadedPrefs
@@ -302,131 +463,6 @@ class TheBestClockPrefs {
         }
         return weekdaySymbols[index].firstUppercased
     }
-    
-    /* ################################################################## */
-    // MARK: Internal Owned Classes
-    /* ################################################################## */
-    /**
-     */
-    @objc(_TtCC12TheBestClock24MainScreenViewController24TheBestClockAlarmSetting)class TheBestClockAlarmSetting: NSObject, NSCoding {
-        private let _snoozeTimeInMinutes: Int = 9
-        private let _alarmTimeInMinutes: Int = 15
-
-        var alarmTime: Int = 0
-        var lastSnoozeTime: Date!
-        var isVibrateOn: Bool = false
-        var isActive: Bool = false {
-            didSet {
-                if !self.isActive || self.isActive != oldValue {
-                    self.lastSnoozeTime = nil
-                }
-            }
-        }
-        
-        /* ################################################################## */
-        /**
-         */
-        func encode(with aCoder: NSCoder) {
-            aCoder.encode(self.alarmTime as NSNumber, forKey: TheBestClockPrefs.AlarmPrefsKeys.alarmTime.rawValue)
-            aCoder.encode(self.isActive as NSNumber, forKey: TheBestClockPrefs.AlarmPrefsKeys.isActive.rawValue)
-            aCoder.encode(self.isVibrateOn as NSNumber, forKey: TheBestClockPrefs.AlarmPrefsKeys.isVibrateOn.rawValue)
-        }
-        
-        /* ################################################################## */
-        /**
-         */
-        override init() {
-            super.init()
-        }
-        
-        /* ################################################################## */
-        /**
-         */
-        required init?(coder aDecoder: NSCoder) {
-            super.init()
-
-            if let isVibrateOn = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.isVibrateOn.rawValue) as? NSNumber {
-                self.isVibrateOn = isVibrateOn.boolValue
-            }
-
-            if let isActive = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.isActive.rawValue) as? NSNumber {
-                self.isActive = isActive.boolValue
-            }
-
-            if let alarmTime = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.alarmTime.rawValue) as? NSNumber {
-                self.alarmTime = alarmTime.intValue
-            } else {
-                self.alarmTime = 0
-            }
-        }
-        
-        /* ################################################################## */
-        /**
-         */
-        override var description: String {
-            return "isActive: " + (self.isActive ? "true" : "false") + ", time: \(self.alarmTime), isVibrateOn: \(self.isVibrateOn)"
-        }
-        
-        /* ################################################################## */
-        /**
-         */
-        var snoozing: Bool {
-            get {
-                return nil != self.lastSnoozeTime
-            }
-            
-            set {
-                if self.isActive, self.alarming, newValue {
-                    var now = Date()
-                    now.addTimeInterval(TimeInterval(self._snoozeTimeInMinutes * 60))
-                    self.lastSnoozeTime = now
-                } else {
-                    if !newValue || !self.isActive {
-                        self.lastSnoozeTime = nil
-                    }
-                }
-            }
-        }
-
-        /* ################################################################## */
-        /**
-         */
-        var alarming: Bool {
-            let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: Date())
-            if self.isActive, let hour = dateComponents.hour, let minute = dateComponents.minute {
-                if self.snoozing {
-                    let interval = self.lastSnoozeTime.timeIntervalSinceNow
-                    if 0 > interval {
-                        return true
-                    }
-                } else {
-                    var meTime = hour * 100 + minute
-                    if self._alarmTimeInMinutes > meTime {
-                        meTime = 2400 + meTime - self._alarmTimeInMinutes
-                    }
-                    
-                    var alarmTimeHours = self.alarmTime / 100
-                    let alarmTimeMinutes = self.alarmTime - (alarmTimeHours * 100)
-                    var newAlarmTimeMinutes = alarmTimeMinutes + self._alarmTimeInMinutes
-                    
-                    while 60 < newAlarmTimeMinutes {
-                        alarmTimeHours += 1
-                        newAlarmTimeMinutes -= 60
-                    }
-                    
-                    while 2359 < alarmTimeHours {
-                        alarmTimeHours -= 24
-                    }
-                    
-                    let timeRange = self.alarmTime..<(alarmTimeHours * 100 + newAlarmTimeMinutes)
-                    
-                    return timeRange.contains(meTime)
-                }
-            }
-
-            return false
-        }
-    }
 
     /* ################################################################## */
     /**
@@ -434,36 +470,11 @@ class TheBestClockPrefs {
      */
     var alarms: [TheBestClockAlarmSetting] {
         get {
-            if self._alarms.isEmpty {
-                for _ in 0..<self._numberOfAlarms {
-                    self._alarms.append(TheBestClockAlarmSetting())
-                }
-                if self._loadPrefs() {
-                    if let unarchivedObject = self._loadedPrefs.object(forKey: type(of: self).PrefsKeys.alarms.rawValue) as? Data {
-                        if let alarms = NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject) as? [TheBestClockAlarmSetting] {
-                            self._alarms = alarms
-                        }
-                        
-                        // We do this if we have an issue with the loaded prefs.
-                        if self._alarms.isEmpty || self._alarms.count != self._numberOfAlarms {
-                            for _ in 0..<self._numberOfAlarms {
-                                self._alarms.append(TheBestClockAlarmSetting())
-                            }
-                        }
-                    }
-                }
-            }
-            
             return self._alarms
         }
         
         set {
             self._alarms = newValue
-            if self._loadPrefs() {
-                let archivedObject = NSKeyedArchiver.archivedData(withRootObject: self._alarms)
-                self._loadedPrefs.setObject(archivedObject, forKey: type(of: self).PrefsKeys.alarms.rawValue as NSString)
-                self._savePrefs()
-            }
         }
     }
     
@@ -489,7 +500,7 @@ class TheBestClockPrefs {
             if self._loadPrefs() {
                 let value = NSNumber(value: newValue)
                 self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.selectedColor.rawValue as NSString)
-                self._savePrefs()
+                self.savePrefs()
             }
         }
     }
@@ -514,7 +525,7 @@ class TheBestClockPrefs {
             if self._loadPrefs() {
                 let value = NSNumber(value: newValue)
                 self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.selectedFont.rawValue as NSString)
-                self._savePrefs()
+                self.savePrefs()
             }
         }
     }
@@ -539,7 +550,7 @@ class TheBestClockPrefs {
             if self._loadPrefs() {
                 let value = NSNumber(value: Float(newValue))
                 self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.brightnessLevel.rawValue as NSString)
-                self._savePrefs()
+                self.savePrefs()
             }
         }
     }
@@ -564,8 +575,20 @@ class TheBestClockPrefs {
             if self._loadPrefs() {
                 let value = newValue
                 self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.playlistID.rawValue as NSString)
-                self._savePrefs()
+                self.savePrefs()
             }
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     This method simply saves the main preferences Dictionary into the standard user defaults.
+     */
+    func savePrefs() {
+        for index in 0..<self._alarms.count {
+            let archivedObject = NSKeyedArchiver.archivedData(withRootObject: self._alarms[index])
+            self._loadedPrefs.setObject(archivedObject, forKey: (type(of: self).PrefsKeys.alarms.rawValue + String(index)) as NSString)
+        }
+        UserDefaults.standard.set(self._loadedPrefs, forKey: type(of: self)._mainPrefsKey)
     }
 }

@@ -28,7 +28,7 @@ class TheBestClockAlarmView: UIControl {
     weak var delegate: TheBestClockAlarmViewDelegate!
     var index: Int = 0
     /// This holds our state for the alarm we're displaying.
-    var alarmRecord: TheBestClockPrefs.TheBestClockAlarmSetting!
+    var alarmRecord: TheBestClockAlarmSetting!
     var fontName: String = ""
     var fontColor: UIColor!
     var brightness: CGFloat = 1.0
@@ -47,7 +47,7 @@ class TheBestClockAlarmView: UIControl {
     /**
      */
     init(   frame inFrame: CGRect = CGRect.zero,
-            alarmRecord inAlarmRecord: TheBestClockPrefs.TheBestClockAlarmSetting
+            alarmRecord inAlarmRecord: TheBestClockAlarmSetting
         ) {
         super.init(frame: inFrame)
         self.alarmRecord = inAlarmRecord
@@ -167,6 +167,9 @@ class TheBestClockAlarmView: UIControl {
         if let touchLocation = inTouch?.location(in: self) {
             if self.bounds.contains(touchLocation) {
                 self.alarmRecord.isActive = !self.alarmRecord.isActive
+                if !self.alarmRecord.isActive {
+                    self.alarmRecord.snoozing = false
+                }
                 DispatchQueue.main.async {
                     self.sendActions(for: .valueChanged)
                 }

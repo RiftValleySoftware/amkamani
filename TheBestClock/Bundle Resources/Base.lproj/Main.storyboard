@@ -193,10 +193,38 @@
                                                     <action selector="vibrateButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rp5-7w-vad"/>
                                                 </connections>
                                             </button>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="anU-SX-fsT">
+                                                <rect key="frame" x="8" y="166" width="359" height="29"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="28" id="J8q-Kb-gUm"/>
+                                                </constraints>
+                                                <segments>
+                                                    <segment title="LOCAL-SOUNDS"/>
+                                                    <segment title="LOCAL-PLAYLIST"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="soundModeChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="kPB-ta-ptr"/>
+                                                </connections>
+                                            </segmentedControl>
+                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZW-w9-tN7">
+                                                <rect key="frame" x="8" y="202" width="359" height="80"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="aKm-VT-E81"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="O2d-FG-ckt"/>
+                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="toe-pT-XQS"/>
+                                                </connections>
+                                            </pickerView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="anU-SX-fsT" firstAttribute="top" secondItem="ocx-Nd-os6" secondAttribute="bottom" constant="8" id="1yi-Kf-Kh7"/>
+                                            <constraint firstAttribute="trailing" secondItem="anU-SX-fsT" secondAttribute="trailing" constant="8" id="5Ef-jS-WXx"/>
+                                            <constraint firstItem="FZW-w9-tN7" firstAttribute="top" secondItem="anU-SX-fsT" secondAttribute="bottom" constant="8" id="BkR-4D-usx"/>
+                                            <constraint firstItem="FZW-w9-tN7" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="Ezi-sf-Flg"/>
                                             <constraint firstItem="JKA-TF-KPA" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="Fy7-dl-Xhu"/>
+                                            <constraint firstAttribute="trailing" secondItem="FZW-w9-tN7" secondAttribute="trailing" constant="8" id="Ik7-iV-3BN"/>
                                             <constraint firstItem="N79-EU-S3q" firstAttribute="centerY" secondItem="JKA-TF-KPA" secondAttribute="centerY" id="Kcs-Qc-Upa"/>
                                             <constraint firstAttribute="trailing" secondItem="Epq-FZ-noz" secondAttribute="trailing" id="L4n-9N-Ve9"/>
                                             <constraint firstItem="ocx-Nd-os6" firstAttribute="top" secondItem="Epq-FZ-noz" secondAttribute="bottom" constant="8" id="LRa-kH-DaJ"/>
@@ -214,6 +242,7 @@
                                             <constraint firstItem="N79-EU-S3q" firstAttribute="leading" secondItem="JKA-TF-KPA" secondAttribute="trailing" constant="8" id="iVe-Oa-d3m"/>
                                             <constraint firstItem="KIX-rh-aQ5" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="kKJ-KD-1VW"/>
                                             <constraint firstItem="N79-EU-S3q" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="qfX-65-Wdk"/>
+                                            <constraint firstItem="anU-SX-fsT" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="ulg-X2-bBG"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="43b-Pc-iFX">
@@ -286,6 +315,7 @@
                     <connections>
                         <outlet property="alarmContainerView" destination="e9A-iM-9M5" id="6UP-GQ-yr1"/>
                         <outlet property="alarmDisplayView" destination="yuf-MI-OfS" id="3SH-Af-kbr"/>
+                        <outlet property="alarmEditSoundModeSelector" destination="anU-SX-fsT" id="8p4-cz-h6l"/>
                         <outlet property="alarmEditorActiveButton" destination="N79-EU-S3q" id="oPw-fK-sXc"/>
                         <outlet property="alarmEditorActiveSwitch" destination="JKA-TF-KPA" id="q1d-ZX-hjq"/>
                         <outlet property="alarmEditorDoneButton" destination="KIX-rh-aQ5" id="TN9-VE-O8N"/>
@@ -296,6 +326,7 @@
                         <outlet property="colorDisplayPickerView" destination="kZZ-i4-PZy" id="pKh-sI-pln"/>
                         <outlet property="dateDisplayLabel" destination="qOc-ks-FdF" id="CL8-LF-o4o"/>
                         <outlet property="dismissAlarmEditorButton" destination="43b-Pc-iFX" id="gqq-VL-6MR"/>
+                        <outlet property="editAlarmPickerView" destination="FZW-w9-tN7" id="gZw-aM-4NI"/>
                         <outlet property="editAlarmScreenContainer" destination="g5Y-c0-3tI" id="rwd-Vp-EnO"/>
                         <outlet property="editAlarmScreenMaskView" destination="SpK-gg-rNb" id="zOB-Xb-8pg"/>
                         <outlet property="editAlarmTimeDatePicker" destination="Epq-FZ-noz" id="GuW-2j-icQ"/>

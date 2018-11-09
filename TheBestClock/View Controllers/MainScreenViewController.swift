@@ -76,6 +76,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private var _alarmButtons: [TheBestClockAlarmView] = []
     private var _fontSelection: [String] = []
     private var _colorSelection: [UIColor] = []
+    private var _soundSelection: [String] = []
     private var _backgroundColor: UIColor = UIColor.gray
     private var _ticker: Timer!
     private var _fontSizeCache: CGFloat = 0
@@ -124,36 +125,28 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var alarmEditorVibrateBeepSwitch: UISwitch!
     /// This is the localized label for that switch, but we make it a button, so it can be used to trigger the switch.
     @IBOutlet weak var alarmEditorVibrateButton: UIButton!
+    /// This is the segmented switch that selects the type of sounds we'll use.
+    @IBOutlet weak var alarmEditSoundModeSelector: UISegmentedControl!
+    /// This is the picker view we use to select playback sounds for the alarm.
+    @IBOutlet weak var editAlarmPickerView: UIPickerView!
     
     /* ################################################################## */
     // MARK: - Instance Properties
     /* ################################################################## */
     /**
      */
-    var selectedFontIndex: Int = 0 {
-        didSet {
-            self._prefs?.selectedFont = self.selectedFontIndex
-        }
-    }
+    var selectedFontIndex: Int = 0
     
     /* ################################################################## */
     /**
      */
-    var selectedColorIndex: Int = 0 {
-        didSet {
-            self._prefs?.selectedColor = self.selectedColorIndex
-        }
-    }
+    var selectedColorIndex: Int = 0
     
     /* ################################################################## */
     /**
      */
-    var selectedBrightness: CGFloat = 1.0 {
-        didSet {
-            self._prefs?.brightnessLevel = min(1.0, self.selectedBrightness)
-        }
-    }
-    
+    var selectedBrightness: CGFloat = 1.0
+
     /* ################################################################## */
     // MARK: - Instance Calculated Properties
     /* ################################################################## */
@@ -237,7 +230,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self._alarmButtons = []
         
         if !alarms.isEmpty {
-            let percentage = CGFloat(1) / CGFloat(alarms.count)   // THis will be used for our auto-layout stuff.
+            let percentage = CGFloat(1) / CGFloat(alarms.count)   // This will be used for our auto-layout stuff.
             var prevButton: TheBestClockAlarmView!
             var index = 0
             
@@ -274,7 +267,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private func _addAlarmView(_ inSubView: TheBestClockAlarmView, percentage inPercentage: CGFloat, previousView inPreviousView: TheBestClockAlarmView!) {
         self.alarmContainerView.addSubview(inSubView)
         self._alarmButtons.append(inSubView)
-        inSubView.addTarget(self, action: #selector(type(of: self).alarmStateChanged(_:)), for: .valueChanged)
+        inSubView.addTarget(self, action: #selector(type(of: self).alarmActiveStateChanged(_:)), for: .valueChanged)
         
         inSubView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -582,7 +575,19 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                     label.font = font
                 }
             }
+            
             self.alarmEditorVibrateBeepSwitch.isOn = self._prefs.alarms[self._currentlyEditingAlarmIndex].isVibrateOn
+            self.alarmEditSoundModeSelector.selectedSegmentIndex = self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
+            self.alarmEditSoundModeSelector.tintColor = self.selectedColor
+            if let font = UIFont(name: self.selectedFontName, size: 20) {
+                self.alarmEditSoundModeSelector.setTitleTextAttributes([.font: font], for: .normal)
+            }
+            for index in 0..<self.alarmEditSoundModeSelector.numberOfSegments {
+                self.alarmEditSoundModeSelector.setTitle(self.alarmEditSoundModeSelector.titleForSegment(at: index)?.localizedVariant, forSegmentAt: index)
+            }
+            if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                self.editAlarmPickerView.selectRow(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundIndex, inComponent: 0, animated: false)
+            }
 
             self.editAlarmScreenContainer.isHidden = false
         }
@@ -624,6 +629,18 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     /* ################################################################## */
     // MARK: - Instance IBAction Methods
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func soundModeChanged(_ sender: UISegmentedControl) {
+        self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = self.alarmEditSoundModeSelector.selectedSegmentIndex
+        self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode = self.alarmEditSoundModeSelector.selectedSegmentIndex
+        self.editAlarmPickerView.reloadComponent(0)
+        if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+            self.editAlarmPickerView.selectRow(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundIndex, inComponent: 0, animated: false)
+        }
+    }
+    
     /* ################################################################## */
     /**
      */
@@ -679,6 +696,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func shutUpAlready(_ inGestureRecognizer: UILongPressGestureRecognizer) {
         for index in 0..<self._prefs.alarms.count where self._prefs.alarms[index].alarming {
             self._prefs.alarms[index].isActive = false
+            self._prefs.savePrefs()
+            self._alarmButtons[index].alarmRecord.isActive = false
         }
         self.alarmDisplayView.isHidden = true
     }
@@ -705,10 +724,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     /**
      */
-    @IBAction func alarmStateChanged(_ sender: TheBestClockAlarmView) {
+    @IBAction func alarmActiveStateChanged(_ sender: TheBestClockAlarmView) {
         for index in 0..<self._alarmButtons.count where self._alarmButtons[index] == sender {
             if let alarmRecord = sender.alarmRecord {
-                self._prefs.alarms[index] = alarmRecord
+                self._prefs.alarms[index].isActive = alarmRecord.isActive
+                self._prefs.savePrefs()
             }
         }
     }
@@ -718,6 +738,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     @IBAction func brightnessSliderChanged(_ sender: TheBestClockVerticalBrightnessSliderView) {
         self.selectedBrightness = max(self._minimumBrightness, min(sender.brightness, 1.0))
+        self._prefs?.brightnessLevel = min(1.0, self.selectedBrightness)
         self._updateMainTime()
     }
     
@@ -739,13 +760,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /**
      */
     @IBAction func closeAlarmEditorScreen(_ sender: Any) {
-        if 0 <= self._currentlyEditingAlarmIndex, self._prefs.alarms.count > self._currentlyEditingAlarmIndex {
-            self._currentlyEditingAlarmIndex = -1
-            self.editAlarmScreenContainer.isHidden = true
-            self._showAllAlarms()
-            self._updateMainTime()
-            self._startTicker()
-        }
+        self._prefs.savePrefs()
+        self._currentlyEditingAlarmIndex = -1
+        self.editAlarmScreenContainer.isHidden = true
+        self._showAllAlarms()
+        self._updateMainTime()
+        self._startTicker()
     }
     
     /* ################################################################## */
@@ -787,6 +807,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         // We add this to the beginning.
         self._fontSelection.insert(contentsOf: ["Let's Go Digital"], at: 0)
         self._fontSelection.append(contentsOf: ["AnglicanText", "Canterbury", "CelticHand"])
+        
+        // Pick up our beeper sounds.
+        self._soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil)
 
         // The first index is white.
         self._colorSelection = [UIColor.white]
@@ -883,7 +906,16 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      - parameter inPickerView: The UIPickerView being queried.
      */
     func pickerView(_ inPickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.colorDisplayPickerView == inPickerView ? self._colorSelection.count : (self.fontDisplayPickerView == inPickerView) ? self._fontSelection.count : 0
+        if self.colorDisplayPickerView == inPickerView {
+            return self._colorSelection.count
+        } else if self.fontDisplayPickerView == inPickerView {
+            return self._fontSelection.count
+        } else if self.editAlarmPickerView == inPickerView {
+            if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                return self._soundSelection.count
+            }
+        }
+        return 0
     }
 
     /* ################################################################## */
@@ -893,7 +925,16 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      - parameter inPickerView: The UIPickerView being queried.
      */
     func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return self.colorDisplayPickerView == inPickerView ? 80 : (self.fontDisplayPickerView == inPickerView) ? inPickerView.bounds.size.height * 0.4 : 0
+        if self.colorDisplayPickerView == inPickerView {
+            return 80
+        } else if self.fontDisplayPickerView == inPickerView {
+            return inPickerView.bounds.size.height * 0.4
+        } else if self.editAlarmPickerView == inPickerView {
+            if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                return 40
+            }
+        }
+        return 0
     }
     
     /* ################################################################## */
@@ -916,6 +957,17 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let reusingView = nil != inView ? inView!: UIView(frame: frame)
             self._fontSizeCache = self.pickerView(inPickerView, rowHeightForComponent: 0)
             ret = self._createDisplayView(reusingView, index: row)
+        } else if self.editAlarmPickerView == inPickerView {
+            if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                let pathString = URL(fileURLWithPath: self._soundSelection[row]).lastPathComponent
+                let label = UILabel(frame: frame)
+                label.font = UIFont(name: self.selectedFontName, size: 20)
+                label.adjustsFontSizeToFitWidth = true
+                label.textColor = self.selectedColor
+                label.backgroundColor = UIColor.clear
+                label.text = pathString.localizedVariant
+                ret.addSubview(label)
+            }
         }
         ret.backgroundColor = UIColor.clear
         return ret
@@ -930,10 +982,17 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func pickerView(_ inPickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if self.colorDisplayPickerView == inPickerView {
             self.selectedColorIndex = row
+            self._prefs?.selectedColor = self.selectedColorIndex
             self._setInfoButtonColor()
             self.fontDisplayPickerView.reloadComponent(0)
         } else if self.fontDisplayPickerView == inPickerView {
             self.selectedFontIndex = row
+            self._prefs?.selectedFont = self.selectedFontIndex
+        } else if self.editAlarmPickerView == inPickerView {
+            if 0 == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode {
+                self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundIndex = row
+                self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSoundIndex = row
+            }
         }
     }
     
