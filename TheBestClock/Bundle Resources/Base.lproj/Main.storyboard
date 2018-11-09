@@ -138,9 +138,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
                                         <subviews>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Epq-FZ-noz">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="216"/>
+                                                <rect key="frame" x="0.0" y="39" width="375" height="80"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="gQC-pg-9Lp"/>
+                                                    <constraint firstAttribute="height" constant="80" id="kIy-gk-XBt"/>
                                                 </constraints>
                                                 <date key="date" timeIntervalSinceReferenceDate="563297011.76202798">
                                                     <!--2018-11-07 15:23:31 +0000-->
@@ -149,12 +149,71 @@
                                                     <action selector="alarmTimeDatePickerChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="WEV-hf-zyM"/>
                                                 </connections>
                                             </datePicker>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KIX-rh-aQ5">
+                                                <rect key="frame" x="287" y="0.0" width="80" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" placeholder="YES" id="SpN-Er-dkM"/>
+                                                </constraints>
+                                                <state key="normal" title="LOCAL-DONE"/>
+                                                <connections>
+                                                    <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z4z-BI-mVS"/>
+                                                </connections>
+                                            </button>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JKA-TF-KPA">
+                                                <rect key="frame" x="8" y="0.0" width="49" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="47" id="4M7-wq-Va1"/>
+                                                    <constraint firstAttribute="height" constant="31" id="v53-vy-vOs"/>
+                                                </constraints>
+                                                <connections>
+                                                    <action selector="activeSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="KWc-Gq-und"/>
+                                                </connections>
+                                            </switch>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N79-EU-S3q">
+                                                <rect key="frame" x="63" y="0.0" width="216" height="31"/>
+                                                <state key="normal" title="LOCAL-ACTIVE-SWITCH"/>
+                                                <connections>
+                                                    <action selector="activeButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NKz-Mj-eA4"/>
+                                                </connections>
+                                            </button>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ocx-Nd-os6">
+                                                <rect key="frame" x="8" y="127" width="49" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="31" id="DdB-11-2l6"/>
+                                                    <constraint firstAttribute="width" constant="47" id="ZO0-qa-cN2"/>
+                                                </constraints>
+                                                <connections>
+                                                    <action selector="vibrateSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="bPT-Rr-FaX"/>
+                                                </connections>
+                                            </switch>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s52-VF-TQ5">
+                                                <rect key="frame" x="63" y="127" width="304" height="31"/>
+                                                <state key="normal" title="LOCAL-VIBRATE-BEEP-SWITCH"/>
+                                                <connections>
+                                                    <action selector="vibrateButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rp5-7w-vad"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Epq-FZ-noz" secondAttribute="trailing" id="BgS-kX-wPE"/>
-                                            <constraint firstItem="Epq-FZ-noz" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="fKl-1J-Cri"/>
-                                            <constraint firstItem="Epq-FZ-noz" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="top" id="lAn-pP-Gow"/>
+                                            <constraint firstItem="JKA-TF-KPA" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="Fy7-dl-Xhu"/>
+                                            <constraint firstItem="N79-EU-S3q" firstAttribute="centerY" secondItem="JKA-TF-KPA" secondAttribute="centerY" id="Kcs-Qc-Upa"/>
+                                            <constraint firstAttribute="trailing" secondItem="Epq-FZ-noz" secondAttribute="trailing" id="L4n-9N-Ve9"/>
+                                            <constraint firstItem="ocx-Nd-os6" firstAttribute="top" secondItem="Epq-FZ-noz" secondAttribute="bottom" constant="8" id="LRa-kH-DaJ"/>
+                                            <constraint firstItem="s52-VF-TQ5" firstAttribute="height" secondItem="ocx-Nd-os6" secondAttribute="height" id="MCD-pv-EYf"/>
+                                            <constraint firstItem="KIX-rh-aQ5" firstAttribute="centerY" secondItem="JKA-TF-KPA" secondAttribute="centerY" id="Smz-Ss-Efi"/>
+                                            <constraint firstItem="ocx-Nd-os6" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="TaE-iP-KuW"/>
+                                            <constraint firstAttribute="trailing" secondItem="s52-VF-TQ5" secondAttribute="trailing" constant="8" id="Uyt-b4-wlV"/>
+                                            <constraint firstItem="JKA-TF-KPA" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="top" id="V5m-wU-KYu"/>
+                                            <constraint firstAttribute="trailing" secondItem="KIX-rh-aQ5" secondAttribute="trailing" constant="8" id="Zwr-cf-TsX"/>
+                                            <constraint firstItem="Epq-FZ-noz" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="bzY-Cd-42B"/>
+                                            <constraint firstItem="s52-VF-TQ5" firstAttribute="centerY" secondItem="ocx-Nd-os6" secondAttribute="centerY" id="ct1-W9-Aam"/>
+                                            <constraint firstItem="KIX-rh-aQ5" firstAttribute="leading" secondItem="N79-EU-S3q" secondAttribute="trailing" constant="8" id="dNq-kh-xZB"/>
+                                            <constraint firstItem="s52-VF-TQ5" firstAttribute="leading" secondItem="ocx-Nd-os6" secondAttribute="trailing" constant="8" id="h6U-ul-PRf"/>
+                                            <constraint firstItem="Epq-FZ-noz" firstAttribute="top" secondItem="KIX-rh-aQ5" secondAttribute="bottom" constant="8" id="iRV-Tv-Z8C"/>
+                                            <constraint firstItem="N79-EU-S3q" firstAttribute="leading" secondItem="JKA-TF-KPA" secondAttribute="trailing" constant="8" id="iVe-Oa-d3m"/>
+                                            <constraint firstItem="KIX-rh-aQ5" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="kKJ-KD-1VW"/>
+                                            <constraint firstItem="N79-EU-S3q" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="qfX-65-Wdk"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="43b-Pc-iFX">
@@ -181,8 +240,8 @@
                                     <constraint firstAttribute="bottom" secondItem="SpK-gg-rNb" secondAttribute="bottom" constant="40" id="wSl-nO-IEp"/>
                                 </constraints>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="Hck-7h-yTT" appends="YES" id="t92-ru-51c"/>
-                                    <outletCollection property="gestureRecognizers" destination="gdg-lB-Zmz" appends="YES" id="TEA-wW-7Cc"/>
+                                    <outletCollection property="gestureRecognizers" destination="rPr-th-5lB" appends="YES" id="hwr-hX-DD0"/>
+                                    <outletCollection property="gestureRecognizers" destination="QC1-0w-8EI" appends="YES" id="1RA-Pa-7Nf"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -227,6 +286,11 @@
                     <connections>
                         <outlet property="alarmContainerView" destination="e9A-iM-9M5" id="6UP-GQ-yr1"/>
                         <outlet property="alarmDisplayView" destination="yuf-MI-OfS" id="3SH-Af-kbr"/>
+                        <outlet property="alarmEditorActiveButton" destination="N79-EU-S3q" id="oPw-fK-sXc"/>
+                        <outlet property="alarmEditorActiveSwitch" destination="JKA-TF-KPA" id="q1d-ZX-hjq"/>
+                        <outlet property="alarmEditorDoneButton" destination="KIX-rh-aQ5" id="TN9-VE-O8N"/>
+                        <outlet property="alarmEditorVibrateBeepSwitch" destination="ocx-Nd-os6" id="CXy-SH-41A"/>
+                        <outlet property="alarmEditorVibrateButton" destination="s52-VF-TQ5" id="YNh-jk-tvO"/>
                         <outlet property="amPmLabel" destination="pSU-VZ-odd" id="QvK-BM-h5v"/>
                         <outlet property="brightnessSlider" destination="7io-PK-JhC" id="AAh-kC-gSO"/>
                         <outlet property="colorDisplayPickerView" destination="kZZ-i4-PZy" id="pKh-sI-pln"/>
@@ -271,16 +335,6 @@
                     </connections>
                 </pongPressGestureRecognizer>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="JuB-FM-I8Y"/>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="Hck-7h-yTT">
-                    <connections>
-                        <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" id="fQI-zM-d1n"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="gdg-lB-Zmz">
-                    <connections>
-                        <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" id="gBA-oe-8wM"/>
-                    </connections>
-                </pongPressGestureRecognizer>
                 <tapGestureRecognizer id="qzH-bp-wEr">
                     <connections>
                         <action selector="hitTheSnooze:" destination="BYZ-38-t0r" id="Ob9-eX-P6D"/>
@@ -293,6 +347,8 @@
                 </pongPressGestureRecognizer>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ibw-BF-gbI"/>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="Ohm-3E-kKF"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="rPr-th-5lB"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="QC1-0w-8EI"/>
             </objects>
             <point key="canvasLocation" x="317.60000000000002" y="43.628185907046479"/>
         </scene>
@@ -304,20 +360,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eLh-WM-Rja" customClass="TheGreatRiftValleyDrawing" customModule="TheBestClock" customModuleProvider="target">
-                                <rect key="frame" x="67" y="20" width="240" height="240"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECo-iI-WzI" customClass="TheGreatRiftValleyDrawing" customModule="TheBestClock" customModuleProvider="target">
+                                <rect key="frame" x="123.5" y="20" width="128" height="128"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="2D0-4U-GaK"/>
-                                    <constraint firstAttribute="width" constant="240" id="WDl-Cy-Mhs"/>
+                                    <constraint firstAttribute="height" constant="128" id="clo-p3-IIj"/>
+                                    <constraint firstAttribute="width" constant="128" id="eed-kj-FlO"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="logoTapped:" destination="7ze-OY-b4R" eventType="touchUpInside" id="dDT-9Q-fIb"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="eLh-WM-Rja" firstAttribute="centerX" secondItem="LbW-TP-6mb" secondAttribute="centerX" id="YV3-uu-a7y"/>
-                            <constraint firstItem="eLh-WM-Rja" firstAttribute="top" secondItem="GgS-f6-WgC" secondAttribute="top" id="hCG-HF-deb"/>
+                            <constraint firstItem="ECo-iI-WzI" firstAttribute="top" secondItem="GgS-f6-WgC" secondAttribute="top" id="GX9-Mn-RVi"/>
+                            <constraint firstItem="ECo-iI-WzI" firstAttribute="centerX" secondItem="LbW-TP-6mb" secondAttribute="centerX" id="Soe-NA-qV0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GgS-f6-WgC"/>
                         <connections>
@@ -325,7 +384,7 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="logoImageControl" destination="eLh-WM-Rja" id="yCt-nF-ggG"/>
+                        <outlet property="logoImageControl" destination="ECo-iI-WzI" id="gkU-i2-XGq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j4c-lY-58v" userLabel="First Responder" sceneMemberID="firstResponder"/>

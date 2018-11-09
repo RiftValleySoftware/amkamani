@@ -37,11 +37,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     /// This is a list of a subset of fonts likely to be on the device. We want to reduce the choices for the user.
     private let _screenForThese: [String] = ["AmericanTypewriter-Bold",
-                                             "AppleColorEmoji",
                                              "AppleSDGothicNeo-Thin",
                                              "Arial-BoldItalicMT",
                                              "Avenir-Black",
-                                             "AvenirNextCondensed-UltraLight",
                                              "Baskerville",
                                              "Baskerville-BoldItalic",
                                              "BodoniSvtyTwoITCTT-Bold",
@@ -51,7 +49,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                              "Cochin-Bold",
                                              "Copperplate-Bold",
                                              "Copperplate-Light",
-                                             "Courier-Bold",
                                              "Didot-Bold",
                                              "EuphemiaUCAS-Bold",
                                              "Futura-CondensedExtraBold",
@@ -59,21 +56,18 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                              "Georgia-Bold",
                                              "GillSans-Light",
                                              "GillSans-UltraBold",
-                                             "Helvetica-Bold",
                                              "HelveticaNeue-UltraLight",
                                              "HoeflerText-Black",
                                              "MarkerFelt-Wide",
                                              "Noteworthy-Bold",
-                                             "Palatino-Roman",
                                              "Papyrus",
-                                             "TimesNewRomanPS-BoldMT",
-                                             "TimesNewRomanPS-ItalicMT",
                                              "TrebuchetMS-Bold",
                                              "Verdana-Bold"]
     private let _minimumBrightness: CGFloat = 0.05
     private let _amPmLabelFontSize: CGFloat = 30
     private let _dateLabelFontSize: CGFloat = 40
     private let _alarmsFontSize: CGFloat = 40
+    private let _alarmEditorTopFontSize: CGFloat = 30
 
     /* ################################################################## */
     // MARK: - Instance Private Properties
@@ -120,6 +114,16 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var editAlarmScreenMaskView: UIView!
     /// This is the little "more info" button that is displayed at the bottom of the setup screen.
     @IBOutlet weak var infoButton: UIButton!
+    /// This is the Done button in the alarm editor screen.
+    @IBOutlet weak var alarmEditorDoneButton: UIButton!
+    /// This switch will denote the "active" state of the alarm.
+    @IBOutlet weak var alarmEditorActiveSwitch: UISwitch!
+    /// This is the localized label for that switch, but we make it a button, so it can be used to trigger the switch.
+    @IBOutlet weak var alarmEditorActiveButton: UIButton!
+    /// This is the switch that selects whether or not to use a vibration (on supported devices).
+    @IBOutlet weak var alarmEditorVibrateBeepSwitch: UISwitch!
+    /// This is the localized label for that switch, but we make it a button, so it can be used to trigger the switch.
+    @IBOutlet weak var alarmEditorVibrateButton: UIButton!
     
     /* ################################################################## */
     // MARK: - Instance Properties
@@ -185,6 +189,22 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
 
     /* ################################################################## */
+    /**
+     - returns the selected color.
+     */
+    var selectedColor: UIColor {
+        return self._colorSelection[self.selectedColorIndex]
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns the selected font name.
+     */
+    var selectedFontName: String {
+        return self._fontSelection[self.selectedFontIndex]
+    }
+    
+    /* ################################################################## */
     // MARK: - Instance Private Methods
     /* ################################################################## */
     /**
@@ -242,8 +262,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         for alarm in alarms {
             alarm.brightness = self.selectedBrightness
-            alarm.fontColor = 0 == self.selectedColorIndex ? nil : self._colorSelection[self.selectedColorIndex]
-            alarm.fontName = self._fontSelection[self.selectedFontIndex]
+            alarm.fontColor = 0 == self.selectedColorIndex ? nil : self.selectedColor
+            alarm.fontName = self.selectedFontName
             alarm.desiredFontSize = self._alarmsFontSize
         }
     }
@@ -312,11 +332,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if 0 == self.selectedColorIndex {
             textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
         } else {
-            let hue = self._colorSelection[self.selectedColorIndex].hsba.h
+            let hue = self.selectedColor.hsba.h
             textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.3 * self.selectedBrightness, alpha: 1.0)
         }
         
-        self.amPmLabel.font = UIFont(name: self._fontSelection[self.selectedFontIndex], size: self._amPmLabelFontSize)
+        self.amPmLabel.font = UIFont(name: self.selectedFontName, size: self._amPmLabelFontSize)
         self.amPmLabel.text = self.currentTimeString.amPm
         self.amPmLabel.adjustsFontSizeToFitWidth = true
         self.amPmLabel.textAlignment = .right
@@ -334,11 +354,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if 0 == self.selectedColorIndex {
             textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
         } else {
-            let hue = self._colorSelection[self.selectedColorIndex].hsba.h
+            let hue = self.selectedColor.hsba.h
             textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.4 * self.selectedBrightness, alpha: 1.0)
         }
         
-        self.dateDisplayLabel.font = UIFont(name: self._fontSelection[self.selectedFontIndex], size: self._dateLabelFontSize)
+        self.dateDisplayLabel.font = UIFont(name: self.selectedFontName, size: self._dateLabelFontSize)
         self.dateDisplayLabel.text = self.currentTimeString.date
         self.dateDisplayLabel.adjustsFontSizeToFitWidth = true
         self.dateDisplayLabel.textAlignment = .center
@@ -367,7 +387,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     private func _aooGah(_ inIndex: Int) {
         self.alarmDisplayView.isHidden = false
-        self._flashDisplay(self._colorSelection[self.selectedColorIndex])
+        self._flashDisplay(self.selectedColor)
+        if self._prefs.alarms[inIndex].isVibrateOn {
+            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+        }
     }
     
     /* ################################################################## */
@@ -417,7 +440,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if 0 == self.selectedColorIndex {
             textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
         } else {
-            let hue = self._colorSelection[self.selectedColorIndex].hsba.h
+            let hue = self.selectedColor.hsba.h
             textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.4 * self.selectedBrightness, alpha: 1.0)
         }
         
@@ -439,7 +462,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
         }
         
-        self.brightnessSlider.endColor = self._colorSelection[self.selectedColorIndex]
+        self.brightnessSlider.endColor = self.selectedColor
         self.brightnessSlider.brightness = self.selectedBrightness
         self.brightnessSlider.setNeedsDisplay()
         
@@ -459,7 +482,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 endColor = UIColor(white: 0.9 * self.selectedBrightness, alpha: 1.0)
                 startColor = UIColor(white: 1.25 * self.selectedBrightness, alpha: 1.0)
             } else {
-                let hue = self._colorSelection[self.selectedColorIndex].hsba.h
+                let hue = self.selectedColor.hsba.h
                 endColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.9 * self.selectedBrightness, alpha: 1.0)
                 startColor = UIColor(hue: hue, saturation: 0.85, brightness: 1.25 * self.selectedBrightness, alpha: 1.0)
             }
@@ -501,6 +524,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private func _openAlarmEditorScreen() {
         self._stopTicker()
         if 0 <= self._currentlyEditingAlarmIndex, self._prefs.alarms.count > self._currentlyEditingAlarmIndex {
+            self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive = true
+            self._prefs.alarms[self._currentlyEditingAlarmIndex].snoozing = false
+            self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isActive = true
+            self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.snoozing = false
             self._showOnlyThisAlarm(self._currentlyEditingAlarmIndex)
             let time = self._prefs.alarms[self._currentlyEditingAlarmIndex].alarmTime
             let hours = time / 100
@@ -514,13 +541,49 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             if let pickerDate = userCalendar.date(from: dateComponents) {
                 self.editAlarmTimeDatePicker.setDate(pickerDate, animated: false)
             }
-            let flashColor = (0 != self.selectedColorIndex ? self._colorSelection[self.selectedColorIndex] : UIColor.white)
+            let flashColor = (0 != self.selectedColorIndex ? self.selectedColor : UIColor.white)
             self.editAlarmTimeDatePicker.backgroundColor = flashColor
             self.editAlarmScreenMaskView.backgroundColor = self.view.backgroundColor
             let flashImage = UIImage(color: flashColor.withAlphaComponent(0.5))
             self.dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .focused)
             self.dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .selected)
             self.dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .highlighted)
+            self.alarmEditorDoneButton.tintColor = self.selectedColor
+            self.alarmEditorDoneButton.setTitle(self.alarmEditorDoneButton.title(for: .normal)?.localizedVariant, for: .normal)
+            if let label = self.alarmEditorDoneButton.titleLabel {
+                label.adjustsFontSizeToFitWidth = true
+                label.baselineAdjustment = .alignCenters
+                if let font = UIFont(name: self.selectedFontName, size: self._alarmEditorTopFontSize) {
+                    label.font = font
+                }
+            }
+            
+            self.alarmEditorActiveSwitch.tintColor = self.selectedColor
+            self.alarmEditorActiveSwitch.onTintColor = self.selectedColor
+            self.alarmEditorActiveButton.tintColor = self.selectedColor
+            self.alarmEditorActiveButton.setTitle(self.alarmEditorActiveButton.title(for: .normal)?.localizedVariant, for: .normal)
+            if let label = self.alarmEditorActiveButton.titleLabel {
+                label.adjustsFontSizeToFitWidth = true
+                label.baselineAdjustment = .alignCenters
+                if let font = UIFont(name: self.selectedFontName, size: self._alarmEditorTopFontSize) {
+                    label.font = font
+                }
+            }
+            self.alarmEditorActiveSwitch.isOn = self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive
+
+            self.alarmEditorVibrateBeepSwitch.tintColor = self.selectedColor
+            self.alarmEditorVibrateBeepSwitch.onTintColor = self.selectedColor
+            self.alarmEditorVibrateButton.tintColor = self.selectedColor
+            self.alarmEditorVibrateButton.setTitle(self.alarmEditorVibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
+            if let label = self.alarmEditorVibrateButton.titleLabel {
+                label.adjustsFontSizeToFitWidth = true
+                label.baselineAdjustment = .alignCenters
+                if let font = UIFont(name: self.selectedFontName, size: self._alarmEditorTopFontSize) {
+                    label.font = font
+                }
+            }
+            self.alarmEditorVibrateBeepSwitch.isOn = self._prefs.alarms[self._currentlyEditingAlarmIndex].isVibrateOn
+
             self.editAlarmScreenContainer.isHidden = false
         }
     }
@@ -561,6 +624,38 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     /* ################################################################## */
     // MARK: - Instance IBAction Methods
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func activeSwitchChanged(_ inSwitch: UISwitch) {
+        self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive = inSwitch.isOn
+        self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isActive = inSwitch.isOn
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func activeButtonHit(_ sender: Any) {
+        self.alarmEditorActiveSwitch.setOn(!self.alarmEditorActiveSwitch.isOn, animated: true)
+        self.alarmEditorActiveSwitch.sendActions(for: .valueChanged)
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func vibrateSwitchChanged(_ inSwitch: UISwitch) {
+        self._prefs.alarms[self._currentlyEditingAlarmIndex].isVibrateOn = inSwitch.isOn
+        self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isVibrateOn = inSwitch.isOn
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func vibrateButtonHit(_ sender: Any) {
+        self.alarmEditorVibrateBeepSwitch.setOn(!self.alarmEditorVibrateBeepSwitch.isOn, animated: true)
+        self.alarmEditorVibrateBeepSwitch.sendActions(for: .valueChanged)
+    }
+
     /* ################################################################## */
     /**
      */
@@ -616,13 +711,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 self._prefs.alarms[index] = alarmRecord
             }
         }
-        
-        if 0 <= sender.index, self._prefs.alarms.count > sender.index {
-            // If we are activating an alarm that is set for midnight, we will open the editor.
-            if self._prefs.alarms[sender.index].isActive, 0 == self._prefs.alarms[sender.index].alarmTime {
-                self.openAlarmEditor(sender.index)
-            }
-        }
     }
 
     /* ################################################################## */
@@ -652,10 +740,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     @IBAction func closeAlarmEditorScreen(_ sender: Any) {
         if 0 <= self._currentlyEditingAlarmIndex, self._prefs.alarms.count > self._currentlyEditingAlarmIndex {
-            self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive = true
-            self._prefs.alarms[self._currentlyEditingAlarmIndex].snoozing = false
-            self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isActive = true
-            self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.snoozing = false
             self._currentlyEditingAlarmIndex = -1
             self.editAlarmScreenContainer.isHidden = true
             self._showAllAlarms()
@@ -702,7 +786,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         // We add this to the beginning.
         self._fontSelection.insert(contentsOf: ["Let's Go Digital"], at: 0)
-        
+        self._fontSelection.append(contentsOf: ["AnglicanText", "Canterbury", "CelticHand"])
+
         // The first index is white.
         self._colorSelection = [UIColor.white]
         // We generate a series of colors, fully saturated, from red (orangeish) to red (purpleish).
@@ -760,7 +845,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? TheBestClockAboutScreenViewController {
             destination.view.backgroundColor = self.view.backgroundColor
-            destination.baseColor = self._colorSelection[self.selectedColorIndex]
+            destination.baseColor = self.selectedColor
         }
     }
 
@@ -772,9 +857,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     @objc func checkTicker(_ inTimer: Timer) {
         DispatchQueue.main.async {
-            if !UIApplication.shared.isIdleTimerDisabled {
-                print("AAAUGH!")
-            }
             self._updateMainTime()
             self._checkAlarmStatus()
         }

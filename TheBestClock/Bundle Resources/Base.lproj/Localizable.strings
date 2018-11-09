@@ -11,3 +11,6 @@
 "ERROR_HEADER_MEDIA"                        =       "DEVICE MEDIA ERROR";
 "ERROR_TEXT_MEDIA_PERMISSION_DENIED"        =       "You are not allowed to read any media from this device.";
 "BASIC-OK-BUTTON"                           =       "OK";
+"LOCAL-DONE"                                =       "DONE";
+"LOCAL-ACTIVE-SWITCH"                       =       "Active";
+"LOCAL-VIBRATE-BEEP-SWITCH"                 =       "Vibrate";

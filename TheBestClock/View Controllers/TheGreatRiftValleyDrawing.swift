@@ -11,39 +11,100 @@
 
 import UIKit
 
+/* ###################################################################################################################################### */
+// MARK: - Main Class -
+/* ###################################################################################################################################### */
+/**
+ This is a class that programmatically renders the registered Great Rift Valley trademark logo.
+ 
+ It is a control, and can be used to act as a button.
+ */
 @IBDesignable
 class TheGreatRiftValleyDrawing: UIControl {
+    private var _moonFillGradientLayer: CAGradientLayer!
     private var _gradientLayer: CAGradientLayer!
-    var baseColor: UIColor = UIColor.white
+    private var _tapGestureRecognizer: UITapGestureRecognizer!
     
-//    override func layoutSubviews() {
-//        self.layer.frame = self.bounds
-//        super.layoutSubviews()
-//    }
+    /* ################################################################## */
+    /**
+     */
+    @IBInspectable var baseColor: UIColor = UIColor.black {
+        didSet {
+            self.layoutSubviews()
+        }
+    }
+    /* ################################################################## */
+    /**
+     */
+    @IBInspectable var moonColor: UIColor = UIColor.clear {
+        didSet {
+            self.layoutSubviews()
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    override func layoutSubviews() {
+        if nil == self._tapGestureRecognizer {
+            self._tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(type(of: self).controlTapped(_:)))
+            self.addGestureRecognizer(self._tapGestureRecognizer)
+        }
+        super.layoutSubviews()
+    }
     
+    /* ################################################################## */
+    /**
+     */
     override func draw(_ inRect: CGRect) {
+        self._moonFillGradientLayer?.removeFromSuperlayer()  // Remove any previous gradient fill layers.
         self._gradientLayer?.removeFromSuperlayer()
         self.backgroundColor = UIColor.clear    // Make sure that our background color is clear.
-        //// Color Declarations
-//        let fillColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-//        let UIColor.black = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+        let moonFillPath = UIBezierPath()
+        moonFillPath.move(to: CGPoint(x: 197.2, y: 205.4))
+        moonFillPath.addLine(to: CGPoint(x: 224.1, y: 164.4))
+        moonFillPath.addCurve(to: CGPoint(x: 237.7, y: 170.6), controlPoint1: CGPoint(x: 224.1, y: 164.4), controlPoint2: CGPoint(x: 232.4, y: 170.6))
+        moonFillPath.addCurve(to: CGPoint(x: 250.9, y: 164.4), controlPoint1: CGPoint(x: 243.5, y: 170.6), controlPoint2: CGPoint(x: 250.9, y: 164.4))
+        moonFillPath.addLine(to: CGPoint(x: 287, y: 220.3))
+        moonFillPath.addCurve(to: CGPoint(x: 303.3, y: 152.4), controlPoint1: CGPoint(x: 297.6, y: 199.7), controlPoint2: CGPoint(x: 303.3, y: 177.1))
+        moonFillPath.addCurve(to: CGPoint(x: 153, y: 2), controlPoint1: CGPoint(x: 303.3, y: 69.3), controlPoint2: CGPoint(x: 236, y: 2))
+        moonFillPath.addCurve(to: CGPoint(x: 3, y: 152), controlPoint1: CGPoint(x: 70, y: 2), controlPoint2: CGPoint(x: 3, y: 68.9))
+        moonFillPath.addCurve(to: CGPoint(x: 97.2, y: 291.1), controlPoint1: CGPoint(x: 3, y: 215.1), controlPoint2: CGPoint(x: 42.1, y: 268.9))
+        moonFillPath.addLine(to: CGPoint(x: 175.9, y: 168.2))
+        moonFillPath.addLine(to: CGPoint(x: 197.2, y: 205.4))
+        moonFillPath.close()
         
-//        let moonFillPath = UIBezierPath()
-//        moonFillPath.move(to: CGPoint(x: 197.2, y: 205.4))
-//        moonFillPath.addLine(to: CGPoint(x: 224.1, y: 164.4))
-//        moonFillPath.addCurve(to: CGPoint(x: 237.7, y: 170.6), controlPoint1: CGPoint(x: 224.1, y: 164.4), controlPoint2: CGPoint(x: 232.4, y: 170.6))
-//        moonFillPath.addCurve(to: CGPoint(x: 250.9, y: 164.4), controlPoint1: CGPoint(x: 243.5, y: 170.6), controlPoint2: CGPoint(x: 250.9, y: 164.4))
-//        moonFillPath.addLine(to: CGPoint(x: 287, y: 220.3))
-//        moonFillPath.addCurve(to: CGPoint(x: 303.3, y: 152.4), controlPoint1: CGPoint(x: 297.6, y: 199.7), controlPoint2: CGPoint(x: 303.3, y: 177.1))
-//        moonFillPath.addCurve(to: CGPoint(x: 153, y: 2), controlPoint1: CGPoint(x: 303.3, y: 69.3), controlPoint2: CGPoint(x: 236, y: 2))
-//        moonFillPath.addCurve(to: CGPoint(x: 3, y: 152), controlPoint1: CGPoint(x: 70, y: 2), controlPoint2: CGPoint(x: 3, y: 68.9))
-//        moonFillPath.addCurve(to: CGPoint(x: 97.2, y: 291.1), controlPoint1: CGPoint(x: 3, y: 215.1), controlPoint2: CGPoint(x: 42.1, y: 268.9))
-//        moonFillPath.addLine(to: CGPoint(x: 175.9, y: 168.2))
-//        moonFillPath.addLine(to: CGPoint(x: 197.2, y: 205.4))
-//        moonFillPath.close()
-//        fillColor.setFill()
-//        moonFillPath.fill()
-        
+        let moonAndMountainsOutlinePath = UIBezierPath()
+        moonAndMountainsOutlinePath.move(to: CGPoint(x: 287.5, y: 220.6))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 304.1, y: 152), controlPoint1: CGPoint(x: 298.3, y: 199.5), controlPoint2: CGPoint(x: 304.1, y: 175.8))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 153.3, y: 1.5), controlPoint1: CGPoint(x: 304.1, y: 69), controlPoint2: CGPoint(x: 236.5, y: 1.5))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 2.5, y: 152), controlPoint1: CGPoint(x: 70.1, y: 1.5), controlPoint2: CGPoint(x: 2.5, y: 69))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 29, y: 237.2), controlPoint1: CGPoint(x: 2.5, y: 182.6), controlPoint2: CGPoint(x: 11.7, y: 212.1))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 96.8, y: 291.6), controlPoint1: CGPoint(x: 45.9, y: 261.7), controlPoint2: CGPoint(x: 69.3, y: 280.5))
+        moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 86.9, y: 307))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 175.4, y: 185.9), controlPoint1: CGPoint(x: 86.9, y: 307), controlPoint2: CGPoint(x: 166.3, y: 186))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 194.5, y: 209.4), controlPoint1: CGPoint(x: 177.7, y: 185.9), controlPoint2: CGPoint(x: 185.1, y: 195.6))
+        moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 131.1, y: 306))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 226.4, y: 175.4), controlPoint1: CGPoint(x: 131.1, y: 306), controlPoint2: CGPoint(x: 215.3, y: 183.8))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 237.7, y: 178.6), controlPoint1: CGPoint(x: 230.4, y: 177), controlPoint2: CGPoint(x: 234.2, y: 178.6))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 248.5, y: 175.4), controlPoint1: CGPoint(x: 241, y: 178.6), controlPoint2: CGPoint(x: 243.7, y: 177.3))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 343, y: 306), controlPoint1: CGPoint(x: 266.9, y: 190.6), controlPoint2: CGPoint(x: 343, y: 306))
+        moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 287.5, y: 220.6))
+        moonAndMountainsOutlinePath.close()
+        moonAndMountainsOutlinePath.move(to: CGPoint(x: 251, y: 164.4))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 237.8, y: 170.6), controlPoint1: CGPoint(x: 251, y: 164.4), controlPoint2: CGPoint(x: 243.5, y: 170.6))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 224.2, y: 164.4), controlPoint1: CGPoint(x: 232.5, y: 170.6), controlPoint2: CGPoint(x: 224.2, y: 164.4))
+        moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 197.3, y: 205.4))
+        moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 176, y: 168.3))
+        moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 97.3, y: 290.6))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 29.8, y: 236.5), controlPoint1: CGPoint(x: 69.9, y: 279.6), controlPoint2: CGPoint(x: 46.6, y: 260.9))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 3.5, y: 152), controlPoint1: CGPoint(x: 12.6, y: 211.6), controlPoint2: CGPoint(x: 3.5, y: 182.4))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 153.3, y: 2.5), controlPoint1: CGPoint(x: 3.5, y: 69.5), controlPoint2: CGPoint(x: 70.7, y: 2.5))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 303.1, y: 152), controlPoint1: CGPoint(x: 235.9, y: 2.5), controlPoint2: CGPoint(x: 303.1, y: 69.5))
+        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 286.9, y: 219.7), controlPoint1: CGPoint(x: 303.1, y: 175.5), controlPoint2: CGPoint(x: 297.5, y: 198.8))
+        moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 251, y: 164.4))
+        moonAndMountainsOutlinePath.close()
+
         let tmPath = UIBezierPath()
         tmPath.move(to: CGPoint(x: 86.2, y: 290.6))
         tmPath.addCurve(to: CGPoint(x: 85.7, y: 290.6), controlPoint1: CGPoint(x: 86.2, y: 290.6), controlPoint2: CGPoint(x: 86, y: 290.6))
@@ -572,37 +633,6 @@ class TheGreatRiftValleyDrawing: UIControl {
         theGreatRiftValleyPath.addLine(to: CGPoint(x: 220.3, y: 26))
         theGreatRiftValleyPath.addLine(to: CGPoint(x: 220.3, y: 26))
         theGreatRiftValleyPath.close()
-        
-        let moonAndMountainsOutlinePath = UIBezierPath()
-        moonAndMountainsOutlinePath.move(to: CGPoint(x: 287.5, y: 220.6))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 304.1, y: 152), controlPoint1: CGPoint(x: 298.3, y: 199.5), controlPoint2: CGPoint(x: 304.1, y: 175.8))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 153.3, y: 1.5), controlPoint1: CGPoint(x: 304.1, y: 69), controlPoint2: CGPoint(x: 236.5, y: 1.5))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 2.5, y: 152), controlPoint1: CGPoint(x: 70.1, y: 1.5), controlPoint2: CGPoint(x: 2.5, y: 69))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 29, y: 237.2), controlPoint1: CGPoint(x: 2.5, y: 182.6), controlPoint2: CGPoint(x: 11.7, y: 212.1))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 96.8, y: 291.6), controlPoint1: CGPoint(x: 45.9, y: 261.7), controlPoint2: CGPoint(x: 69.3, y: 280.5))
-        moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 86.9, y: 307))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 175.4, y: 185.9), controlPoint1: CGPoint(x: 86.9, y: 307), controlPoint2: CGPoint(x: 166.3, y: 186))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 194.5, y: 209.4), controlPoint1: CGPoint(x: 177.7, y: 185.9), controlPoint2: CGPoint(x: 185.1, y: 195.6))
-        moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 131.1, y: 306))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 226.4, y: 175.4), controlPoint1: CGPoint(x: 131.1, y: 306), controlPoint2: CGPoint(x: 215.3, y: 183.8))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 237.7, y: 178.6), controlPoint1: CGPoint(x: 230.4, y: 177), controlPoint2: CGPoint(x: 234.2, y: 178.6))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 248.5, y: 175.4), controlPoint1: CGPoint(x: 241, y: 178.6), controlPoint2: CGPoint(x: 243.7, y: 177.3))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 343, y: 306), controlPoint1: CGPoint(x: 266.9, y: 190.6), controlPoint2: CGPoint(x: 343, y: 306))
-        moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 287.5, y: 220.6))
-        moonAndMountainsOutlinePath.close()
-        moonAndMountainsOutlinePath.move(to: CGPoint(x: 251, y: 164.4))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 237.8, y: 170.6), controlPoint1: CGPoint(x: 251, y: 164.4), controlPoint2: CGPoint(x: 243.5, y: 170.6))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 224.2, y: 164.4), controlPoint1: CGPoint(x: 232.5, y: 170.6), controlPoint2: CGPoint(x: 224.2, y: 164.4))
-        moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 197.3, y: 205.4))
-        moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 176, y: 168.3))
-        moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 97.3, y: 290.6))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 29.8, y: 236.5), controlPoint1: CGPoint(x: 69.9, y: 279.6), controlPoint2: CGPoint(x: 46.6, y: 260.9))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 3.5, y: 152), controlPoint1: CGPoint(x: 12.6, y: 211.6), controlPoint2: CGPoint(x: 3.5, y: 182.4))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 153.3, y: 2.5), controlPoint1: CGPoint(x: 3.5, y: 69.5), controlPoint2: CGPoint(x: 70.7, y: 2.5))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 303.1, y: 152), controlPoint1: CGPoint(x: 235.9, y: 2.5), controlPoint2: CGPoint(x: 303.1, y: 69.5))
-        moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 286.9, y: 219.7), controlPoint1: CGPoint(x: 303.1, y: 175.5), controlPoint2: CGPoint(x: 297.5, y: 198.8))
-        moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 251, y: 164.4))
-        moonAndMountainsOutlinePath.close()
 
         let path = UIBezierPath()
         
@@ -617,11 +647,39 @@ class TheGreatRiftValleyDrawing: UIControl {
         let transform: CGAffineTransform = CGAffineTransform.init(scaleX: scale, y: scale)
         
         path.apply(transform)
+        moonFillPath.apply(transform)
+        
+        var lineEndColor: UIColor
+        var lineStartColor: UIColor
+        var fillEndColor: UIColor = UIColor.clear
+        var fillStartColor: UIColor = UIColor.clear
+        
+        if self.baseColor.isGrayscale {
+            lineEndColor = UIColor(white: 1.6 - self.baseColor.whiteLevel, alpha: 1.0)
+            lineStartColor = UIColor(white: 1.5 - self.baseColor.whiteLevel, alpha: 1.0)
+        } else {
+            lineEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 0.4, alpha: 1.0)
+            lineStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 0.3, alpha: 1.0)
+        }
+        
+        if self.moonColor.isClear { // Clear moon, means we switch the color up to 11.
+            if self.baseColor.isGrayscale {
+                lineEndColor = UIColor(white: self.baseColor.whiteLevel, alpha: 1.0)
+                lineStartColor = UIColor(white: max(0, self.baseColor.whiteLevel - 0.1), alpha: 1.0)
+            } else {
+                lineEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+                lineStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 0.9, alpha: 1.0)
+            }
+        } else if self.moonColor.isGrayscale {  // Otherwise, we mute the main color, and amp up the moon.
+            fillEndColor = UIColor(white: self.baseColor.whiteLevel, alpha: 1.0)
+            fillStartColor = UIColor(white: max(0, self.baseColor.whiteLevel - 0.1), alpha: 1.0)
+        } else {
+            fillEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+            fillStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 0.9, alpha: 1.0)
+        }
         
         self._gradientLayer = CAGradientLayer()
-        let endColor = UIColor.white == self.baseColor ? UIColor(white: 1.0, alpha: 1.0) : UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-        let startColor = UIColor.white == self.baseColor ? UIColor(white: 0.9, alpha: 1.0) : UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 0.9, alpha: 1.0)
-        self._gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+        self._gradientLayer.colors = [lineStartColor.cgColor, lineEndColor.cgColor]
         self._gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
         self._gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
         self._gradientLayer.frame = self.bounds
@@ -630,6 +688,26 @@ class TheGreatRiftValleyDrawing: UIControl {
         shape.path = path.cgPath
         self._gradientLayer.mask = shape
         
+        if !self.moonColor.isClear {    // If the moon is clear, we don't fill it at all.
+            self._moonFillGradientLayer = CAGradientLayer()
+            self._moonFillGradientLayer.colors = [fillStartColor.cgColor, fillEndColor.cgColor]
+            self._moonFillGradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
+            self._moonFillGradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
+            self._moonFillGradientLayer.frame = self.bounds
+            
+            let shape = CAShapeLayer()
+            shape.path = moonFillPath.cgPath
+            self._moonFillGradientLayer.mask = shape
+            self.layer.addSublayer(self._moonFillGradientLayer)
+        }
+
         self.layer.addSublayer(self._gradientLayer)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func controlTapped(_ sender: Any) {
+        self.sendActions(for: .touchUpInside)
     }
 }

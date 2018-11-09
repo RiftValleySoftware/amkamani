@@ -14,9 +14,13 @@ class TheBestClockAboutScreenViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.logoImageControl.baseColor = self.baseColor
+        self.logoImageControl.moonColor = self.baseColor
     }
     
     @IBAction func dismissTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func logoTapped(_ sender: Any) {
     }
 }

@@ -25,8 +25,49 @@ extension UIColor {
      */
     var hsba:(h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat) {
         var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
-        return (h: h, s: s, b: b, a: a)
+        if self.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
+            return (h: h, s: s, b: b, a: a)
+        }
+        return (h: 0, s: 0, b: 0, a: 0)
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns true, if the color is grayscale (or black or white).
+     */
+    var isGrayscale: Bool {
+        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        if !self.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
+            return true
+        }
+        return h == 0 && s == 0
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns true, if the color is clear.
+     */
+    var isClear: Bool {
+        var white: CGFloat = 0, h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        if !self.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
+            return 0.0 == a
+        } else if self.getWhite(&white, alpha: &a) {
+            return 0.0 == a
+        }
+
+        return false
+    }
+
+    /* ################################################################## */
+    /**
+     - returns the white level of the color.
+     */
+    var whiteLevel: CGFloat {
+        var white: CGFloat = 0, alpha: CGFloat = 0
+        if self.getWhite(&white, alpha: &alpha) {
+            return white
+        }
+        return 0
     }
 }
 
@@ -165,13 +206,13 @@ class TheBestClockPrefs {
     /* ################################################################## */
     /** These are the keys we use for our persistent prefs dictionary. */
     private enum PrefsKeys: String {
-        case selectedColor, selectedFont, brightnessLevel, alarms
+        case selectedColor, selectedFont, brightnessLevel, playlistID, alarms
     }
     
     /* ################################################################## */
     /** These are the keys we use for our alarms dictionary. */
     private enum AlarmPrefsKeys: String {
-        case alarmTime, playlistID, isActive
+        case alarmTime, isActive, isVibrateOn
     }
 
     /* ################################################################## */
@@ -272,8 +313,8 @@ class TheBestClockPrefs {
         private let _alarmTimeInMinutes: Int = 15
 
         var alarmTime: Int = 0
-        var playlistID: UUID = UUID()
         var lastSnoozeTime: Date!
+        var isVibrateOn: Bool = false
         var isActive: Bool = false {
             didSet {
                 if !self.isActive || self.isActive != oldValue {
@@ -287,8 +328,8 @@ class TheBestClockPrefs {
          */
         func encode(with aCoder: NSCoder) {
             aCoder.encode(self.alarmTime as NSNumber, forKey: TheBestClockPrefs.AlarmPrefsKeys.alarmTime.rawValue)
-            aCoder.encode(self.playlistID, forKey: TheBestClockPrefs.AlarmPrefsKeys.playlistID.rawValue)
             aCoder.encode(self.isActive as NSNumber, forKey: TheBestClockPrefs.AlarmPrefsKeys.isActive.rawValue)
+            aCoder.encode(self.isVibrateOn as NSNumber, forKey: TheBestClockPrefs.AlarmPrefsKeys.isVibrateOn.rawValue)
         }
         
         /* ################################################################## */
@@ -304,12 +345,12 @@ class TheBestClockPrefs {
         required init?(coder aDecoder: NSCoder) {
             super.init()
 
+            if let isVibrateOn = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.isVibrateOn.rawValue) as? NSNumber {
+                self.isVibrateOn = isVibrateOn.boolValue
+            }
+
             if let isActive = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.isActive.rawValue) as? NSNumber {
                 self.isActive = isActive.boolValue
-            }
-        
-            if let playListID = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.playlistID.rawValue) as? UUID {
-                self.playlistID = playListID
             }
 
             if let alarmTime = aDecoder.decodeObject(forKey: TheBestClockPrefs.AlarmPrefsKeys.alarmTime.rawValue) as? NSNumber {
@@ -323,7 +364,7 @@ class TheBestClockPrefs {
         /**
          */
         override var description: String {
-            return "isActive: " + (self.isActive ? "true" : "false") + ", time: \(self.alarmTime), playlistID: \(self.playlistID)"
+            return "isActive: " + (self.isActive ? "true" : "false") + ", time: \(self.alarmTime), isVibrateOn: \(self.isVibrateOn)"
         }
         
         /* ################################################################## */
@@ -346,7 +387,7 @@ class TheBestClockPrefs {
                 }
             }
         }
-        
+
         /* ################################################################## */
         /**
          */
@@ -363,7 +404,21 @@ class TheBestClockPrefs {
                     if self._alarmTimeInMinutes > meTime {
                         meTime = 2400 + meTime - self._alarmTimeInMinutes
                     }
-                    let timeRange = self.alarmTime..<self.alarmTime + self._alarmTimeInMinutes
+                    
+                    var alarmTimeHours = self.alarmTime / 100
+                    let alarmTimeMinutes = self.alarmTime - (alarmTimeHours * 100)
+                    var newAlarmTimeMinutes = alarmTimeMinutes + self._alarmTimeInMinutes
+                    
+                    while 60 < newAlarmTimeMinutes {
+                        alarmTimeHours += 1
+                        newAlarmTimeMinutes -= 60
+                    }
+                    
+                    while 2359 < alarmTimeHours {
+                        alarmTimeHours -= 24
+                    }
+                    
+                    let timeRange = self.alarmTime..<(alarmTimeHours * 100 + newAlarmTimeMinutes)
                     
                     return timeRange.contains(meTime)
                 }
@@ -484,6 +539,31 @@ class TheBestClockPrefs {
             if self._loadPrefs() {
                 let value = NSNumber(value: Float(newValue))
                 self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.brightnessLevel.rawValue as NSString)
+                self._savePrefs()
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns: the playlist ID, as a UUID.
+     */
+    var playlistID: UUID {
+        get {
+            var ret: UUID = UUID()
+            if self._loadPrefs() {
+                if let temp = self._loadedPrefs.object(forKey: type(of: self).PrefsKeys.playlistID.rawValue) as? UUID {
+                    ret = temp
+                }
+            }
+            
+            return ret
+        }
+        
+        set {
+            if self._loadPrefs() {
+                let value = newValue
+                self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.playlistID.rawValue as NSString)
                 self._savePrefs()
             }
         }
