@@ -181,7 +181,6 @@
 			children = (
 				D4135997218E763F00768430 /* TheBestClockAppDelegate.swift */,
 				D487C1052191CE2E00FBDC77 /* TheBestClockPrefs.swift */,
-				D49C31F92195058700598F7E /* TheGreatRiftValleyDrawing.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -194,6 +193,7 @@
 				D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */,
 				D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */,
 				D4D4AD452194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift */,
+				D49C31F92195058700598F7E /* TheGreatRiftValleyDrawing.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";

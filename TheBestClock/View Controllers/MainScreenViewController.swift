@@ -760,6 +760,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? TheBestClockAboutScreenViewController {
             destination.view.backgroundColor = self.view.backgroundColor
+            destination.baseColor = self._colorSelection[self.selectedColorIndex]
         }
     }
 
