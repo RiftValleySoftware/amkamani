@@ -251,6 +251,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         do {
             try self._audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
             self._audioPlayer?.delegate = self
+            self._audioPlayer?.numberOfLoops = -1
             self._audioPlayer?.play()
         } catch {
         }
@@ -619,10 +620,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /**
      */
     @IBAction func alarmActiveStateChanged(_ sender: TheBestClockAlarmView) {
-        for index in 0..<self._alarmButtons.count where self._alarmButtons[index] == sender {
-            if let alarmRecord = sender.alarmRecord {
-                self._prefs.alarms[index].isActive = alarmRecord.isActive
-                self._prefs.savePrefs()
+        if -1 == self._currentlyEditingAlarmIndex {
+            for index in 0..<self._alarmButtons.count where self._alarmButtons[index] == sender {
+                if let alarmRecord = sender.alarmRecord {
+                    self._prefs.alarms[index].isActive = alarmRecord.isActive
+                    self._prefs.savePrefs()
+                }
             }
         }
     }
@@ -706,6 +709,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             currentAlarm.snoozing = false
             self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isActive = true
             self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.snoozing = false
+            self.alarmEditorActiveSwitch.isOn = true
             self._showOnlyThisAlarm(self._currentlyEditingAlarmIndex)
             let time = currentAlarm.alarmTime
             let hours = time / 100
@@ -779,6 +783,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self.editAlarmTestSoundButton.isHidden = .silence == currentAlarm.selectedSoundMode
             self.editAlarmScreenContainer.isHidden = false
             self.editAlarmTimeDatePicker.setValue(self.selectedColor, forKey: "textColor")
+            // This nasty little hack, is because it is possible to get the alarm to display as inactive when it is, in fact, active.
+            Timer.scheduledTimer(withTimeInterval: 0.125, repeats: false) { [unowned self] _ in
+                DispatchQueue.main.async {
+                    self.activeSwitchChanged(self.alarmEditorActiveSwitch)
+                }
+            }
         }
     }
     
@@ -792,6 +802,13 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
+    /* ################################################################## */
+    /**
+     */
+    private func _refreshAlarm(_ inIndex: Int) {
+        self._alarmButtons[inIndex].setNeedsDisplay()
+    }
+
     /* ################################################################## */
     /**
      */
@@ -821,6 +838,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func activeSwitchChanged(_ inSwitch: UISwitch) {
         self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive = inSwitch.isOn
         self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isActive = inSwitch.isOn
+        self._refreshAlarm(self._currentlyEditingAlarmIndex)
     }
     
     /* ################################################################## */
@@ -829,6 +847,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func activeButtonHit(_ sender: Any) {
         self.alarmEditorActiveSwitch.setOn(!self.alarmEditorActiveSwitch.isOn, animated: true)
         self.alarmEditorActiveSwitch.sendActions(for: .valueChanged)
+        self._refreshAlarm(self._currentlyEditingAlarmIndex)
     }
     
     /* ################################################################## */

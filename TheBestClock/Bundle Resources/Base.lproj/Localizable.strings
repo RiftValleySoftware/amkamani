@@ -19,8 +19,8 @@
 "LOCAL-TEST-SOUND"                          =       "Play Sound";
 "LOCAL-PAUSE-SOUND"                         =       "Pause Sound";
 "LOCAL-APP-NAME"                            =       "TBD";
-"annoying-alarm.mp3"                        =       "Classic Alarm Clock";
-"electronic-buzz.mp3"                       =       "Repeated Buzz Beeps";
-"fast-beep.mp3"                             =       "Fast Beeps";
-"high-fast-beeps.mp3"                       =       "High Beeps";
-"single-beep.mp3"                           =       "Basic Beep";
+"annoying-alarm.mp3"                        =       "Classic Alarm";
+"electronic-buzz.mp3"                       =       "Strident Beeps";
+"fast-beep.mp3"                             =       "Subtle Ringing";
+"high-fast-beeps.mp3"                       =       "Fast Subtle Beeps";
+"single-beep.mp3"                           =       "Basic Beeps";
