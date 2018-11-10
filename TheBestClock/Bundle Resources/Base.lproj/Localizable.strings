@@ -25,3 +25,7 @@
 "fast-beep.mp3"                             =       "Subtle Ringing";
 "high-fast-beeps.mp3"                       =       "Fast Subtle Beeps";
 "single-beep.mp3"                           =       "Basic Beeps";
+"crazy-bird.mp3"                            =       "Crazy Bird";
+"escalation.mp3"                            =       "Escalating Alarm";
+"videogame-beeps-high-frequency.mp3"        =       "High-Frequency Electronic";
+"videogame-beeps-lower-frequency.mp3"       =       "Low-Frequency Electronic";

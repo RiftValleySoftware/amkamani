@@ -29,6 +29,10 @@
 		D4A7E113219610AD00F94C32 /* high-fast-beeps.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E108219610AD00F94C32 /* high-fast-beeps.mp3 */; };
 		D4A7E116219610AD00F94C32 /* annoying-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E10B219610AD00F94C32 /* annoying-alarm.mp3 */; };
 		D4A7E117219610AD00F94C32 /* fast-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E10C219610AD00F94C32 /* fast-beep.mp3 */; };
+		D4AE3AF421979B8000F706A3 /* crazy-bird.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4AE3AF021979B8000F706A3 /* crazy-bird.mp3 */; };
+		D4AE3AF521979B8000F706A3 /* videogame-beeps-lower-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4AE3AF121979B8000F706A3 /* videogame-beeps-lower-frequency.mp3 */; };
+		D4AE3AF621979B8000F706A3 /* videogame-beeps-high-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4AE3AF221979B8000F706A3 /* videogame-beeps-high-frequency.mp3 */; };
+		D4AE3AF721979B8000F706A3 /* escalation.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4AE3AF321979B8000F706A3 /* escalation.mp3 */; };
 		D4D4AD462194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4AD452194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift */; };
 		D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */; };
 /* End PBXBuildFile section */
@@ -81,6 +85,10 @@
 		D4A7E108219610AD00F94C32 /* high-fast-beeps.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "high-fast-beeps.mp3"; sourceTree = "<group>"; };
 		D4A7E10B219610AD00F94C32 /* annoying-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "annoying-alarm.mp3"; sourceTree = "<group>"; };
 		D4A7E10C219610AD00F94C32 /* fast-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "fast-beep.mp3"; sourceTree = "<group>"; };
+		D4AE3AF021979B8000F706A3 /* crazy-bird.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "crazy-bird.mp3"; sourceTree = "<group>"; };
+		D4AE3AF121979B8000F706A3 /* videogame-beeps-lower-frequency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "videogame-beeps-lower-frequency.mp3"; sourceTree = "<group>"; };
+		D4AE3AF221979B8000F706A3 /* videogame-beeps-high-frequency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "videogame-beeps-high-frequency.mp3"; sourceTree = "<group>"; };
+		D4AE3AF321979B8000F706A3 /* escalation.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = escalation.mp3; sourceTree = "<group>"; };
 		D4B704062190B9940094E320 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "Pods/Reveal-SDK/RevealServer-19/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		D4D4AD452194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockAboutScreenViewController.swift; sourceTree = "<group>"; };
 		D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "let's go digital regular.ttf"; sourceTree = "<group>"; };
@@ -218,6 +226,10 @@
 		D4A7E103219610AD00F94C32 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				D4AE3AF021979B8000F706A3 /* crazy-bird.mp3 */,
+				D4AE3AF321979B8000F706A3 /* escalation.mp3 */,
+				D4AE3AF221979B8000F706A3 /* videogame-beeps-high-frequency.mp3 */,
+				D4AE3AF121979B8000F706A3 /* videogame-beeps-lower-frequency.mp3 */,
 				D4A7E105219610AD00F94C32 /* single-beep.mp3 */,
 				D4A7E106219610AD00F94C32 /* electronic-buzz.mp3 */,
 				D4A7E108219610AD00F94C32 /* high-fast-beeps.mp3 */,
@@ -353,9 +365,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4AE3AF521979B8000F706A3 /* videogame-beeps-lower-frequency.mp3 in Resources */,
 				D413599F218E764100768430 /* Assets.xcassets in Resources */,
 				D413599D218E763F00768430 /* Main.storyboard in Resources */,
 				D46682A821911F5E00471BC0 /* Localizable.strings in Resources */,
+				D4AE3AF721979B8000F706A3 /* escalation.mp3 in Resources */,
+				D4AE3AF421979B8000F706A3 /* crazy-bird.mp3 in Resources */,
 				D41359A2218E764100768430 /* LaunchScreen.storyboard in Resources */,
 				D48101412195F00700EEA7FD /* CelticHand.ttf in Resources */,
 				D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */,
@@ -364,6 +379,7 @@
 				D4A7E113219610AD00F94C32 /* high-fast-beeps.mp3 in Resources */,
 				D4A7E111219610AD00F94C32 /* electronic-buzz.mp3 in Resources */,
 				D4A7E117219610AD00F94C32 /* fast-beep.mp3 in Resources */,
+				D4AE3AF621979B8000F706A3 /* videogame-beeps-high-frequency.mp3 in Resources */,
 				D4A7E110219610AD00F94C32 /* single-beep.mp3 in Resources */,
 				D4A7E116219610AD00F94C32 /* annoying-alarm.mp3 in Resources */,
 			);
