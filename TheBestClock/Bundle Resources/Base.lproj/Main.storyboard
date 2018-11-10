@@ -149,16 +149,6 @@
                                                     <action selector="alarmTimeDatePickerChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="WEV-hf-zyM"/>
                                                 </connections>
                                             </datePicker>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KIX-rh-aQ5">
-                                                <rect key="frame" x="287" y="0.0" width="80" height="31"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="80" placeholder="YES" id="SpN-Er-dkM"/>
-                                                </constraints>
-                                                <state key="normal" title="LOCAL-DONE"/>
-                                                <connections>
-                                                    <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z4z-BI-mVS"/>
-                                                </connections>
-                                            </button>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JKA-TF-KPA">
                                                 <rect key="frame" x="8" y="0.0" width="49" height="31"/>
                                                 <constraints>
@@ -170,7 +160,7 @@
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N79-EU-S3q">
-                                                <rect key="frame" x="63" y="0.0" width="216" height="31"/>
+                                                <rect key="frame" x="63" y="0.0" width="304" height="31"/>
                                                 <state key="normal" title="LOCAL-ACTIVE-SWITCH"/>
                                                 <connections>
                                                     <action selector="activeButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NKz-Mj-eA4"/>
@@ -216,31 +206,41 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="toe-pT-XQS"/>
                                                 </connections>
                                             </pickerView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KIX-rh-aQ5">
+                                                <rect key="frame" x="140" y="576" width="95" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="95" placeholder="YES" id="TNV-tY-jy6"/>
+                                                    <constraint firstAttribute="height" constant="31" id="gWk-N5-syG"/>
+                                                </constraints>
+                                                <state key="normal" title="LOCAL-DONE"/>
+                                                <connections>
+                                                    <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z4z-BI-mVS"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="anU-SX-fsT" firstAttribute="top" secondItem="ocx-Nd-os6" secondAttribute="bottom" constant="8" id="1yi-Kf-Kh7"/>
                                             <constraint firstAttribute="trailing" secondItem="anU-SX-fsT" secondAttribute="trailing" constant="8" id="5Ef-jS-WXx"/>
                                             <constraint firstItem="FZW-w9-tN7" firstAttribute="top" secondItem="anU-SX-fsT" secondAttribute="bottom" constant="8" id="BkR-4D-usx"/>
+                                            <constraint firstAttribute="bottom" secondItem="KIX-rh-aQ5" secondAttribute="bottom" id="CIZ-5h-ebM"/>
                                             <constraint firstItem="FZW-w9-tN7" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="Ezi-sf-Flg"/>
                                             <constraint firstItem="JKA-TF-KPA" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="Fy7-dl-Xhu"/>
                                             <constraint firstAttribute="trailing" secondItem="FZW-w9-tN7" secondAttribute="trailing" constant="8" id="Ik7-iV-3BN"/>
                                             <constraint firstItem="N79-EU-S3q" firstAttribute="centerY" secondItem="JKA-TF-KPA" secondAttribute="centerY" id="Kcs-Qc-Upa"/>
                                             <constraint firstAttribute="trailing" secondItem="Epq-FZ-noz" secondAttribute="trailing" id="L4n-9N-Ve9"/>
                                             <constraint firstItem="ocx-Nd-os6" firstAttribute="top" secondItem="Epq-FZ-noz" secondAttribute="bottom" constant="8" id="LRa-kH-DaJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="N79-EU-S3q" secondAttribute="trailing" constant="8" id="M8m-zh-n2D"/>
                                             <constraint firstItem="s52-VF-TQ5" firstAttribute="height" secondItem="ocx-Nd-os6" secondAttribute="height" id="MCD-pv-EYf"/>
-                                            <constraint firstItem="KIX-rh-aQ5" firstAttribute="centerY" secondItem="JKA-TF-KPA" secondAttribute="centerY" id="Smz-Ss-Efi"/>
+                                            <constraint firstItem="Epq-FZ-noz" firstAttribute="top" secondItem="JKA-TF-KPA" secondAttribute="bottom" constant="8" id="Nui-dw-rXU"/>
                                             <constraint firstItem="ocx-Nd-os6" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="TaE-iP-KuW"/>
                                             <constraint firstAttribute="trailing" secondItem="s52-VF-TQ5" secondAttribute="trailing" constant="8" id="Uyt-b4-wlV"/>
                                             <constraint firstItem="JKA-TF-KPA" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="top" id="V5m-wU-KYu"/>
-                                            <constraint firstAttribute="trailing" secondItem="KIX-rh-aQ5" secondAttribute="trailing" constant="8" id="Zwr-cf-TsX"/>
+                                            <constraint firstItem="KIX-rh-aQ5" firstAttribute="centerX" secondItem="SpK-gg-rNb" secondAttribute="centerX" id="Yqz-8x-SFb"/>
                                             <constraint firstItem="Epq-FZ-noz" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="bzY-Cd-42B"/>
                                             <constraint firstItem="s52-VF-TQ5" firstAttribute="centerY" secondItem="ocx-Nd-os6" secondAttribute="centerY" id="ct1-W9-Aam"/>
-                                            <constraint firstItem="KIX-rh-aQ5" firstAttribute="leading" secondItem="N79-EU-S3q" secondAttribute="trailing" constant="8" id="dNq-kh-xZB"/>
                                             <constraint firstItem="s52-VF-TQ5" firstAttribute="leading" secondItem="ocx-Nd-os6" secondAttribute="trailing" constant="8" id="h6U-ul-PRf"/>
-                                            <constraint firstItem="Epq-FZ-noz" firstAttribute="top" secondItem="KIX-rh-aQ5" secondAttribute="bottom" constant="8" id="iRV-Tv-Z8C"/>
                                             <constraint firstItem="N79-EU-S3q" firstAttribute="leading" secondItem="JKA-TF-KPA" secondAttribute="trailing" constant="8" id="iVe-Oa-d3m"/>
-                                            <constraint firstItem="KIX-rh-aQ5" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="kKJ-KD-1VW"/>
                                             <constraint firstItem="N79-EU-S3q" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="qfX-65-Wdk"/>
                                             <constraint firstItem="anU-SX-fsT" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="ulg-X2-bBG"/>
                                         </constraints>
