@@ -983,6 +983,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if let destination = segue.destination as? TheBestClockAboutScreenViewController {
             destination.view.backgroundColor = self.view.backgroundColor
             destination.baseColor = self.selectedColor
+            destination.baseFont = UIFont(name: self.selectedFontName, size: 30)
         }
     }
 

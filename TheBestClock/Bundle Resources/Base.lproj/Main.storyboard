@@ -157,17 +157,17 @@
                                                 </connections>
                                             </switch>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DdB-iS-OpY">
-                                                <rect key="frame" x="59" y="0.0" width="257" height="31"/>
+                                                <rect key="frame" x="63" y="0.0" width="249" height="31"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N79-EU-S3q">
-                                                        <rect key="frame" x="0.0" y="0.0" width="128.5" height="31"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="124.5" height="31"/>
                                                         <state key="normal" title="LOCAL-ACTIVE-SWITCH"/>
                                                         <connections>
                                                             <action selector="activeButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NKz-Mj-eA4"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s52-VF-TQ5">
-                                                        <rect key="frame" x="128.5" y="0.0" width="128.5" height="31"/>
+                                                        <rect key="frame" x="124.5" y="0.0" width="124.5" height="31"/>
                                                         <state key="normal" title="LOCAL-VIBRATE-BEEP-SWITCH"/>
                                                         <connections>
                                                             <action selector="vibrateButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rp5-7w-vad"/>
@@ -219,6 +219,7 @@
                                             </view>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="anU-SX-fsT">
                                                 <rect key="frame" x="8" y="111" width="359" height="29"/>
+                                                <gestureRecognizers/>
                                                 <segments>
                                                     <segment title="LOCAL-SOUNDS"/>
                                                     <segment title="LOCAL-PLAYLIST"/>
@@ -226,6 +227,7 @@
                                                 </segments>
                                                 <connections>
                                                     <action selector="soundModeChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="kPB-ta-ptr"/>
+                                                    <outletCollection property="gestureRecognizers" destination="GC0-YW-qcF" appends="YES" id="P2v-Yl-0vy"/>
                                                 </connections>
                                             </segmentedControl>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SZV-H4-hT3">
@@ -276,7 +278,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="DdB-iS-OpY" firstAttribute="leading" secondItem="JKA-TF-KPA" secondAttribute="trailing" constant="4" id="1Vh-Mb-uUq"/>
+                                            <constraint firstItem="DdB-iS-OpY" firstAttribute="leading" secondItem="JKA-TF-KPA" secondAttribute="trailing" constant="8" id="1Vh-Mb-uUq"/>
                                             <constraint firstItem="DdB-iS-OpY" firstAttribute="centerY" secondItem="JKA-TF-KPA" secondAttribute="centerY" id="3vJ-Ab-z4D"/>
                                             <constraint firstItem="JKA-TF-KPA" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="4AF-tz-H0W"/>
                                             <constraint firstItem="jK9-7k-U8Q" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="7Pi-Tv-FUS"/>
@@ -286,7 +288,7 @@
                                             <constraint firstItem="Vhh-qj-jcy" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="Qks-2U-ky6"/>
                                             <constraint firstItem="DdB-iS-OpY" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="Vez-Zn-zE3"/>
                                             <constraint firstItem="jK9-7k-U8Q" firstAttribute="top" secondItem="JKA-TF-KPA" secondAttribute="bottom" id="XfE-OJ-ZCf"/>
-                                            <constraint firstItem="ocx-Nd-os6" firstAttribute="leading" secondItem="DdB-iS-OpY" secondAttribute="trailing" constant="4" id="eWI-6D-loo"/>
+                                            <constraint firstItem="ocx-Nd-os6" firstAttribute="leading" secondItem="DdB-iS-OpY" secondAttribute="trailing" constant="8" id="eWI-6D-loo"/>
                                             <constraint firstItem="JKA-TF-KPA" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="top" id="geg-hS-cfg"/>
                                             <constraint firstItem="ocx-Nd-os6" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="jdt-BA-VW4"/>
                                             <constraint firstAttribute="trailing" secondItem="jK9-7k-U8Q" secondAttribute="trailing" constant="8" id="kZV-eE-fvh"/>
@@ -445,6 +447,7 @@
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="caV-MM-3OZ"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="UY0-GO-scj"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Ika-Un-Z2T"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="GC0-YW-qcF"/>
             </objects>
             <point key="canvasLocation" x="317.60000000000002" y="43.628185907046479"/>
         </scene>
@@ -467,12 +470,25 @@
                                     <action selector="logoTapped:" destination="7ze-OY-b4R" eventType="touchUpInside" id="dDT-9Q-fIb"/>
                                 </connections>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="eP1-rb-e9E">
+                                <rect key="frame" x="0.0" y="148" width="375" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="c9i-dD-nyz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="GgS-f6-WgC" firstAttribute="trailing" secondItem="eP1-rb-e9E" secondAttribute="trailing" id="7lJ-rH-uJn"/>
                             <constraint firstItem="ECo-iI-WzI" firstAttribute="top" secondItem="GgS-f6-WgC" secondAttribute="top" id="GX9-Mn-RVi"/>
+                            <constraint firstItem="eP1-rb-e9E" firstAttribute="leading" secondItem="GgS-f6-WgC" secondAttribute="leading" id="Plf-yH-Cu2"/>
                             <constraint firstItem="ECo-iI-WzI" firstAttribute="centerX" secondItem="LbW-TP-6mb" secondAttribute="centerX" id="Soe-NA-qV0"/>
+                            <constraint firstItem="eP1-rb-e9E" firstAttribute="top" secondItem="ECo-iI-WzI" secondAttribute="bottom" id="xpH-DR-3XZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GgS-f6-WgC"/>
                         <connections>
@@ -481,6 +497,7 @@
                     </view>
                     <connections>
                         <outlet property="logoImageControl" destination="ECo-iI-WzI" id="gkU-i2-XGq"/>
+                        <outlet property="versionLabel" destination="eP1-rb-e9E" id="uWt-xM-Gkp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j4c-lY-58v" userLabel="First Responder" sceneMemberID="firstResponder"/>
