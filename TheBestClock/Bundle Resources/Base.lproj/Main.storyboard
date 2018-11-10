@@ -191,6 +191,7 @@
                                                 <segments>
                                                     <segment title="LOCAL-SOUNDS"/>
                                                     <segment title="LOCAL-PLAYLIST"/>
+                                                    <segment title="LOCAL-NONE"/>
                                                 </segments>
                                                 <connections>
                                                     <action selector="soundModeChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="kPB-ta-ptr"/>
@@ -206,6 +207,16 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="toe-pT-XQS"/>
                                                 </connections>
                                             </pickerView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJp-Wf-Gd4">
+                                                <rect key="frame" x="0.0" y="282" width="375" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="T2k-hM-iQL"/>
+                                                </constraints>
+                                                <state key="normal" title="LOCAL-TEST"/>
+                                                <connections>
+                                                    <action selector="testSoundButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ejf-UD-AVD"/>
+                                                </connections>
+                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KIX-rh-aQ5">
                                                 <rect key="frame" x="140" y="576" width="95" height="31"/>
                                                 <constraints>
@@ -232,6 +243,7 @@
                                             <constraint firstItem="ocx-Nd-os6" firstAttribute="top" secondItem="Epq-FZ-noz" secondAttribute="bottom" constant="8" id="LRa-kH-DaJ"/>
                                             <constraint firstAttribute="trailing" secondItem="N79-EU-S3q" secondAttribute="trailing" constant="8" id="M8m-zh-n2D"/>
                                             <constraint firstItem="s52-VF-TQ5" firstAttribute="height" secondItem="ocx-Nd-os6" secondAttribute="height" id="MCD-pv-EYf"/>
+                                            <constraint firstItem="GJp-Wf-Gd4" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="Mnz-66-Ez8"/>
                                             <constraint firstItem="Epq-FZ-noz" firstAttribute="top" secondItem="JKA-TF-KPA" secondAttribute="bottom" constant="8" id="Nui-dw-rXU"/>
                                             <constraint firstItem="ocx-Nd-os6" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="TaE-iP-KuW"/>
                                             <constraint firstAttribute="trailing" secondItem="s52-VF-TQ5" secondAttribute="trailing" constant="8" id="Uyt-b4-wlV"/>
@@ -241,6 +253,8 @@
                                             <constraint firstItem="s52-VF-TQ5" firstAttribute="centerY" secondItem="ocx-Nd-os6" secondAttribute="centerY" id="ct1-W9-Aam"/>
                                             <constraint firstItem="s52-VF-TQ5" firstAttribute="leading" secondItem="ocx-Nd-os6" secondAttribute="trailing" constant="8" id="h6U-ul-PRf"/>
                                             <constraint firstItem="N79-EU-S3q" firstAttribute="leading" secondItem="JKA-TF-KPA" secondAttribute="trailing" constant="8" id="iVe-Oa-d3m"/>
+                                            <constraint firstAttribute="trailing" secondItem="GJp-Wf-Gd4" secondAttribute="trailing" id="l34-I2-RgF"/>
+                                            <constraint firstItem="GJp-Wf-Gd4" firstAttribute="top" secondItem="FZW-w9-tN7" secondAttribute="bottom" id="pcW-Kb-Y2g"/>
                                             <constraint firstItem="N79-EU-S3q" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="qfX-65-Wdk"/>
                                             <constraint firstItem="anU-SX-fsT" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="ulg-X2-bBG"/>
                                         </constraints>
@@ -329,12 +343,15 @@
                         <outlet property="editAlarmPickerView" destination="FZW-w9-tN7" id="gZw-aM-4NI"/>
                         <outlet property="editAlarmScreenContainer" destination="g5Y-c0-3tI" id="rwd-Vp-EnO"/>
                         <outlet property="editAlarmScreenMaskView" destination="SpK-gg-rNb" id="zOB-Xb-8pg"/>
+                        <outlet property="editAlarmTestSoundButton" destination="GJp-Wf-Gd4" id="TL5-NA-jkZ"/>
                         <outlet property="editAlarmTimeDatePicker" destination="Epq-FZ-noz" id="GuW-2j-icQ"/>
                         <outlet property="flasherView" destination="NOd-rj-VcR" id="qY1-CC-fTM"/>
                         <outlet property="fontDisplayPickerView" destination="5Ot-f1-EK6" id="giA-vX-QuX"/>
                         <outlet property="infoButton" destination="SZl-tK-oiX" id="cQy-hO-Vx1"/>
                         <outlet property="mainNumberDisplayView" destination="tA9-HM-M61" id="4MX-Vs-nAa"/>
                         <outlet property="mainPickerContainerView" destination="KDL-S8-BKg" id="Qml-Ag-nxF"/>
+                        <outlet property="shutUpAlreadyGestureRecognizer" destination="yOI-ks-4mc" id="zsO-ef-NT5"/>
+                        <outlet property="snoozeGestureRecogninzer" destination="qzH-bp-wEr" id="cof-UO-0g4"/>
                         <segue destination="7ze-OY-b4R" kind="presentation" identifier="open-info" id="U3E-Be-YOf"/>
                     </connections>
                 </viewController>

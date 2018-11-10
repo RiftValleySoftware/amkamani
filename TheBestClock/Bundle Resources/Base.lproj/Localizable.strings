@@ -16,13 +16,11 @@
 "LOCAL-VIBRATE-BEEP-SWITCH"                 =       "Vibrate";
 "LOCAL-SOUNDS"                              =       "Sounds";
 "LOCAL-PLAYLIST"                            =       "Music";
-"ah-oo-gah.mp3"                             =       "Antique Car Horn";
+"LOCAL-NONE"                                =       "Silence";
+"LOCAL-TEST-SOUND"                          =       "Play Sound";
+"LOCAL-PAUSE-SOUND"                         =       "Pause Sound";
 "annoying-alarm.mp3"                        =       "Classic Alarm Clock";
-"churchbell.mp3"                            =       "For Whom the Bell Tolls...";
 "electronic-buzz.mp3"                       =       "Repeated Buzz Beeps";
 "fast-beep.mp3"                             =       "Fast Beeps";
 "high-fast-beeps.mp3"                       =       "High Beeps";
-"phone-ringing.mp3"                         =       "Ringing Old Phone";
-"rooster.mp3"                               =       "Rooster";
 "single-beep.mp3"                           =       "Basic Beep";
-"the-punisher.mp3"                          =       "The Punisher";

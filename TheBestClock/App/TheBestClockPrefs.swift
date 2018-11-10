@@ -191,12 +191,18 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
         case alarmTime, isActive, isVibrateOn, selectedSoundMode, selectedSoundIndex
     }
     
+    /* ################################################################## */
+    /** These are the keys we use to specify the alarm sound mode. */
+    public enum AlarmPrefsMode: Int {
+        case sounds, music, silence
+    }
+    
     private let _snoozeTimeInMinutes: Int = 9
     private let _alarmTimeInMinutes: Int = 15
     
     var alarmTime: Int = 0
     var isVibrateOn: Bool = false
-    var selectedSoundMode: Int = 0
+    var selectedSoundMode: AlarmPrefsMode = .sounds
     var selectedSoundIndex: Int = 0
     var isActive: Bool = false {
         didSet {
@@ -220,7 +226,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
         aCoder.encode(isVibrateOn, forKey: AlarmPrefsKeys.isVibrateOn.rawValue)
         let selectedSoundIndex = NSNumber(value: self.selectedSoundIndex)
         aCoder.encode(selectedSoundIndex, forKey: AlarmPrefsKeys.selectedSoundIndex.rawValue)
-        let selectedSoundMode = NSNumber(value: self.selectedSoundMode)
+        let selectedSoundMode = NSNumber(value: self.selectedSoundMode.rawValue)
         aCoder.encode(selectedSoundMode, forKey: AlarmPrefsKeys.selectedSoundMode.rawValue)
     }
     
@@ -250,7 +256,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
         super.init()
         
         if let selectedSoundMode = aDecoder.decodeObject(forKey: AlarmPrefsKeys.selectedSoundMode.rawValue) as? NSNumber {
-            self.selectedSoundMode = selectedSoundMode.intValue
+            self.selectedSoundMode = AlarmPrefsMode(rawValue: selectedSoundMode.intValue) ?? .silence
         }
         
         if let selectedSoundIndex = aDecoder.decodeObject(forKey: AlarmPrefsKeys.selectedSoundIndex.rawValue) as? NSNumber {

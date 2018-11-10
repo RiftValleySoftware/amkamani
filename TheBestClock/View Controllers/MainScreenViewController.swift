@@ -10,13 +10,18 @@
 
 import UIKit
 import MediaPlayer
+import AVKit
 
 /* ###################################################################################################################################### */
 // MARK: - Main Class -
 /* ###################################################################################################################################### */
 /**
+ The entire app is basically handled by this one big fat View Controller. The idea is that users don't leave the context to do their settings.
+ 
+ There are two "screens" that appear: The Appearance Editor (font, color), and the Alarm Editor (alarm time, activation, sound). These are actually
+ hidden screens that appear over the main display screen.
  */
-class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, TheBestClockAlarmViewDelegate {
+class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, TheBestClockAlarmViewDelegate, AVAudioPlayerDelegate {
     /* ################################################################## */
     // MARK: - Instance Types and Structs
     /* ################################################################## */
@@ -69,7 +74,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private let _alarmsFontSize: CGFloat = 40
     private let _alarmEditorTopFontSize: CGFloat = 30
     private let _alarmEditorSoundPickerFontSize: CGFloat = 30
-
+    
     /* ################################################################## */
     // MARK: - Instance Private Properties
     /* ################################################################## */
@@ -82,7 +87,14 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private var _ticker: Timer!
     private var _fontSizeCache: CGFloat = 0
     private var _currentlyEditingAlarmIndex: Int = -1
-    
+    private var _audioPlayer: AVAudioPlayer? {
+        didSet {
+            DispatchQueue.main.async {
+                self.editAlarmTestSoundButton.setTitle((nil == self._audioPlayer ? "LOCAL-TEST-SOUND" : "LOCAL-PAUSE-SOUND").localizedVariant, for: .normal)
+            }
+        }
+    }
+
     /* ################################################################## */
     // MARK: - Instance IB Properties
     /* ################################################################## */
@@ -130,6 +142,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var alarmEditSoundModeSelector: UISegmentedControl!
     /// This is the picker view we use to select playback sounds for the alarm.
     @IBOutlet weak var editAlarmPickerView: UIPickerView!
+    /// This is the button that is pressed to test the sounds.
+    @IBOutlet weak var editAlarmTestSoundButton: UIButton!
+    /// This is the "STOP" long press gesture recognizer.
+    @IBOutlet var shutUpAlreadyGestureRecognizer: UILongPressGestureRecognizer!
+    /// This is the "snooze" tap gesture recognizer.
+    @IBOutlet var snoozeGestureRecogninzer: UITapGestureRecognizer!
     
     /* ################################################################## */
     // MARK: - Instance Properties
@@ -199,7 +217,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     /* ################################################################## */
-    // MARK: - Instance Private Methods
+    // MARK: - Media Methods
     /* ################################################################## */
     /**
      */
@@ -218,6 +236,161 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
+    /* ################################################################## */
+    /**
+     */
+    private func _playSound(_ inAlarmIndex: Int) {
+        if nil == self._audioPlayer, .sounds == self._prefs.alarms[inAlarmIndex].selectedSoundMode, let soundUrl = URL(string: self._soundSelection[self._prefs.alarms[inAlarmIndex].selectedSoundIndex]) {
+            self._playThisSound(soundUrl)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _playThisSound(_ inSoundURL: URL) {
+        do {
+            try self._audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
+            self._audioPlayer?.delegate = self
+            self._audioPlayer?.play()
+        } catch {
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _pauseAudioPlayer() {
+        if nil != self._audioPlayer {
+            self._audioPlayer?.pause()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _stopAudioPlayer() {
+        if nil != self._audioPlayer {
+            self._audioPlayer?.stop()
+            self._audioPlayer = nil
+        }
+    }
+
+    /* ################################################################## */
+    // MARK: - Instance Main Display Methods
+    /* ################################################################## */
+    /**
+     This creates the display, as a gradient-filled font.
+     */
+    private func _createDisplayView(_ inContainerView: UIView, index inIndex: Int) -> UIView {
+        for subView in inContainerView.subviews {
+            subView.removeFromSuperview()
+        }
+        
+        if let sublayers = inContainerView.layer.sublayers {
+            for subLayer in sublayers {
+                subLayer.removeFromSuperlayer()
+            }
+        }
+        
+        self.brightnessSlider.endColor = self.selectedColor
+        self.brightnessSlider.brightness = self.selectedBrightness
+        self.brightnessSlider.setNeedsDisplay()
+        
+        var frame = inContainerView.bounds
+        frame.size.height = inContainerView.bounds.height
+        let fontName = self._fontSelection[inIndex]
+        let fontSize = 0 == self._fontSizeCache ? self.mainNumberDisplayView.bounds.size.height : self._fontSizeCache
+        self._fontSizeCache = fontSize
+        
+        if 0 < fontSize, let font = UIFont(name: fontName, size: fontSize) {
+            let text = self.currentTimeString.time
+            
+            var endColor: UIColor
+            var startColor: UIColor
+            
+            if 0 == self.selectedColorIndex {
+                endColor = UIColor(white: 0.9 * self.selectedBrightness, alpha: 1.0)
+                startColor = UIColor(white: 1.25 * self.selectedBrightness, alpha: 1.0)
+            } else {
+                let hue = self.selectedColor.hsba.h
+                endColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.9 * self.selectedBrightness, alpha: 1.0)
+                startColor = UIColor(hue: hue, saturation: 0.85, brightness: 1.25 * self.selectedBrightness, alpha: 1.0)
+            }
+            
+            // The background can get darker than the text.
+            self._backgroundColor = (self.selectedBrightness == self._minimumBrightness) ? UIColor.black : UIColor(white: 0.25 * self.selectedBrightness, alpha: 1.0)
+            
+            self.view.backgroundColor = self._backgroundColor
+            let displayLabelGradient = UIView(frame: frame)
+            let gradient = CAGradientLayer()
+            gradient.colors = [startColor.cgColor, endColor.cgColor]
+            gradient.startPoint = CGPoint(x: 0.5, y: 0)
+            gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+            gradient.frame = frame
+            displayLabelGradient.layer.addSublayer(gradient)
+            
+            let displayLabel = UILabel(frame: frame)
+            displayLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+            displayLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+            displayLabel.font = font
+            displayLabel.adjustsFontSizeToFitWidth = true
+            displayLabel.textAlignment = .center
+            displayLabel.baselineAdjustment = .alignCenters
+            displayLabel.text = text
+            
+            displayLabelGradient.addContainedView(displayLabel)
+            inContainerView.addContainedView(displayLabelGradient)
+            
+            inContainerView.mask = displayLabel
+        }
+        
+        return inContainerView
+    }
+    
+    /* ################################################################## */
+    /**
+     This sets (or clears) the ante meridian label. We use a solid bright text color.
+     */
+    private func _setAMPMLabel() {
+        self.amPmLabel.backgroundColor = UIColor.clear
+        var textColor: UIColor
+        if 0 == self.selectedColorIndex {
+            textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
+        } else {
+            let hue = self.selectedColor.hsba.h
+            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.3 * self.selectedBrightness, alpha: 1.0)
+        }
+        
+        self.amPmLabel.font = UIFont(name: self.selectedFontName, size: self._amPmLabelFontSize)
+        self.amPmLabel.text = self.currentTimeString.amPm
+        self.amPmLabel.adjustsFontSizeToFitWidth = true
+        self.amPmLabel.textAlignment = .right
+        self.amPmLabel.baselineAdjustment = .alignCenters
+        self.amPmLabel.textColor = textColor
+    }
+    
+    /* ################################################################## */
+    /**
+     This sets the date label. We use a solid bright text color.
+     */
+    private func _setDateDisplayLabel() {
+        self.dateDisplayLabel.backgroundColor = UIColor.clear
+        var textColor: UIColor
+        if 0 == self.selectedColorIndex {
+            textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
+        } else {
+            let hue = self.selectedColor.hsba.h
+            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.4 * self.selectedBrightness, alpha: 1.0)
+        }
+        
+        self.dateDisplayLabel.font = UIFont(name: self.selectedFontName, size: self._dateLabelFontSize)
+        self.dateDisplayLabel.text = self.currentTimeString.date
+        self.dateDisplayLabel.adjustsFontSizeToFitWidth = true
+        self.dateDisplayLabel.textAlignment = .center
+        self.dateDisplayLabel.textColor = textColor
+    }
+
     /* ################################################################## */
     // MARK: - Alarm Strip Methods
     /* ################################################################## */
@@ -319,37 +492,18 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     /* ################################################################## */
-    /**
-     This sets (or clears) the ante meridian label. We use a solid bright text color.
-     */
-    private func _setAMPMLabel() {
-        self.amPmLabel.backgroundColor = UIColor.clear
-        var textColor: UIColor
-        if 0 == self.selectedColorIndex {
-            textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
-        } else {
-            let hue = self.selectedColor.hsba.h
-            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.3 * self.selectedBrightness, alpha: 1.0)
-        }
-        
-        self.amPmLabel.font = UIFont(name: self.selectedFontName, size: self._amPmLabelFontSize)
-        self.amPmLabel.text = self.currentTimeString.amPm
-        self.amPmLabel.adjustsFontSizeToFitWidth = true
-        self.amPmLabel.textAlignment = .right
-        self.amPmLabel.baselineAdjustment = .alignCenters
-        self.amPmLabel.textColor = textColor
-    }
-    
-    /* ################################################################## */
     // MARK: - Running Clock and Alarm Methods
     /* ################################################################## */
     /**
      */
-    private func _checkAlarmStatus() {
+    private func _checkAlarmStatus(soundOnly: Bool = false) {
         var index = 0
         // If we have an active alarm, then we throw the switch, iGor.
         for alarm in self._prefs.alarms {
             if alarm.alarming {
+                if !soundOnly {
+                    self._flashDisplay(self.selectedColor)
+                }
                 self._aooGah(index)
             } else if alarm.snoozing {
                 self._zzzz(index)
@@ -364,10 +518,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     private func _aooGah(_ inIndex: Int) {
         self.alarmDisplayView.isHidden = false
-        self._flashDisplay(self.selectedColor)
         if self._prefs.alarms[inIndex].isVibrateOn {
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
         }
+        self._playSound(inIndex)
     }
     
     /* ################################################################## */
@@ -390,97 +544,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private func _zzzz(_ inIndex: Int) {
         self._alarmButtons[inIndex].snore()
     }
-    
-    /* ################################################################## */
-    /**
-     This sets the date label. We use a solid bright text color.
-     */
-    private func _setDateDisplayLabel() {
-        self.dateDisplayLabel.backgroundColor = UIColor.clear
-        var textColor: UIColor
-        if 0 == self.selectedColorIndex {
-            textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
-        } else {
-            let hue = self.selectedColor.hsba.h
-            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.4 * self.selectedBrightness, alpha: 1.0)
-        }
-        
-        self.dateDisplayLabel.font = UIFont(name: self.selectedFontName, size: self._dateLabelFontSize)
-        self.dateDisplayLabel.text = self.currentTimeString.date
-        self.dateDisplayLabel.adjustsFontSizeToFitWidth = true
-        self.dateDisplayLabel.textAlignment = .center
-        self.dateDisplayLabel.textColor = textColor
-    }
-
-    /* ################################################################## */
-    /**
-     This creates the display, as a gradient-filled font.
-     */
-    private func _createDisplayView(_ inContainerView: UIView, index inIndex: Int) -> UIView {
-        for subView in inContainerView.subviews {
-            subView.removeFromSuperview()
-        }
-        
-        if let sublayers = inContainerView.layer.sublayers {
-            for subLayer in sublayers {
-                subLayer.removeFromSuperlayer()
-            }
-        }
-        
-        self.brightnessSlider.endColor = self.selectedColor
-        self.brightnessSlider.brightness = self.selectedBrightness
-        self.brightnessSlider.setNeedsDisplay()
-        
-        var frame = inContainerView.bounds
-        frame.size.height = inContainerView.bounds.height
-        let fontName = self._fontSelection[inIndex]
-        let fontSize = 0 == self._fontSizeCache ? self.mainNumberDisplayView.bounds.size.height : self._fontSizeCache
-        self._fontSizeCache = fontSize
-        
-        if 0 < fontSize, let font = UIFont(name: fontName, size: fontSize) {
-            let text = self.currentTimeString.time
-            
-            var endColor: UIColor
-            var startColor: UIColor
-            
-            if 0 == self.selectedColorIndex {
-                endColor = UIColor(white: 0.9 * self.selectedBrightness, alpha: 1.0)
-                startColor = UIColor(white: 1.25 * self.selectedBrightness, alpha: 1.0)
-            } else {
-                let hue = self.selectedColor.hsba.h
-                endColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.9 * self.selectedBrightness, alpha: 1.0)
-                startColor = UIColor(hue: hue, saturation: 0.85, brightness: 1.25 * self.selectedBrightness, alpha: 1.0)
-            }
-            
-            // The background can get darker than the text.
-            self._backgroundColor = (self.selectedBrightness == self._minimumBrightness) ? UIColor.black : UIColor(white: 0.25 * self.selectedBrightness, alpha: 1.0)
-            
-            self.view.backgroundColor = self._backgroundColor
-            let displayLabelGradient = UIView(frame: frame)
-            let gradient = CAGradientLayer()
-            gradient.colors = [startColor.cgColor, endColor.cgColor]
-            gradient.startPoint = CGPoint(x: 0.5, y: 0)
-            gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-            gradient.frame = frame
-            displayLabelGradient.layer.addSublayer(gradient)
-            
-            let displayLabel = UILabel(frame: frame)
-            displayLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-            displayLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-            displayLabel.font = font
-            displayLabel.adjustsFontSizeToFitWidth = true
-            displayLabel.textAlignment = .center
-            displayLabel.baselineAdjustment = .alignCenters
-            displayLabel.text = text
-            
-            displayLabelGradient.addContainedView(displayLabel)
-            inContainerView.addContainedView(displayLabelGradient)
-            
-            inContainerView.mask = displayLabel
-        }
-        
-        return inContainerView
-    }
 
     /* ################################################################## */
     /**
@@ -489,7 +552,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private func _startTicker() {
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
         if nil == self._ticker {
-            self._ticker = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(type(of: self).checkTicker(_:)), userInfo: nil, repeats: true)
+            self._ticker = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(type(of: self)._checkTicker(_:)), userInfo: nil, repeats: true)
         }
     }
     
@@ -517,6 +580,17 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
 
     /* ################################################################## */
+    /**
+     This is called from the timer.
+     */
+    @objc private func _checkTicker(_ inTimer: Timer) {
+        DispatchQueue.main.async {
+            self._updateMainTime()
+            self._checkAlarmStatus()
+        }
+    }
+    
+    /* ################################################################## */
     // MARK: - Instance IBAction Methods
     /* ################################################################## */
     /**
@@ -525,9 +599,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         for index in 0..<self._prefs.alarms.count where self._prefs.alarms[index].alarming {
             self._prefs.alarms[index].snoozing = true
         }
+        self._stopAudioPlayer()
         self.alarmDisplayView.isHidden = true
     }
-
+    
     /* ################################################################## */
     /**
      */
@@ -537,6 +612,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self._prefs.savePrefs()
             self._alarmButtons[index].alarmRecord.isActive = false
         }
+        self._stopAudioPlayer()
         self.alarmDisplayView.isHidden = true
     }
     
@@ -625,12 +701,14 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private func _openAlarmEditorScreen() {
         self._stopTicker()
         if 0 <= self._currentlyEditingAlarmIndex, self._prefs.alarms.count > self._currentlyEditingAlarmIndex {
-            self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive = true
-            self._prefs.alarms[self._currentlyEditingAlarmIndex].snoozing = false
+            let currentAlarm = self._prefs.alarms[self._currentlyEditingAlarmIndex]
+            
+            currentAlarm.isActive = true
+            currentAlarm.snoozing = false
             self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isActive = true
             self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.snoozing = false
             self._showOnlyThisAlarm(self._currentlyEditingAlarmIndex)
-            let time = self._prefs.alarms[self._currentlyEditingAlarmIndex].alarmTime
+            let time = currentAlarm.alarmTime
             let hours = time / 100
             let minutes = time - (hours * 100)
             
@@ -668,7 +746,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                     label.font = font
                 }
             }
-            self.alarmEditorActiveSwitch.isOn = self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive
+            self.alarmEditorActiveSwitch.isOn = currentAlarm.isActive
             
             self.alarmEditorVibrateBeepSwitch.tintColor = self.selectedColor
             self.alarmEditorVibrateBeepSwitch.thumbTintColor = self.selectedColor
@@ -682,9 +760,18 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                     label.font = font
                 }
             }
-            
-            self.alarmEditorVibrateBeepSwitch.isOn = self._prefs.alarms[self._currentlyEditingAlarmIndex].isVibrateOn
-            self.alarmEditSoundModeSelector.selectedSegmentIndex = self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
+
+            self.editAlarmTestSoundButton.tintColor = self.selectedColor
+            if let label = self.editAlarmTestSoundButton.titleLabel {
+                label.adjustsFontSizeToFitWidth = true
+                label.baselineAdjustment = .alignCenters
+                if let font = UIFont(name: self.selectedFontName, size: self._alarmEditorTopFontSize) {
+                    label.font = font
+                }
+            }
+
+            self.alarmEditorVibrateBeepSwitch.isOn = currentAlarm.isVibrateOn
+            self.alarmEditSoundModeSelector.selectedSegmentIndex = currentAlarm.selectedSoundMode.rawValue
             self.alarmEditSoundModeSelector.tintColor = self.selectedColor
             
             if let font = UIFont(name: self.selectedFontName, size: 20) {
@@ -695,9 +782,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
             self.editAlarmPickerView.reloadComponent(0)
             if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-                self.editAlarmPickerView.selectRow(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundIndex, inComponent: 0, animated: false)
+                self.editAlarmPickerView.selectRow(currentAlarm.selectedSoundIndex, inComponent: 0, animated: false)
             }
             
+            self.editAlarmTestSoundButton.isHidden = .silence == currentAlarm.selectedSoundMode
             self.editAlarmScreenContainer.isHidden = false
             self.editAlarmTimeDatePicker.setValue(self.selectedColor, forKey: "textColor")
         }
@@ -725,8 +813,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /**
      */
     @IBAction func soundModeChanged(_ sender: UISegmentedControl) {
-        self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = self.alarmEditSoundModeSelector.selectedSegmentIndex
-        self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode = self.alarmEditSoundModeSelector.selectedSegmentIndex
+        self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
+        self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
         self.editAlarmPickerView.reloadComponent(0)
         if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
             self.editAlarmPickerView.selectRow(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundIndex, inComponent: 0, animated: false)
@@ -768,6 +856,21 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     /**
      */
+    @IBAction func testSoundButtonHit(_ sender: Any) {
+        if "LOCAL-TEST-SOUND".localizedVariant == self.editAlarmTestSoundButton.title(for: .normal) {
+            self.editAlarmTestSoundButton.setTitle("LOCAL-PAUSE-SOUND".localizedVariant, for: .normal)
+            if let soundUrl = URL(string: self._soundSelection[self.editAlarmPickerView.selectedRow(inComponent: 0)]) {
+                self._playThisSound(soundUrl)
+            }
+        } else {
+            self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
+            self._pauseAudioPlayer()
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     */
     @IBAction func alarmTimeDatePickerChanged(_ inDatePicker: UIDatePicker) {
         if 0 <= self._currentlyEditingAlarmIndex, self._prefs.alarms.count > self._currentlyEditingAlarmIndex {
             let date = inDatePicker.date
@@ -790,6 +893,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func closeAlarmEditorScreen(_ sender: Any) {
         self._prefs.savePrefs()
         self._currentlyEditingAlarmIndex = -1
+        self._stopAudioPlayer()
         self.editAlarmScreenContainer.isHidden = true
         self._showAllAlarms()
         self._updateMainTime()
@@ -840,6 +944,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.alarmEditorDoneButton.setTitle(self.alarmEditorDoneButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.alarmEditorActiveButton.setTitle(self.alarmEditorActiveButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.alarmEditorVibrateButton.setTitle(self.alarmEditorVibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
+        self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
+        self.snoozeGestureRecogninzer.require(toFail: self.shutUpAlreadyGestureRecognizer)
+        
         self._setUpAlarms()
     }
     
@@ -886,19 +993,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
 
-    /* ################################################################## */
-    // MARK: - Instance Internal Methods
-    /* ################################################################## */
-    /**
-     This is called from the timer.
-     */
-    @objc func checkTicker(_ inTimer: Timer) {
-        DispatchQueue.main.async {
-            self._updateMainTime()
-            self._checkAlarmStatus()
-        }
-    }
-    
     /* ################################################################## */
     // MARK: - Instance UIPickerView Delegate and Datasource Methods
     /* ################################################################## */
@@ -1005,8 +1099,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self.selectedFontIndex = row
             self._prefs?.selectedFont = self.selectedFontIndex
         } else if self.editAlarmPickerView == inPickerView {
-            if 0 == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode {
-                self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundIndex = row
+            self._stopAudioPlayer()
+            self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
+            let currentAlarm = self._prefs.alarms[self._currentlyEditingAlarmIndex]
+            if .sounds == currentAlarm.selectedSoundMode {
+                currentAlarm.selectedSoundIndex = row
                 self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSoundIndex = row
             }
         }
@@ -1023,6 +1120,20 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive = true
             self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isActive = true
             self._openAlarmEditorScreen()
+        }
+    }
+
+    /* ################################################################## */
+    // MARK: - AVAudioPlayerDelegate Methods
+    /* ################################################################## */
+    /**
+     */
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        DispatchQueue.main.async {
+            self._audioPlayer = nil
+            if -1 == self._currentlyEditingAlarmIndex {
+                self._checkAlarmStatus(soundOnly: true)
+            }
         }
     }
 }

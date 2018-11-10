@@ -24,16 +24,11 @@
 		D48101412195F00700EEA7FD /* CelticHand.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D481013E2195F00700EEA7FD /* CelticHand.ttf */; };
 		D487C1062191CE2F00FBDC77 /* TheBestClockPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C1052191CE2E00FBDC77 /* TheBestClockPrefs.swift */; };
 		D49C31FA2195058700598F7E /* TheGreatRiftValleyDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49C31F92195058700598F7E /* TheGreatRiftValleyDrawing.swift */; };
-		D4A7E10F219610AD00F94C32 /* rooster.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E104219610AD00F94C32 /* rooster.mp3 */; };
 		D4A7E110219610AD00F94C32 /* single-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E105219610AD00F94C32 /* single-beep.mp3 */; };
 		D4A7E111219610AD00F94C32 /* electronic-buzz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E106219610AD00F94C32 /* electronic-buzz.mp3 */; };
 		D4A7E113219610AD00F94C32 /* high-fast-beeps.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E108219610AD00F94C32 /* high-fast-beeps.mp3 */; };
-		D4A7E114219610AD00F94C32 /* churchbell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E109219610AD00F94C32 /* churchbell.mp3 */; };
-		D4A7E115219610AD00F94C32 /* ah-oo-gah.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E10A219610AD00F94C32 /* ah-oo-gah.mp3 */; };
 		D4A7E116219610AD00F94C32 /* annoying-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E10B219610AD00F94C32 /* annoying-alarm.mp3 */; };
 		D4A7E117219610AD00F94C32 /* fast-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E10C219610AD00F94C32 /* fast-beep.mp3 */; };
-		D4A7E118219610AD00F94C32 /* the-punisher.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E10D219610AD00F94C32 /* the-punisher.mp3 */; };
-		D4A7E119219610AD00F94C32 /* phone-ringing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E10E219610AD00F94C32 /* phone-ringing.mp3 */; };
 		D4D4AD462194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4AD452194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift */; };
 		D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */; };
 /* End PBXBuildFile section */
@@ -81,16 +76,11 @@
 		D481013E2195F00700EEA7FD /* CelticHand.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CelticHand.ttf; sourceTree = "<group>"; };
 		D487C1052191CE2E00FBDC77 /* TheBestClockPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockPrefs.swift; sourceTree = "<group>"; };
 		D49C31F92195058700598F7E /* TheGreatRiftValleyDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheGreatRiftValleyDrawing.swift; sourceTree = "<group>"; };
-		D4A7E104219610AD00F94C32 /* rooster.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rooster.mp3; sourceTree = "<group>"; };
 		D4A7E105219610AD00F94C32 /* single-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "single-beep.mp3"; sourceTree = "<group>"; };
 		D4A7E106219610AD00F94C32 /* electronic-buzz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "electronic-buzz.mp3"; sourceTree = "<group>"; };
 		D4A7E108219610AD00F94C32 /* high-fast-beeps.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "high-fast-beeps.mp3"; sourceTree = "<group>"; };
-		D4A7E109219610AD00F94C32 /* churchbell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = churchbell.mp3; sourceTree = "<group>"; };
-		D4A7E10A219610AD00F94C32 /* ah-oo-gah.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ah-oo-gah.mp3"; sourceTree = "<group>"; };
 		D4A7E10B219610AD00F94C32 /* annoying-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "annoying-alarm.mp3"; sourceTree = "<group>"; };
 		D4A7E10C219610AD00F94C32 /* fast-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "fast-beep.mp3"; sourceTree = "<group>"; };
-		D4A7E10D219610AD00F94C32 /* the-punisher.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "the-punisher.mp3"; sourceTree = "<group>"; };
-		D4A7E10E219610AD00F94C32 /* phone-ringing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "phone-ringing.mp3"; sourceTree = "<group>"; };
 		D4B704062190B9940094E320 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "Pods/Reveal-SDK/RevealServer-19/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		D4D4AD452194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockAboutScreenViewController.swift; sourceTree = "<group>"; };
 		D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "let's go digital regular.ttf"; sourceTree = "<group>"; };
@@ -228,16 +218,11 @@
 		D4A7E103219610AD00F94C32 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				D4A7E104219610AD00F94C32 /* rooster.mp3 */,
 				D4A7E105219610AD00F94C32 /* single-beep.mp3 */,
 				D4A7E106219610AD00F94C32 /* electronic-buzz.mp3 */,
 				D4A7E108219610AD00F94C32 /* high-fast-beeps.mp3 */,
-				D4A7E109219610AD00F94C32 /* churchbell.mp3 */,
-				D4A7E10A219610AD00F94C32 /* ah-oo-gah.mp3 */,
 				D4A7E10B219610AD00F94C32 /* annoying-alarm.mp3 */,
 				D4A7E10C219610AD00F94C32 /* fast-beep.mp3 */,
-				D4A7E10D219610AD00F94C32 /* the-punisher.mp3 */,
-				D4A7E10E219610AD00F94C32 /* phone-ringing.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -377,15 +362,10 @@
 				D48101402195F00700EEA7FD /* Canterbury.ttf in Resources */,
 				D481013F2195F00700EEA7FD /* AnglicanText.ttf in Resources */,
 				D4A7E113219610AD00F94C32 /* high-fast-beeps.mp3 in Resources */,
-				D4A7E114219610AD00F94C32 /* churchbell.mp3 in Resources */,
-				D4A7E115219610AD00F94C32 /* ah-oo-gah.mp3 in Resources */,
 				D4A7E111219610AD00F94C32 /* electronic-buzz.mp3 in Resources */,
-				D4A7E119219610AD00F94C32 /* phone-ringing.mp3 in Resources */,
 				D4A7E117219610AD00F94C32 /* fast-beep.mp3 in Resources */,
 				D4A7E110219610AD00F94C32 /* single-beep.mp3 in Resources */,
-				D4A7E118219610AD00F94C32 /* the-punisher.mp3 in Resources */,
 				D4A7E116219610AD00F94C32 /* annoying-alarm.mp3 in Resources */,
-				D4A7E10F219610AD00F94C32 /* rooster.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
