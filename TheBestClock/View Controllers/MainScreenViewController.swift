@@ -21,7 +21,7 @@ import AVKit
  There are two "screens" that appear: The Appearance Editor (font, color), and the Alarm Editor (alarm time, activation, sound). These are actually
  hidden screens that appear over the main display screen.
  */
-class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, TheBestClockAlarmViewDelegate, AVAudioPlayerDelegate {
+class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, TheBestClockAlarmViewDelegate {
     /* ################################################################## */
     // MARK: - Instance Types and Structs
     /* ################################################################## */
@@ -249,11 +249,13 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     private func _playThisSound(_ inSoundURL: URL) {
         do {
-            try self._audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
-            self._audioPlayer?.delegate = self
-            self._audioPlayer?.numberOfLoops = -1
-            self._audioPlayer?.play()
+            if nil == self._audioPlayer {
+                try self._audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
+                self._audioPlayer?.numberOfLoops = -1   // Repeat indefinitely
+                self._audioPlayer?.play()
+            }
         } catch {
+            TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER")
         }
     }
     
@@ -627,6 +629,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                     self._prefs.savePrefs()
                 }
             }
+            self._checkAlarmStatus() // This just makes sure we get "instant on," if that's what we selected.
         }
     }
 
@@ -911,6 +914,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self._showAllAlarms()
         self._updateMainTime()
         self._startTicker()
+        self._checkAlarmStatus() // This just makes sure we get "instant on," if that's what we selected.
     }
 
     /* ################################################################## */
@@ -983,6 +987,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         super.viewWillAppear(animated)
         self._fontSizeCache = 0
         self._startTicker()
+        self._checkAlarmStatus() // This just makes sure we get "instant on," if that's what we selected.
     }
 
     /* ################################################################## */
@@ -1134,20 +1139,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive = true
                 self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isActive = true
                 self._openAlarmEditorScreen()
-            }
-        }
-    }
-
-    /* ################################################################## */
-    // MARK: - AVAudioPlayerDelegate Methods
-    /* ################################################################## */
-    /**
-     */
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        DispatchQueue.main.async {
-            self._audioPlayer = nil
-            if -1 == self._currentlyEditingAlarmIndex {
-                self._checkAlarmStatus(soundOnly: true)
             }
         }
     }

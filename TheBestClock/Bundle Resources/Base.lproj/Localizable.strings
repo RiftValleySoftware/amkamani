@@ -10,6 +10,7 @@
 
 "ERROR_HEADER_MEDIA"                        =       "DEVICE MEDIA ERROR";
 "ERROR_TEXT_MEDIA_PERMISSION_DENIED"        =       "You are not allowed to read any media from this device.";
+"ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER"   =       "There was a technical problem creating the sound player.";
 "BASIC-OK-BUTTON"                           =       "OK";
 "LOCAL-ACTIVE-SWITCH"                       =       "Active";
 "LOCAL-VIBRATE-BEEP-SWITCH"                 =       "Vibrate";
