@@ -73,8 +73,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private let _dateLabelFontSize: CGFloat = 40
     private let _alarmsFontSize: CGFloat = 40
     private let _alarmEditorTopFontSize: CGFloat = 30
-    private let _alarmEditorSoundPickerFontSize: CGFloat = 30
-    
+    private let _alarmEditorSoundPickerFontSize: CGFloat = 24
+    private let _alarmEditorSoundButtonFontSize: CGFloat = 30
+
     /* ################################################################## */
     // MARK: - Instance Private Properties
     /* ################################################################## */
@@ -128,8 +129,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var editAlarmScreenMaskView: UIView!
     /// This is the little "more info" button that is displayed at the bottom of the setup screen.
     @IBOutlet weak var infoButton: UIButton!
-    /// This is the Done button in the alarm editor screen.
-    @IBOutlet weak var alarmEditorDoneButton: UIButton!
     /// This switch will denote the "active" state of the alarm.
     @IBOutlet weak var alarmEditorActiveSwitch: UISwitch!
     /// This is the localized label for that switch, but we make it a button, so it can be used to trigger the switch.
@@ -726,14 +725,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self.dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .focused)
             self.dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .selected)
             self.dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .highlighted)
-            self.alarmEditorDoneButton.tintColor = self.selectedColor
-            if let label = self.alarmEditorDoneButton.titleLabel {
-                label.adjustsFontSizeToFitWidth = true
-                label.baselineAdjustment = .alignCenters
-                if let font = UIFont(name: self.selectedFontName, size: self._alarmEditorTopFontSize) {
-                    label.font = font
-                }
-            }
             
             self.alarmEditorActiveSwitch.tintColor = self.selectedColor
             self.alarmEditorActiveSwitch.onTintColor = self.selectedColor
@@ -765,7 +756,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             if let label = self.editAlarmTestSoundButton.titleLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.baselineAdjustment = .alignCenters
-                if let font = UIFont(name: self.selectedFontName, size: self._alarmEditorTopFontSize) {
+                if let font = UIFont(name: self.selectedFontName, size: self._alarmEditorSoundButtonFontSize) {
                     label.font = font
                 }
             }
@@ -796,6 +787,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     private func _showOnlyThisAlarm(_ inIndex: Int) {
         for alarm in self._alarmButtons where alarm.index != inIndex {
+            alarm.isUserInteractionEnabled = false
             alarm.isHidden = true
         }
     }
@@ -805,6 +797,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     private func _showAllAlarms() {
         for alarm in self._alarmButtons {
+            alarm.isUserInteractionEnabled = true
             alarm.isHidden = false
         }
     }
@@ -815,6 +808,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func soundModeChanged(_ sender: UISegmentedControl) {
         self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
         self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
+        self.editAlarmTestSoundButton.isHidden = .silence == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
         self.editAlarmPickerView.reloadComponent(0)
         if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
             self.editAlarmPickerView.selectRow(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundIndex, inComponent: 0, animated: false)
@@ -890,7 +884,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     /**
      */
-    @IBAction func closeAlarmEditorScreen(_ sender: Any) {
+    @IBAction func closeAlarmEditorScreen(_ sender: Any! = nil) {
         self._prefs.savePrefs()
         self._currentlyEditingAlarmIndex = -1
         self._stopAudioPlayer()
@@ -941,7 +935,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.selectedBrightness = self._prefs.brightnessLevel
         self._updateMainTime()   // This will update the time. It will also set up our various labels and background colors.
         self._setInfoButtonColor()
-        self.alarmEditorDoneButton.setTitle(self.alarmEditorDoneButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.alarmEditorActiveButton.setTitle(self.alarmEditorActiveButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.alarmEditorVibrateButton.setTitle(self.alarmEditorVibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
@@ -1069,7 +1062,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
                     let pathString = URL(fileURLWithPath: self._soundSelection[row]).lastPathComponent
                     let label = UILabel(frame: frame)
-                    label.font = UIFont(name: self.selectedFontName, size: self._alarmEditorSoundPickerFontSize)
+                    label.font = UIFont.systemFont(ofSize: self._alarmEditorSoundPickerFontSize)
                     label.adjustsFontSizeToFitWidth = true
                     label.textAlignment = .center
                     label.textColor = self.selectedColor
@@ -1116,10 +1109,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     func openAlarmEditor(_ inAlarmIndex: Int) {
         if 0 <= inAlarmIndex, self._prefs.alarms.count > inAlarmIndex {
-            self._currentlyEditingAlarmIndex = inAlarmIndex
-            self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive = true
-            self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isActive = true
-            self._openAlarmEditorScreen()
+            if -1 == self._currentlyEditingAlarmIndex {
+                self._currentlyEditingAlarmIndex = inAlarmIndex
+                self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive = true
+                self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isActive = true
+                self._openAlarmEditorScreen()
+            }
         }
     }
 

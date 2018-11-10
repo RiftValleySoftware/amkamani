@@ -137,57 +137,88 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SpK-gg-rNb">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
                                         <subviews>
-                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Epq-FZ-noz">
-                                                <rect key="frame" x="0.0" y="39" width="375" height="80"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="80" id="kIy-gk-XBt"/>
-                                                </constraints>
-                                                <date key="date" timeIntervalSinceReferenceDate="563297011.76202798">
-                                                    <!--2018-11-07 15:23:31 +0000-->
-                                                </date>
-                                                <connections>
-                                                    <action selector="alarmTimeDatePickerChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="WEV-hf-zyM"/>
-                                                </connections>
-                                            </datePicker>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JKA-TF-KPA">
                                                 <rect key="frame" x="8" y="0.0" width="49" height="31"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="47" id="4M7-wq-Va1"/>
-                                                    <constraint firstAttribute="height" constant="31" id="v53-vy-vOs"/>
+                                                    <constraint firstAttribute="width" constant="47" id="1KN-4l-4d7"/>
+                                                    <constraint firstAttribute="height" constant="31" id="nnr-PR-L57"/>
                                                 </constraints>
                                                 <connections>
                                                     <action selector="activeSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="KWc-Gq-und"/>
                                                 </connections>
                                             </switch>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N79-EU-S3q">
-                                                <rect key="frame" x="63" y="0.0" width="304" height="31"/>
-                                                <state key="normal" title="LOCAL-ACTIVE-SWITCH"/>
-                                                <connections>
-                                                    <action selector="activeButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NKz-Mj-eA4"/>
-                                                </connections>
-                                            </button>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ocx-Nd-os6">
-                                                <rect key="frame" x="8" y="127" width="49" height="31"/>
+                                                <rect key="frame" x="320" y="0.0" width="49" height="31"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="31" id="DdB-11-2l6"/>
-                                                    <constraint firstAttribute="width" constant="47" id="ZO0-qa-cN2"/>
+                                                    <constraint firstAttribute="width" constant="47" id="50Z-4p-VPu"/>
                                                 </constraints>
                                                 <connections>
                                                     <action selector="vibrateSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="bPT-Rr-FaX"/>
                                                 </connections>
                                             </switch>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s52-VF-TQ5">
-                                                <rect key="frame" x="63" y="127" width="304" height="31"/>
-                                                <state key="normal" title="LOCAL-VIBRATE-BEEP-SWITCH"/>
-                                                <connections>
-                                                    <action selector="vibrateButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rp5-7w-vad"/>
-                                                </connections>
-                                            </button>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="anU-SX-fsT">
-                                                <rect key="frame" x="8" y="166" width="359" height="29"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DdB-iS-OpY">
+                                                <rect key="frame" x="59" y="0.0" width="257" height="31"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N79-EU-S3q">
+                                                        <rect key="frame" x="0.0" y="0.0" width="128.5" height="31"/>
+                                                        <state key="normal" title="LOCAL-ACTIVE-SWITCH"/>
+                                                        <connections>
+                                                            <action selector="activeButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NKz-Mj-eA4"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s52-VF-TQ5">
+                                                        <rect key="frame" x="128.5" y="0.0" width="128.5" height="31"/>
+                                                        <state key="normal" title="LOCAL-VIBRATE-BEEP-SWITCH"/>
+                                                        <connections>
+                                                            <action selector="vibrateButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rp5-7w-vad"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="28" id="J8q-Kb-gUm"/>
+                                                    <constraint firstItem="N79-EU-S3q" firstAttribute="leading" secondItem="DdB-iS-OpY" secondAttribute="leading" id="Kpn-WN-pEM"/>
+                                                    <constraint firstAttribute="bottom" secondItem="N79-EU-S3q" secondAttribute="bottom" id="MdK-Je-0c0"/>
+                                                    <constraint firstItem="s52-VF-TQ5" firstAttribute="width" secondItem="DdB-iS-OpY" secondAttribute="width" multiplier="0.5" id="XZA-sw-We6"/>
+                                                    <constraint firstAttribute="trailing" secondItem="s52-VF-TQ5" secondAttribute="trailing" id="XZE-cZ-Mrb"/>
+                                                    <constraint firstItem="N79-EU-S3q" firstAttribute="width" secondItem="DdB-iS-OpY" secondAttribute="width" multiplier="0.5" id="ZR8-Il-9bT"/>
+                                                    <constraint firstItem="N79-EU-S3q" firstAttribute="top" secondItem="DdB-iS-OpY" secondAttribute="top" id="baS-Oq-Ge3"/>
+                                                    <constraint firstItem="s52-VF-TQ5" firstAttribute="leading" secondItem="N79-EU-S3q" secondAttribute="trailing" id="pYR-2d-f0Z"/>
+                                                    <constraint firstItem="s52-VF-TQ5" firstAttribute="top" secondItem="DdB-iS-OpY" secondAttribute="top" id="yNk-be-tOO"/>
+                                                    <constraint firstAttribute="bottom" secondItem="s52-VF-TQ5" secondAttribute="bottom" id="zXd-rc-Zay"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="caV-MM-3OZ" appends="YES" id="opq-vq-AZe"/>
+                                                </connections>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jK9-7k-U8Q">
+                                                <rect key="frame" x="8" y="31" width="359" height="80"/>
+                                                <subviews>
+                                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Epq-FZ-noz">
+                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="80"/>
+                                                        <date key="date" timeIntervalSinceReferenceDate="563297011.76202798">
+                                                            <!--2018-11-07 15:23:31 +0000-->
+                                                        </date>
+                                                        <connections>
+                                                            <action selector="alarmTimeDatePickerChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="WEV-hf-zyM"/>
+                                                        </connections>
+                                                    </datePicker>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="Epq-FZ-noz" secondAttribute="bottom" id="6vG-23-hb6"/>
+                                                    <constraint firstAttribute="height" constant="80" id="QS1-a4-dHA"/>
+                                                    <constraint firstItem="Epq-FZ-noz" firstAttribute="leading" secondItem="jK9-7k-U8Q" secondAttribute="leading" id="eDZ-4E-GnU"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Epq-FZ-noz" secondAttribute="trailing" id="flt-MU-aX1"/>
+                                                    <constraint firstItem="Epq-FZ-noz" firstAttribute="top" secondItem="jK9-7k-U8Q" secondAttribute="top" id="uWc-gq-eTV"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="UY0-GO-scj" appends="YES" id="xfo-tY-xq6"/>
+                                                </connections>
+                                            </view>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="anU-SX-fsT">
+                                                <rect key="frame" x="8" y="111" width="359" height="29"/>
                                                 <segments>
                                                     <segment title="LOCAL-SOUNDS"/>
                                                     <segment title="LOCAL-PLAYLIST"/>
@@ -197,66 +228,77 @@
                                                     <action selector="soundModeChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="kPB-ta-ptr"/>
                                                 </connections>
                                             </segmentedControl>
-                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZW-w9-tN7">
-                                                <rect key="frame" x="8" y="202" width="359" height="80"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SZV-H4-hT3">
+                                                <rect key="frame" x="8" y="139" width="359" height="80"/>
+                                                <subviews>
+                                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZW-w9-tN7">
+                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="80"/>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="O2d-FG-ckt"/>
+                                                            <outlet property="delegate" destination="BYZ-38-t0r" id="toe-pT-XQS"/>
+                                                        </connections>
+                                                    </pickerView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="80" id="aKm-VT-E81"/>
+                                                    <constraint firstItem="FZW-w9-tN7" firstAttribute="leading" secondItem="SZV-H4-hT3" secondAttribute="leading" id="2E5-WN-ujM"/>
+                                                    <constraint firstItem="FZW-w9-tN7" firstAttribute="top" secondItem="SZV-H4-hT3" secondAttribute="top" id="94L-1l-tK8"/>
+                                                    <constraint firstAttribute="bottom" secondItem="FZW-w9-tN7" secondAttribute="bottom" id="OKP-BY-52z"/>
+                                                    <constraint firstAttribute="trailing" secondItem="FZW-w9-tN7" secondAttribute="trailing" id="aB9-aQ-Ga9"/>
+                                                    <constraint firstAttribute="height" constant="80" id="eiG-cX-bfc"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="O2d-FG-ckt"/>
-                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="toe-pT-XQS"/>
+                                                    <outletCollection property="gestureRecognizers" destination="Ika-Un-Z2T" appends="YES" id="r9K-NZ-X8b"/>
                                                 </connections>
-                                            </pickerView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJp-Wf-Gd4">
-                                                <rect key="frame" x="0.0" y="282" width="375" height="30"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-qj-jcy">
+                                                <rect key="frame" x="0.0" y="219" width="375" height="388"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJp-Wf-Gd4">
+                                                        <rect key="frame" x="0.0" y="179" width="375" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="T2k-hM-iQL"/>
+                                                        </constraints>
+                                                        <state key="normal" title="LOCAL-TEST"/>
+                                                        <connections>
+                                                            <action selector="testSoundButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ejf-UD-AVD"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="T2k-hM-iQL"/>
+                                                    <constraint firstAttribute="trailing" secondItem="GJp-Wf-Gd4" secondAttribute="trailing" id="3nC-zO-qBq"/>
+                                                    <constraint firstItem="GJp-Wf-Gd4" firstAttribute="centerY" secondItem="Vhh-qj-jcy" secondAttribute="centerY" id="kLF-NR-p21"/>
+                                                    <constraint firstItem="GJp-Wf-Gd4" firstAttribute="leading" secondItem="Vhh-qj-jcy" secondAttribute="leading" id="n9r-hX-lXo"/>
                                                 </constraints>
-                                                <state key="normal" title="LOCAL-TEST"/>
-                                                <connections>
-                                                    <action selector="testSoundButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ejf-UD-AVD"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KIX-rh-aQ5">
-                                                <rect key="frame" x="140" y="576" width="95" height="31"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="95" placeholder="YES" id="TNV-tY-jy6"/>
-                                                    <constraint firstAttribute="height" constant="31" id="gWk-N5-syG"/>
-                                                </constraints>
-                                                <state key="normal" title="LOCAL-DONE"/>
-                                                <connections>
-                                                    <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z4z-BI-mVS"/>
-                                                </connections>
-                                            </button>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="anU-SX-fsT" firstAttribute="top" secondItem="ocx-Nd-os6" secondAttribute="bottom" constant="8" id="1yi-Kf-Kh7"/>
-                                            <constraint firstAttribute="trailing" secondItem="anU-SX-fsT" secondAttribute="trailing" constant="8" id="5Ef-jS-WXx"/>
-                                            <constraint firstItem="FZW-w9-tN7" firstAttribute="top" secondItem="anU-SX-fsT" secondAttribute="bottom" constant="8" id="BkR-4D-usx"/>
-                                            <constraint firstAttribute="bottom" secondItem="KIX-rh-aQ5" secondAttribute="bottom" id="CIZ-5h-ebM"/>
-                                            <constraint firstItem="FZW-w9-tN7" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="Ezi-sf-Flg"/>
-                                            <constraint firstItem="JKA-TF-KPA" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="Fy7-dl-Xhu"/>
-                                            <constraint firstAttribute="trailing" secondItem="FZW-w9-tN7" secondAttribute="trailing" constant="8" id="Ik7-iV-3BN"/>
-                                            <constraint firstItem="N79-EU-S3q" firstAttribute="centerY" secondItem="JKA-TF-KPA" secondAttribute="centerY" id="Kcs-Qc-Upa"/>
-                                            <constraint firstAttribute="trailing" secondItem="Epq-FZ-noz" secondAttribute="trailing" id="L4n-9N-Ve9"/>
-                                            <constraint firstItem="ocx-Nd-os6" firstAttribute="top" secondItem="Epq-FZ-noz" secondAttribute="bottom" constant="8" id="LRa-kH-DaJ"/>
-                                            <constraint firstAttribute="trailing" secondItem="N79-EU-S3q" secondAttribute="trailing" constant="8" id="M8m-zh-n2D"/>
-                                            <constraint firstItem="s52-VF-TQ5" firstAttribute="height" secondItem="ocx-Nd-os6" secondAttribute="height" id="MCD-pv-EYf"/>
-                                            <constraint firstItem="GJp-Wf-Gd4" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="Mnz-66-Ez8"/>
-                                            <constraint firstItem="Epq-FZ-noz" firstAttribute="top" secondItem="JKA-TF-KPA" secondAttribute="bottom" constant="8" id="Nui-dw-rXU"/>
-                                            <constraint firstItem="ocx-Nd-os6" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="TaE-iP-KuW"/>
-                                            <constraint firstAttribute="trailing" secondItem="s52-VF-TQ5" secondAttribute="trailing" constant="8" id="Uyt-b4-wlV"/>
-                                            <constraint firstItem="JKA-TF-KPA" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="top" id="V5m-wU-KYu"/>
-                                            <constraint firstItem="KIX-rh-aQ5" firstAttribute="centerX" secondItem="SpK-gg-rNb" secondAttribute="centerX" id="Yqz-8x-SFb"/>
-                                            <constraint firstItem="Epq-FZ-noz" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="bzY-Cd-42B"/>
-                                            <constraint firstItem="s52-VF-TQ5" firstAttribute="centerY" secondItem="ocx-Nd-os6" secondAttribute="centerY" id="ct1-W9-Aam"/>
-                                            <constraint firstItem="s52-VF-TQ5" firstAttribute="leading" secondItem="ocx-Nd-os6" secondAttribute="trailing" constant="8" id="h6U-ul-PRf"/>
-                                            <constraint firstItem="N79-EU-S3q" firstAttribute="leading" secondItem="JKA-TF-KPA" secondAttribute="trailing" constant="8" id="iVe-Oa-d3m"/>
-                                            <constraint firstAttribute="trailing" secondItem="GJp-Wf-Gd4" secondAttribute="trailing" id="l34-I2-RgF"/>
-                                            <constraint firstItem="GJp-Wf-Gd4" firstAttribute="top" secondItem="FZW-w9-tN7" secondAttribute="bottom" id="pcW-Kb-Y2g"/>
-                                            <constraint firstItem="N79-EU-S3q" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="qfX-65-Wdk"/>
-                                            <constraint firstItem="anU-SX-fsT" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="ulg-X2-bBG"/>
+                                            <constraint firstItem="DdB-iS-OpY" firstAttribute="leading" secondItem="JKA-TF-KPA" secondAttribute="trailing" constant="4" id="1Vh-Mb-uUq"/>
+                                            <constraint firstItem="DdB-iS-OpY" firstAttribute="centerY" secondItem="JKA-TF-KPA" secondAttribute="centerY" id="3vJ-Ab-z4D"/>
+                                            <constraint firstItem="JKA-TF-KPA" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="4AF-tz-H0W"/>
+                                            <constraint firstItem="jK9-7k-U8Q" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="7Pi-Tv-FUS"/>
+                                            <constraint firstAttribute="trailing" secondItem="Vhh-qj-jcy" secondAttribute="trailing" id="8qT-fD-CPn"/>
+                                            <constraint firstItem="SZV-H4-hT3" firstAttribute="top" secondItem="anU-SX-fsT" secondAttribute="bottom" id="DUG-ox-MYm"/>
+                                            <constraint firstAttribute="bottom" secondItem="Vhh-qj-jcy" secondAttribute="bottom" id="JKi-aK-h35"/>
+                                            <constraint firstItem="Vhh-qj-jcy" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="Qks-2U-ky6"/>
+                                            <constraint firstItem="DdB-iS-OpY" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="Vez-Zn-zE3"/>
+                                            <constraint firstItem="jK9-7k-U8Q" firstAttribute="top" secondItem="JKA-TF-KPA" secondAttribute="bottom" id="XfE-OJ-ZCf"/>
+                                            <constraint firstItem="ocx-Nd-os6" firstAttribute="leading" secondItem="DdB-iS-OpY" secondAttribute="trailing" constant="4" id="eWI-6D-loo"/>
+                                            <constraint firstItem="JKA-TF-KPA" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="top" id="geg-hS-cfg"/>
+                                            <constraint firstItem="ocx-Nd-os6" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="jdt-BA-VW4"/>
+                                            <constraint firstAttribute="trailing" secondItem="jK9-7k-U8Q" secondAttribute="trailing" constant="8" id="kZV-eE-fvh"/>
+                                            <constraint firstItem="ocx-Nd-os6" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="top" id="ncT-wR-JFt"/>
+                                            <constraint firstItem="anU-SX-fsT" firstAttribute="top" secondItem="jK9-7k-U8Q" secondAttribute="bottom" id="nr5-b9-XJc"/>
+                                            <constraint firstItem="ocx-Nd-os6" firstAttribute="centerY" secondItem="JKA-TF-KPA" secondAttribute="centerY" id="pA2-h3-dIM"/>
+                                            <constraint firstItem="SZV-H4-hT3" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="pDC-kS-Jys"/>
+                                            <constraint firstAttribute="trailing" secondItem="anU-SX-fsT" secondAttribute="trailing" constant="8" id="pzI-UX-gHj"/>
+                                            <constraint firstItem="anU-SX-fsT" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="qYU-aF-UFr"/>
+                                            <constraint firstAttribute="trailing" secondItem="SZV-H4-hT3" secondAttribute="trailing" constant="8" id="uQ3-yL-6DE"/>
+                                            <constraint firstAttribute="trailing" secondItem="ocx-Nd-os6" secondAttribute="trailing" constant="8" id="xoe-hw-Iz7"/>
+                                            <constraint firstItem="Vhh-qj-jcy" firstAttribute="top" secondItem="SZV-H4-hT3" secondAttribute="bottom" id="zAQ-50-QS3"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="43b-Pc-iFX">
@@ -332,7 +374,6 @@
                         <outlet property="alarmEditSoundModeSelector" destination="anU-SX-fsT" id="8p4-cz-h6l"/>
                         <outlet property="alarmEditorActiveButton" destination="N79-EU-S3q" id="oPw-fK-sXc"/>
                         <outlet property="alarmEditorActiveSwitch" destination="JKA-TF-KPA" id="q1d-ZX-hjq"/>
-                        <outlet property="alarmEditorDoneButton" destination="KIX-rh-aQ5" id="TN9-VE-O8N"/>
                         <outlet property="alarmEditorVibrateBeepSwitch" destination="ocx-Nd-os6" id="CXy-SH-41A"/>
                         <outlet property="alarmEditorVibrateButton" destination="s52-VF-TQ5" id="YNh-jk-tvO"/>
                         <outlet property="amPmLabel" destination="pSU-VZ-odd" id="QvK-BM-h5v"/>
@@ -396,7 +437,14 @@
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ibw-BF-gbI"/>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="Ohm-3E-kKF"/>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="rPr-th-5lB"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="QC1-0w-8EI"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="QC1-0w-8EI">
+                    <connections>
+                        <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" id="R3A-a5-eMh"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="caV-MM-3OZ"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="UY0-GO-scj"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Ika-Un-Z2T"/>
             </objects>
             <point key="canvasLocation" x="317.60000000000002" y="43.628185907046479"/>
         </scene>
