@@ -384,12 +384,14 @@ class TheBestClockPrefs {
         if let temp = UserDefaults.standard.object(forKey: type(of: self)._mainPrefsKey) as? NSDictionary {
             self._loadedPrefs = NSMutableDictionary(dictionary: temp)
             for index in 0..<self._numberOfAlarms {
-                if self._alarms.count == index {
+                if self._alarms.count == index {    // This makes sure that we account for any empty spots (shouldn't happen).
                     self._alarms.append(TheBestClockAlarmSetting())
                 }
                 if let unarchivedObject = self._loadedPrefs.object(forKey: (type(of: self).PrefsKeys.alarms.rawValue + String(index)) as NSString) as? Data {
                     if let alarm = NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject) as? TheBestClockAlarmSetting {
+                        let oldSnoozeTime = self._alarms[index].lastSnoozeTime  // This makes sure we preserve any snoozing in progress. This is the only one that is not saved in prefs.
                         self._alarms[index] = alarm
+                        self._alarms[index].lastSnoozeTime = oldSnoozeTime
                     }
                 }
             }
