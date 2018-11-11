@@ -467,14 +467,31 @@
                                     <constraint firstAttribute="width" constant="128" id="eed-kj-FlO"/>
                                 </constraints>
                                 <connections>
-                                    <action selector="logoTapped:" destination="7ze-OY-b4R" eventType="touchUpInside" id="dDT-9Q-fIb"/>
+                                    <action selector="resolveURL:" destination="7ze-OY-b4R" eventType="touchUpInside" id="gwd-mz-ETK"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dvi-Rk-rLv">
+                                <rect key="frame" x="8" y="148" width="359" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="H2k-th-gEj"/>
+                                </constraints>
+                                <state key="normal" title="LOCAL-APP-INFO-URL-BUTTON-TEXT"/>
+                                <connections>
+                                    <action selector="resolveURL:" destination="7ze-OY-b4R" eventType="touchUpInside" id="t5f-TA-meg"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" text="LOCAL-APP-INFO-TEXT" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4iQ-N8-t4C">
+                                <rect key="frame" x="8" y="224" width="359" height="435"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="eP1-rb-e9E">
-                                <rect key="frame" x="0.0" y="148" width="375" height="30"/>
+                                <rect key="frame" x="8" y="186" width="359" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="c9i-dD-nyz"/>
+                                    <constraint firstAttribute="height" constant="30" id="T5n-eq-7b1"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -484,11 +501,18 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="GgS-f6-WgC" firstAttribute="trailing" secondItem="eP1-rb-e9E" secondAttribute="trailing" id="7lJ-rH-uJn"/>
+                            <constraint firstItem="GgS-f6-WgC" firstAttribute="trailing" secondItem="eP1-rb-e9E" secondAttribute="trailing" constant="8" id="0vV-Dd-hWF"/>
+                            <constraint firstItem="4iQ-N8-t4C" firstAttribute="leading" secondItem="GgS-f6-WgC" secondAttribute="leading" constant="8" id="4gI-xb-v7S"/>
+                            <constraint firstItem="4iQ-N8-t4C" firstAttribute="top" secondItem="eP1-rb-e9E" secondAttribute="bottom" constant="8" id="8Bu-nx-iby"/>
+                            <constraint firstItem="eP1-rb-e9E" firstAttribute="leading" secondItem="GgS-f6-WgC" secondAttribute="leading" constant="8" id="9vd-Ax-LHR"/>
+                            <constraint firstItem="eP1-rb-e9E" firstAttribute="top" secondItem="Dvi-Rk-rLv" secondAttribute="bottom" constant="8" id="CCc-3I-GWk"/>
+                            <constraint firstItem="GgS-f6-WgC" firstAttribute="trailing" secondItem="Dvi-Rk-rLv" secondAttribute="trailing" constant="8" id="EnD-25-2b5"/>
                             <constraint firstItem="ECo-iI-WzI" firstAttribute="top" secondItem="GgS-f6-WgC" secondAttribute="top" id="GX9-Mn-RVi"/>
-                            <constraint firstItem="eP1-rb-e9E" firstAttribute="leading" secondItem="GgS-f6-WgC" secondAttribute="leading" id="Plf-yH-Cu2"/>
+                            <constraint firstItem="Dvi-Rk-rLv" firstAttribute="leading" secondItem="GgS-f6-WgC" secondAttribute="leading" constant="8" id="JXT-v2-vqv"/>
+                            <constraint firstItem="GgS-f6-WgC" firstAttribute="bottom" secondItem="4iQ-N8-t4C" secondAttribute="bottom" constant="8" id="RCZ-MK-ozQ"/>
                             <constraint firstItem="ECo-iI-WzI" firstAttribute="centerX" secondItem="LbW-TP-6mb" secondAttribute="centerX" id="Soe-NA-qV0"/>
-                            <constraint firstItem="eP1-rb-e9E" firstAttribute="top" secondItem="ECo-iI-WzI" secondAttribute="bottom" id="xpH-DR-3XZ"/>
+                            <constraint firstItem="Dvi-Rk-rLv" firstAttribute="top" secondItem="ECo-iI-WzI" secondAttribute="bottom" id="hL5-HV-LNc"/>
+                            <constraint firstItem="GgS-f6-WgC" firstAttribute="trailing" secondItem="4iQ-N8-t4C" secondAttribute="trailing" constant="8" id="w97-Ab-tsW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GgS-f6-WgC"/>
                         <connections>
@@ -497,6 +521,8 @@
                     </view>
                     <connections>
                         <outlet property="logoImageControl" destination="ECo-iI-WzI" id="gkU-i2-XGq"/>
+                        <outlet property="longTextTextarea" destination="4iQ-N8-t4C" id="zwN-Bv-Po6"/>
+                        <outlet property="theURLButton" destination="Dvi-Rk-rLv" id="5Wx-Je-Ssh"/>
                         <outlet property="versionLabel" destination="eP1-rb-e9E" id="uWt-xM-Gkp"/>
                     </connections>
                 </viewController>

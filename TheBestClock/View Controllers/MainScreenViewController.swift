@@ -308,13 +308,14 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if 0 < fontSize, let font = UIFont(name: fontName, size: fontSize) {
             let text = self.currentTimeString.time
             
+            // We'll have a couple of different colors for our gradient.
             var endColor: UIColor
             var startColor: UIColor
             
-            if 0 == self.selectedColorIndex {
+            if 0 == self.selectedColorIndex {   // White just uses...white. No need to get fancy.
                 endColor = UIColor(white: 0.9 * self.selectedBrightness, alpha: 1.0)
                 startColor = UIColor(white: 1.25 * self.selectedBrightness, alpha: 1.0)
-            } else {
+            } else {    // We use HSB to change the brightness, without changing the color.
                 let hue = self.selectedColor.hsba.h
                 endColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.9 * self.selectedBrightness, alpha: 1.0)
                 startColor = UIColor(hue: hue, saturation: 0.85, brightness: 1.25 * self.selectedBrightness, alpha: 1.0)
@@ -323,6 +324,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             // The background can get darker than the text.
             self._backgroundColor = (self.selectedBrightness == self._minimumBrightness) ? UIColor.black : UIColor(white: 0.25 * self.selectedBrightness, alpha: 1.0)
             
+            // We create a gradient layer, with our color going from slightly darker, to full brightness.
             self.view.backgroundColor = self._backgroundColor
             let displayLabelGradient = UIView(frame: frame)
             let gradient = CAGradientLayer()
@@ -332,6 +334,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             gradient.frame = frame
             displayLabelGradient.layer.addSublayer(gradient)
             
+            // The label will actually be used as a pass-through mask, against our gradient. That's how we can show text as a gradient.
             let displayLabel = UILabel(frame: frame)
             displayLabel.setContentCompressionResistancePriority(.required, for: .vertical)
             displayLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -341,10 +344,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             displayLabel.baselineAdjustment = .alignCenters
             displayLabel.text = text
             
+            // We use our auto-layout method to add the subview, so it has AL constraints.
             displayLabelGradient.addContainedView(displayLabel)
             inContainerView.addContainedView(displayLabelGradient)
             
-            inContainerView.mask = displayLabel
+            inContainerView.mask = displayLabel // This is where the gradient magic happens. The label is used as a mask.
         }
         
         return inContainerView
@@ -553,6 +557,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     private func _startTicker() {
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
+        self._checkAlarmStatus() // This just makes sure we get "instant on," if that's what we selected.
         if nil == self._ticker {
             self._ticker = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(type(of: self)._checkTicker(_:)), userInfo: nil, repeats: true)
         }
@@ -649,7 +654,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     @IBAction func openAppearanceEditor(_ sender: Any) {
         self._stopTicker()
-        self.mainPickerContainerView.isHidden = false
         self.fontDisplayPickerView.delegate = self
         self.fontDisplayPickerView.dataSource = self
         self.colorDisplayPickerView.delegate = self
@@ -659,6 +663,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.colorDisplayPickerView.backgroundColor = self._backgroundColor
         self.fontDisplayPickerView.selectRow(self.selectedFontIndex, inComponent: 0, animated: false)
         self.colorDisplayPickerView.selectRow(self.selectedColorIndex, inComponent: 0, animated: false)
+        self.mainPickerContainerView.isHidden = false
     }
     
     /* ################################################################## */
@@ -914,7 +919,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self._showAllAlarms()
         self._updateMainTime()
         self._startTicker()
-        self._checkAlarmStatus() // This just makes sure we get "instant on," if that's what we selected.
     }
 
     /* ################################################################## */
@@ -987,7 +991,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         super.viewWillAppear(animated)
         self._fontSizeCache = 0
         self._startTicker()
-        self._checkAlarmStatus() // This just makes sure we get "instant on," if that's what we selected.
     }
 
     /* ################################################################## */

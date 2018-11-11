@@ -20,6 +20,9 @@
 "LOCAL-TEST-SOUND"                          =       "Play Sound";
 "LOCAL-PAUSE-SOUND"                         =       "Pause Sound";
 "LOCAL-APP-NAME"                            =       "TBD";
+"LOCAL-APP-INFO-TEXT"                       =       "When I have something to say, I'll say it here.";
+"LOCAL-APP-INFO-URL"                        =       "https://littlegreenviper.com";
+"LOCAL-APP-INFO-URL-BUTTON-TEXT"            =       "The Great Rift Valley Software Company";
 "annoying-alarm.mp3"                        =       "Classic Alarm";
 "electronic-buzz.mp3"                       =       "Strident Beeps";
 "fast-beep.mp3"                             =       "Subtle Ringing";
