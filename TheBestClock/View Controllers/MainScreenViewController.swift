@@ -252,8 +252,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             if nil == self._audioPlayer {
                 try self._audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
                 self._audioPlayer?.numberOfLoops = -1   // Repeat indefinitely
-                self._audioPlayer?.play()
             }
+            self._audioPlayer?.play()
         } catch {
             TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER")
         }
