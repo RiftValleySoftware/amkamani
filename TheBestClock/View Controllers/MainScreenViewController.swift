@@ -349,7 +349,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             
             // The background can get darker than the text.
             self._backgroundColor = (self.selectedBrightness == self._minimumBrightness) ? UIColor.black : UIColor(white: 0.25 * self.selectedBrightness, alpha: 1.0)
-            
+            UIScreen.main.brightness = self.selectedBrightness    // Also dim the screen.
+
             // We create a gradient layer, with our color going from slightly darker, to full brightness.
             self.view.backgroundColor = self._backgroundColor
             let displayLabelGradient = UIView(frame: frame)
