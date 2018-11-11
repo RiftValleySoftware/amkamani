@@ -28,15 +28,6 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
     
     /* ################################################################## */
     /**
-     This is an "event eater."
-     
-     - parameter sender: ignored
-     */
-    @IBAction func longPressGestureReconizerHit(_ sender: Any) {
-    }
-    
-    /* ################################################################## */
-    /**
      This draws an "elongated upside-down teardrop" that appears while the control is being manipulated.
      The fill color is the current selected value.
      
@@ -45,7 +36,7 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
     override func draw(_ inRect: CGRect) {
         self._gradientLayer?.removeFromSuperlayer()
         self.backgroundColor = UIColor.clear    // Make sure that our background color is clear.
-        if self.isTracking {
+        if self.isEnabled && self.isTracking {  // We don't draw the slider unless we are both enabled, and tracking.
             // We will draw a "blunt teardrop" shape, with a rounded top and bottom. Wide at the top, narrow at the bottom. Rounded on both the top and the bottom. No sharp edges.
             let topRightPoint = CGPoint(x: self.bounds.size.width, y: self.bounds.midX)
             let arcCenterPoint = CGPoint(x: self.bounds.midX, y: self.bounds.midX)
@@ -92,11 +83,41 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
     
     /* ################################################################## */
     /**
+     This is called when the user first begins a slide.
+     
+     - parameter inTouch: The initial touch object.
+     - parameter with: The event for this touch.
+     
+     -returns true, if the drag is approved.
+     */
+    override func beginTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
+        let touchLocation = inTouch.location(in: self)
+        self.brightness = (self.bounds.size.height - touchLocation.y) / self.bounds.size.height
+        
+        let ret = super.beginTracking(inTouch, with: inEvent)
+        
+        DispatchQueue.main.async {
+            self.sendActions(for: .editingDidBegin)
+            self.sendActions(for: .valueChanged)
+            self._firstTime = true  // This tells the drawinbg routine to animate the opening.
+            self.setNeedsDisplay()
+        }
+        
+        return ret
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called when there are touch (not necessarily pan) events on the slider.
+     
+     - parameter inTouches: The initial touch object[s].
+     - parameter with: The event for this touch.
      */
     override func touchesBegan(_ inTouches: Set<UITouch>, with inEvent: UIEvent?) {
         if let touchLocation = inTouches.first?.location(in: self) {
             self.brightness = (self.bounds.size.height - touchLocation.y) / self.bounds.size.height
             DispatchQueue.main.async {
+                self.sendActions(for: .editingDidBegin)
                 self.sendActions(for: .valueChanged)
                 self._firstTime = true
                 self.setNeedsDisplay()
@@ -108,6 +129,12 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
     
     /* ################################################################## */
     /**
+     This is called repeatedly during a slide.
+     
+     - parameter inTouch: The initial touch object.
+     - parameter with: The event for this touch.
+     
+     -returns true, if the drag is approved.
      */
     override func continueTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let touchLocation = inTouch.location(in: self)
@@ -125,9 +152,14 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
     
     /* ################################################################## */
     /**
+     This is called at the end of the pan.
+     
+     - parameter inTouch: The initial touch object.
+     - parameter with: The event for this touch.
      */
     override func endTracking(_ inTouch: UITouch?, with inEvent: UIEvent?) {
         DispatchQueue.main.async {
+            self.sendActions(for: .editingDidEnd)
             self.setNeedsDisplay()
         }
     
@@ -136,9 +168,13 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
     
     /* ################################################################## */
     /**
+     This is called if the tracking was canceled.
+     
+     - parameter with: The event for the cancel.
      */
     override func cancelTracking(with inEvent: UIEvent?) {
         DispatchQueue.main.async {
+            self.sendActions(for: .editingDidEnd)
             self.sendActions(for: .valueChanged)
             self.setNeedsDisplay()
         }

@@ -52,6 +52,8 @@
                                 </constraints>
                                 <connections>
                                     <action selector="brightnessSliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="N5d-Yd-M3d"/>
+                                    <action selector="brightnessSliderClosed:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="riI-yf-osw"/>
+                                    <action selector="brightnessSliderOpened:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="b7t-bc-2Ow"/>
                                     <outletCollection property="gestureRecognizers" destination="JuB-FM-I8Y" appends="YES" id="ehN-j8-H9E"/>
                                 </connections>
                             </view>
@@ -64,6 +66,8 @@
                                 </constraints>
                                 <connections>
                                     <action selector="brightnessSliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="hRz-ta-zrx"/>
+                                    <action selector="brightnessSliderClosed:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="EUO-BM-w4D"/>
+                                    <action selector="brightnessSliderOpened:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="XHe-51-Fvw"/>
                                     <outletCollection property="gestureRecognizers" destination="ACN-Xt-xoM" appends="YES" id="36P-pI-yyq"/>
                                 </connections>
                             </view>

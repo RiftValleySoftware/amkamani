@@ -542,9 +542,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     private func _checkAlarmStatus(soundOnly: Bool = false) {
         var index = 0
+        var noAlarms = true // If we find an active alarm, this is made false.
         // If we have an active alarm, then we throw the switch, iGor.
         for alarm in self._prefs.alarms {
             if alarm.alarming {
+                noAlarms = false
                 if !soundOnly { // See if we want to be a flasher.
                     self._flashDisplay(self.selectedColor)
                 }
@@ -554,6 +556,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
             
             index += 1
+        }
+        
+        // If we are in hush time, then we shouldn't be talking.
+        if noAlarms {
+            self._stopAudioPlayer()
         }
     }
     
@@ -692,7 +699,32 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self._prefs?.brightnessLevel = min(1.0, self.selectedBrightness)
         self._updateMainTime()
     }
-    
+
+    /* ################################################################## */
+    /**
+     This is called when a slider opens, so we don't have the situation where both are open at once.
+     
+     - parameter inSlider: The slider object that called this
+     */
+    @IBAction func brightnessSliderOpened(_ inSlider: TheBestClockVerticalBrightnessSliderView) {
+        if inSlider == self.rightBrightnessSlider {
+            self.leftBrightnessSlider.isEnabled = false
+        } else {
+            self.rightBrightnessSlider.isEnabled = false
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     This is called when an open slider closes. We re-enable both sliders.
+     
+     - parameter: ignored
+     */
+    @IBAction func brightnessSliderClosed(_: Any) {
+        self.leftBrightnessSlider.isEnabled = true
+        self.rightBrightnessSlider.isEnabled = true
+    }
+
     /* ################################################################## */
     // MARK: - Appearance Editor Methods
     /* ################################################################## */
