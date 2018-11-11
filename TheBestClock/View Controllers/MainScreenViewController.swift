@@ -73,7 +73,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /// This is the base font size for the ante meridian label near the top of the screen.
     private let _amPmLabelFontSize: CGFloat = 30
     /// This is the base font size for the date display along the top.
-    private let _dateLabelFontSize: CGFloat = 40
+    private let _dateLabelFontSize: CGFloat = 50
     /// This is the base font size for the row of alarm buttons along the bottom of the screen.
     private let _alarmsFontSize: CGFloat = 40
     /// This is the base font size for the various textual items in the Alarm Editor.
@@ -349,8 +349,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             
             // The background can get darker than the text.
             self._backgroundColor = (self.selectedBrightness == self._minimumBrightness) ? UIColor.black : UIColor(white: 0.25 * self.selectedBrightness, alpha: 1.0)
-            UIScreen.main.brightness = self.selectedBrightness    // Also dim the screen.
-
+            if self.mainPickerContainerView.isHidden, -1 == self._currentlyEditingAlarmIndex { // We don't do this if we are in the appearance or alarm editor.
+                TheBestClockAppDelegate.recordOriginalBrightness()
+                UIScreen.main.brightness = self.selectedBrightness    // Also dim the screen.
+            }
+            
             // We create a gradient layer, with our color going from slightly darker, to full brightness.
             self.view.backgroundColor = self._backgroundColor
             let displayLabelGradient = UIView(frame: frame)
@@ -621,7 +624,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /**
      This stops our regular 1-second ticker.
      */
-    private func _stopTicker() {
+    func stopTicker() {
         if nil != self._ticker {
             UIApplication.shared.isIdleTimerDisabled = false
             self._ticker.invalidate()
@@ -699,6 +702,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.selectedBrightness = max(self._minimumBrightness, min(sender.brightness, 1.0))
         let newBrightness = min(1.0, self.selectedBrightness)
         self._prefs?.brightnessLevel = newBrightness
+        TheBestClockAppDelegate.recordOriginalBrightness()
         UIScreen.main.brightness = newBrightness    // Also dim the screen.
         self._updateMainTime()
     }
@@ -734,7 +738,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /**
      */
     @IBAction func openAppearanceEditor(_ sender: Any) {
-        self._stopTicker()
+        self.stopTicker()
         self.fontDisplayPickerView.delegate = self
         self.fontDisplayPickerView.dataSource = self
         self.colorDisplayPickerView.delegate = self
@@ -744,6 +748,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.colorDisplayPickerView.backgroundColor = self._backgroundColor
         self.fontDisplayPickerView.selectRow(self.selectedFontIndex, inComponent: 0, animated: false)
         self.colorDisplayPickerView.selectRow(self.selectedColorIndex, inComponent: 0, animated: false)
+        TheBestClockAppDelegate.restoreOriginalBrightness()
         self.mainPickerContainerView.isHidden = false
     }
     
@@ -789,8 +794,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      This opens the editor screen for a selected alarm.
      */
     private func _openAlarmEditorScreen() {
-        self._stopTicker()
+        self.stopTicker()
         if 0 <= self._currentlyEditingAlarmIndex, self._prefs.alarms.count > self._currentlyEditingAlarmIndex {
+            TheBestClockAppDelegate.restoreOriginalBrightness()
             let currentAlarm = self._prefs.alarms[self._currentlyEditingAlarmIndex]
             
             currentAlarm.isActive = true
@@ -1010,6 +1016,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      We use this to initialize most of our settings.
      */
     override func viewDidLoad() {
+        TheBestClockAppDelegate.delegateObject.theMainController = self
         // We start by setting up our font and color Arrays.
         for fontFamilyName in UIFont.familyNames {
             for fontName in UIFont.fontNames(forFamilyName: fontFamilyName) {
@@ -1060,6 +1067,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         super.viewDidLayoutSubviews()
         self._fontSizeCache = 0
         self._updateMainTime()
+        if self.mainPickerContainerView.isHidden, -1 == self._currentlyEditingAlarmIndex { // We don't do this if we are in the appearance editor.
+            UIScreen.main.brightness = self.selectedBrightness    // Dim the screen.
+        }
     }
     
     /* ################################################################## */
@@ -1072,6 +1082,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         super.viewWillAppear(animated)
         self._fontSizeCache = 0
         self._startTicker()
+        self._updateMainTime()
     }
 
     /* ################################################################## */
@@ -1079,7 +1090,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      When the view will disappear, we stop the caffiene drip, and the timer.
      */
     override func viewWillDisappear(_ animated: Bool) {
-        self._stopTicker()
+        self.stopTicker()
         super.viewWillDisappear(animated)
     }
     
