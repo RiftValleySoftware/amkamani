@@ -52,8 +52,19 @@
                                 </constraints>
                                 <connections>
                                     <action selector="brightnessSliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="N5d-Yd-M3d"/>
-                                    <outletCollection property="gestureRecognizers" destination="R9p-eS-CRg" appends="YES" id="W98-pD-KI0"/>
                                     <outletCollection property="gestureRecognizers" destination="JuB-FM-I8Y" appends="YES" id="ehN-j8-H9E"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjC-JH-pnM" customClass="TheBestClockVerticalBrightnessSliderView" customModule="TheBestClock" customModuleProvider="target">
+                                <rect key="frame" x="291" y="80" width="80" height="547"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="5Ed-yg-foJ"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="brightnessSliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="hRz-ta-zrx"/>
+                                    <outletCollection property="gestureRecognizers" destination="ACN-Xt-xoM" appends="YES" id="36P-pI-yyq"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e9A-iM-9M5">
@@ -258,9 +269,10 @@
                                                 <rect key="frame" x="0.0" y="219" width="375" height="388"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJp-Wf-Gd4">
-                                                        <rect key="frame" x="0.0" y="179" width="375" height="30"/>
+                                                        <rect key="frame" x="143" y="179" width="89" height="30"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="30" id="T2k-hM-iQL"/>
+                                                            <constraint firstAttribute="width" constant="89" placeholder="YES" id="Sgy-DW-Z87"/>
+                                                            <constraint firstAttribute="height" constant="30" id="tav-0I-3eD"/>
                                                         </constraints>
                                                         <state key="normal" title="LOCAL-TEST"/>
                                                         <connections>
@@ -270,9 +282,8 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="GJp-Wf-Gd4" secondAttribute="trailing" id="3nC-zO-qBq"/>
-                                                    <constraint firstItem="GJp-Wf-Gd4" firstAttribute="centerY" secondItem="Vhh-qj-jcy" secondAttribute="centerY" id="kLF-NR-p21"/>
-                                                    <constraint firstItem="GJp-Wf-Gd4" firstAttribute="leading" secondItem="Vhh-qj-jcy" secondAttribute="leading" id="n9r-hX-lXo"/>
+                                                    <constraint firstItem="GJp-Wf-Gd4" firstAttribute="centerX" secondItem="Vhh-qj-jcy" secondAttribute="centerX" id="YdF-aF-wbN"/>
+                                                    <constraint firstItem="GJp-Wf-Gd4" firstAttribute="centerY" secondItem="Vhh-qj-jcy" secondAttribute="centerY" id="gwA-hP-jTd"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -338,6 +349,7 @@
                             <constraint firstItem="qOc-ks-FdF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="0au-jr-8mN"/>
                             <constraint firstItem="pSU-VZ-odd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3OI-sk-XYJ"/>
                             <constraint firstItem="yuf-MI-OfS" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="46a-RS-nVp"/>
+                            <constraint firstItem="sjC-JH-pnM" firstAttribute="bottom" secondItem="7io-PK-JhC" secondAttribute="bottom" id="9bi-Wy-a3R"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yuf-MI-OfS" secondAttribute="trailing" id="A2i-S2-fSm"/>
                             <constraint firstItem="7io-PK-JhC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="CkD-kH-pE3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pSU-VZ-odd" secondAttribute="trailing" constant="8" id="JNg-Ny-wNw"/>
@@ -345,11 +357,13 @@
                             <constraint firstItem="tA9-HM-M61" firstAttribute="top" secondItem="qOc-ks-FdF" secondAttribute="bottom" id="NpL-em-auG"/>
                             <constraint firstItem="e9A-iM-9M5" firstAttribute="top" secondItem="7io-PK-JhC" secondAttribute="bottom" id="Qkl-2J-5Cp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="e9A-iM-9M5" secondAttribute="bottom" id="RB4-Kz-y8W"/>
+                            <constraint firstItem="sjC-JH-pnM" firstAttribute="top" secondItem="7io-PK-JhC" secondAttribute="top" id="Rzd-tC-3AQ"/>
                             <constraint firstItem="7io-PK-JhC" firstAttribute="top" secondItem="qOc-ks-FdF" secondAttribute="bottom" id="Sm9-e3-TgO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KDL-S8-BKg" secondAttribute="bottom" id="TNe-HS-9MG"/>
                             <constraint firstItem="g5Y-c0-3tI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Tlt-gN-u5g"/>
                             <constraint firstItem="g5Y-c0-3tI" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Tw6-ov-JH5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qOc-ks-FdF" secondAttribute="trailing" constant="8" id="WSx-ez-pQf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sjC-JH-pnM" secondAttribute="trailing" constant="4" id="Zk7-sD-LDk"/>
                             <constraint firstItem="KDL-S8-BKg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cQw-xG-9T7"/>
                             <constraint firstItem="g5Y-c0-3tI" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="ddE-C8-1qt"/>
                             <constraint firstItem="tA9-HM-M61" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="dnB-0k-m0u"/>
@@ -379,7 +393,6 @@
                         <outlet property="alarmEditorVibrateBeepSwitch" destination="ocx-Nd-os6" id="CXy-SH-41A"/>
                         <outlet property="alarmEditorVibrateButton" destination="s52-VF-TQ5" id="YNh-jk-tvO"/>
                         <outlet property="amPmLabel" destination="pSU-VZ-odd" id="QvK-BM-h5v"/>
-                        <outlet property="brightnessSlider" destination="7io-PK-JhC" id="AAh-kC-gSO"/>
                         <outlet property="colorDisplayPickerView" destination="kZZ-i4-PZy" id="pKh-sI-pln"/>
                         <outlet property="dateDisplayLabel" destination="qOc-ks-FdF" id="CL8-LF-o4o"/>
                         <outlet property="dismissAlarmEditorButton" destination="43b-Pc-iFX" id="gqq-VL-6MR"/>
@@ -391,8 +404,10 @@
                         <outlet property="flasherView" destination="NOd-rj-VcR" id="qY1-CC-fTM"/>
                         <outlet property="fontDisplayPickerView" destination="5Ot-f1-EK6" id="giA-vX-QuX"/>
                         <outlet property="infoButton" destination="SZl-tK-oiX" id="cQy-hO-Vx1"/>
+                        <outlet property="leftBrightnessSlider" destination="7io-PK-JhC" id="AAh-kC-gSO"/>
                         <outlet property="mainNumberDisplayView" destination="tA9-HM-M61" id="4MX-Vs-nAa"/>
                         <outlet property="mainPickerContainerView" destination="KDL-S8-BKg" id="Qml-Ag-nxF"/>
+                        <outlet property="rightBrightnessSlider" destination="sjC-JH-pnM" id="ian-iB-eyU"/>
                         <outlet property="shutUpAlreadyGestureRecognizer" destination="yOI-ks-4mc" id="zsO-ef-NT5"/>
                         <outlet property="snoozeGestureRecogninzer" destination="qzH-bp-wEr" id="cof-UO-0g4"/>
                         <segue destination="7ze-OY-b4R" kind="presentation" identifier="open-info" id="U3E-Be-YOf"/>
@@ -448,6 +463,8 @@
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="UY0-GO-scj"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Ika-Un-Z2T"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="GC0-YW-qcF"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="ACN-Xt-xoM"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="OWA-Li-mio"/>
             </objects>
             <point key="canvasLocation" x="317.60000000000002" y="43.628185907046479"/>
         </scene>

@@ -124,8 +124,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var mainNumberDisplayView: UIView!
     /// This is a normally hidden view that holds the color and font selection UIPickerViews
     @IBOutlet weak var mainPickerContainerView: UIView!
-    /// This is the hidden slider for changing the brightness.
-    @IBOutlet weak var brightnessSlider: TheBestClockVerticalBrightnessSliderView!
+    /// This is the hidden slider for changing the brightness on the left side of the screen..
+    @IBOutlet weak var leftBrightnessSlider: TheBestClockVerticalBrightnessSliderView!
+    /// This is the hidden slider for changing the brightness on the right side of the screen..
+    @IBOutlet weak var rightBrightnessSlider: TheBestClockVerticalBrightnessSliderView!
     /// This is the label that displays ante meridian (AM/PM).
     @IBOutlet weak var amPmLabel: UILabel!
     /// This is the label that displays today's date.
@@ -315,9 +317,13 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
         }
         
-        self.brightnessSlider.endColor = self.selectedColor
-        self.brightnessSlider.brightness = self.selectedBrightness
-        self.brightnessSlider.setNeedsDisplay()
+        self.leftBrightnessSlider?.endColor = self.selectedColor
+        self.leftBrightnessSlider?.brightness = self.selectedBrightness
+        self.leftBrightnessSlider?.setNeedsDisplay()
+        
+        self.rightBrightnessSlider?.endColor = self.selectedColor
+        self.rightBrightnessSlider?.brightness = self.selectedBrightness
+        self.rightBrightnessSlider?.setNeedsDisplay()
         
         var frame = inContainerView.bounds
         frame.size.height = inContainerView.bounds.height
