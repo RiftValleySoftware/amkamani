@@ -17,6 +17,8 @@ import UIKit
  This is a simple ViewController that manages the only other view controller in the app: The about box.
  */
 class TheBestClockAboutScreenViewController: UIViewController {
+    private let _urlButtonFontSize: CGFloat = 15
+
     @IBOutlet var logoImageControl: TheGreatRiftValleyDrawing!
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var theURLButton: UIButton!
@@ -68,7 +70,7 @@ class TheBestClockAboutScreenViewController: UIViewController {
         self.longTextTextarea.textColor = self.baseColor
         // The two labels will also use the selected font. The text area will use the system font.
         self.versionLabel.font = self.baseFont
-        self.theURLButton.titleLabel?.font = UIFont(name: self.baseFont.fontName, size: 15)
+        self.theURLButton.titleLabel?.font = UIFont(name: self.baseFont.fontName, size: self._urlButtonFontSize)
         // The button label will adjust itself.
         self.theURLButton.titleLabel?.adjustsFontSizeToFitWidth = true
 

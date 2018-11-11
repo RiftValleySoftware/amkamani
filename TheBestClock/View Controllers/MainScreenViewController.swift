@@ -68,28 +68,45 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                              "Papyrus",
                                              "TrebuchetMS-Bold",
                                              "Verdana-Bold"]
+    /// This is our minimum brightness threshold. We don't let the text and stuff quite make it to 0.
     private let _minimumBrightness: CGFloat = 0.05
+    /// This is the base font size for the ante meridian label near the top of the screen.
     private let _amPmLabelFontSize: CGFloat = 30
+    /// This is the base font size for the date display along the top.
     private let _dateLabelFontSize: CGFloat = 40
+    /// This is the base font size for the row of alarm buttons along the bottom of the screen.
     private let _alarmsFontSize: CGFloat = 40
+    /// This is the base font size for the various textual items in the Alarm Editor.
     private let _alarmEditorTopFontSize: CGFloat = 30
+    /// This is the font size for the alarm sound/music selection picker.
     private let _alarmEditorSoundPickerFontSize: CGFloat = 24
+    /// This is the base font size for the sound test button.
     private let _alarmEditorSoundButtonFontSize: CGFloat = 30
 
     /* ################################################################## */
     // MARK: - Instance Private Properties
     /* ################################################################## */
+    /// These are the persistent prefs that store our settings.
     private var _prefs: TheBestClockPrefs!
+    /// This is an Array of the button objects that we generated for the alarms along the bottom of the screen.
     private var _alarmButtons: [TheBestClockAlarmView] = []
+    /// These are the names of the fonts that we have selected to be choices.
     private var _fontSelection: [String] = []
+    /// These are all the UIColors that we have to choose from. They are dynamically generated.
     private var _colorSelection: [UIColor] = []
+    /// These are URL Strings of the various sound files we have for the "sounds" setting.
     private var _soundSelection: [String] = []
+    /// This is the basic background color for the whole kit and kaboodle. It gets darker as the brightness is reduced.
     private var _backgroundColor: UIColor = UIColor.gray
+    /// This is the "heartbeat" of the clock. It's a 1-second repeating timer.
     private var _ticker: Timer!
+    /// This is used to cache the selected main font size. We sort of use it as a semaphore.
     private var _fontSizeCache: CGFloat = 0
+    /// If the Alarm Editor is open, then this is the index of the alarm being edited. It is -1 if the Alarm Editor is not open.
     private var _currentlyEditingAlarmIndex: Int = -1
+    /// This will be the audio player that we use to play the alarm sound.
     private var _audioPlayer: AVAudioPlayer? {
-        didSet {
+        didSet {    // We set the Alarm Editor button text to reflect whether or not we play/continue, or pause a playing sound. It will be invisible, unless we are editing an alarm.
             DispatchQueue.main.async {
                 self.editAlarmTestSoundButton.setTitle((nil == self._audioPlayer ? "LOCAL-TEST-SOUND" : "LOCAL-PAUSE-SOUND").localizedVariant, for: .normal)
             }
@@ -151,18 +168,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     // MARK: - Instance Properties
     /* ################################################################## */
-    /**
-     */
+    /// This is the currently selected main font. It's an index into our font selection Array.
     var selectedFontIndex: Int = 0
-    
-    /* ################################################################## */
-    /**
-     */
+    /// This is an index into our color selection Array, denoting the color we have selected.
     var selectedColorIndex: Int = 0
-    
-    /* ################################################################## */
-    /**
-     */
+    /// This indicates the brightness level of the screen.
     var selectedBrightness: CGFloat = 1.0
 
     /* ################################################################## */
@@ -214,11 +224,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var selectedFontName: String {
         return self._fontSelection[self.selectedFontIndex]
     }
-    
+
     /* ################################################################## */
     // MARK: - Media Methods
     /* ################################################################## */
     /**
+     This is called when we want to access the music library to make a playlist.
      */
     private func _requestAccessToMediaLibrary() {
         MPMediaLibrary.requestAuthorization { status in
@@ -237,6 +248,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     /* ################################################################## */
     /**
+     This is called to play a sound, choosing from the various alarms. That alarm's indexed sound will be used.
+     It is also used to continue a paused audio player (in which case, the sound is actually ignored).
+     
+     - parameter inAlarmIndex: This is the index of the alarm that we want to use to play the sound.
      */
     private func _playSound(_ inAlarmIndex: Int) {
         if nil == self._audioPlayer, .sounds == self._prefs.alarms[inAlarmIndex].selectedSoundMode, let soundUrl = URL(string: self._soundSelection[self._prefs.alarms[inAlarmIndex].selectedSoundIndex]) {
@@ -246,6 +261,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     /* ################################################################## */
     /**
+     This plays any sound, using a given URL.
+     
+     - parameter inSoundURL: This is the URI to the sound resource.
      */
     private func _playThisSound(_ inSoundURL: URL) {
         do {
@@ -261,6 +279,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     /* ################################################################## */
     /**
+     If the audio player is going, this pauses it. Nothing happens if no audio player is going.
      */
     private func _pauseAudioPlayer() {
         if nil != self._audioPlayer {
@@ -270,6 +289,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     /* ################################################################## */
     /**
+     This terminates the audio player. Nothing happens if no audio player is going.
      */
     private func _stopAudioPlayer() {
         if nil != self._audioPlayer {
@@ -401,6 +421,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     // MARK: - Alarm Strip Methods
     /* ################################################################## */
     /**
+     This creates and links up the row of buttons along the bottom of the screen.
      */
     private func _setUpAlarms() {
         // Take out the trash.
@@ -431,6 +452,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     /* ################################################################## */
     /**
+     This updates the alarm buttons to reflect the brightness, color and font.
      */
     private func _updateAlarms() {
         let alarms = self._alarmButtons
@@ -445,6 +467,13 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     /* ################################################################## */
     /**
+     This adds a single new alarm button to the bottom strip.
+     
+     We use this, so the buttons get autolayout constraints.
+     
+     - parameter inSubView: The button to add.
+     - parameter percentage: The width, as a percentage (0 -> 1.0) of the total strip width, of the subview.
+     - parameter previousView: If there was a view to the left, this is it.
      */
     private func _addAlarmView(_ inSubView: TheBestClockAlarmView, percentage inPercentage: CGFloat, previousView inPreviousView: TheBestClockAlarmView!) {
         self.alarmContainerView.addSubview(inSubView)
@@ -501,17 +530,20 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     // MARK: - Running Clock and Alarm Methods
     /* ################################################################## */
     /**
+     This scans the alarms, and looks for anyone that wants to ring their bell.
+     
+     - parameter soundOnly: IOf true (default is false), then this will not flash the display, and will only trigger the sound.
      */
     private func _checkAlarmStatus(soundOnly: Bool = false) {
         var index = 0
         // If we have an active alarm, then we throw the switch, iGor.
         for alarm in self._prefs.alarms {
             if alarm.alarming {
-                if !soundOnly {
+                if !soundOnly { // See if we want to be a flasher.
                     self._flashDisplay(self.selectedColor)
                 }
-                self._aooGah(index)
-            } else if alarm.snoozing {
+                self._aooGah(index) // Play a sound and/or vibrate.
+            } else if alarm.snoozing {  // If we have a snozing alarm, then it will "snore."
                 self._zzzz(index)
             }
             
@@ -521,6 +553,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     /* ################################################################## */
     /**
+     This plays whatever alarm is supposed to be alarming. This will vibrate, if we are set to do that.
+     
+     - parameter inIndex: This is the index of the alarm to be played.
      */
     private func _aooGah(_ inIndex: Int) {
         self.alarmDisplayView.isHidden = false
@@ -532,6 +567,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     /* ################################################################## */
     /**
+     This flashes the display in a fading animation.
+     
+     - parameter inUIColor: This is the color to flash.
      */
     private func _flashDisplay(_ inUIColor: UIColor) {
         self.flasherView.backgroundColor = inUIColor
@@ -546,6 +584,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     /* ################################################################## */
     /**
+     - This is called periodically to tell a snoozing alarm to "snore" (visibly pulse).
      */
     private func _zzzz(_ inIndex: Int) {
         self._alarmButtons[inIndex].snore()
@@ -557,6 +596,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     private func _startTicker() {
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
+        self._updateMainTime()
         self._checkAlarmStatus() // This just makes sure we get "instant on," if that's what we selected.
         if nil == self._ticker {
             self._ticker = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(type(of: self)._checkTicker(_:)), userInfo: nil, repeats: true)
@@ -698,7 +738,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.colorDisplayPickerView.dataSource = nil
         self._fontSizeCache = 0
         self.mainPickerContainerView.isHidden = true
-        self._updateMainTime()
         self._startTicker()
     }
 
@@ -834,6 +873,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
         self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
         self.editAlarmTestSoundButton.isHidden = .silence == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
+        self._stopAudioPlayer()
         self.editAlarmPickerView.reloadComponent(0)
         if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
             self.editAlarmPickerView.selectRow(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundIndex, inComponent: 0, animated: false)
@@ -910,14 +950,14 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     /* ################################################################## */
     /**
+     This closes the alarm editor screen, making sure that everything is put back where it belongs.
      */
     @IBAction func closeAlarmEditorScreen(_ sender: Any! = nil) {
-        self._prefs.savePrefs()
-        self._currentlyEditingAlarmIndex = -1
         self._stopAudioPlayer()
+        self._prefs.savePrefs() // We commit the changes we made, here.
+        self._currentlyEditingAlarmIndex = -1
         self.editAlarmScreenContainer.isHidden = true
         self._showAllAlarms()
-        self._updateMainTime()
         self._startTicker()
     }
 
