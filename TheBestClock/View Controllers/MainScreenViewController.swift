@@ -696,7 +696,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     @IBAction func brightnessSliderChanged(_ sender: TheBestClockVerticalBrightnessSliderView) {
         self.selectedBrightness = max(self._minimumBrightness, min(sender.brightness, 1.0))
-        self._prefs?.brightnessLevel = min(1.0, self.selectedBrightness)
+        let newBrightness = min(1.0, self.selectedBrightness)
+        self._prefs?.brightnessLevel = newBrightness
+        UIScreen.main.brightness = newBrightness    // Also dim the screen.
         self._updateMainTime()
     }
 
