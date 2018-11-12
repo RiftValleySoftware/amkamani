@@ -213,6 +213,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var musicTestButtonView: UIView!
     /// This is the test song button.
     @IBOutlet weak var musicTestButton: UIButton!
+    /// This is a container view for the main edit alarm picker (Sounds and Artists).
+    @IBOutlet weak var editPickerContainerView: UIView!
+    /// Thi is a container for the secondary music picker (songs)
+    @IBOutlet weak var songSelectContainerView: UIView!
+    /// This is a container for the test sound button.
+    @IBOutlet weak var testSoundContainerView: UIView!
     
     /* ################################################################## */
     // MARK: - Instance Properties
@@ -1079,10 +1085,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /**
      */
     private func _showHideItems() {
-        self.editAlarmTestSoundButton.isHidden = .sounds != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
-        self.editAlarmPickerView.isHidden = .silence == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
-        self.songSelectionPickerView.isHidden = .music != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
-        self.musicTestButtonView.isHidden = .music != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
+        self.testSoundContainerView.isHidden = .sounds != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
+        self.musicTestButtonView.isHidden = .music != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode || self._songs.isEmpty || self._artists.isEmpty
+        self.editAlarmPickerView.isHidden = .silence == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode || (.music == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode && (self._songs.isEmpty || self._artists.isEmpty))
+        self.songSelectContainerView.isHidden = .music != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode || self._songs.isEmpty || self._artists.isEmpty
     }
     
     /* ################################################################## */
@@ -1172,10 +1178,13 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private func _findSongURL(artistIndex: Int, songIndex: Int) -> String {
         var ret = ""
         
-        let artistName = self._artists[artistIndex]
-        if let songInfo = self._songs[artistName], 0 <= songIndex, songIndex < songInfo.count {
-            ret = songInfo[songIndex].resourceURI
+        if !self._artists.isEmpty, !self._songs.isEmpty {
+            let artistName = self._artists[artistIndex]
+            if let songInfo = self._songs[artistName], 0 <= songIndex, songIndex < songInfo.count {
+                ret = songInfo[songIndex].resourceURI
+            }
         }
+        
         return ret
     }
 
