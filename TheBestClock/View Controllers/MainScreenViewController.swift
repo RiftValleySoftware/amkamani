@@ -45,7 +45,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         var songTitle: String
         var artistName: String
         var albumTitle: String
-        var resourceURI: URL!
+        var resourceURI: String!
         
         var description: String {
             var ret: String = ""
@@ -322,7 +322,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 }
                 
                 if let resourceURI = song.assetURL {    // If we don't have one of these, then too bad. We won't be playing.
-                    songInfo.resourceURI = resourceURI
+                    songInfo.resourceURI = resourceURI.absoluteString
                 }
                 
                 if nil != songInfo.resourceURI, !songInfo.description.isEmpty {
@@ -363,7 +363,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private func _playSound(_ inAlarmIndex: Int) {
         if nil == self._audioPlayer, .sounds == self._prefs.alarms[inAlarmIndex].selectedSoundMode, let soundUrl = URL(string: self._soundSelection[self._prefs.alarms[inAlarmIndex].selectedSoundIndex]) {
             self._playThisSound(soundUrl)
+        } else if .music == self._prefs.alarms[inAlarmIndex].selectedSoundMode, let songURI = URL(string: self._prefs.alarms[inAlarmIndex].selectedSongURL) {
+            self._playThisSound(songURI)
         }
+
     }
     
     /* ################################################################## */
@@ -985,6 +988,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self.editAlarmScreenContainer.isHidden = false
             self.editAlarmTimeDatePicker.backgroundColor = self.selectedColor
             self.editAlarmTimeDatePicker.setValue(self._backgroundColor, forKey: "textColor")
+            self._setupAlarmEditPickers()
             // This nasty little hack, is because it is possible to get the alarm to display as inactive when it is, in fact, active.
             Timer.scheduledTimer(withTimeInterval: 0.125, repeats: false) { [unowned self] _ in
                 DispatchQueue.main.async {
@@ -1022,6 +1026,19 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     /**
      */
+    private func _selectSong() {
+        if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+            self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = .music
+            let indexes = self._findSongInfo(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSongURL)
+            self.editAlarmPickerView.selectRow(indexes.artistIndex, inComponent: 0, animated: true)
+            self.songSelectionPickerView.reloadComponent(0)
+            self.songSelectionPickerView.selectRow(indexes.songIndex, inComponent: 0, animated: true)
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     */
     private func _showOnlyThisAlarm(_ inIndex: Int) {
         for alarm in self._alarmButtons where alarm.index != inIndex {
             alarm.isUserInteractionEnabled = false
@@ -1045,7 +1062,60 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             alarm.isHidden = false
         }
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _findSongInfo(_ inURL: String = "") -> (artistIndex: Int, songIndex: Int) {
+        for artistInfo in self._songs {
+            var songIndex: Int = 0
+            for song in artistInfo.value {
+                if inURL == song.resourceURI {
+                    if let artistIndex = self._artists.firstIndex(of: song.artistName) {
+                        return (artistIndex: Int(artistIndex), songIndex: songIndex)
+                    }
+                }
+                songIndex += 1
+            }
+        }
+        
+        return (artistIndex: 0, songIndex: 0)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _findSongURL(artistIndex: Int, songIndex: Int) -> String {
+        var ret = ""
+        
+        let artistName = self._artists[artistIndex]
+        if let songInfo = self._songs[artistName], 0 <= songIndex, songIndex < songInfo.count {
+            ret = songInfo[songIndex].resourceURI
+        }
+        return ret
+    }
 
+    /* ################################################################## */
+    /**
+     */
+    private func _setupAlarmEditPickers() {
+        if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+            self._showLookupThrobber()
+            DispatchQueue.main.async {  // We do this, so we refresh the UI, and show the spinner. This can take a while.
+                self._loadMediaLibrary()
+                self.editAlarmPickerView.reloadComponent(0)
+                self.songSelectionPickerView.reloadComponent(0)
+                self._selectSong()
+                self._hideLookupThrobber()
+            }
+        } else {
+            if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                self.editAlarmPickerView.selectRow(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundIndex, inComponent: 0, animated: false)
+            }
+            self.editAlarmPickerView.reloadComponent(0)
+        }
+    }
+    
     /* ################################################################## */
     /**
      */
@@ -1053,21 +1123,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
         self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
         self._showHideItems()
-        
         self._stopAudioPlayer()
-        if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-            self._showLookupThrobber()
-            DispatchQueue.main.async {  // We do this, so we refresh the UI, and show the spinner. This can take a while.
-                self._loadMediaLibrary()
-                self.editAlarmPickerView.reloadComponent(0)
-                self.songSelectionPickerView.reloadComponent(0)
-                self._hideLookupThrobber()
-            }
-        }
-        self.editAlarmPickerView.reloadComponent(0)
-        if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-            self.editAlarmPickerView.selectRow(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundIndex, inComponent: 0, animated: false)
-        }
+        self._setupAlarmEditPickers()
     }
     
     /* ################################################################## */
@@ -1390,8 +1447,18 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             } else {
                 self.songSelectionPickerView.reloadComponent(0)
                 self.songSelectionPickerView.selectRow(0, inComponent: 0, animated: true)
+                let songURL = self._findSongURL(artistIndex: self.editAlarmPickerView.selectedRow(inComponent: 0), songIndex: 0)
+                if !songURL.isEmpty {
+                    self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSongURL = songURL
+                    self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSongURL = songURL
+                }
             }
         } else if self.songSelectionPickerView == inPickerView {
+            let songURL = self._findSongURL(artistIndex: self.editAlarmPickerView.selectedRow(inComponent: 0), songIndex: row)
+            if !songURL.isEmpty {
+                self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSongURL = songURL
+                self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSongURL = songURL
+            }
         }
 
     }
