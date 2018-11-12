@@ -20,6 +20,8 @@ import AVKit
  
  There are two "screens" that appear: The Appearance Editor (font, color), and the Alarm Editor (alarm time, activation, sound). These are actually
  hidden screens that appear over the main display screen.
+ 
+ Yeah, it's a big ugly mess. Read the README to find out why the app is configured this way.
  */
 class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, TheBestClockAlarmViewDelegate {
     /* ################################################################## */
