@@ -983,7 +983,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             
             self._showHideItems()
             self.editAlarmScreenContainer.isHidden = false
-            self.editAlarmTimeDatePicker.setValue(self.selectedColor, forKey: "textColor")
+            self.editAlarmTimeDatePicker.backgroundColor = self.selectedColor
+            self.editAlarmTimeDatePicker.setValue(self._backgroundColor, forKey: "textColor")
             // This nasty little hack, is because it is possible to get the alarm to display as inactive when it is, in fact, active.
             Timer.scheduledTimer(withTimeInterval: 0.125, repeats: false) { [unowned self] _ in
                 DispatchQueue.main.async {
@@ -1059,6 +1060,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             DispatchQueue.main.async {  // We do this, so we refresh the UI, and show the spinner. This can take a while.
                 self._loadMediaLibrary()
                 self.editAlarmPickerView.reloadComponent(0)
+                self.songSelectionPickerView.reloadComponent(0)
                 self._hideLookupThrobber()
             }
         }
@@ -1277,8 +1279,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 return self._soundSelection.count
             } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
                 return self._artists.count
-            } else if self.songSelectionPickerView == inPickerView {
-
+            }
+        } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex, self.songSelectionPickerView == inPickerView {
+            let artistName = self._artists[self.editAlarmPickerView.selectedRow(inComponent: 0)]
+            if let songList = self._songs[artistName] {
+                return songList.count
             }
         }
         return 0
@@ -1326,8 +1331,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 label.font = UIFont.systemFont(ofSize: self._alarmEditorSoundPickerFontSize)
                 label.adjustsFontSizeToFitWidth = true
                 label.textAlignment = .center
-                label.textColor = self.selectedColor
-                label.backgroundColor = UIColor.clear
+                label.textColor = self._backgroundColor
+                label.backgroundColor = self.selectedColor
                 var text = ""
                 
                 if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
@@ -1341,10 +1346,22 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 
                 ret.addSubview(label)
             } else if self.songSelectionPickerView == inPickerView {
-                
+                let artistName = self._artists[self.editAlarmPickerView.selectedRow(inComponent: 0)]
+                if let songs = self._songs[artistName] {
+                    let song = songs[row]
+                    let label = UILabel(frame: frame)
+                    label.font = UIFont.systemFont(ofSize: self._alarmEditorSoundPickerFontSize)
+                    label.adjustsFontSizeToFitWidth = true
+                    label.textAlignment = .center
+                    label.textColor = self._backgroundColor
+                    label.backgroundColor = self.selectedColor
+                    label.text = song.songTitle
+                    ret.addSubview(label)
+                }
             }
             ret.backgroundColor = UIColor.clear
         }
+        
         return ret
     }
     
@@ -1370,8 +1387,13 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             if .sounds == currentAlarm.selectedSoundMode {
                 currentAlarm.selectedSoundIndex = row
                 self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSoundIndex = row
+            } else {
+                self.songSelectionPickerView.reloadComponent(0)
+                self.songSelectionPickerView.selectRow(0, inComponent: 0, animated: true)
             }
+        } else if self.songSelectionPickerView == inPickerView {
         }
+
     }
     
     /* ################################################################## */
