@@ -380,7 +380,7 @@ class TheBestClockPrefs {
     /* ################################################################## */
     /** These are the keys we use for our persistent prefs dictionary. */
     private enum PrefsKeys: String {
-        case selectedColor, selectedFont, brightnessLevel, playlistID, alarms
+        case selectedColor, selectedFont, brightnessLevel, alarms
     }
     
     /* ################################################################## */
@@ -565,31 +565,6 @@ class TheBestClockPrefs {
             if self._loadPrefs() {
                 let value = NSNumber(value: Float(newValue))
                 self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.brightnessLevel.rawValue as NSString)
-                self.savePrefs()
-            }
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     - returns: the playlist ID, as a UUID.
-     */
-    var playlistID: UUID {
-        get {
-            var ret: UUID = UUID()
-            if self._loadPrefs() {
-                if let temp = self._loadedPrefs.object(forKey: type(of: self).PrefsKeys.playlistID.rawValue) as? UUID {
-                    ret = temp
-                }
-            }
-            
-            return ret
-        }
-        
-        set {
-            if self._loadPrefs() {
-                let value = newValue
-                self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.playlistID.rawValue as NSString)
                 self.savePrefs()
             }
         }

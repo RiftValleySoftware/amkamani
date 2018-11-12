@@ -199,6 +199,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var musicLookupThrobberView: UIView!
     /// This is the throbber in that view.
     @IBOutlet weak var musicLookupThrobber: UIActivityIndicatorView!
+    /// This is the secondary picker view for selecting songs in the Alarm Editor.
+    @IBOutlet weak var songSelectionPickerView: UIPickerView!
     
     /* ################################################################## */
     // MARK: - Instance Properties
@@ -264,9 +266,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     // MARK: - Media Methods
     /* ################################################################## */
     /**
-     This is called when we want to access the music library to make a playlist.
+     This is called when we want to access the music library to make a list of artists and songs.
      */
-    private func _accessMediaLibrary() {
+    private func _loadMediaLibrary() {
         if .authorized == MPMediaLibrary.authorizationStatus() {    // Already authorized? Head on in!
             if let songItems: [MPMediaItemCollection] = MPMediaQuery.songs().collections {
                 self._loadSongData(songItems)
@@ -304,24 +306,19 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             
             // Each song is a media element, so we read the various parts that matter to us.
             for song in albumInfo {
-                var songInfo: SongInfo = SongInfo(songTitle: "", artistName: "", albumTitle: "", resourceURI: nil)
+                // Anything we don't know is filled with "Unknown XXX".
+                var songInfo: SongInfo = SongInfo(songTitle: "LOCAL-UNKNOWN-SONG".localizedVariant, artistName: "LOCAL-UNKNOWN-ARTIST".localizedVariant, albumTitle: "LOCAL-UNKNOWN-ALBUM".localizedVariant, resourceURI: nil)
                 
                 if let songTitle = song.value( forProperty: MPMediaItemPropertyTitle ) as? String {
-                    songInfo.songTitle = songTitle
-                } else {
-                    songInfo.songTitle = "LOCAL-UNKNOWN-SONG".localizedVariant   // We need some kind of name.
+                    songInfo.songTitle = songTitle.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
                 }
                 
                 if let artistName = song.value( forProperty: MPMediaItemPropertyArtist ) as? String {
-                    songInfo.artistName = artistName.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
-                } else {
-                    songInfo.artistName = "LOCAL-UNKNOWN-ARTIST".localizedVariant   // We need some kind of name.
+                    songInfo.artistName = artistName.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) // Trim the crap.
                 }
                 
                 if let albumTitle = song.value( forProperty: MPMediaItemPropertyAlbumTitle ) as? String {
-                    songInfo.albumTitle = albumTitle
-                } else {
-                    songInfo.albumTitle = "LOCAL-UNKNOWN-ALBUM".localizedVariant   // We need some kind of name.
+                    songInfo.albumTitle = albumTitle.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
                 }
                 
                 if let resourceURI = song.assetURL {    // If we don't have one of these, then too bad. We won't be playing.
@@ -984,7 +981,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 self.editAlarmPickerView.selectRow(0, inComponent: 0, animated: false)
             }
             
-            self.editAlarmTestSoundButton.isHidden = .sounds != currentAlarm.selectedSoundMode
+            self._showHideItems()
             self.editAlarmScreenContainer.isHidden = false
             self.editAlarmTimeDatePicker.setValue(self.selectedColor, forKey: "textColor")
             // This nasty little hack, is because it is possible to get the alarm to display as inactive when it is, in fact, active.
@@ -999,12 +996,21 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     /**
      */
+    private func _showHideItems() {
+        self.editAlarmTestSoundButton.isHidden = .sounds != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
+        self.editAlarmPickerView.isHidden = .silence == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
+        self.songSelectionPickerView.isHidden = .music != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     private func _showLookupThrobber() {
         self.musicLookupThrobber.color = self.selectedColor
         self.musicLookupThrobberView.backgroundColor = self._backgroundColor
         self.musicLookupThrobberView.isHidden = false
     }
-    
+
     /* ################################################################## */
     /**
      */
@@ -1045,12 +1051,13 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func soundModeChanged(_ sender: UISegmentedControl) {
         self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
         self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
-        self.editAlarmTestSoundButton.isHidden = .sounds != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
+        self._showHideItems()
+        
         self._stopAudioPlayer()
         if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
             self._showLookupThrobber()
             DispatchQueue.main.async {  // We do this, so we refresh the UI, and show the spinner. This can take a while.
-                self._accessMediaLibrary()
+                self._loadMediaLibrary()
                 self.editAlarmPickerView.reloadComponent(0)
                 self._hideLookupThrobber()
             }
@@ -1270,6 +1277,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 return self._soundSelection.count
             } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
                 return self._artists.count
+            } else if self.songSelectionPickerView == inPickerView {
+
             }
         }
         return 0
@@ -1286,7 +1295,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             return 80
         } else if self.fontDisplayPickerView == inPickerView {
             return inPickerView.bounds.size.height * 0.4
-        } else if self.editAlarmPickerView == inPickerView {
+        } else if self.editAlarmPickerView == inPickerView || self.songSelectionPickerView == inPickerView {
             return 40
         }
         return 0
@@ -1331,6 +1340,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 label.text = text
                 
                 ret.addSubview(label)
+            } else if self.songSelectionPickerView == inPickerView {
+                
             }
             ret.backgroundColor = UIColor.clear
         }

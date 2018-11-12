@@ -269,6 +269,26 @@
                                                     <outletCollection property="gestureRecognizers" destination="Ika-Un-Z2T" appends="YES" id="r9K-NZ-X8b"/>
                                                 </connections>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMz-At-38F">
+                                                <rect key="frame" x="8" y="219" width="359" height="80"/>
+                                                <subviews>
+                                                    <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJG-jK-HAQ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="80"/>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="mr7-bI-Ekm"/>
+                                                            <outlet property="delegate" destination="BYZ-38-t0r" id="DM7-d3-FyS"/>
+                                                        </connections>
+                                                    </pickerView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="AJG-jK-HAQ" firstAttribute="top" secondItem="zMz-At-38F" secondAttribute="top" id="1Sj-VD-ADx"/>
+                                                    <constraint firstAttribute="height" constant="80" id="T06-jL-Fxd"/>
+                                                    <constraint firstAttribute="trailing" secondItem="AJG-jK-HAQ" secondAttribute="trailing" id="VCf-tJ-hO1"/>
+                                                    <constraint firstItem="AJG-jK-HAQ" firstAttribute="leading" secondItem="zMz-At-38F" secondAttribute="leading" id="aY7-Dw-5Kg"/>
+                                                    <constraint firstAttribute="bottom" secondItem="AJG-jK-HAQ" secondAttribute="bottom" id="bv8-jA-nt2"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-qj-jcy">
                                                 <rect key="frame" x="0.0" y="219" width="375" height="388"/>
                                                 <subviews>
@@ -314,9 +334,11 @@
                                             <constraint firstItem="DdB-iS-OpY" firstAttribute="centerY" secondItem="JKA-TF-KPA" secondAttribute="centerY" id="3vJ-Ab-z4D"/>
                                             <constraint firstItem="JKA-TF-KPA" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="4AF-tz-H0W"/>
                                             <constraint firstItem="jK9-7k-U8Q" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="7Pi-Tv-FUS"/>
+                                            <constraint firstAttribute="trailing" secondItem="zMz-At-38F" secondAttribute="trailing" constant="8" id="7UT-w2-pXX"/>
                                             <constraint firstAttribute="trailing" secondItem="Vhh-qj-jcy" secondAttribute="trailing" id="8qT-fD-CPn"/>
                                             <constraint firstItem="SZV-H4-hT3" firstAttribute="top" secondItem="anU-SX-fsT" secondAttribute="bottom" id="DUG-ox-MYm"/>
                                             <constraint firstAttribute="bottom" secondItem="Vhh-qj-jcy" secondAttribute="bottom" id="JKi-aK-h35"/>
+                                            <constraint firstItem="zMz-At-38F" firstAttribute="top" secondItem="SZV-H4-hT3" secondAttribute="bottom" id="N27-dA-5Xo"/>
                                             <constraint firstAttribute="bottom" secondItem="LOT-Kd-MBX" secondAttribute="bottom" id="Od7-gH-vjT"/>
                                             <constraint firstItem="Vhh-qj-jcy" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="Qks-2U-ky6"/>
                                             <constraint firstItem="DdB-iS-OpY" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="Vez-Zn-zE3"/>
@@ -327,6 +349,7 @@
                                             <constraint firstItem="LOT-Kd-MBX" firstAttribute="top" secondItem="anU-SX-fsT" secondAttribute="bottom" constant="4" id="jTi-64-R3b"/>
                                             <constraint firstItem="ocx-Nd-os6" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="jdt-BA-VW4"/>
                                             <constraint firstAttribute="trailing" secondItem="jK9-7k-U8Q" secondAttribute="trailing" constant="8" id="kZV-eE-fvh"/>
+                                            <constraint firstItem="zMz-At-38F" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="l41-nY-KQr"/>
                                             <constraint firstItem="ocx-Nd-os6" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="top" id="ncT-wR-JFt"/>
                                             <constraint firstItem="anU-SX-fsT" firstAttribute="top" secondItem="jK9-7k-U8Q" secondAttribute="bottom" id="nr5-b9-XJc"/>
                                             <constraint firstItem="ocx-Nd-os6" firstAttribute="centerY" secondItem="JKA-TF-KPA" secondAttribute="centerY" id="pA2-h3-dIM"/>
@@ -437,6 +460,7 @@
                         <outlet property="rightBrightnessSlider" destination="sjC-JH-pnM" id="ian-iB-eyU"/>
                         <outlet property="shutUpAlreadyGestureRecognizer" destination="yOI-ks-4mc" id="zsO-ef-NT5"/>
                         <outlet property="snoozeGestureRecogninzer" destination="qzH-bp-wEr" id="cof-UO-0g4"/>
+                        <outlet property="songSelectionPickerView" destination="AJG-jK-HAQ" id="aLc-By-PXw"/>
                         <segue destination="7ze-OY-b4R" kind="presentation" identifier="open-info" id="U3E-Be-YOf"/>
                     </connections>
                 </viewController>
