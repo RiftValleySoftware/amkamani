@@ -107,6 +107,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private let _alarmEditorSoundPickerFontSize: CGFloat = 24
     /// This is the base font size for the sound test button.
     private let _alarmEditorSoundButtonFontSize: CGFloat = 30
+    /// This is the narrowest that a screen can be to properly accommodate an Alarm Editor. Under this, and we need to force portrait mode.
+    private let _alarmEditorMinimumHeight: CGFloat = 400
 
     /* ################################################################## */
     // MARK: - Instance Private Properties
@@ -201,6 +203,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var musicLookupThrobber: UIActivityIndicatorView!
     /// This is the secondary picker view for selecting songs in the Alarm Editor.
     @IBOutlet weak var songSelectionPickerView: UIPickerView!
+    /// This is a special view that we use to mask the entire screen for initial music load.
+    @IBOutlet weak var wholeScreenThrobberView: UIView!
+    /// This is the throbber in that screen.
+    @IBOutlet weak var wholeScreenThrobber: UIActivityIndicatorView!
     
     /* ################################################################## */
     // MARK: - Instance Properties
@@ -263,153 +269,23 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
 
     /* ################################################################## */
-    // MARK: - Media Methods
-    /* ################################################################## */
-    /**
-     This is called when we want to access the music library to make a list of artists and songs.
-     */
-    private func _loadMediaLibrary() {
-        if .authorized == MPMediaLibrary.authorizationStatus() {    // Already authorized? Head on in!
-            if let songItems: [MPMediaItemCollection] = MPMediaQuery.songs().collections {
-                self._loadSongData(songItems)
-            }
-        } else {    // Can I see your ID, sir?
-            MPMediaLibrary.requestAuthorization { status in
-                switch status {
-                case.authorized:
-                    if let songItems: [MPMediaItemCollection] = MPMediaQuery.songs().collections {
-                        self._loadSongData(songItems)
-                    }
-                    
-                default:
-                    TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
-                }
-            }
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     This reads all the user's music, and sorts it into a couple of bins for us to reference later.
-     
-     - parameter inSongs: The list of songs we read in, as media items.
-     */
-    private func _loadSongData(_ inSongs: [MPMediaItemCollection]) {
-        var songList: [SongInfo] = []
-        self._songs = [:]
-        self._artists = []
-
-        // We just read in every damn song we have, then we set up an "index" Dictionary that sorts by artist name, then each artist element has a list of songs.
-        // We sort the artists and songs alphabetically. Primitive, but sufficient.
-        for album in inSongs {
-            let albumInfo = album.items
-            
-            // Each song is a media element, so we read the various parts that matter to us.
-            for song in albumInfo {
-                // Anything we don't know is filled with "Unknown XXX".
-                var songInfo: SongInfo = SongInfo(songTitle: "LOCAL-UNKNOWN-SONG".localizedVariant, artistName: "LOCAL-UNKNOWN-ARTIST".localizedVariant, albumTitle: "LOCAL-UNKNOWN-ALBUM".localizedVariant, resourceURI: nil)
-                
-                if let songTitle = song.value( forProperty: MPMediaItemPropertyTitle ) as? String {
-                    songInfo.songTitle = songTitle.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
-                }
-                
-                if let artistName = song.value( forProperty: MPMediaItemPropertyArtist ) as? String {
-                    songInfo.artistName = artistName.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) // Trim the crap.
-                }
-                
-                if let albumTitle = song.value( forProperty: MPMediaItemPropertyAlbumTitle ) as? String {
-                    songInfo.albumTitle = albumTitle.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
-                }
-                
-                if let resourceURI = song.assetURL {    // If we don't have one of these, then too bad. We won't be playing.
-                    songInfo.resourceURI = resourceURI.absoluteString
-                }
-                
-                if nil != songInfo.resourceURI, !songInfo.description.isEmpty {
-                    songList.append(songInfo)
-                }
-            }
-        }
-        
-        // We just create a big fat, honkin' Dictionary of songs; sorted by the artist name for each song.
-        for song in songList {
-            if nil == self._songs[song.artistName] {
-                self._songs[song.artistName] = []
-            }
-            self._songs[song.artistName]?.append(song)
-        }
-        
-        // We create the index, and sort the songs and keys.
-        for artist in self._songs.keys {
-            if var sortedSongs = self._songs[artist] {
-                sortedSongs.sort(by: { a, b in
-                    return a.songTitle < b.songTitle
-                })
-                self._songs[artist] = sortedSongs
-            }
-            self._artists.append(artist)    // This will be our artist key array.
-        }
-        
-        self._artists.sort()
-    }
-    
-    /* ################################################################## */
-    /**
-     This is called to play a sound, choosing from the various alarms. That alarm's indexed sound will be used.
-     It is also used to continue a paused audio player (in which case, the sound is actually ignored).
-     
-     - parameter inAlarmIndex: This is the index of the alarm that we want to use to play the sound.
-     */
-    private func _playSound(_ inAlarmIndex: Int) {
-        if nil == self._audioPlayer, .sounds == self._prefs.alarms[inAlarmIndex].selectedSoundMode, let soundUrl = URL(string: self._soundSelection[self._prefs.alarms[inAlarmIndex].selectedSoundIndex]) {
-            self._playThisSound(soundUrl)
-        } else if .music == self._prefs.alarms[inAlarmIndex].selectedSoundMode, let songURI = URL(string: self._prefs.alarms[inAlarmIndex].selectedSongURL) {
-            self._playThisSound(songURI)
-        }
-
-    }
-    
-    /* ################################################################## */
-    /**
-     This plays any sound, using a given URL.
-     
-     - parameter inSoundURL: This is the URI to the sound resource.
-     */
-    private func _playThisSound(_ inSoundURL: URL) {
-        do {
-            if nil == self._audioPlayer {
-                try self._audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
-                self._audioPlayer?.numberOfLoops = -1   // Repeat indefinitely
-            }
-            self._audioPlayer?.play()
-        } catch {
-            TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER")
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     If the audio player is going, this pauses it. Nothing happens if no audio player is going.
-     */
-    private func _pauseAudioPlayer() {
-        if nil != self._audioPlayer {
-            self._audioPlayer?.pause()
-        }
-    }
-    
-    /* ################################################################## */
-    /**
-     This terminates the audio player. Nothing happens if no audio player is going.
-     */
-    private func _stopAudioPlayer() {
-        if nil != self._audioPlayer {
-            self._audioPlayer?.stop()
-            self._audioPlayer = nil
-        }
-    }
-
-    /* ################################################################## */
     // MARK: - Instance Main Display Methods
+    /* ################################################################## */
+    /**
+     */
+    private func _showLargeLookupThrobber() {
+        self.wholeScreenThrobber.color = self.selectedColor
+        self.wholeScreenThrobberView.backgroundColor = self._backgroundColor
+        self.wholeScreenThrobberView.isHidden = false
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _hideLargeLookupThrobber() {
+        self.wholeScreenThrobberView.isHidden = true
+    }
+    
     /* ################################################################## */
     /**
      This creates the display, as a gradient-filled font.
@@ -672,7 +548,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         // If we are in hush time, then we shouldn't be talking.
         if noAlarms {
-            self._stopAudioPlayer()
+            self.stopAudioPlayer()
         }
     }
     
@@ -687,6 +563,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if self._prefs.alarms[inIndex].isVibrateOn {
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
         }
+        
+        if self.wholeScreenThrobberView.isHidden, .denied != MPMediaLibrary.authorizationStatus(), .music == self._prefs.alarms[inIndex].selectedSoundMode, self._artists.isEmpty {
+            self._loadMediaLibrary(displayWholeScreenThrobber: true)
+        }
+        
         self._playSound(inIndex)
     }
     
@@ -771,7 +652,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         for index in 0..<self._prefs.alarms.count where self._prefs.alarms[index].alarming {
             self._prefs.alarms[index].snoozing = true
         }
-        self._stopAudioPlayer()
+        self.stopAudioPlayer()
         self.alarmDisplayView.isHidden = true
     }
     
@@ -784,7 +665,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self._prefs.savePrefs()
             self._alarmButtons[index].alarmRecord.isActive = false
         }
-        self._stopAudioPlayer()
+        self.stopAudioPlayer()
         self.alarmDisplayView.isHidden = true
     }
     
@@ -894,6 +775,176 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.mainPickerContainerView.isHidden = true
         self._startTicker()
     }
+    
+    /* ################################################################## */
+    // MARK: - Media Methods
+    /* ################################################################## */
+    /**
+     This is called when we want to access the music library to make a list of artists and songs.
+     
+     - parameter displayWholeScreenThrobber: If true (default is false), then the "big" throbber screen will show while this is loading.
+     - parameter forceReload: If true (default is false), then the entire music library will be reloaded, even if we already have it.
+     */
+    private func _loadMediaLibrary(displayWholeScreenThrobber inDisplayWholeScreenThrobber: Bool = false, forceReload inForceReload: Bool = false) {
+        if self._artists.isEmpty || inForceReload { // If we are already loaded up, we don't need to do this (unless forced).
+            if .authorized == MPMediaLibrary.authorizationStatus() {    // Already authorized? Head on in!
+                if inDisplayWholeScreenThrobber {
+                    self._showLargeLookupThrobber()
+                }
+                if let songItems: [MPMediaItemCollection] = MPMediaQuery.songs().collections {
+                    self._loadSongData(songItems)
+                    self._selectSong()
+                    self._hideLargeLookupThrobber()
+                }
+            } else {    // May I see your ID, sir?
+                MPMediaLibrary.requestAuthorization { [unowned self] status in
+                    switch status {
+                    case.authorized:
+                        if inDisplayWholeScreenThrobber {
+                            self._showLargeLookupThrobber()
+                        }
+                        if let songItems: [MPMediaItemCollection] = MPMediaQuery.songs().collections {
+                            self._loadSongData(songItems)
+                            self._selectSong()
+                            self._hideLargeLookupThrobber()
+                        }
+                        
+                    default:
+                        TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
+                    }
+                }
+            }
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     This reads all the user's music, and sorts it into a couple of bins for us to reference later.
+     
+     - parameter inSongs: The list of songs we read in, as media items.
+     */
+    private func _loadSongData(_ inSongs: [MPMediaItemCollection]) {
+        var songList: [SongInfo] = []
+        self._songs = [:]
+        self._artists = []
+        
+        // We just read in every damn song we have, then we set up an "index" Dictionary that sorts by artist name, then each artist element has a list of songs.
+        // We sort the artists and songs alphabetically. Primitive, but sufficient.
+        for album in inSongs {
+            let albumInfo = album.items
+            
+            // Each song is a media element, so we read the various parts that matter to us.
+            for song in albumInfo {
+                // Anything we don't know is filled with "Unknown XXX".
+                var songInfo: SongInfo = SongInfo(songTitle: "LOCAL-UNKNOWN-SONG".localizedVariant, artistName: "LOCAL-UNKNOWN-ARTIST".localizedVariant, albumTitle: "LOCAL-UNKNOWN-ALBUM".localizedVariant, resourceURI: nil)
+                
+                if let songTitle = song.value( forProperty: MPMediaItemPropertyTitle ) as? String {
+                    songInfo.songTitle = songTitle.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
+                }
+                
+                if let artistName = song.value( forProperty: MPMediaItemPropertyArtist ) as? String {
+                    songInfo.artistName = artistName.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) // Trim the crap.
+                }
+                
+                if let albumTitle = song.value( forProperty: MPMediaItemPropertyAlbumTitle ) as? String {
+                    songInfo.albumTitle = albumTitle.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
+                }
+                
+                if let resourceURI = song.assetURL {    // If we don't have one of these, then too bad. We won't be playing.
+                    songInfo.resourceURI = resourceURI.absoluteString
+                }
+                
+                if nil != songInfo.resourceURI, !songInfo.description.isEmpty {
+                    songList.append(songInfo)
+                }
+            }
+        }
+        
+        // We just create a big fat, honkin' Dictionary of songs; sorted by the artist name for each song.
+        for song in songList {
+            if nil == self._songs[song.artistName] {
+                self._songs[song.artistName] = []
+            }
+            self._songs[song.artistName]?.append(song)
+        }
+        
+        // We create the index, and sort the songs and keys.
+        for artist in self._songs.keys {
+            if var sortedSongs = self._songs[artist] {
+                sortedSongs.sort(by: { a, b in
+                    return a.songTitle < b.songTitle
+                })
+                self._songs[artist] = sortedSongs
+            }
+            self._artists.append(artist)    // This will be our artist key array.
+        }
+        
+        self._artists.sort()
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called to play a sound, choosing from the various alarms. That alarm's indexed sound will be used.
+     It is also used to continue a paused audio player (in which case, the sound is actually ignored).
+     
+     - parameter inAlarmIndex: This is the index of the alarm that we want to use to play the sound.
+     */
+    private func _playSound(_ inAlarmIndex: Int) {
+        if nil == self._audioPlayer {
+            var soundUrl: URL!
+            
+            if .sounds == self._prefs.alarms[inAlarmIndex].selectedSoundMode, let soundUri = URL(string: self._soundSelection[self._prefs.alarms[inAlarmIndex].selectedSoundIndex]) {
+                soundUrl = soundUri
+            } else if .music == self._prefs.alarms[inAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let songURI = URL(string: self._prefs.alarms[inAlarmIndex].selectedSongURL) {
+                soundUrl = songURI
+            }  else if .music == self._prefs.alarms[inAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let defaultSongURI = URL(string: self._findSongURL(artistIndex: 0, songIndex: 0)) {
+                soundUrl = defaultSongURI
+            }
+            
+            if nil != soundUrl {
+                self._playThisSound(soundUrl)
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This plays any sound, using a given URL.
+     
+     - parameter inSoundURL: This is the URI to the sound resource.
+     */
+    private func _playThisSound(_ inSoundURL: URL) {
+        do {
+            if nil == self._audioPlayer {
+                try self._audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
+                self._audioPlayer?.numberOfLoops = -1   // Repeat indefinitely
+            }
+            self._audioPlayer?.play()
+        } catch {
+            TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER")
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     If the audio player is going, this pauses it. Nothing happens if no audio player is going.
+     */
+    private func _pauseAudioPlayer() {
+        if nil != self._audioPlayer {
+            self._audioPlayer?.pause()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This terminates the audio player. Nothing happens if no audio player is going.
+     */
+    func stopAudioPlayer() {
+        if nil != self._audioPlayer {
+            self._audioPlayer?.stop()
+            self._audioPlayer = nil
+        }
+    }
 
     /* ################################################################## */
     // MARK: - Alarm Editor Methods
@@ -904,6 +955,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private func _openAlarmEditorScreen() {
         self.stopTicker()
         if 0 <= self._currentlyEditingAlarmIndex, self._prefs.alarms.count > self._currentlyEditingAlarmIndex {
+            if self._alarmEditorMinimumHeight > UIScreen.main.bounds.size.height || self._alarmEditorMinimumHeight > UIScreen.main.bounds.size.width {
+                TheBestClockAppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
+            }
             TheBestClockAppDelegate.restoreOriginalBrightness()
             let currentAlarm = self._prefs.alarms[self._currentlyEditingAlarmIndex]
             
@@ -968,7 +1022,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
 
             self.alarmEditorVibrateBeepSwitch.isOn = currentAlarm.isVibrateOn
-            self.alarmEditSoundModeSelector.selectedSegmentIndex = currentAlarm.selectedSoundMode.rawValue
+            self.alarmEditSoundModeSelector.setEnabled(.authorized == MPMediaLibrary.authorizationStatus(), forSegmentAt: 1)
+            if .authorized != MPMediaLibrary.authorizationStatus() && .music == currentAlarm.selectedSoundMode {
+                self.alarmEditSoundModeSelector.selectedSegmentIndex = TheBestClockAlarmSetting.AlarmPrefsMode.silence.rawValue
+            } else {
+                self.alarmEditSoundModeSelector.selectedSegmentIndex = currentAlarm.selectedSoundMode.rawValue
+            }
             self.alarmEditSoundModeSelector.tintColor = self.selectedColor
             
             if let font = UIFont(name: self.selectedFontName, size: 20) {
@@ -1028,11 +1087,17 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     private func _selectSong() {
         if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-            self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = .music
-            let indexes = self._findSongInfo(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSongURL)
-            self.editAlarmPickerView.selectRow(indexes.artistIndex, inComponent: 0, animated: true)
-            self.songSelectionPickerView.reloadComponent(0)
-            self.songSelectionPickerView.selectRow(indexes.songIndex, inComponent: 0, animated: true)
+            if .authorized == MPMediaLibrary.authorizationStatus() {
+                self.alarmEditSoundModeSelector.setEnabled(true, forSegmentAt: 1)
+                self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = .music
+                let indexes = self._findSongInfo(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSongURL)
+                self.editAlarmPickerView.selectRow(indexes.artistIndex, inComponent: 0, animated: true)
+                self.songSelectionPickerView.reloadComponent(0)
+                self.songSelectionPickerView.selectRow(indexes.songIndex, inComponent: 0, animated: true)
+            } else {
+                self.alarmEditSoundModeSelector.selectedSegmentIndex = TheBestClockAlarmSetting.AlarmPrefsMode.silence.rawValue
+                self.alarmEditSoundModeSelector.setEnabled(false, forSegmentAt: 1)
+            }
         }
     }
 
@@ -1123,7 +1188,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
         self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
         self._showHideItems()
-        self._stopAudioPlayer()
+        self.stopAudioPlayer()
         self._setupAlarmEditPickers()
     }
     
@@ -1200,7 +1265,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      This closes the alarm editor screen, making sure that everything is put back where it belongs.
      */
     @IBAction func closeAlarmEditorScreen(_ sender: Any! = nil) {
-        self._stopAudioPlayer()
+        TheBestClockAppDelegate.lockOrientation(.all)
+        self.stopAudioPlayer()
         self._prefs.savePrefs() // We commit the changes we made, here.
         self._currentlyEditingAlarmIndex = -1
         self.editAlarmScreenContainer.isHidden = true
@@ -1269,6 +1335,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self._updateMainTime()
         if self.mainPickerContainerView.isHidden, -1 == self._currentlyEditingAlarmIndex { // We don't do this if we are in the appearance editor.
             UIScreen.main.brightness = self.selectedBrightness    // Dim the screen.
+        } else {
+            if 0 <= self._currentlyEditingAlarmIndex, self._prefs.alarms.count > self._currentlyEditingAlarmIndex {
+                if self._alarmEditorMinimumHeight > UIScreen.main.bounds.size.height || self._alarmEditorMinimumHeight > UIScreen.main.bounds.size.width {
+                    TheBestClockAppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
+                }
+            }
         }
     }
     
@@ -1337,7 +1409,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
                 return self._artists.count
             }
-        } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex, self.songSelectionPickerView == inPickerView {
+        } else if !self._artists.isEmpty, !self._songs.isEmpty, 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex, self.songSelectionPickerView == inPickerView {
             let artistName = self._artists[self.editAlarmPickerView.selectedRow(inComponent: 0)]
             if let songList = self._songs[artistName] {
                 return songList.count
@@ -1438,7 +1510,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self.selectedFontIndex = row
             self._prefs?.selectedFont = self.selectedFontIndex
         } else if self.editAlarmPickerView == inPickerView {
-            self._stopAudioPlayer()
+            self.stopAudioPlayer()
             self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
             let currentAlarm = self._prefs.alarms[self._currentlyEditingAlarmIndex]
             if .sounds == currentAlarm.selectedSoundMode {

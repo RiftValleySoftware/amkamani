@@ -207,7 +207,7 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jK9-7k-U8Q">
-                                                <rect key="frame" x="8" y="31" width="359" height="80"/>
+                                                <rect key="frame" x="8" y="39" width="359" height="80"/>
                                                 <subviews>
                                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Epq-FZ-noz">
                                                         <rect key="frame" x="0.0" y="8" width="359" height="72"/>
@@ -233,7 +233,7 @@
                                                 </connections>
                                             </view>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="anU-SX-fsT">
-                                                <rect key="frame" x="8" y="119" width="359" height="29"/>
+                                                <rect key="frame" x="8" y="127" width="359" height="29"/>
                                                 <gestureRecognizers/>
                                                 <segments>
                                                     <segment title="LOCAL-SOUNDS"/>
@@ -246,10 +246,10 @@
                                                 </connections>
                                             </segmentedControl>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-qj-jcy">
-                                                <rect key="frame" x="0.0" y="235" width="375" height="372"/>
+                                                <rect key="frame" x="0.0" y="243" width="375" height="364"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJp-Wf-Gd4">
-                                                        <rect key="frame" x="143" y="171" width="89" height="30"/>
+                                                        <rect key="frame" x="143" y="167" width="89" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="89" placeholder="YES" id="Sgy-DW-Z87"/>
                                                             <constraint firstAttribute="height" constant="30" id="tav-0I-3eD"/>
@@ -267,7 +267,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SZV-H4-hT3">
-                                                <rect key="frame" x="8" y="155" width="359" height="80"/>
+                                                <rect key="frame" x="8" y="163" width="359" height="80"/>
                                                 <subviews>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZW-w9-tN7">
                                                         <rect key="frame" x="0.0" y="0.0" width="359" height="80"/>
@@ -291,7 +291,7 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMz-At-38F">
-                                                <rect key="frame" x="8" y="235" width="359" height="80"/>
+                                                <rect key="frame" x="8" y="243" width="359" height="80"/>
                                                 <subviews>
                                                     <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJG-jK-HAQ">
                                                         <rect key="frame" x="0.0" y="0.0" width="359" height="80"/>
@@ -311,10 +311,10 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOT-Kd-MBX">
-                                                <rect key="frame" x="0.0" y="151" width="375" height="456"/>
+                                                <rect key="frame" x="0.0" y="159" width="375" height="448"/>
                                                 <subviews>
                                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="HiL-Dd-hOF">
-                                                        <rect key="frame" x="169" y="209.5" width="37" height="37"/>
+                                                        <rect key="frame" x="169" y="205.5" width="37" height="37"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="37" id="LeW-aa-FQk"/>
                                                             <constraint firstAttribute="width" secondItem="HiL-Dd-hOF" secondAttribute="height" multiplier="1:1" id="YIJ-Wp-bZY"/>
@@ -342,7 +342,7 @@
                                             <constraint firstAttribute="bottom" secondItem="LOT-Kd-MBX" secondAttribute="bottom" id="Od7-gH-vjT"/>
                                             <constraint firstItem="Vhh-qj-jcy" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="Qks-2U-ky6"/>
                                             <constraint firstItem="DdB-iS-OpY" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="Vez-Zn-zE3"/>
-                                            <constraint firstItem="jK9-7k-U8Q" firstAttribute="top" secondItem="JKA-TF-KPA" secondAttribute="bottom" id="XfE-OJ-ZCf"/>
+                                            <constraint firstItem="jK9-7k-U8Q" firstAttribute="top" secondItem="JKA-TF-KPA" secondAttribute="bottom" constant="8" id="XfE-OJ-ZCf"/>
                                             <constraint firstItem="ocx-Nd-os6" firstAttribute="leading" secondItem="DdB-iS-OpY" secondAttribute="trailing" constant="8" id="eWI-6D-loo"/>
                                             <constraint firstItem="LOT-Kd-MBX" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="fvv-Wf-bCO"/>
                                             <constraint firstItem="JKA-TF-KPA" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="top" id="geg-hS-cfg"/>
@@ -390,6 +390,23 @@
                                     <outletCollection property="gestureRecognizers" destination="QC1-0w-8EI" appends="YES" id="1RA-Pa-7Nf"/>
                                 </connections>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PB0-FQ-trb">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="uoB-EI-V7m">
+                                        <rect key="frame" x="169" y="305" width="37" height="37"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="uoB-EI-V7m" secondAttribute="height" multiplier="1:1" id="1dL-nW-nRp"/>
+                                            <constraint firstAttribute="width" constant="37" id="Wzd-1b-5X3"/>
+                                        </constraints>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="uoB-EI-V7m" firstAttribute="centerX" secondItem="PB0-FQ-trb" secondAttribute="centerX" id="fU4-W3-eux"/>
+                                    <constraint firstItem="uoB-EI-V7m" firstAttribute="centerY" secondItem="PB0-FQ-trb" secondAttribute="centerY" id="sKy-vL-hQl"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -398,6 +415,8 @@
                             <constraint firstItem="pSU-VZ-odd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3OI-sk-XYJ"/>
                             <constraint firstItem="yuf-MI-OfS" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="46a-RS-nVp"/>
                             <constraint firstItem="7io-PK-JhC" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.17" priority="999" id="5XF-Sz-jU9"/>
+                            <constraint firstItem="PB0-FQ-trb" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="6ZA-0g-lZb"/>
+                            <constraint firstItem="PB0-FQ-trb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="9TO-Kv-G5d"/>
                             <constraint firstItem="sjC-JH-pnM" firstAttribute="bottom" secondItem="7io-PK-JhC" secondAttribute="bottom" id="9bi-Wy-a3R"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yuf-MI-OfS" secondAttribute="trailing" id="A2i-S2-fSm"/>
                             <constraint firstItem="7io-PK-JhC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="CkD-kH-pE3"/>
@@ -405,6 +424,7 @@
                             <constraint firstItem="tA9-HM-M61" firstAttribute="bottom" secondItem="e9A-iM-9M5" secondAttribute="top" id="MC8-JJ-0wu"/>
                             <constraint firstItem="sjC-JH-pnM" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.17" priority="999" id="MzY-hs-1xh"/>
                             <constraint firstItem="tA9-HM-M61" firstAttribute="top" secondItem="qOc-ks-FdF" secondAttribute="bottom" id="NpL-em-auG"/>
+                            <constraint firstItem="PB0-FQ-trb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Oxa-Aj-eXh"/>
                             <constraint firstItem="e9A-iM-9M5" firstAttribute="top" secondItem="7io-PK-JhC" secondAttribute="bottom" id="Qkl-2J-5Cp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="e9A-iM-9M5" secondAttribute="bottom" id="RB4-Kz-y8W"/>
                             <constraint firstItem="sjC-JH-pnM" firstAttribute="top" secondItem="7io-PK-JhC" secondAttribute="top" id="Rzd-tC-3AQ"/>
@@ -412,6 +432,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KDL-S8-BKg" secondAttribute="bottom" id="TNe-HS-9MG"/>
                             <constraint firstItem="g5Y-c0-3tI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Tlt-gN-u5g"/>
                             <constraint firstItem="g5Y-c0-3tI" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Tw6-ov-JH5"/>
+                            <constraint firstItem="PB0-FQ-trb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="UZm-fy-1Ld"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qOc-ks-FdF" secondAttribute="trailing" constant="8" id="WSx-ez-pQf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sjC-JH-pnM" secondAttribute="trailing" constant="4" id="Zk7-sD-LDk"/>
                             <constraint firstItem="KDL-S8-BKg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cQw-xG-9T7"/>
@@ -463,6 +484,8 @@
                         <outlet property="shutUpAlreadyGestureRecognizer" destination="yOI-ks-4mc" id="zsO-ef-NT5"/>
                         <outlet property="snoozeGestureRecogninzer" destination="qzH-bp-wEr" id="cof-UO-0g4"/>
                         <outlet property="songSelectionPickerView" destination="AJG-jK-HAQ" id="aLc-By-PXw"/>
+                        <outlet property="wholeScreenThrobber" destination="uoB-EI-V7m" id="HNU-KM-fIs"/>
+                        <outlet property="wholeScreenThrobberView" destination="PB0-FQ-trb" id="ZSm-sB-4Oi"/>
                         <segue destination="7ze-OY-b4R" kind="presentation" identifier="open-info" id="U3E-Be-YOf"/>
                     </connections>
                 </viewController>

@@ -21,6 +21,8 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
     static var originalScreenBrightness: CGFloat!
     /// This refers to the main controller
     var theMainController: MainScreenViewController!
+    /// Used to possibly force orientation for the Alarm Editor Screen.
+    var orientationLock = UIInterfaceOrientationMask.all
     /// This is the required app window object.
     var window: UIWindow?
 
@@ -91,6 +93,28 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
             UIScreen.main.brightness = self.originalScreenBrightness
         }
     }
+    
+    /* ################################################################## */
+    /**
+     This will force the screen to ignore the accelerometer setting.
+     
+     - parameter orientation: The orientation that should be locked.
+     */
+    class func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
+        self.delegateObject.orientationLock = orientation
+    }
+    
+    /* ################################################################## */
+    /**
+     This will force the screen to ignore the accelerometer setting and force the screen into that orientation.
+     
+     - parameter orientation: The orientation that should be locked.
+     - parameter andRotateTo: The orientation that should be forced.
+     */
+    class func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation: UIInterfaceOrientation) {
+        self.lockOrientation(orientation)
+        UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
+    }
 
     /* ################################################################## */
     /**
@@ -114,6 +138,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      */
     func applicationWillTerminate(_ application: UIApplication) {
         self.theMainController.stopTicker()
+        self.theMainController.stopAudioPlayer()
         type(of: self).restoreOriginalBrightness()
     }
     
@@ -123,6 +148,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      */
     func applicationWillResignActive(_ application: UIApplication) {
         self.theMainController.stopTicker()
+        self.theMainController.stopAudioPlayer()
         type(of: self).restoreOriginalBrightness()
     }
 
@@ -132,6 +158,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      */
     func applicationDidEnterBackground(_ application: UIApplication) {
         self.theMainController.stopTicker()
+        self.theMainController.stopAudioPlayer()
         type(of: self).restoreOriginalBrightness()
     }
 }
