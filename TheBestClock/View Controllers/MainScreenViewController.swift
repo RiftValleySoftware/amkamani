@@ -38,6 +38,31 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
 
     /* ################################################################## */
+    /**
+     This struct will contain information about a song in our media library.
+     */
+    struct SongInfo {
+        var songTitle: String
+        var artistName: String
+        var albumTitle: String
+        var resourceURI: URL!
+        
+        var description: String {
+            var ret: String = ""
+            
+            if !songTitle.isEmpty {
+                ret = songTitle
+            } else if !albumTitle.isEmpty {
+                ret = albumTitle
+            } else if !artistName.isEmpty {
+                ret = artistName
+            }
+
+            return ret
+        }
+    }
+    
+    /* ################################################################## */
     // MARK: - Instance Private Constant Properties
     /* ################################################################## */
     /// This is a list of a subset of fonts likely to be on the device. We want to reduce the choices for the user.
@@ -112,6 +137,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
         }
     }
+    /// This contains information about music items.
+    var _songs: [String: [SongInfo]] = [:]
+    /// This is an index of the keys (artists) for the songs Dictionary.
+    var _artists: [String] = []
 
     /* ################################################################## */
     // MARK: - Instance IB Properties
@@ -166,6 +195,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet var shutUpAlreadyGestureRecognizer: UILongPressGestureRecognizer!
     /// This is the "snooze" tap gesture recognizer.
     @IBOutlet var snoozeGestureRecogninzer: UITapGestureRecognizer!
+    /// This is a view that we temorarily put up while fetching the music collection.
+    @IBOutlet weak var musicLookupThrobberView: UIView!
+    /// This is the throbber in that view.
+    @IBOutlet weak var musicLookupThrobber: UIActivityIndicatorView!
     
     /* ################################################################## */
     // MARK: - Instance Properties
@@ -233,19 +266,94 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /**
      This is called when we want to access the music library to make a playlist.
      */
-    private func _requestAccessToMediaLibrary() {
-        MPMediaLibrary.requestAuthorization { status in
-            switch status {
-            case.authorized:
-                break
-                
-            case .denied:
-                TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
-                
-            default:
-                break
+    private func _accessMediaLibrary() {
+        if .authorized == MPMediaLibrary.authorizationStatus() {    // Already authorized? Head on in!
+            if let songItems: [MPMediaItemCollection] = MPMediaQuery.songs().collections {
+                self._loadSongData(songItems)
+            }
+        } else {    // Can I see your ID, sir?
+            MPMediaLibrary.requestAuthorization { status in
+                switch status {
+                case.authorized:
+                    if let songItems: [MPMediaItemCollection] = MPMediaQuery.songs().collections {
+                        self._loadSongData(songItems)
+                    }
+                    
+                default:
+                    TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
+                }
             }
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     This reads all the user's music, and sorts it into a couple of bins for us to reference later.
+     
+     - parameter inSongs: The list of songs we read in, as media items.
+     */
+    private func _loadSongData(_ inSongs: [MPMediaItemCollection]) {
+        var songList: [SongInfo] = []
+        self._songs = [:]
+        self._artists = []
+
+        // We just read in every damn song we have, then we set up an "index" Dictionary that sorts by artist name, then each artist element has a list of songs.
+        // We sort the artists and songs alphabetically. Primitive, but sufficient.
+        for album in inSongs {
+            let albumInfo = album.items
+            
+            // Each song is a media element, so we read the various parts that matter to us.
+            for song in albumInfo {
+                var songInfo: SongInfo = SongInfo(songTitle: "", artistName: "", albumTitle: "", resourceURI: nil)
+                
+                if let songTitle = song.value( forProperty: MPMediaItemPropertyTitle ) as? String {
+                    songInfo.songTitle = songTitle
+                } else {
+                    songInfo.songTitle = "LOCAL-UNKNOWN-SONG".localizedVariant   // We need some kind of name.
+                }
+                
+                if let artistName = song.value( forProperty: MPMediaItemPropertyArtist ) as? String {
+                    songInfo.artistName = artistName.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
+                } else {
+                    songInfo.artistName = "LOCAL-UNKNOWN-ARTIST".localizedVariant   // We need some kind of name.
+                }
+                
+                if let albumTitle = song.value( forProperty: MPMediaItemPropertyAlbumTitle ) as? String {
+                    songInfo.albumTitle = albumTitle
+                } else {
+                    songInfo.albumTitle = "LOCAL-UNKNOWN-ALBUM".localizedVariant   // We need some kind of name.
+                }
+                
+                if let resourceURI = song.assetURL {    // If we don't have one of these, then too bad. We won't be playing.
+                    songInfo.resourceURI = resourceURI
+                }
+                
+                if nil != songInfo.resourceURI, !songInfo.description.isEmpty {
+                    songList.append(songInfo)
+                }
+            }
+        }
+        
+        // We just create a big fat, honkin' Dictionary of songs; sorted by the artist name for each song.
+        for song in songList {
+            if nil == self._songs[song.artistName] {
+                self._songs[song.artistName] = []
+            }
+            self._songs[song.artistName]?.append(song)
+        }
+        
+        // We create the index, and sort the songs and keys.
+        for artist in self._songs.keys {
+            if var sortedSongs = self._songs[artist] {
+                sortedSongs.sort(by: { a, b in
+                    return a.songTitle < b.songTitle
+                })
+                self._songs[artist] = sortedSongs
+            }
+            self._artists.append(artist)    // This will be our artist key array.
+        }
+        
+        self._artists.sort()
     }
     
     /* ################################################################## */
@@ -872,9 +980,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self.editAlarmPickerView.reloadComponent(0)
             if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
                 self.editAlarmPickerView.selectRow(currentAlarm.selectedSoundIndex, inComponent: 0, animated: false)
+            } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                self.editAlarmPickerView.selectRow(0, inComponent: 0, animated: false)
             }
             
-            self.editAlarmTestSoundButton.isHidden = .silence == currentAlarm.selectedSoundMode
+            self.editAlarmTestSoundButton.isHidden = .sounds != currentAlarm.selectedSoundMode
             self.editAlarmScreenContainer.isHidden = false
             self.editAlarmTimeDatePicker.setValue(self.selectedColor, forKey: "textColor")
             // This nasty little hack, is because it is possible to get the alarm to display as inactive when it is, in fact, active.
@@ -886,6 +996,22 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
+    /* ################################################################## */
+    /**
+     */
+    private func _showLookupThrobber() {
+        self.musicLookupThrobber.color = self.selectedColor
+        self.musicLookupThrobberView.backgroundColor = self._backgroundColor
+        self.musicLookupThrobberView.isHidden = false
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    private func _hideLookupThrobber() {
+        self.musicLookupThrobberView.isHidden = true
+    }
+
     /* ################################################################## */
     /**
      */
@@ -919,8 +1045,16 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func soundModeChanged(_ sender: UISegmentedControl) {
         self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
         self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
-        self.editAlarmTestSoundButton.isHidden = .silence == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
+        self.editAlarmTestSoundButton.isHidden = .sounds != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
         self._stopAudioPlayer()
+        if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+            self._showLookupThrobber()
+            DispatchQueue.main.async {  // We do this, so we refresh the UI, and show the spinner. This can take a while.
+                self._accessMediaLibrary()
+                self.editAlarmPickerView.reloadComponent(0)
+                self._hideLookupThrobber()
+            }
+        }
         self.editAlarmPickerView.reloadComponent(0)
         if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
             self.editAlarmPickerView.selectRow(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundIndex, inComponent: 0, animated: false)
@@ -1134,6 +1268,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         } else if self.editAlarmPickerView == inPickerView {
             if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
                 return self._soundSelection.count
+            } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                return self._artists.count
             }
         }
         return 0
@@ -1151,9 +1287,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         } else if self.fontDisplayPickerView == inPickerView {
             return inPickerView.bounds.size.height * 0.4
         } else if self.editAlarmPickerView == inPickerView {
-            if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-                return 40
-            }
+            return 40
         }
         return 0
     }
@@ -1179,17 +1313,24 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 self._fontSizeCache = self.pickerView(inPickerView, rowHeightForComponent: 0)
                 ret = self._createDisplayView(reusingView, index: row)
             } else if self.editAlarmPickerView == inPickerView {
+                let label = UILabel(frame: frame)
+                label.font = UIFont.systemFont(ofSize: self._alarmEditorSoundPickerFontSize)
+                label.adjustsFontSizeToFitWidth = true
+                label.textAlignment = .center
+                label.textColor = self.selectedColor
+                label.backgroundColor = UIColor.clear
+                var text = ""
+                
                 if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
                     let pathString = URL(fileURLWithPath: self._soundSelection[row]).lastPathComponent
-                    let label = UILabel(frame: frame)
-                    label.font = UIFont.systemFont(ofSize: self._alarmEditorSoundPickerFontSize)
-                    label.adjustsFontSizeToFitWidth = true
-                    label.textAlignment = .center
-                    label.textColor = self.selectedColor
-                    label.backgroundColor = UIColor.clear
-                    label.text = pathString.localizedVariant
-                    ret.addSubview(label)
+                    text = pathString.localizedVariant
+                } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                    text = self._artists[row]
                 }
+                
+                label.text = text
+                
+                ret.addSubview(label)
             }
             ret.backgroundColor = UIColor.clear
         }

@@ -188,7 +188,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     /* ################################################################## */
     /** These are the keys we use for our alarms dictionary. */
     private enum AlarmPrefsKeys: String {
-        case alarmTime, isActive, isVibrateOn, selectedSoundMode, selectedSoundIndex
+        case alarmTime, isActive, isVibrateOn, selectedSoundMode, selectedSoundIndex, selectedSongURL
     }
     
     /* ################################################################## */
@@ -204,6 +204,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     var isVibrateOn: Bool = false
     var selectedSoundMode: AlarmPrefsMode = .sounds
     var selectedSoundIndex: Int = 0
+    var selectedSongURL: String = ""
     var isActive: Bool = false {
         didSet {
             if !self.isActive || (self.isActive != oldValue) {
@@ -226,6 +227,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
         aCoder.encode(isVibrateOn, forKey: AlarmPrefsKeys.isVibrateOn.rawValue)
         let selectedSoundIndex = NSNumber(value: self.selectedSoundIndex)
         aCoder.encode(selectedSoundIndex, forKey: AlarmPrefsKeys.selectedSoundIndex.rawValue)
+        aCoder.encode(self.selectedSongURL as NSString, forKey: AlarmPrefsKeys.selectedSongURL.rawValue)
         let selectedSoundMode = NSNumber(value: self.selectedSoundMode.rawValue)
         aCoder.encode(selectedSoundMode, forKey: AlarmPrefsKeys.selectedSoundMode.rawValue)
     }
@@ -244,6 +246,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
         super.init()
         self.selectedSoundMode = inAlarmToCopy.selectedSoundMode
         self.selectedSoundIndex = inAlarmToCopy.selectedSoundIndex
+        self.selectedSongURL = inAlarmToCopy.selectedSongURL
         self.isVibrateOn = inAlarmToCopy.isVibrateOn
         self.isActive = inAlarmToCopy.isActive
         self.alarmTime = inAlarmToCopy.alarmTime
@@ -259,10 +262,14 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
             self.selectedSoundMode = AlarmPrefsMode(rawValue: selectedSoundMode.intValue) ?? .silence
         }
         
+        if let selectedSongURL = aDecoder.decodeObject(forKey: AlarmPrefsKeys.selectedSongURL.rawValue) as? NSString {
+            self.selectedSongURL = selectedSongURL as String
+        }
+        
         if let selectedSoundIndex = aDecoder.decodeObject(forKey: AlarmPrefsKeys.selectedSoundIndex.rawValue) as? NSNumber {
             self.selectedSoundIndex = selectedSoundIndex.intValue
         }
-        
+
         if let isVibrateOn = aDecoder.decodeObject(forKey: AlarmPrefsKeys.isVibrateOn.rawValue) as? NSNumber {
             self.isVibrateOn = isVibrateOn.boolValue
         }
@@ -282,7 +289,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     /**
      */
     override var description: String {
-        return "[isActive: " + (self.isActive ? "true" : "false") + ", time: \(self.alarmTime), isVibrateOn: \(self.isVibrateOn), selectedSoundIndex: \(self.selectedSoundIndex), selectedSoundMode: \(self.selectedSoundMode)]"
+        return "[isActive: " + (self.isActive ? "true" : "false") + ", time: \(self.alarmTime), isVibrateOn: \(self.isVibrateOn), selectedSoundIndex: \(self.selectedSoundIndex), selectedSongURL: \(self.selectedSongURL), selectedSoundMode: \(self.selectedSoundMode)]"
     }
     
     /* ################################################################## */

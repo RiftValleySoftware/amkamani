@@ -290,6 +290,23 @@
                                                     <constraint firstItem="GJp-Wf-Gd4" firstAttribute="centerY" secondItem="Vhh-qj-jcy" secondAttribute="centerY" id="gwA-hP-jTd"/>
                                                 </constraints>
                                             </view>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOT-Kd-MBX">
+                                                <rect key="frame" x="0.0" y="143" width="375" height="464"/>
+                                                <subviews>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="HiL-Dd-hOF">
+                                                        <rect key="frame" x="169" y="213.5" width="37" height="37"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="37" id="LeW-aa-FQk"/>
+                                                            <constraint firstAttribute="width" secondItem="HiL-Dd-hOF" secondAttribute="height" multiplier="1:1" id="YIJ-Wp-bZY"/>
+                                                        </constraints>
+                                                    </activityIndicatorView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="HiL-Dd-hOF" firstAttribute="centerY" secondItem="LOT-Kd-MBX" secondAttribute="centerY" id="EbH-WI-rx0"/>
+                                                    <constraint firstItem="HiL-Dd-hOF" firstAttribute="centerX" secondItem="LOT-Kd-MBX" secondAttribute="centerX" id="wQw-CH-e9O"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -300,11 +317,14 @@
                                             <constraint firstAttribute="trailing" secondItem="Vhh-qj-jcy" secondAttribute="trailing" id="8qT-fD-CPn"/>
                                             <constraint firstItem="SZV-H4-hT3" firstAttribute="top" secondItem="anU-SX-fsT" secondAttribute="bottom" id="DUG-ox-MYm"/>
                                             <constraint firstAttribute="bottom" secondItem="Vhh-qj-jcy" secondAttribute="bottom" id="JKi-aK-h35"/>
+                                            <constraint firstAttribute="bottom" secondItem="LOT-Kd-MBX" secondAttribute="bottom" id="Od7-gH-vjT"/>
                                             <constraint firstItem="Vhh-qj-jcy" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="Qks-2U-ky6"/>
                                             <constraint firstItem="DdB-iS-OpY" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="Vez-Zn-zE3"/>
                                             <constraint firstItem="jK9-7k-U8Q" firstAttribute="top" secondItem="JKA-TF-KPA" secondAttribute="bottom" id="XfE-OJ-ZCf"/>
                                             <constraint firstItem="ocx-Nd-os6" firstAttribute="leading" secondItem="DdB-iS-OpY" secondAttribute="trailing" constant="8" id="eWI-6D-loo"/>
+                                            <constraint firstItem="LOT-Kd-MBX" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="fvv-Wf-bCO"/>
                                             <constraint firstItem="JKA-TF-KPA" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="top" id="geg-hS-cfg"/>
+                                            <constraint firstItem="LOT-Kd-MBX" firstAttribute="top" secondItem="anU-SX-fsT" secondAttribute="bottom" constant="4" id="jTi-64-R3b"/>
                                             <constraint firstItem="ocx-Nd-os6" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="jdt-BA-VW4"/>
                                             <constraint firstAttribute="trailing" secondItem="jK9-7k-U8Q" secondAttribute="trailing" constant="8" id="kZV-eE-fvh"/>
                                             <constraint firstItem="ocx-Nd-os6" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="top" id="ncT-wR-JFt"/>
@@ -313,6 +333,7 @@
                                             <constraint firstItem="SZV-H4-hT3" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="pDC-kS-Jys"/>
                                             <constraint firstAttribute="trailing" secondItem="anU-SX-fsT" secondAttribute="trailing" constant="8" id="pzI-UX-gHj"/>
                                             <constraint firstItem="anU-SX-fsT" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="qYU-aF-UFr"/>
+                                            <constraint firstAttribute="trailing" secondItem="LOT-Kd-MBX" secondAttribute="trailing" id="rqi-5W-UdA"/>
                                             <constraint firstAttribute="trailing" secondItem="SZV-H4-hT3" secondAttribute="trailing" constant="8" id="uQ3-yL-6DE"/>
                                             <constraint firstAttribute="trailing" secondItem="ocx-Nd-os6" secondAttribute="trailing" constant="8" id="xoe-hw-Iz7"/>
                                             <constraint firstItem="Vhh-qj-jcy" firstAttribute="top" secondItem="SZV-H4-hT3" secondAttribute="bottom" id="zAQ-50-QS3"/>
@@ -411,6 +432,8 @@
                         <outlet property="leftBrightnessSlider" destination="7io-PK-JhC" id="AAh-kC-gSO"/>
                         <outlet property="mainNumberDisplayView" destination="tA9-HM-M61" id="4MX-Vs-nAa"/>
                         <outlet property="mainPickerContainerView" destination="KDL-S8-BKg" id="Qml-Ag-nxF"/>
+                        <outlet property="musicLookupThrobber" destination="HiL-Dd-hOF" id="Ju8-he-xhT"/>
+                        <outlet property="musicLookupThrobberView" destination="LOT-Kd-MBX" id="VKL-W7-aHq"/>
                         <outlet property="rightBrightnessSlider" destination="sjC-JH-pnM" id="ian-iB-eyU"/>
                         <outlet property="shutUpAlreadyGestureRecognizer" destination="yOI-ks-4mc" id="zsO-ef-NT5"/>
                         <outlet property="snoozeGestureRecogninzer" destination="qzH-bp-wEr" id="cof-UO-0g4"/>

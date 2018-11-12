@@ -23,6 +23,9 @@
 		D48101402195F00700EEA7FD /* Canterbury.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D481013D2195F00700EEA7FD /* Canterbury.ttf */; };
 		D48101412195F00700EEA7FD /* CelticHand.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D481013E2195F00700EEA7FD /* CelticHand.ttf */; };
 		D487C1062191CE2F00FBDC77 /* TheBestClockPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C1052191CE2E00FBDC77 /* TheBestClockPrefs.swift */; };
+		D48A40D32198B5BA00ED8E73 /* MediaToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D48A40D02198B5BA00ED8E73 /* MediaToolbox.framework */; };
+		D48A40D42198B5BA00ED8E73 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D48A40D12198B5BA00ED8E73 /* AudioToolbox.framework */; };
+		D48A40D52198B5BA00ED8E73 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D48A40D22198B5BA00ED8E73 /* MediaPlayer.framework */; };
 		D49C31FA2195058700598F7E /* TheGreatRiftValleyDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49C31F92195058700598F7E /* TheGreatRiftValleyDrawing.swift */; };
 		D4A7E110219610AD00F94C32 /* single-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E105219610AD00F94C32 /* single-beep.mp3 */; };
 		D4A7E111219610AD00F94C32 /* electronic-buzz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E106219610AD00F94C32 /* electronic-buzz.mp3 */; };
@@ -79,6 +82,9 @@
 		D481013D2195F00700EEA7FD /* Canterbury.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Canterbury.ttf; sourceTree = "<group>"; };
 		D481013E2195F00700EEA7FD /* CelticHand.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CelticHand.ttf; sourceTree = "<group>"; };
 		D487C1052191CE2E00FBDC77 /* TheBestClockPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockPrefs.swift; sourceTree = "<group>"; };
+		D48A40D02198B5BA00ED8E73 /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
+		D48A40D12198B5BA00ED8E73 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D48A40D22198B5BA00ED8E73 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D49C31F92195058700598F7E /* TheGreatRiftValleyDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheGreatRiftValleyDrawing.swift; sourceTree = "<group>"; };
 		D4A7E105219610AD00F94C32 /* single-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "single-beep.mp3"; sourceTree = "<group>"; };
 		D4A7E106219610AD00F94C32 /* electronic-buzz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "electronic-buzz.mp3"; sourceTree = "<group>"; };
@@ -99,6 +105,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D48A40D32198B5BA00ED8E73 /* MediaToolbox.framework in Frameworks */,
+				D48A40D42198B5BA00ED8E73 /* AudioToolbox.framework in Frameworks */,
+				D48A40D52198B5BA00ED8E73 /* MediaPlayer.framework in Frameworks */,
 				CAC7995832AE4CEE58C4C761 /* Pods_TheBestClock.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,6 +262,9 @@
 		EF02A0F6866AEB1885ED33AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D48A40D12198B5BA00ED8E73 /* AudioToolbox.framework */,
+				D48A40D22198B5BA00ED8E73 /* MediaPlayer.framework */,
+				D48A40D02198B5BA00ED8E73 /* MediaToolbox.framework */,
 				D4B704062190B9940094E320 /* RevealServer.framework */,
 				67ADC8B37E0BB5AC5821F6D6 /* Pods_TheBestClock.framework */,
 			);

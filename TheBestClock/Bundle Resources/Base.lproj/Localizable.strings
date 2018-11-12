@@ -19,6 +19,9 @@
 "LOCAL-NONE"                                =       "Silence";
 "LOCAL-TEST-SOUND"                          =       "Play Sound";
 "LOCAL-PAUSE-SOUND"                         =       "Pause Sound";
+"LOCAL-UNKNOWN-SONG"                        =       "Unknown Song";
+"LOCAL-UNKNOWN-ALBUM"                       =       "Unknown Album";
+"LOCAL-UNKNOWN-ARTIST"                      =       "Unknown Artist";
 "LOCAL-APP-NAME"                            =       "Alarm Clock";
 "LOCAL-APP-INFO-TEXT"                       =       "When I have something to say, I'll say it here.";
 "LOCAL-APP-INFO-URL"                        =       "https://littlegreenviper.com";
