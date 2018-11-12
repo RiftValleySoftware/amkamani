@@ -110,7 +110,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /// This is the base font size for the sound test button.
     private let _alarmEditorSoundButtonFontSize: CGFloat = 30
     /// This is the narrowest that a screen can be to properly accommodate an Alarm Editor. Under this, and we need to force portrait mode.
-    private let _alarmEditorMinimumHeight: CGFloat = 400
+    private let _alarmEditorMinimumHeight: CGFloat = 550
 
     /* ################################################################## */
     // MARK: - Instance Private Properties
@@ -209,6 +209,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var wholeScreenThrobberView: UIView!
     /// This is the throbber in that screen.
     @IBOutlet weak var wholeScreenThrobber: UIActivityIndicatorView!
+    /// This is the view that holds the test song button.
+    @IBOutlet weak var musicTestButtonView: UIView!
+    /// This is the test song button.
+    @IBOutlet weak var musicTestButton: UIButton!
     
     /* ################################################################## */
     // MARK: - Instance Properties
@@ -663,7 +667,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     @IBAction func shutUpAlready(_ inGestureRecognizer: UILongPressGestureRecognizer) {
         for index in 0..<self._prefs.alarms.count where self._prefs.alarms[index].alarming {
-            self._prefs.alarms[index].isActive = false
+            self._prefs.alarms[index].deactivated = true
             self._prefs.savePrefs()
             self._alarmButtons[index].alarmRecord.isActive = false
         }
@@ -935,6 +939,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if nil != self._audioPlayer {
             self._audioPlayer?.pause()
         }
+        self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
+        self.musicTestButton.setTitle("LOCAL-TEST-SONG".localizedVariant, for: .normal)
     }
     
     /* ################################################################## */
@@ -946,6 +952,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self._audioPlayer?.stop()
             self._audioPlayer = nil
         }
+        self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
+        self.musicTestButton.setTitle("LOCAL-TEST-SONG".localizedVariant, for: .normal)
     }
 
     /* ################################################################## */
@@ -1014,6 +1022,15 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 }
             }
 
+            self.musicTestButton.tintColor = self.selectedColor
+            if let label = self.musicTestButton.titleLabel {
+                label.adjustsFontSizeToFitWidth = true
+                label.baselineAdjustment = .alignCenters
+                if let font = UIFont(name: self.selectedFontName, size: self._alarmEditorSoundButtonFontSize) {
+                    label.font = font
+                }
+            }
+            
             self.editAlarmTestSoundButton.tintColor = self.selectedColor
             if let label = self.editAlarmTestSoundButton.titleLabel {
                 label.adjustsFontSizeToFitWidth = true
@@ -1024,7 +1041,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
 
             self.alarmEditorVibrateBeepSwitch.isOn = currentAlarm.isVibrateOn
-            self.alarmEditSoundModeSelector.setEnabled(.authorized == MPMediaLibrary.authorizationStatus(), forSegmentAt: 1)
+            self.alarmEditSoundModeSelector.setEnabled(.denied != MPMediaLibrary.authorizationStatus(), forSegmentAt: 1)
             if .authorized != MPMediaLibrary.authorizationStatus() && .music == currentAlarm.selectedSoundMode {
                 self.alarmEditSoundModeSelector.selectedSegmentIndex = TheBestClockAlarmSetting.AlarmPrefsMode.silence.rawValue
             } else {
@@ -1047,8 +1064,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             
             self._showHideItems()
             self.editAlarmScreenContainer.isHidden = false
-            self.editAlarmTimeDatePicker.backgroundColor = self.selectedColor
-            self.editAlarmTimeDatePicker.setValue(self._backgroundColor, forKey: "textColor")
+            self.editAlarmTimeDatePicker.setValue(self.selectedColor, forKey: "textColor")
             self._setupAlarmEditPickers()
             // This nasty little hack, is because it is possible to get the alarm to display as inactive when it is, in fact, active.
             Timer.scheduledTimer(withTimeInterval: 0.125, repeats: false) { [unowned self] _ in
@@ -1066,6 +1082,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.editAlarmTestSoundButton.isHidden = .sounds != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
         self.editAlarmPickerView.isHidden = .silence == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
         self.songSelectionPickerView.isHidden = .music != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
+        self.musicTestButtonView.isHidden = .music != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
     }
     
     /* ################################################################## */
@@ -1098,7 +1115,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 self.songSelectionPickerView.selectRow(indexes.songIndex, inComponent: 0, animated: true)
             } else {
                 self.alarmEditSoundModeSelector.selectedSegmentIndex = TheBestClockAlarmSetting.AlarmPrefsMode.silence.rawValue
-                self.alarmEditSoundModeSelector.setEnabled(false, forSegmentAt: 1)
+                self.alarmEditSoundModeSelector.setEnabled(.denied != MPMediaLibrary.authorizationStatus(), forSegmentAt: 1)
             }
         }
     }
@@ -1199,6 +1216,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     @IBAction func activeSwitchChanged(_ inSwitch: UISwitch) {
         self._prefs.alarms[self._currentlyEditingAlarmIndex].isActive = inSwitch.isOn
+        if !inSwitch.isOn {
+            self._prefs.alarms[self._currentlyEditingAlarmIndex].deactivated = false
+            self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.deactivated = false
+        }
         self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.isActive = inSwitch.isOn
         self._refreshAlarm(self._currentlyEditingAlarmIndex)
     }
@@ -1238,7 +1259,26 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 self._playThisSound(soundUrl)
             }
         } else {
-            self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
+            self._pauseAudioPlayer()
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func testSongButtonHit(_ sender: Any) {
+        if "LOCAL-TEST-SONG".localizedVariant == self.musicTestButton.title(for: .normal) {
+            self.musicTestButton.setTitle("LOCAL-PAUSE-SONG".localizedVariant, for: .normal)
+            var soundUrl: URL!
+            
+            if .music == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let songURI = URL(string: self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSongURL) {
+                soundUrl = songURI
+            }
+            
+            if nil != soundUrl {
+                self._playThisSound(soundUrl)
+            }
+        } else {
             self._pauseAudioPlayer()
         }
     }
@@ -1259,6 +1299,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.alarmTime = time
             self._prefs.alarms[self._currentlyEditingAlarmIndex] = self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord
             self._alarmButtons[self._currentlyEditingAlarmIndex].setNeedsDisplay()
+            self._prefs.alarms[self._currentlyEditingAlarmIndex].deactivated = false
+            self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.deactivated = false
         }
     }
 
@@ -1321,6 +1363,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.alarmEditorActiveButton.setTitle(self.alarmEditorActiveButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.alarmEditorVibrateButton.setTitle(self.alarmEditorVibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
+        self.musicTestButton.setTitle("LOCAL-TEST-SONG".localizedVariant, for: .normal)
         self.snoozeGestureRecogninzer.require(toFail: self.shutUpAlreadyGestureRecognizer)
         
         self._setUpAlarms()
@@ -1462,8 +1505,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 label.font = UIFont.systemFont(ofSize: self._alarmEditorSoundPickerFontSize)
                 label.adjustsFontSizeToFitWidth = true
                 label.textAlignment = .center
-                label.textColor = self._backgroundColor
-                label.backgroundColor = self.selectedColor
+                label.textColor = self.selectedColor
+                label.backgroundColor = UIColor.clear
                 var text = ""
                 
                 if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
@@ -1484,8 +1527,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                     label.font = UIFont.systemFont(ofSize: self._alarmEditorSoundPickerFontSize)
                     label.adjustsFontSizeToFitWidth = true
                     label.textAlignment = .center
-                    label.textColor = self._backgroundColor
-                    label.backgroundColor = self.selectedColor
+                    label.textColor = self.selectedColor
+                    label.backgroundColor = UIColor.clear
                     label.text = song.songTitle
                     ret.addSubview(label)
                 }
@@ -1519,6 +1562,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 currentAlarm.selectedSoundIndex = row
                 self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSoundIndex = row
             } else {
+                self.stopAudioPlayer()
                 self.songSelectionPickerView.reloadComponent(0)
                 self.songSelectionPickerView.selectRow(0, inComponent: 0, animated: true)
                 let songURL = self._findSongURL(artistIndex: self.editAlarmPickerView.selectedRow(inComponent: 0), songIndex: 0)
@@ -1528,6 +1572,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 }
             }
         } else if self.songSelectionPickerView == inPickerView {
+            self.stopAudioPlayer()
             let songURL = self._findSongURL(artistIndex: self.editAlarmPickerView.selectedRow(inComponent: 0), songIndex: row)
             if !songURL.isEmpty {
                 self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSongURL = songURL

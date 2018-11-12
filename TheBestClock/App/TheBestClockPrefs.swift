@@ -214,6 +214,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     }
 
     var lastSnoozeTime: Date!
+    var deactivateTime: Date!
 
     /* ################################################################## */
     /**
@@ -305,6 +306,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
                 var now = Date()
                 now.addTimeInterval(TimeInterval(self._snoozeTimeInMinutes * 60))
                 self.lastSnoozeTime = now
+                self.deactivateTime = nil
             } else {
                 if (!newValue || !self.isActive) && nil != self.lastSnoozeTime {
                     self.lastSnoozeTime = nil
@@ -316,10 +318,38 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     /* ################################################################## */
     /**
      */
+    var deactivated: Bool {
+        get {
+            return nil != self.deactivateTime
+        }
+        
+        set {
+            if self.isActive, newValue {
+                var now = Date()
+                now.addTimeInterval(TimeInterval(self._alarmTimeInMinutes * 60))
+                self.deactivateTime = now
+                self.isActive = false
+            } else {
+                if !newValue && nil != self.deactivateTime {
+                    self.deactivateTime = nil
+                }
+            }
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     */
     var alarming: Bool {
         let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: Date())
         if self.isActive, let hour = dateComponents.hour, let minute = dateComponents.minute {
-            if self.snoozing {
+            if self.deactivated {   // We disable any deactivation.
+                let interval = self.deactivateTime.timeIntervalSinceNow
+                if 0 > interval {
+                    self.deactivateTime = nil
+                    return false
+                }
+            } else if self.snoozing {
                 let interval = self.lastSnoozeTime.timeIntervalSinceNow
                 if 0 > interval {
                     return true
@@ -345,7 +375,10 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
                 
                 let timeRange = self.alarmTime..<(alarmTimeHours * 100 + newAlarmTimeMinutes)
                 
-                return timeRange.contains(meTime)
+                if timeRange.contains(meTime) {
+                    self.deactivateTime = nil
+                    return true
+                }
             }
         }
         
@@ -402,9 +435,11 @@ class TheBestClockPrefs {
                 }
                 if let unarchivedObject = self._loadedPrefs.object(forKey: (type(of: self).PrefsKeys.alarms.rawValue + String(index)) as NSString) as? Data {
                     if let alarm = NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject) as? TheBestClockAlarmSetting {
-                        let oldSnoozeTime = self._alarms[index].lastSnoozeTime  // This makes sure we preserve any snoozing in progress. This is the only one that is not saved in prefs.
+                        let oldSnoozeTime = self._alarms[index].lastSnoozeTime  // This makes sure we preserve any snoozing in progress. This is not saved in prefs.
+                        let oldDeactivateTime = self._alarms[index].deactivateTime  // This makes sure we preserve any deactivated alarms in progress. This is not saved in prefs.
                         self._alarms[index] = alarm
                         self._alarms[index].lastSnoozeTime = oldSnoozeTime
+                        self._alarms[index].deactivateTime = oldDeactivateTime
                     }
                 }
             }

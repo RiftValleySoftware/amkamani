@@ -19,6 +19,8 @@
 "LOCAL-NONE"                                =       "Silence";
 "LOCAL-TEST-SOUND"                          =       "Play Sound";
 "LOCAL-PAUSE-SOUND"                         =       "Pause Sound";
+"LOCAL-TEST-SONG"                           =       "Play Song";
+"LOCAL-PAUSE-SONG"                          =       "Pause Song";
 "LOCAL-UNKNOWN-SONG"                        =       "Unknown Song";
 "LOCAL-UNKNOWN-ALBUM"                       =       "Unknown Album";
 "LOCAL-UNKNOWN-ARTIST"                      =       "Unknown Artist";
