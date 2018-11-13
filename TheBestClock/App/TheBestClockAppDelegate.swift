@@ -121,6 +121,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      We force the main controller to lay out its subviews, which will restore its internal brightness level.
      */
     func applicationDidBecomeActive(_ application: UIApplication) {
+        UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
         self.theMainController.view.setNeedsLayout()
     }
 
@@ -129,6 +130,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      We force the main controller to lay out its subviews, which will restore its internal brightness level.
      */
     func applicationWillEnterForeground(_ application: UIApplication) {
+        UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
         self.theMainController.view.setNeedsLayout()
     }
 
@@ -137,6 +139,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      We restore the screen to its original recorded level.
      */
     func applicationWillTerminate(_ application: UIApplication) {
+        UIApplication.shared.isIdleTimerDisabled = false // Put things back the way we found them.
         self.theMainController.stopTicker()
         self.theMainController.stopAudioPlayer()
         type(of: self).restoreOriginalBrightness()
@@ -147,6 +150,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      We restore the screen to its original recorded level.
      */
     func applicationWillResignActive(_ application: UIApplication) {
+        UIApplication.shared.isIdleTimerDisabled = false // Put things back the way we found them.
         self.theMainController.stopTicker()
         self.theMainController.stopAudioPlayer()
         type(of: self).restoreOriginalBrightness()
@@ -157,6 +161,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      We restore the screen to its original recorded level.
      */
     func applicationDidEnterBackground(_ application: UIApplication) {
+        UIApplication.shared.isIdleTimerDisabled = false // Put things back the way we found them.
         self.theMainController.stopTicker()
         self.theMainController.stopAudioPlayer()
         type(of: self).restoreOriginalBrightness()

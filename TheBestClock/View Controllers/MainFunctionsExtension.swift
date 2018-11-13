@@ -352,7 +352,6 @@ extension MainScreenViewController {
      This starts our regular 1-second ticker.
      */
     func startTicker() {
-        UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
         self.updateMainTime()
         self.checkAlarmStatus() // This just makes sure we get "instant on," if that's what we selected.
         if nil == self.ticker {
@@ -366,7 +365,6 @@ extension MainScreenViewController {
      */
     func stopTicker() {
         if nil != self.ticker {
-            UIApplication.shared.isIdleTimerDisabled = false
             self.ticker.invalidate()
             self.ticker = nil
         }

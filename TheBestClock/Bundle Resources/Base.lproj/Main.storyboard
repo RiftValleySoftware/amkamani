@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--The Best Clock-->
+        <!--Main Screen-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="The Best Clock" id="BYZ-38-t0r" customClass="MainScreenViewController" customModule="TheBestClock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Main Screen" id="BYZ-38-t0r" customClass="MainScreenViewController" customModule="TheBestClock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -114,11 +114,11 @@
                                         <gestureRecognizers/>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZl-tK-oiX">
-                                        <rect key="frame" x="345" y="617" width="22" height="22"/>
+                                        <rect key="frame" x="337" y="609" width="30" height="30"/>
                                         <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="22" id="8Fl-m9-Yh3"/>
-                                            <constraint firstAttribute="height" constant="22" id="h34-Cv-fmL"/>
+                                            <constraint firstAttribute="width" constant="30" id="8Fl-m9-Yh3"/>
+                                            <constraint firstAttribute="height" constant="30" id="h34-Cv-fmL"/>
                                         </constraints>
                                         <connections>
                                             <action selector="openInfo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jqY-vv-TGO"/>
@@ -285,10 +285,14 @@
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstItem="GJp-Wf-Gd4" firstAttribute="centerX" secondItem="Vhh-qj-jcy" secondAttribute="centerX" id="YdF-aF-wbN"/>
                                                     <constraint firstItem="GJp-Wf-Gd4" firstAttribute="centerY" secondItem="Vhh-qj-jcy" secondAttribute="centerY" id="gwA-hP-jTd"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="rou-bS-zuJ" appends="YES" id="vs3-ue-stH"/>
+                                                </connections>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMz-At-38F" userLabel="Song Select Picker Container View">
                                                 <rect key="frame" x="8" y="323" width="359" height="120"/>
@@ -302,6 +306,7 @@
                                                     </pickerView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstItem="AJG-jK-HAQ" firstAttribute="top" secondItem="zMz-At-38F" secondAttribute="top" id="1Sj-VD-ADx"/>
                                                     <constraint firstAttribute="height" constant="120" id="T06-jL-Fxd"/>
@@ -309,12 +314,16 @@
                                                     <constraint firstItem="AJG-jK-HAQ" firstAttribute="leading" secondItem="zMz-At-38F" secondAttribute="leading" id="aY7-Dw-5Kg"/>
                                                     <constraint firstAttribute="bottom" secondItem="AJG-jK-HAQ" secondAttribute="bottom" id="bv8-jA-nt2"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="MX1-AR-erL" appends="YES" id="D5E-7P-fN9"/>
+                                                </connections>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lRC-az-iPV" userLabel="Music Test Button Container View">
                                                 <rect key="frame" x="0.0" y="443" width="375" height="164"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xB3-e1-6fp">
                                                         <rect key="frame" x="137.5" y="67" width="100" height="30"/>
+                                                        <gestureRecognizers/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="Bjk-No-4uU"/>
                                                             <constraint firstAttribute="width" constant="100" placeholder="YES" id="rrb-He-XLI"/>
@@ -322,6 +331,7 @@
                                                         <state key="normal" title="LOCAL-TEST-MUSIC"/>
                                                         <connections>
                                                             <action selector="testSongButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yFO-cd-70m"/>
+                                                            <outletCollection property="gestureRecognizers" destination="F84-pd-UGS" appends="YES" id="VbT-jj-63G"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -520,64 +530,64 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <exit id="sxl-mT-yL0" userLabel="Exit" sceneMemberID="exit"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="EtU-wI-Juo">
-                    <connections>
-                        <action selector="openAppearanceEditor:" destination="BYZ-38-t0r" id="AUf-KP-3un"/>
-                    </connections>
-                </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="4Dn-no-ExP">
-                    <connections>
-                        <action selector="closeAppearanceEditor:" destination="BYZ-38-t0r" id="DlY-vB-mpZ"/>
-                    </connections>
-                </pongPressGestureRecognizer>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="dY2-H1-4Xj">
-                    <connections>
-                        <action selector="openAppearanceEditor:" destination="BYZ-38-t0r" id="qvg-8o-gYh"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="vTV-mt-vNG">
-                    <connections>
-                        <action selector="closeAppearanceEditor:" destination="BYZ-38-t0r" id="SSd-aq-jQJ"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="R9p-eS-CRg">
-                    <connections>
-                        <action selector="longPressGestureReconizerHit:" destination="sxl-mT-yL0" id="2A1-YJ-FzZ"/>
-                    </connections>
-                </pongPressGestureRecognizer>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="JuB-FM-I8Y"/>
                 <tapGestureRecognizer id="qzH-bp-wEr">
                     <connections>
                         <action selector="hitTheSnooze:" destination="BYZ-38-t0r" id="Ob9-eX-P6D"/>
                     </connections>
                 </tapGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="yOI-ks-4mc">
+                <tapGestureRecognizer numberOfTapsRequired="2" id="dY2-H1-4Xj" userLabel="Open Appearance Editor Double-Tap">
+                    <connections>
+                        <action selector="openAppearanceEditor:" destination="BYZ-38-t0r" id="qvg-8o-gYh"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="vTV-mt-vNG" userLabel="Close Appearance Editor Double-Tap">
+                    <connections>
+                        <action selector="closeAppearanceEditor:" destination="BYZ-38-t0r" id="SSd-aq-jQJ"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="JuB-FM-I8Y" userLabel="Left Brightness Long Press Absorber"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="ACN-Xt-xoM" userLabel="Right Brightness Long Press Absorber"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="Ohm-3E-kKF" userLabel="Info Button Tap Absorber"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="rPr-th-5lB" userLabel="Close Alarm Editor Double-Tap">
+                    <connections>
+                        <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" id="avL-n5-Xl4"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="yOI-ks-4mc" userLabel="Disable Alarm Long Press">
                     <connections>
                         <action selector="shutUpAlready:" destination="BYZ-38-t0r" id="bhg-yw-V5Z"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ibw-BF-gbI"/>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="Ohm-3E-kKF"/>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="rPr-th-5lB"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="QC1-0w-8EI">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="EtU-wI-Juo" userLabel="Open Appearance Edtor Long Press">
+                    <connections>
+                        <action selector="openAppearanceEditor:" destination="BYZ-38-t0r" id="AUf-KP-3un"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="4Dn-no-ExP" userLabel="Close Appearance Editor Long Press">
+                    <connections>
+                        <action selector="closeAppearanceEditor:" destination="BYZ-38-t0r" id="DlY-vB-mpZ"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ibw-BF-gbI" userLabel="Info Button Long Press Absorber"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="QC1-0w-8EI" userLabel="Close Alarm Editor Long Press">
                     <connections>
                         <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" id="R3A-a5-eMh"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="caV-MM-3OZ"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="UY0-GO-scj"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Ika-Un-Z2T"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="GC0-YW-qcF"/>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="ACN-Xt-xoM"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="OWA-Li-mio"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="caV-MM-3OZ" userLabel="Button Label Long Press Absorber"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="UY0-GO-scj" userLabel="Date Picker Long Press Absorber"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Ika-Un-Z2T" userLabel="Edit Picker Long Press Absorber"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="GC0-YW-qcF" userLabel="Segmented Switch Long Press Absorber"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="MX1-AR-erL" userLabel="Song Selector Long Press Absorber"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="rou-bS-zuJ" userLabel="Test Sound Button Long Press Absorber"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="F84-pd-UGS" userLabel="Test Song Button Long Press Absorber"/>
             </objects>
             <point key="canvasLocation" x="317.60000000000002" y="43.628185907046479"/>
         </scene>
-        <!--The Best Clock About Screen View Controller-->
+        <!--About Screen-->
         <scene sceneID="iYY-ZI-elm">
             <objects>
-                <viewController id="7ze-OY-b4R" customClass="TheBestClockAboutScreenViewController" customModule="TheBestClock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="About Screen" id="7ze-OY-b4R" customClass="TheBestClockAboutScreenViewController" customModule="TheBestClock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LbW-TP-6mb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
