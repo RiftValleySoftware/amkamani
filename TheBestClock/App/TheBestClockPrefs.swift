@@ -206,7 +206,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    // MARK - Instance Private Constant Properties
+    // MARK: - Instance Private Constant Properties
     /* ################################################################## */
     /// The number of minutes we snooze for.
     private let _snoozeTimeInMinutes: Int = 9
@@ -214,7 +214,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     private let _alarmTimeInMinutes: Int = 15
     
     /* ################################################################## */
-    // MARK - Instance Stored Properties
+    // MARK: - Instance Stored Properties
     /* ################################################################## */
     /// SAVED IN STATE: The time (HHMM) for the alarm.
     var alarmTime: Int = 0
@@ -241,7 +241,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     var deactivateTime: Date!
     
     /* ################################################################## */
-    // MARK - Instance Calculated Properties
+    // MARK: - Instance Calculated Properties
     /* ################################################################## */
     /**
      - returns: A description of the state of the object.

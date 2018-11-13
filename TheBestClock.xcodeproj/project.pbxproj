@@ -101,13 +101,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D4135991218E763F00768430 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D41359A5218E764100768430 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -276,10 +269,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D41359BC218E764100768430 /* Build configuration list for PBXNativeTarget "TheBestClock" */;
 			buildPhases = (
-				42206B368767EFD288F5F0C8 /* [CP] Check Pods Manifest.lock */,
 				D46F045F2190B4370045FBB2 /* SwiftLINT */,
 				D4135990218E763F00768430 /* Sources */,
-				D4135991218E763F00768430 /* Frameworks */,
 				D4135992218E763F00768430 /* Resources */,
 			);
 			buildRules = (
@@ -375,17 +366,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4AE3AF521979B8000F706A3 /* videogame-beeps-lower-frequency.mp3 in Resources */,
-				D413599F218E764100768430 /* Assets.xcassets in Resources */,
 				D413599D218E763F00768430 /* Main.storyboard in Resources */,
-				D46682A821911F5E00471BC0 /* Localizable.strings in Resources */,
-				D4AE3AF721979B8000F706A3 /* escalation.mp3 in Resources */,
-				D4AE3AF421979B8000F706A3 /* crazy-bird.mp3 in Resources */,
 				D41359A2218E764100768430 /* LaunchScreen.storyboard in Resources */,
+				D46682A821911F5E00471BC0 /* Localizable.strings in Resources */,
+				D413599F218E764100768430 /* Assets.xcassets in Resources */,
 				D48101412195F00700EEA7FD /* CelticHand.ttf in Resources */,
 				D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */,
 				D48101402195F00700EEA7FD /* Canterbury.ttf in Resources */,
 				D481013F2195F00700EEA7FD /* AnglicanText.ttf in Resources */,
+				D4AE3AF521979B8000F706A3 /* videogame-beeps-lower-frequency.mp3 in Resources */,
+				D4AE3AF721979B8000F706A3 /* escalation.mp3 in Resources */,
+				D4AE3AF421979B8000F706A3 /* crazy-bird.mp3 in Resources */,
 				D4A7E113219610AD00F94C32 /* high-fast-beeps.mp3 in Resources */,
 				D4A7E111219610AD00F94C32 /* electronic-buzz.mp3 in Resources */,
 				D4A7E117219610AD00F94C32 /* fast-beep.mp3 in Resources */,
@@ -412,28 +403,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		42206B368767EFD288F5F0C8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TheBestClock-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D46F045F2190B4370045FBB2 /* SwiftLINT */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
