@@ -17,6 +17,6 @@ This app was designed on a fairly fundamental usability model: That the user can
 
 It was sort of an experiment. Almost the entire app is contained in the View Controller for the main screen. The editor screens are actually layers that are made visible upon user selection.
 
-I probably wouldn't do it again that way, but the result has been a phenominally usable app, in a short period of time.
+I probably wouldn't do it again that way, but the result has been a phenomenally usable app, written in a short period of time.
 
-However, it's also a really big, fat, ugly source file. I could probably get the same behavior with separate View Controllers for at least the editors.
+However, it's also a really big, fat, ugly set of source files. I could probably get the same behavior with separate View Controllers for at least the editors.
