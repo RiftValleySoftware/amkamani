@@ -59,7 +59,7 @@
 		67ADC8B37E0BB5AC5821F6D6 /* Pods_TheBestClock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheBestClock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82D270D278F3C1E6B66A85EC /* Pods-TheBestClock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheBestClock.debug.xcconfig"; path = "Target Support Files/Pods-TheBestClock/Pods-TheBestClock.debug.xcconfig"; sourceTree = "<group>"; };
 		C55EF5B8125BCF2F431A69AF /* Pods-TheBestClock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheBestClock.release.xcconfig"; path = "Target Support Files/Pods-TheBestClock/Pods-TheBestClock.release.xcconfig"; sourceTree = "<group>"; };
-		D4135994218E763F00768430 /* TheBestClock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheBestClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4135994218E763F00768430 /* Rift Valley Alarm Clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rift Valley Alarm Clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4135997218E763F00768430 /* TheBestClockAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockAppDelegate.swift; sourceTree = "<group>"; };
 		D4135999218E763F00768430 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		D413599C218E763F00768430 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -142,7 +142,7 @@
 		D4135995218E763F00768430 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D4135994218E763F00768430 /* TheBestClock.app */,
+				D4135994218E763F00768430 /* Rift Valley Alarm Clock.app */,
 				D41359A8218E764100768430 /* TheBestClockTests.xctest */,
 				D41359B3218E764100768430 /* TheBestClockUITests.xctest */,
 			);
@@ -265,9 +265,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D4135993218E763F00768430 /* TheBestClock */ = {
+		D4135993218E763F00768430 /* Rift Valley Alarm Clock */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D41359BC218E764100768430 /* Build configuration list for PBXNativeTarget "TheBestClock" */;
+			buildConfigurationList = D41359BC218E764100768430 /* Build configuration list for PBXNativeTarget "Rift Valley Alarm Clock" */;
 			buildPhases = (
 				D46F045F2190B4370045FBB2 /* SwiftLINT */,
 				D4135990218E763F00768430 /* Sources */,
@@ -277,9 +277,9 @@
 			);
 			dependencies = (
 			);
-			name = TheBestClock;
+			name = "Rift Valley Alarm Clock";
 			productName = TheBestClock;
-			productReference = D4135994218E763F00768430 /* TheBestClock.app */;
+			productReference = D4135994218E763F00768430 /* Rift Valley Alarm Clock.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D41359A7218E764100768430 /* TheBestClockTests */ = {
@@ -354,7 +354,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D4135993218E763F00768430 /* TheBestClock */,
+				D4135993218E763F00768430 /* Rift Valley Alarm Clock */,
 				D41359A7218E764100768430 /* TheBestClockTests */,
 				D41359B2218E764100768430 /* TheBestClockUITests */,
 			);
@@ -462,12 +462,12 @@
 /* Begin PBXTargetDependency section */
 		D41359AA218E764100768430 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D4135993218E763F00768430 /* TheBestClock */;
+			target = D4135993218E763F00768430 /* Rift Valley Alarm Clock */;
 			targetProxy = D41359A9218E764100768430 /* PBXContainerItemProxy */;
 		};
 		D41359B5218E764100768430 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D4135993218E763F00768430 /* TheBestClock */;
+			target = D4135993218E763F00768430 /* Rift Valley Alarm Clock */;
 			targetProxy = D41359B4218E764100768430 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -756,7 +756,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D41359BC218E764100768430 /* Build configuration list for PBXNativeTarget "TheBestClock" */ = {
+		D41359BC218E764100768430 /* Build configuration list for PBXNativeTarget "Rift Valley Alarm Clock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D41359BD218E764100768430 /* Debug */,

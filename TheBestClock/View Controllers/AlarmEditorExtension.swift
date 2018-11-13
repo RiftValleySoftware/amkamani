@@ -495,7 +495,7 @@ extension MainScreenViewController {
         let wasInactive = !self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive
         self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive = inSwitch.isOn
         self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.isActive = inSwitch.isOn
-        if wasInactive && inSwitch.isOn {
+        if wasInactive && inSwitch.isOn {   // This allows us to reset the state by turning the alarm off and then on again. Just like The IT Crowd.
             self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated = false
             self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.deactivated = false  // We reset the deactivated state
         }
