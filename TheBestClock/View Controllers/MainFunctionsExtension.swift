@@ -187,6 +187,7 @@ extension MainScreenViewController {
                 self.addAlarmView(alarmButton, percentage: percentage, previousView: prevButton)
                 alarmButton.delegate = self
                 alarmButton.index = index
+                alarmButton.alarmRecord.deactivated = true  // We start off deactivated, so we don't start blaring immediately.
                 index += 1
                 prevButton = alarmButton
             }
@@ -411,6 +412,7 @@ extension MainScreenViewController {
     @IBAction func shutUpAlready(_ inGestureRecognizer: UILongPressGestureRecognizer) {
         for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].alarming {
             self.prefs.alarms[index].deactivated = true
+            self.prefs.alarms[index].isActive = false
             self.prefs.savePrefs()
             self.alarmButtons[index].alarmRecord.isActive = false
         }
@@ -425,6 +427,9 @@ extension MainScreenViewController {
         if -1 == self.currentlyEditingAlarmIndex {
             for index in 0..<self.alarmButtons.count where self.alarmButtons[index] == sender {
                 if let alarmRecord = sender.alarmRecord {
+                    if alarmRecord.isActive {
+                        self.prefs.alarms[index].deactivated = true
+                    }
                     self.prefs.alarms[index].isActive = alarmRecord.isActive
                     self.prefs.savePrefs()
                 }

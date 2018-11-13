@@ -288,7 +288,6 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
                 var now = Date()
                 now.addTimeInterval(TimeInterval(self._alarmTimeInMinutes * 60))
                 self.deactivateTime = now
-                self.isActive = false
             } else {
                 if !newValue && nil != self.deactivateTime {
                     self.deactivateTime = nil

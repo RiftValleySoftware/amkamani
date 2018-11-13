@@ -492,8 +492,13 @@ extension MainScreenViewController {
     /**
      */
     @IBAction func activeSwitchChanged(_ inSwitch: UISwitch) {
+        let wasInactive = !self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive
         self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive = inSwitch.isOn
         self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.isActive = inSwitch.isOn
+        if wasInactive && inSwitch.isOn {
+            self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated = false
+            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.deactivated = false  // We reset the deactivated state
+        }
         self.refreshAlarm(self.currentlyEditingAlarmIndex)
     }
     
