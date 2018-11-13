@@ -102,6 +102,9 @@ extension String {
 extension UIView {
     /* ################################################################## */
     /**
+     This allows us to add a subview, and set it up with auto-layout constraints to fill the superview.
+     
+     - parameter inSubview: The subview we want to add.
      */
     func addContainedView(_ inSubView: UIView) {
         self.addSubview(inSubView)
@@ -164,7 +167,12 @@ extension UIView {
 extension UIImage {
     /* ################################################################## */
     /**
+     This allows us to create a simple "filled color" image.
+     
      From here: https://stackoverflow.com/a/33675160/879365
+     
+     - parameter color: The UIColor we want to fill the image with.
+     - parameter size: An optional parameter (default is zero) that designates the size of the image.
      */
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
         let rect = CGRect(origin: .zero, size: size)
@@ -197,97 +205,46 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
         case sounds, music, silence
     }
     
+    /* ################################################################## */
+    // MARK - Instance Private Constant Properties
+    /* ################################################################## */
+    /// The number of minutes we snooze for.
     private let _snoozeTimeInMinutes: Int = 9
+    /// The length of time an alarm will blare, in minutes.
     private let _alarmTimeInMinutes: Int = 15
     
+    /* ################################################################## */
+    // MARK - Instance Stored Properties
+    /* ################################################################## */
+    /// SAVED IN STATE: The time (HHMM) for the alarm.
     var alarmTime: Int = 0
+    /// SAVED IN STATE: True, for vibrate.
     var isVibrateOn: Bool = false
+    /// SAVED IN STATE: The sound mode.
     var selectedSoundMode: AlarmPrefsMode = .sounds
+    /// SAVED IN STATE: If the sound mode is sounds, the index of the stored sound.
     var selectedSoundIndex: Int = 0
+    /// SAVED IN STATE: If the sound mode is music, the resource URL of the selected song.
     var selectedSongURL: String = ""
+    /// SAVED IN STATE: True, if the alarm is active.
     var isActive: Bool = false {
         didSet {
-            if !self.isActive || (self.isActive != oldValue) {
+            if !self.isActive || (self.isActive != oldValue) {  // If we are changing the active state, we kill snooze.
                 self.lastSnoozeTime = nil
             }
         }
     }
 
+    /// EPHEMERAL: The time a "snooze" started.
     var lastSnoozeTime: Date!
+    /// EPHEMERAL: The time that an alarm was deactivated, so it doesn't keep going off if we reactivate it.
     var deactivateTime: Date!
-
-    /* ################################################################## */
-    /**
-     */
-    func encode(with aCoder: NSCoder) {
-        let alarmTime = NSNumber(value: self.alarmTime)
-        aCoder.encode(alarmTime, forKey: AlarmPrefsKeys.alarmTime.rawValue)
-        let isActive = NSNumber(value: self.isActive)
-        aCoder.encode(isActive, forKey: AlarmPrefsKeys.isActive.rawValue)
-        let isVibrateOn = NSNumber(value: self.isVibrateOn)
-        aCoder.encode(isVibrateOn, forKey: AlarmPrefsKeys.isVibrateOn.rawValue)
-        let selectedSoundIndex = NSNumber(value: self.selectedSoundIndex)
-        aCoder.encode(selectedSoundIndex, forKey: AlarmPrefsKeys.selectedSoundIndex.rawValue)
-        aCoder.encode(self.selectedSongURL as NSString, forKey: AlarmPrefsKeys.selectedSongURL.rawValue)
-        let selectedSoundMode = NSNumber(value: self.selectedSoundMode.rawValue)
-        aCoder.encode(selectedSoundMode, forKey: AlarmPrefsKeys.selectedSoundMode.rawValue)
-    }
     
     /* ################################################################## */
-    /**
-     */
-    override init() {
-        super.init()
-    }
-    
+    // MARK - Instance Calculated Properties
     /* ################################################################## */
     /**
-     */
-    init (alarmRecord inAlarmToCopy: TheBestClockAlarmSetting) {
-        super.init()
-        self.selectedSoundMode = inAlarmToCopy.selectedSoundMode
-        self.selectedSoundIndex = inAlarmToCopy.selectedSoundIndex
-        self.selectedSongURL = inAlarmToCopy.selectedSongURL
-        self.isVibrateOn = inAlarmToCopy.isVibrateOn
-        self.isActive = inAlarmToCopy.isActive
-        self.alarmTime = inAlarmToCopy.alarmTime
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    required init?(coder aDecoder: NSCoder) {
-        super.init()
-        
-        if let selectedSoundMode = aDecoder.decodeObject(forKey: AlarmPrefsKeys.selectedSoundMode.rawValue) as? NSNumber {
-            self.selectedSoundMode = AlarmPrefsMode(rawValue: selectedSoundMode.intValue) ?? .silence
-        }
-        
-        if let selectedSongURL = aDecoder.decodeObject(forKey: AlarmPrefsKeys.selectedSongURL.rawValue) as? NSString {
-            self.selectedSongURL = selectedSongURL as String
-        }
-        
-        if let selectedSoundIndex = aDecoder.decodeObject(forKey: AlarmPrefsKeys.selectedSoundIndex.rawValue) as? NSNumber {
-            self.selectedSoundIndex = selectedSoundIndex.intValue
-        }
-
-        if let isVibrateOn = aDecoder.decodeObject(forKey: AlarmPrefsKeys.isVibrateOn.rawValue) as? NSNumber {
-            self.isVibrateOn = isVibrateOn.boolValue
-        }
-        
-        if let isActive = aDecoder.decodeObject(forKey: AlarmPrefsKeys.isActive.rawValue) as? NSNumber {
-            self.isActive = isActive.boolValue
-        }
-        
-        if let alarmTime = aDecoder.decodeObject(forKey: AlarmPrefsKeys.alarmTime.rawValue) as? NSNumber {
-            self.alarmTime = alarmTime.intValue
-        } else {
-            self.alarmTime = 0
-        }
-    }
-    
-    /* ################################################################## */
-    /**
+     - returns: A description of the state of the object.
      */
     override var description: String {
         return "[isActive: " + (self.isActive ? "true" : "false") + ", time: \(self.alarmTime), isVibrateOn: \(self.isVibrateOn), selectedSoundIndex: \(self.selectedSoundIndex), selectedSongURL: \(self.selectedSongURL), selectedSoundMode: \(self.selectedSoundMode)]"
@@ -295,6 +252,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     
     /* ################################################################## */
     /**
+     - returns: True, if the alarm is currently "snoozing."
      */
     var snoozing: Bool {
         get {
@@ -318,6 +276,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     
     /* ################################################################## */
     /**
+     - returns: True, if the alarm has been "deactivated," and should not go off again.
      */
     var deactivated: Bool {
         get {
@@ -340,6 +299,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
 
     /* ################################################################## */
     /**
+     - returns: True, if the alarm should be blaring right now.
      */
     var alarming: Bool {
         let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: Date())
@@ -384,6 +344,86 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
         }
         
         return false
+    }
+
+    /* ################################################################## */
+    /**
+     This is the standard NSCoding saver.
+     
+     - parameter with: The NSCoder object that will receive the "serialized" state.
+     */
+    func encode(with aCoder: NSCoder) {
+        let alarmTime = NSNumber(value: self.alarmTime)
+        aCoder.encode(alarmTime, forKey: AlarmPrefsKeys.alarmTime.rawValue)
+        let isActive = NSNumber(value: self.isActive)
+        aCoder.encode(isActive, forKey: AlarmPrefsKeys.isActive.rawValue)
+        let isVibrateOn = NSNumber(value: self.isVibrateOn)
+        aCoder.encode(isVibrateOn, forKey: AlarmPrefsKeys.isVibrateOn.rawValue)
+        let selectedSoundIndex = NSNumber(value: self.selectedSoundIndex)
+        aCoder.encode(selectedSoundIndex, forKey: AlarmPrefsKeys.selectedSoundIndex.rawValue)
+        aCoder.encode(self.selectedSongURL as NSString, forKey: AlarmPrefsKeys.selectedSongURL.rawValue)
+        let selectedSoundMode = NSNumber(value: self.selectedSoundMode.rawValue)
+        aCoder.encode(selectedSoundMode, forKey: AlarmPrefsKeys.selectedSoundMode.rawValue)
+    }
+    
+    /* ################################################################## */
+    /**
+     Standard empty init.
+     */
+    override init() {
+        super.init()
+    }
+    
+    /* ################################################################## */
+    /**
+     Copy initializer.
+     
+     - parameter alarmRecord: The record we want to copy.
+     */
+    init (alarmRecord inAlarmToCopy: TheBestClockAlarmSetting) {
+        super.init()
+        self.selectedSoundMode = inAlarmToCopy.selectedSoundMode
+        self.selectedSoundIndex = inAlarmToCopy.selectedSoundIndex
+        self.selectedSongURL = inAlarmToCopy.selectedSongURL
+        self.isVibrateOn = inAlarmToCopy.isVibrateOn
+        self.isActive = inAlarmToCopy.isActive
+        self.alarmTime = inAlarmToCopy.alarmTime
+    }
+    
+    /* ################################################################## */
+    /**
+     NSCoding initializer.
+     
+     - parameter coder: The coder that we will get our state from.
+     */
+    required init?(coder aDecoder: NSCoder) {
+        super.init()
+        
+        if let selectedSoundMode = aDecoder.decodeObject(forKey: AlarmPrefsKeys.selectedSoundMode.rawValue) as? NSNumber {
+            self.selectedSoundMode = AlarmPrefsMode(rawValue: selectedSoundMode.intValue) ?? .silence
+        }
+        
+        if let selectedSongURL = aDecoder.decodeObject(forKey: AlarmPrefsKeys.selectedSongURL.rawValue) as? NSString {
+            self.selectedSongURL = selectedSongURL as String
+        }
+        
+        if let selectedSoundIndex = aDecoder.decodeObject(forKey: AlarmPrefsKeys.selectedSoundIndex.rawValue) as? NSNumber {
+            self.selectedSoundIndex = selectedSoundIndex.intValue
+        }
+        
+        if let isVibrateOn = aDecoder.decodeObject(forKey: AlarmPrefsKeys.isVibrateOn.rawValue) as? NSNumber {
+            self.isVibrateOn = isVibrateOn.boolValue
+        }
+        
+        if let isActive = aDecoder.decodeObject(forKey: AlarmPrefsKeys.isActive.rawValue) as? NSNumber {
+            self.isActive = isActive.boolValue
+        }
+        
+        if let alarmTime = aDecoder.decodeObject(forKey: AlarmPrefsKeys.alarmTime.rawValue) as? NSNumber {
+            self.alarmTime = alarmTime.intValue
+        } else {
+            self.alarmTime = 0
+        }
     }
 }
 
