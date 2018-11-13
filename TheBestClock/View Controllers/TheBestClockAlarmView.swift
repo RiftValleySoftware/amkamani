@@ -13,6 +13,7 @@ import UIKit
 protocol TheBestClockAlarmViewDelegate: class {
     /* ################################################################## */
     /**
+     This will be called to open the alarm editor if the button is activated.
      */
     func openAlarmEditor(_ alarmIndex: Int)
 }

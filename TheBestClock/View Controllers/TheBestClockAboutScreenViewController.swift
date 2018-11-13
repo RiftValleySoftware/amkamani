@@ -33,7 +33,7 @@ class TheBestClockAboutScreenViewController: UIViewController {
      
      We will call home via Safari.
      
-     - parameter sender: The item that called us. Ignored.
+     - parameter: The item that called us. Ignored.
      */
     @IBAction func resolveURL(_: Any! = nil) {
         if let openLink = URL(string: "LOCAL-APP-INFO-URL".localizedVariant) {
@@ -45,7 +45,7 @@ class TheBestClockAboutScreenViewController: UIViewController {
     /**
      This is called when the user taps around the screen, closing the screen.
      
-     - parameter sender: The item that called us. Ignored.
+     - parameter: The item that called us. Ignored.
      */
     @IBAction func dismissTapped(_: Any) {
         self.dismiss(animated: true, completion: nil)
