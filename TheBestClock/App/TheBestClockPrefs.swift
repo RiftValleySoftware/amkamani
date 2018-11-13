@@ -427,7 +427,7 @@ class TheBestClockPrefs {
      
      - returns: a Bool. True, if the load was successful.
      */
-    private func _loadPrefs() -> Bool {
+    func loadPrefs() -> Bool {
         if let temp = UserDefaults.standard.object(forKey: type(of: self)._mainPrefsKey) as? NSDictionary {
             self._loadedPrefs = NSMutableDictionary(dictionary: temp)
             for index in 0..<self._numberOfAlarms {
@@ -538,7 +538,7 @@ class TheBestClockPrefs {
     var selectedColor: Int {
         get {
             var ret: Int = 0
-            if self._loadPrefs() {
+            if self.loadPrefs() {
                 if let temp = self._loadedPrefs.object(forKey: type(of: self).PrefsKeys.selectedColor.rawValue) as? NSNumber {
                     ret = temp.intValue
                 }
@@ -548,7 +548,7 @@ class TheBestClockPrefs {
         }
         
         set {
-            if self._loadPrefs() {
+            if self.loadPrefs() {
                 let value = NSNumber(value: newValue)
                 self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.selectedColor.rawValue as NSString)
                 self.savePrefs()
@@ -563,7 +563,7 @@ class TheBestClockPrefs {
     var selectedFont: Int {
         get {
             var ret: Int = 0
-            if self._loadPrefs() {
+            if self.loadPrefs() {
                 if let temp = self._loadedPrefs.object(forKey: type(of: self).PrefsKeys.selectedFont.rawValue) as? NSNumber {
                     ret = temp.intValue
                 }
@@ -573,7 +573,7 @@ class TheBestClockPrefs {
         }
         
         set {
-            if self._loadPrefs() {
+            if self.loadPrefs() {
                 let value = NSNumber(value: newValue)
                 self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.selectedFont.rawValue as NSString)
                 self.savePrefs()
@@ -588,7 +588,7 @@ class TheBestClockPrefs {
     var brightnessLevel: CGFloat {
         get {
             var ret: CGFloat = 1.0
-            if self._loadPrefs() {
+            if self.loadPrefs() {
                 if let temp = self._loadedPrefs.object(forKey: type(of: self).PrefsKeys.brightnessLevel.rawValue) as? NSNumber {
                     ret = CGFloat(temp.floatValue)
                 }
@@ -598,7 +598,7 @@ class TheBestClockPrefs {
         }
         
         set {
-            if self._loadPrefs() {
+            if self.loadPrefs() {
                 let value = NSNumber(value: Float(newValue))
                 self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.brightnessLevel.rawValue as NSString)
                 self.savePrefs()

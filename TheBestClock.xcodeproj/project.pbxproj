@@ -15,6 +15,7 @@
 		D41359AD218E764100768430 /* TheBestClockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41359AC218E764100768430 /* TheBestClockTests.swift */; };
 		D41359B8218E764100768430 /* TheBestClockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41359B7218E764100768430 /* TheBestClockUITests.swift */; };
 		D422FE3E21922C5E0022423B /* TheBestClockAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */; };
+		D443F5E8219ADDFB002A212A /* AlarmEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */; };
 		D46682A821911F5E00471BC0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46682A621911F5E00471BC0 /* Localizable.strings */; };
 		D46F84602190CA1F0026C9AD /* TheBestClockMainDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */; };
 		D46F84622190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */; };
@@ -33,6 +34,7 @@
 		D4AE3AF621979B8000F706A3 /* videogame-beeps-high-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4AE3AF221979B8000F706A3 /* videogame-beeps-high-frequency.mp3 */; };
 		D4AE3AF721979B8000F706A3 /* escalation.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4AE3AF321979B8000F706A3 /* escalation.mp3 */; };
 		D4D4AD462194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4AD452194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift */; };
+		D4D8E04E219AEF7C0007BBAA /* MainFunctionsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D8E04D219AEF7C0007BBAA /* MainFunctionsExtension.swift */; };
 		D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +73,7 @@
 		D41359B7218E764100768430 /* TheBestClockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockUITests.swift; sourceTree = "<group>"; };
 		D41359B9218E764100768430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockAlarmView.swift; sourceTree = "<group>"; };
+		D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditorExtension.swift; sourceTree = "<group>"; };
 		D46682A721911F5E00471BC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockMainDisplayView.swift; sourceTree = "<group>"; };
 		D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockVerticalBrightnessSliderView.swift; sourceTree = "<group>"; };
@@ -93,6 +96,7 @@
 		D4AE3AF321979B8000F706A3 /* escalation.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = escalation.mp3; sourceTree = "<group>"; };
 		D4B704062190B9940094E320 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "Pods/Reveal-SDK/RevealServer-19/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		D4D4AD452194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockAboutScreenViewController.swift; sourceTree = "<group>"; };
+		D4D8E04D219AEF7C0007BBAA /* MainFunctionsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFunctionsExtension.swift; sourceTree = "<group>"; };
 		D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "let's go digital regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -215,6 +219,8 @@
 			isa = PBXGroup;
 			children = (
 				D4135999218E763F00768430 /* MainScreenViewController.swift */,
+				D4D8E04D219AEF7C0007BBAA /* MainFunctionsExtension.swift */,
+				D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */,
 				D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */,
 				D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */,
 				D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */,
@@ -453,11 +459,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4D8E04E219AEF7C0007BBAA /* MainFunctionsExtension.swift in Sources */,
 				D413599A218E763F00768430 /* MainScreenViewController.swift in Sources */,
 				D487C1062191CE2F00FBDC77 /* TheBestClockPrefs.swift in Sources */,
 				D46F84622190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift in Sources */,
 				D422FE3E21922C5E0022423B /* TheBestClockAlarmView.swift in Sources */,
 				D49C31FA2195058700598F7E /* TheGreatRiftValleyDrawing.swift in Sources */,
+				D443F5E8219ADDFB002A212A /* AlarmEditorExtension.swift in Sources */,
 				D46F84602190CA1F0026C9AD /* TheBestClockMainDisplayView.swift in Sources */,
 				D4135998218E763F00768430 /* TheBestClockAppDelegate.swift in Sources */,
 				D4D4AD462194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift in Sources */,
