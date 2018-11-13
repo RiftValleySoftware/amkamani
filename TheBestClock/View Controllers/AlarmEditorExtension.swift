@@ -493,10 +493,6 @@ extension MainScreenViewController {
      */
     @IBAction func activeSwitchChanged(_ inSwitch: UISwitch) {
         self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive = inSwitch.isOn
-        if !inSwitch.isOn {
-            self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated = false
-            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.deactivated = false
-        }
         self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.isActive = inSwitch.isOn
         self.refreshAlarm(self.currentlyEditingAlarmIndex)
     }
@@ -576,8 +572,6 @@ extension MainScreenViewController {
             self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.alarmTime = time
             self.prefs.alarms[self.currentlyEditingAlarmIndex] = self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord
             self.alarmButtons[self.currentlyEditingAlarmIndex].setNeedsDisplay()
-            self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated = false
-            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.deactivated = false
         }
     }
     
