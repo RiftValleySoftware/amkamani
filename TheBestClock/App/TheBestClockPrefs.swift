@@ -309,6 +309,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
                 self.deactivateTime = nil
             } else {
                 if (!newValue || !self.isActive) && nil != self.lastSnoozeTime {
+                    self.deactivated = !newValue && nil != self.lastSnoozeTime
                     self.lastSnoozeTime = nil
                 }
             }

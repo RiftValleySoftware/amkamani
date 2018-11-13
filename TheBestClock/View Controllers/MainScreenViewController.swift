@@ -799,36 +799,64 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     private func _loadMediaLibrary(displayWholeScreenThrobber inDisplayWholeScreenThrobber: Bool = false, forceReload inForceReload: Bool = false) {
         if self._artists.isEmpty || inForceReload { // If we are already loaded up, we don't need to do this (unless forced).
-            if .authorized == MPMediaLibrary.authorizationStatus() {    // Already authorized? Head on in!
-                if inDisplayWholeScreenThrobber {
+            if inDisplayWholeScreenThrobber {
+                DispatchQueue.main.async {
                     self._showLargeLookupThrobber()
                 }
-                if let songItems: [MPMediaItemCollection] = MPMediaQuery.songs().collections {
-                    self._loadSongData(songItems)
-                    self._selectSong()
-                    self._hideLargeLookupThrobber()
+            } else {
+                DispatchQueue.main.async {
+                    self._showLookupThrobber()
                 }
+            }
+            if .authorized == MPMediaLibrary.authorizationStatus() {    // Already authorized? Head on in!
+                self._loadUpOnMusic(displayWholeScreenThrobber: inDisplayWholeScreenThrobber, forceReload: inForceReload)
             } else {    // May I see your ID, sir?
                 MPMediaLibrary.requestAuthorization { [unowned self] status in
                     switch status {
                     case.authorized:
-                        if inDisplayWholeScreenThrobber {
-                            self._showLargeLookupThrobber()
-                        }
-                        if let songItems: [MPMediaItemCollection] = MPMediaQuery.songs().collections {
-                            self._loadSongData(songItems)
-                            self._selectSong()
-                            self._hideLargeLookupThrobber()
-                        }
+                        self._loadUpOnMusic(displayWholeScreenThrobber: inDisplayWholeScreenThrobber, forceReload: inForceReload)
                         
                     default:
                         TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
+                        self._dunLoadin()
                     }
                 }
             }
+        } else {
+            self._dunLoadin()
         }
     }
 
+    /* ################################################################## */
+    /**
+     
+     - parameter displayWholeScreenThrobber: If true (default is false), then the "big" throbber screen will show while this is loading.
+     - parameter forceReload: If true (default is false), then the entire music library will be reloaded, even if we already have it.
+     */
+    private func _loadUpOnMusic(displayWholeScreenThrobber inDisplayWholeScreenThrobber: Bool = false, forceReload inForceReload: Bool = false) {
+        if let songItems: [MPMediaItemCollection] = MPMediaQuery.songs().collections {
+            DispatchQueue.main.async {
+                self._loadSongData(songItems)
+                self._dunLoadin()
+            }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called after the music has been loaded. It sets up the Alarm Editor.
+     */
+    private func _dunLoadin() {
+        DispatchQueue.main.async {
+            self.editAlarmPickerView.reloadComponent(0)
+            self.songSelectionPickerView.reloadComponent(0)
+            self._selectSong()
+            self._showHideItems()
+            self._hideLargeLookupThrobber()
+            self._hideLookupThrobber()
+        }
+    }
+    
     /* ################################################################## */
     /**
      This reads all the user's music, and sorts it into a couple of bins for us to reference later.
@@ -971,6 +999,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private func _openAlarmEditorScreen() {
         self.stopTicker()
         if 0 <= self._currentlyEditingAlarmIndex, self._prefs.alarms.count > self._currentlyEditingAlarmIndex {
+            if .music == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode {   // We do this here, because it can take a little while for things to catch up, and we can get no throbber if we wait until just before we load the media.
+                self._showLookupThrobber()
+            }
             if self._alarmEditorMinimumHeight > UIScreen.main.bounds.size.height || self._alarmEditorMinimumHeight > UIScreen.main.bounds.size.width {
                 TheBestClockAppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
             }
@@ -1048,7 +1079,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
             self.alarmEditorVibrateBeepSwitch.isOn = currentAlarm.isVibrateOn
             self.alarmEditSoundModeSelector.setEnabled(.denied != MPMediaLibrary.authorizationStatus(), forSegmentAt: 1)
-            if .authorized != MPMediaLibrary.authorizationStatus() && .music == currentAlarm.selectedSoundMode {
+            if !self.alarmEditSoundModeSelector.isEnabledForSegment(at: 1) && .music == currentAlarm.selectedSoundMode {
                 self.alarmEditSoundModeSelector.selectedSegmentIndex = TheBestClockAlarmSetting.AlarmPrefsMode.silence.rawValue
             } else {
                 self.alarmEditSoundModeSelector.selectedSegmentIndex = currentAlarm.selectedSoundMode.rawValue
@@ -1087,7 +1118,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     private func _showHideItems() {
         self.testSoundContainerView.isHidden = .sounds != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode
         self.musicTestButtonView.isHidden = .music != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode || self._songs.isEmpty || self._artists.isEmpty
-        self.editAlarmPickerView.isHidden = .silence == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode || (.music == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode && (self._songs.isEmpty || self._artists.isEmpty))
+        self.editPickerContainerView.isHidden = .silence == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode || (.music == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode && (self._songs.isEmpty || self._artists.isEmpty))
         self.songSelectContainerView.isHidden = .music != self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode || self._songs.isEmpty || self._artists.isEmpty
     }
     
@@ -1111,17 +1142,24 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /**
      */
     private func _selectSong() {
-        if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-            if .authorized == MPMediaLibrary.authorizationStatus() {
-                self.alarmEditSoundModeSelector.setEnabled(true, forSegmentAt: 1)
-                self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = .music
-                let indexes = self._findSongInfo(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSongURL)
-                self.editAlarmPickerView.selectRow(indexes.artistIndex, inComponent: 0, animated: true)
-                self.songSelectionPickerView.reloadComponent(0)
-                self.songSelectionPickerView.selectRow(indexes.songIndex, inComponent: 0, animated: true)
-            } else {
-                self.alarmEditSoundModeSelector.selectedSegmentIndex = TheBestClockAlarmSetting.AlarmPrefsMode.silence.rawValue
-                self.alarmEditSoundModeSelector.setEnabled(.denied != MPMediaLibrary.authorizationStatus(), forSegmentAt: 1)
+        DispatchQueue.main.async {
+            if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                if .authorized == MPMediaLibrary.authorizationStatus() {
+                    self.alarmEditSoundModeSelector.setEnabled(true, forSegmentAt: 1)
+                    self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = .music
+                    let indexes = self._findSongInfo(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSongURL)
+                    self.editAlarmPickerView.selectRow(indexes.artistIndex, inComponent: 0, animated: true)
+                    self.songSelectionPickerView.reloadComponent(0)
+                    self.songSelectionPickerView.selectRow(indexes.songIndex, inComponent: 0, animated: true)
+                    self.pickerView(self.songSelectionPickerView, didSelectRow: self.songSelectionPickerView.selectedRow(inComponent: 0), inComponent: 0)
+                } else {
+                    self.alarmEditSoundModeSelector.setEnabled(.denied != MPMediaLibrary.authorizationStatus(), forSegmentAt: 1)
+                    if !self.alarmEditSoundModeSelector.isEnabledForSegment(at: 1) && .music == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode {
+                        self.alarmEditSoundModeSelector.selectedSegmentIndex = TheBestClockAlarmSetting.AlarmPrefsMode.silence.rawValue
+                    } else {
+                        self.alarmEditSoundModeSelector.selectedSegmentIndex = self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode.rawValue
+                    }
+                }
             }
         }
     }
@@ -1193,19 +1231,14 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      */
     private func _setupAlarmEditPickers() {
         if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-            self._showLookupThrobber()
-            DispatchQueue.main.async {  // We do this, so we refresh the UI, and show the spinner. This can take a while.
-                self._loadMediaLibrary()
-                self.editAlarmPickerView.reloadComponent(0)
-                self.songSelectionPickerView.reloadComponent(0)
-                self._selectSong()
-                self._hideLookupThrobber()
-            }
+            self._loadMediaLibrary()
         } else {
-            if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-                self.editAlarmPickerView.selectRow(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundIndex, inComponent: 0, animated: false)
+            DispatchQueue.main.async {
+                if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                    self.editAlarmPickerView.selectRow(self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundIndex, inComponent: 0, animated: false)
+                }
+                self.editAlarmPickerView.reloadComponent(0)
             }
-            self.editAlarmPickerView.reloadComponent(0)
         }
     }
     
@@ -1216,6 +1249,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
         self._alarmButtons[self._currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
         self._showHideItems()
+        if .music == self._prefs.alarms[self._currentlyEditingAlarmIndex].selectedSoundMode {   // We do this here, because it can take a little while for things to catch up, and we can get no throbber if we wait until just before we load the media.
+            self._showLookupThrobber()
+        }
         self.stopAudioPlayer()
         self._setupAlarmEditPickers()
     }

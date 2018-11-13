@@ -171,7 +171,7 @@
                                                     <action selector="vibrateSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="bPT-Rr-FaX"/>
                                                 </connections>
                                             </switch>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DdB-iS-OpY">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DdB-iS-OpY" userLabel="Button Label Container View">
                                                 <rect key="frame" x="63" y="0.0" width="249" height="31"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N79-EU-S3q">
@@ -206,7 +206,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="caV-MM-3OZ" appends="YES" id="opq-vq-AZe"/>
                                                 </connections>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jK9-7k-U8Q">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jK9-7k-U8Q" userLabel="Date Picker Container View">
                                                 <rect key="frame" x="8" y="39" width="359" height="120"/>
                                                 <subviews>
                                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Epq-FZ-noz">
@@ -245,7 +245,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="GC0-YW-qcF" appends="YES" id="P2v-Yl-0vy"/>
                                                 </connections>
                                             </segmentedControl>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SZV-H4-hT3">
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SZV-H4-hT3">
                                                 <rect key="frame" x="8" y="203" width="359" height="120"/>
                                                 <subviews>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZW-w9-tN7">
@@ -269,7 +269,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="Ika-Un-Z2T" appends="YES" id="r9K-NZ-X8b"/>
                                                 </connections>
                                             </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-qj-jcy">
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-qj-jcy" userLabel="Test Sound Button Container View">
                                                 <rect key="frame" x="0.0" y="323" width="375" height="284"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJp-Wf-Gd4">
@@ -290,7 +290,27 @@
                                                     <constraint firstItem="GJp-Wf-Gd4" firstAttribute="centerY" secondItem="Vhh-qj-jcy" secondAttribute="centerY" id="gwA-hP-jTd"/>
                                                 </constraints>
                                             </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lRC-az-iPV">
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMz-At-38F" userLabel="Song Select Picker Container View">
+                                                <rect key="frame" x="8" y="323" width="359" height="120"/>
+                                                <subviews>
+                                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJG-jK-HAQ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="120"/>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="mr7-bI-Ekm"/>
+                                                            <outlet property="delegate" destination="BYZ-38-t0r" id="DM7-d3-FyS"/>
+                                                        </connections>
+                                                    </pickerView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="AJG-jK-HAQ" firstAttribute="top" secondItem="zMz-At-38F" secondAttribute="top" id="1Sj-VD-ADx"/>
+                                                    <constraint firstAttribute="height" constant="120" id="T06-jL-Fxd"/>
+                                                    <constraint firstAttribute="trailing" secondItem="AJG-jK-HAQ" secondAttribute="trailing" id="VCf-tJ-hO1"/>
+                                                    <constraint firstItem="AJG-jK-HAQ" firstAttribute="leading" secondItem="zMz-At-38F" secondAttribute="leading" id="aY7-Dw-5Kg"/>
+                                                    <constraint firstAttribute="bottom" secondItem="AJG-jK-HAQ" secondAttribute="bottom" id="bv8-jA-nt2"/>
+                                                </constraints>
+                                            </view>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lRC-az-iPV" userLabel="Music Test Button Container View">
                                                 <rect key="frame" x="0.0" y="443" width="375" height="164"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xB3-e1-6fp">
@@ -309,26 +329,6 @@
                                                 <constraints>
                                                     <constraint firstItem="xB3-e1-6fp" firstAttribute="centerY" secondItem="lRC-az-iPV" secondAttribute="centerY" id="1zw-I4-Qai"/>
                                                     <constraint firstItem="xB3-e1-6fp" firstAttribute="centerX" secondItem="lRC-az-iPV" secondAttribute="centerX" id="s4C-Ej-wu3"/>
-                                                </constraints>
-                                            </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMz-At-38F">
-                                                <rect key="frame" x="8" y="323" width="359" height="120"/>
-                                                <subviews>
-                                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJG-jK-HAQ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="120"/>
-                                                        <connections>
-                                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="mr7-bI-Ekm"/>
-                                                            <outlet property="delegate" destination="BYZ-38-t0r" id="DM7-d3-FyS"/>
-                                                        </connections>
-                                                    </pickerView>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="AJG-jK-HAQ" firstAttribute="top" secondItem="zMz-At-38F" secondAttribute="top" id="1Sj-VD-ADx"/>
-                                                    <constraint firstAttribute="height" constant="120" id="T06-jL-Fxd"/>
-                                                    <constraint firstAttribute="trailing" secondItem="AJG-jK-HAQ" secondAttribute="trailing" id="VCf-tJ-hO1"/>
-                                                    <constraint firstItem="AJG-jK-HAQ" firstAttribute="leading" secondItem="zMz-At-38F" secondAttribute="leading" id="aY7-Dw-5Kg"/>
-                                                    <constraint firstAttribute="bottom" secondItem="AJG-jK-HAQ" secondAttribute="bottom" id="bv8-jA-nt2"/>
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOT-Kd-MBX">
