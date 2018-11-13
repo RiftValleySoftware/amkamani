@@ -8,7 +8,7 @@ You can easily select a font and color scheme, a brightness level, and whether t
 
 1) Flashing screen
 2) Vibration (iPhones only, so far)
-3) Sounds (Like classic alar clock sounds)
+3) Sounds (Like classic alarm clock sounds)
 4) Music (From your music library)
 
 A QUICK NOTE ON THE APP STRUCTURE
