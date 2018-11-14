@@ -192,6 +192,7 @@ extension UIImage {
 /* ################################################################################################################################## */
 /**
  */
+@objc(TheBestClockAlarmSetting)
 class TheBestClockAlarmSetting: NSObject, NSCoding {
     /* ################################################################## */
     /** These are the keys we use for our alarms dictionary. */
@@ -431,7 +432,8 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
 /* ###################################################################################################################################### */
 /**
  */
-class TheBestClockPrefs {
+@objc(TheBestClockPrefs)
+class TheBestClockPrefs: NSObject {
     /* ################################################################## */
     // MARK: Private Static Properties
     /* ################################################################## */
@@ -469,6 +471,7 @@ class TheBestClockPrefs {
     func loadPrefs() -> Bool {
         if let temp = UserDefaults.standard.object(forKey: type(of: self)._mainPrefsKey) as? NSDictionary {
             self._loadedPrefs = NSMutableDictionary(dictionary: temp)
+            NSKeyedUnarchiver.setClass(TheBestClockAlarmSetting.self, forClassName: "TheBestClockAlarmSetting")
             for index in 0..<self._numberOfAlarms {
                 if self._alarms.count == index {    // This makes sure that we account for any empty spots (shouldn't happen).
                     self._alarms.append(TheBestClockAlarmSetting())
@@ -650,6 +653,7 @@ class TheBestClockPrefs {
      This method simply saves the main preferences Dictionary into the standard user defaults.
      */
     func savePrefs() {
+        NSKeyedArchiver.setClassName("TheBestClockAlarmSetting", for: TheBestClockAlarmSetting.self)
         for index in 0..<self._alarms.count {
             let archivedObject = NSKeyedArchiver.archivedData(withRootObject: self._alarms[index])
             self._loadedPrefs.setObject(archivedObject, forKey: (type(of: self).PrefsKeys.alarms.rawValue + String(index)) as NSString)

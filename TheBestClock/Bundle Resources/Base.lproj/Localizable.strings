@@ -24,7 +24,8 @@
 "LOCAL-UNKNOWN-SONG"                        =       "Unknown Song";
 "LOCAL-UNKNOWN-ALBUM"                       =       "Unknown Album";
 "LOCAL-UNKNOWN-ARTIST"                      =       "Unknown Artist";
-"LOCAL-APP-NAME"                            =       "Alarm Clock";
+"LOCAL-UNKNOWN-ARTIST"                      =       "Unknown Artist";
+"LOCAL-NO-MUSIC-LABEL"                      =       "No Music Available";
 "LOCAL-APP-INFO-TEXT"                       =       "When I have something to say, I'll say it here.";
 "LOCAL-APP-INFO-URL"                        =       "https://littlegreenviper.com";
 "LOCAL-APP-INFO-URL-BUTTON-TEXT"            =       "The Great Rift Valley Software Company";

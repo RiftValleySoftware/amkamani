@@ -30,6 +30,7 @@ extension MainScreenViewController {
      */
     func loadMediaLibrary(displayWholeScreenThrobber inDisplayWholeScreenThrobber: Bool = false, forceReload inForceReload: Bool = false) {
         if self.artists.isEmpty || inForceReload { // If we are already loaded up, we don't need to do this (unless forced).
+            self.isLoadin = false
             if inDisplayWholeScreenThrobber {
                 DispatchQueue.main.async {
                     self.showLargeLookupThrobber()
@@ -80,12 +81,15 @@ extension MainScreenViewController {
      */
     func dunLoadin() {
         DispatchQueue.main.async {
+            self.isLoadin = false
             self.editAlarmPickerView.reloadComponent(0)
             self.songSelectionPickerView.reloadComponent(0)
             self.selectSong()
             self.showHideItems()
             self.hideLargeLookupThrobber()
             self.hideLookupThrobber()
+            self.noMusicAvailableLabel.textColor = self.selectedColor
+            self.noMusicAvailableLabel.font = UIFont(name: self.selectedFontName, size: self.alarmEditorTopFontSize)
         }
     }
     
@@ -352,6 +356,7 @@ extension MainScreenViewController {
         self.musicTestButtonView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
         self.editPickerContainerView.isHidden = .silence == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || (.music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode && (self.songs.isEmpty || self.artists.isEmpty))
         self.songSelectContainerView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
+        self.noMusicDisplayView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || !(self.artists.isEmpty || self.songs.isEmpty)
     }
     
     /* ################################################################## */

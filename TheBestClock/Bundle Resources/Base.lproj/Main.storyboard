@@ -13,12 +13,12 @@
         <!--Main Screen-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Main Screen" id="BYZ-38-t0r" customClass="MainScreenViewController" customModule="TheBestClock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Main Screen" id="BYZ-38-t0r" customClass="MainScreenViewController" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tA9-HM-M61" customClass="TheBestClockMainDisplayView" customModule="TheBestClock" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tA9-HM-M61" customClass="TheBestClockMainDisplayView" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
                                 <rect key="frame" x="8" y="80" width="359" height="547"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
@@ -43,7 +43,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7io-PK-JhC" customClass="TheBestClockVerticalBrightnessSliderView" customModule="TheBestClock" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7io-PK-JhC" customClass="TheBestClockVerticalBrightnessSliderView" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
                                 <rect key="frame" x="4" y="80" width="64" height="547"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
@@ -57,7 +57,7 @@
                                     <outletCollection property="gestureRecognizers" destination="JuB-FM-I8Y" appends="YES" id="ehN-j8-H9E"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjC-JH-pnM" customClass="TheBestClockVerticalBrightnessSliderView" customModule="TheBestClock" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjC-JH-pnM" customClass="TheBestClockVerticalBrightnessSliderView" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
                                 <rect key="frame" x="307.5" y="80" width="63.5" height="547"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
@@ -318,6 +318,27 @@
                                                     <outletCollection property="gestureRecognizers" destination="MX1-AR-erL" appends="YES" id="D5E-7P-fN9"/>
                                                 </connections>
                                             </view>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FNf-zv-y39">
+                                                <rect key="frame" x="8" y="203" width="359" height="404"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-NO-MUSIC-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIf-Gc-eGE">
+                                                        <rect key="frame" x="0.0" y="191.5" width="359" height="21"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="21" id="Z9S-gi-Tos"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="kIf-Gc-eGE" firstAttribute="leading" secondItem="FNf-zv-y39" secondAttribute="leading" id="bAU-fN-IFF"/>
+                                                    <constraint firstItem="kIf-Gc-eGE" firstAttribute="centerY" secondItem="FNf-zv-y39" secondAttribute="centerY" id="odO-yg-kOa"/>
+                                                    <constraint firstAttribute="trailing" secondItem="kIf-Gc-eGE" secondAttribute="trailing" id="rGL-ds-Ift"/>
+                                                </constraints>
+                                            </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lRC-az-iPV" userLabel="Music Test Button Container View">
                                                 <rect key="frame" x="0.0" y="443" width="375" height="164"/>
                                                 <subviews>
@@ -362,6 +383,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="DdB-iS-OpY" firstAttribute="leading" secondItem="JKA-TF-KPA" secondAttribute="trailing" constant="8" id="1Vh-Mb-uUq"/>
+                                            <constraint firstAttribute="trailing" secondItem="FNf-zv-y39" secondAttribute="trailing" constant="8" id="2EJ-DW-eZa"/>
                                             <constraint firstAttribute="trailing" secondItem="lRC-az-iPV" secondAttribute="trailing" id="2In-ke-csp"/>
                                             <constraint firstItem="DdB-iS-OpY" firstAttribute="centerY" secondItem="JKA-TF-KPA" secondAttribute="centerY" id="3vJ-Ab-z4D"/>
                                             <constraint firstItem="JKA-TF-KPA" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="4AF-tz-H0W"/>
@@ -371,6 +393,7 @@
                                             <constraint firstItem="lRC-az-iPV" firstAttribute="top" secondItem="zMz-At-38F" secondAttribute="bottom" id="D4p-Wi-0c4"/>
                                             <constraint firstAttribute="bottom" secondItem="lRC-az-iPV" secondAttribute="bottom" id="DO9-Z9-Xex"/>
                                             <constraint firstItem="SZV-H4-hT3" firstAttribute="top" secondItem="anU-SX-fsT" secondAttribute="bottom" constant="8" id="DUG-ox-MYm"/>
+                                            <constraint firstAttribute="bottom" secondItem="FNf-zv-y39" secondAttribute="bottom" id="E0l-05-jVs"/>
                                             <constraint firstAttribute="bottom" secondItem="Vhh-qj-jcy" secondAttribute="bottom" id="JKi-aK-h35"/>
                                             <constraint firstItem="zMz-At-38F" firstAttribute="top" secondItem="SZV-H4-hT3" secondAttribute="bottom" id="N27-dA-5Xo"/>
                                             <constraint firstAttribute="bottom" secondItem="LOT-Kd-MBX" secondAttribute="bottom" id="Od7-gH-vjT"/>
@@ -378,6 +401,7 @@
                                             <constraint firstItem="DdB-iS-OpY" firstAttribute="height" secondItem="JKA-TF-KPA" secondAttribute="height" id="Vez-Zn-zE3"/>
                                             <constraint firstItem="jK9-7k-U8Q" firstAttribute="top" secondItem="JKA-TF-KPA" secondAttribute="bottom" constant="8" id="XfE-OJ-ZCf"/>
                                             <constraint firstItem="lRC-az-iPV" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="ZEf-CO-ugC"/>
+                                            <constraint firstItem="FNf-zv-y39" firstAttribute="top" secondItem="anU-SX-fsT" secondAttribute="bottom" constant="8" id="Zb7-CA-yjd"/>
                                             <constraint firstItem="ocx-Nd-os6" firstAttribute="leading" secondItem="DdB-iS-OpY" secondAttribute="trailing" constant="8" id="eWI-6D-loo"/>
                                             <constraint firstItem="LOT-Kd-MBX" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" id="fvv-Wf-bCO"/>
                                             <constraint firstItem="JKA-TF-KPA" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="top" id="geg-hS-cfg"/>
@@ -391,6 +415,7 @@
                                             <constraint firstItem="SZV-H4-hT3" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="pDC-kS-Jys"/>
                                             <constraint firstAttribute="trailing" secondItem="anU-SX-fsT" secondAttribute="trailing" constant="8" id="pzI-UX-gHj"/>
                                             <constraint firstItem="anU-SX-fsT" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="qYU-aF-UFr"/>
+                                            <constraint firstItem="FNf-zv-y39" firstAttribute="leading" secondItem="SpK-gg-rNb" secondAttribute="leading" constant="8" id="roQ-Ph-fkO"/>
                                             <constraint firstAttribute="trailing" secondItem="LOT-Kd-MBX" secondAttribute="trailing" id="rqi-5W-UdA"/>
                                             <constraint firstAttribute="trailing" secondItem="SZV-H4-hT3" secondAttribute="trailing" constant="8" id="uQ3-yL-6DE"/>
                                             <constraint firstAttribute="trailing" secondItem="ocx-Nd-os6" secondAttribute="trailing" constant="8" id="xoe-hw-Iz7"/>
@@ -518,6 +543,8 @@
                         <outlet property="musicLookupThrobberView" destination="LOT-Kd-MBX" id="VKL-W7-aHq"/>
                         <outlet property="musicTestButton" destination="xB3-e1-6fp" id="R1q-hl-vTU"/>
                         <outlet property="musicTestButtonView" destination="lRC-az-iPV" id="A8B-Qz-Vu7"/>
+                        <outlet property="noMusicAvailableLabel" destination="kIf-Gc-eGE" id="t6j-Gl-jnv"/>
+                        <outlet property="noMusicDisplayView" destination="FNf-zv-y39" id="k0y-au-NIJ"/>
                         <outlet property="rightBrightnessSlider" destination="sjC-JH-pnM" id="ian-iB-eyU"/>
                         <outlet property="shutUpAlreadyGestureRecognizer" destination="yOI-ks-4mc" id="zsO-ef-NT5"/>
                         <outlet property="snoozeGestureRecogninzer" destination="qzH-bp-wEr" id="cof-UO-0g4"/>
@@ -587,12 +614,12 @@
         <!--About Screen-->
         <scene sceneID="iYY-ZI-elm">
             <objects>
-                <viewController title="About Screen" id="7ze-OY-b4R" customClass="TheBestClockAboutScreenViewController" customModule="TheBestClock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="About Screen" id="7ze-OY-b4R" customClass="TheBestClockAboutScreenViewController" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LbW-TP-6mb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECo-iI-WzI" customClass="TheGreatRiftValleyDrawing" customModule="TheBestClock" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECo-iI-WzI" customClass="TheGreatRiftValleyDrawing" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
                                 <rect key="frame" x="123.5" y="20" width="128" height="128"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>

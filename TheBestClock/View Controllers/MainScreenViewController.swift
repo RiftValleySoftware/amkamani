@@ -183,6 +183,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var songSelectContainerView: UIView!
     /// This is a container for the test sound button.
     @IBOutlet weak var testSoundContainerView: UIView!
+    /// This view is displayed when there is no music available.
+    @IBOutlet weak var noMusicDisplayView: UIView!
+    /// This is the label that specifies that there is no music available.
+    @IBOutlet weak var noMusicAvailableLabel: UILabel!
     
     /* ################################################################## */
     // MARK: - Instance Properties
@@ -217,6 +221,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var artists: [String] = []
     /// This is the narrowest that a screen can be to properly accommodate an Alarm Editor. Under this, and we need to force portrait mode.
     var alarmEditorMinimumHeight: CGFloat = 550
+    /// Thi is a simple semaphore to indicate that we are in the process of loading music.
+    var isLoadin: Bool = false
     /// This will be the audio player that we use to play the alarm sound.
     var audioPlayer: AVAudioPlayer? {
         didSet {    // We set the Alarm Editor button text to reflect whether or not we play/continue, or pause a playing sound. It will be invisible, unless we are editing an alarm.
