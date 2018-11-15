@@ -322,10 +322,10 @@
                                                 <rect key="frame" x="8" y="203" width="359" height="404"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-NO-MUSIC-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIf-Gc-eGE">
-                                                        <rect key="frame" x="0.0" y="191.5" width="359" height="21"/>
+                                                        <rect key="frame" x="0.0" y="187" width="359" height="30"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="21" id="Z9S-gi-Tos"/>
+                                                            <constraint firstAttribute="height" constant="30" id="Z9S-gi-Tos"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
