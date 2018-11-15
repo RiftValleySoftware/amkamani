@@ -31,6 +31,12 @@ extension MainScreenViewController {
     func loadMediaLibrary(displayWholeScreenThrobber inDisplayWholeScreenThrobber: Bool = false, forceReload inForceReload: Bool = false) {
         if self.artists.isEmpty || inForceReload { // If we are already loaded up, we don't need to do this (unless forced).
             self.isLoadin = false
+            self.editAlarmTimeDatePicker.isEnabled = false
+            self.alarmEditorActiveButton.isEnabled = false
+            self.alarmEditorVibrateButton.isEnabled = false
+            self.alarmEditorVibrateBeepSwitch.isEnabled = false
+            self.alarmEditorActiveSwitch.isEnabled = false
+            self.alarmEditSoundModeSelector.isEnabled = false
             if inDisplayWholeScreenThrobber {
                 DispatchQueue.main.async {
                     self.showLargeLookupThrobber()
@@ -41,12 +47,12 @@ extension MainScreenViewController {
                 }
             }
             if .authorized == MPMediaLibrary.authorizationStatus() {    // Already authorized? Head on in!
-                self.loadUpOnMusic(displayWholeScreenThrobber: inDisplayWholeScreenThrobber, forceReload: inForceReload)
+                self.loadUpOnMusic()
             } else {    // May I see your ID, sir?
                 MPMediaLibrary.requestAuthorization { [unowned self] status in
                     switch status {
                     case.authorized:
-                        self.loadUpOnMusic(displayWholeScreenThrobber: inDisplayWholeScreenThrobber, forceReload: inForceReload)
+                        self.loadUpOnMusic()
                         
                     default:
                         TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
@@ -62,11 +68,8 @@ extension MainScreenViewController {
     /* ################################################################## */
     /**
      This loads the music, assuming that we have been authorized.
-     
-     - parameter displayWholeScreenThrobber: If true (default is false), then the "big" throbber screen will show while this is loading.
-     - parameter forceReload: If true (default is false), then the entire music library will be reloaded, even if we already have it.
      */
-    func loadUpOnMusic(displayWholeScreenThrobber inDisplayWholeScreenThrobber: Bool = false, forceReload inForceReload: Bool = false) {
+    func loadUpOnMusic() {
         if let songItems: [MPMediaItemCollection] = MPMediaQuery.songs().collections {
             DispatchQueue.main.async {
                 self.loadSongData(songItems)
@@ -86,6 +89,12 @@ extension MainScreenViewController {
             self.songSelectionPickerView.reloadComponent(0)
             self.selectSong()
             self.showHideItems()
+            self.editAlarmTimeDatePicker.isEnabled = true
+            self.alarmEditorActiveButton.isEnabled = true
+            self.alarmEditorVibrateButton.isEnabled = true
+            self.alarmEditorVibrateBeepSwitch.isEnabled = true
+            self.alarmEditorActiveSwitch.isEnabled = true
+            self.alarmEditSoundModeSelector.isEnabled = true
             self.hideLargeLookupThrobber()
             self.hideLookupThrobber()
             self.noMusicAvailableLabel.textColor = self.selectedColor
@@ -361,6 +370,8 @@ extension MainScreenViewController {
         self.songSelectContainerView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
         self.noMusicDisplayView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || !(self.artists.isEmpty || self.songs.isEmpty)
         self.alarmDeactivatedLabel.isHidden = !self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive || !self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated
+        self.alarmEditorVibrateButton.isHidden = "iPad" == UIDevice.current.model   // Hide these on iPads, which don't do vibrate.
+        self.alarmEditorVibrateBeepSwitch.isHidden = "iPad" == UIDevice.current.model
     }
     
     /* ################################################################## */

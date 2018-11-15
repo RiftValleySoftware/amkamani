@@ -4,6 +4,8 @@
 - Added text to indicate that an alarm is deactivated "until next time."
 - Completely redid the time calculation engine.
 - Implemented "Forever Snooze."
+- The vibrate switch and button are now hidden for iPads.
+- Disable the various pickers and switches in the Alarm Editor while the music lookup is happening.
 
 **Version 1.0.0.2002** *(November 14, 2018)*
 - Fixed the way prefs are saved, so future releases shouldn't crash on startup.

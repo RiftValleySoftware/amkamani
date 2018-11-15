@@ -253,7 +253,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
             }
         }
     }
-
+    
     /// EPHEMERAL: The time a "snooze" started.
     var lastSnoozeTime: Date!
     /// EPHEMERAL: The time that an alarm was deactivated, so it doesn't keep going off if we reactivate it.
