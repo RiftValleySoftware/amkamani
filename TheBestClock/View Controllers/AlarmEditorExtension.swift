@@ -384,7 +384,7 @@ extension MainScreenViewController {
      */
     func selectSong() {
         DispatchQueue.main.async {
-            if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+            if -1 < self.currentlyEditingAlarmIndex, 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
                 if .authorized == MPMediaLibrary.authorizationStatus() {
                     self.alarmEditSoundModeSelector.setEnabled(true, forSegmentAt: 1)
                     self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode = .music

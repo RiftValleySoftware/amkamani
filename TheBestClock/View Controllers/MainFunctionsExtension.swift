@@ -285,7 +285,7 @@ extension MainScreenViewController {
         var noAlarms = true // If we find an active alarm, this is made false.
         // If we have an active alarm, then we throw the switch, iGor.
         for alarm in self.prefs.alarms {
-            if alarm.alarming {
+            if alarm.isAlarming {
                 noAlarms = false
                 if !soundOnly { // See if we want to be a flasher.
                     self.flashDisplay(self.selectedColor)
@@ -359,9 +359,6 @@ extension MainScreenViewController {
             self.ticker = RepeatingTimer(timeInterval: 1)
             self.ticker.eventHandler = self.checkTicker
             self.ticker.resume()
-//            self.ticker = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [unowned self] timer in
-//                self.checkTicker(timer)
-//            }
         }
     }
     
@@ -394,7 +391,7 @@ extension MainScreenViewController {
     func checkTicker() {
         DispatchQueue.main.sync {
             #if DEBUG
-            print("Checking Timer %@", String(describing: Date()))
+            print("Checking Timer: " + String(describing: Date()))
             #endif
             self.updateMainTime()
             self.checkAlarmStatus()
@@ -407,7 +404,7 @@ extension MainScreenViewController {
     /**
      */
     @IBAction func hitTheSnooze(_ inGestureRecognizer: UITapGestureRecognizer) {
-        for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].alarming {
+        for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].isAlarming {
             self.prefs.alarms[index].snoozing = true
         }
         self.stopAudioPlayer()
@@ -418,7 +415,7 @@ extension MainScreenViewController {
     /**
      */
     @IBAction func shutUpAlready(_ inGestureRecognizer: UILongPressGestureRecognizer) {
-        for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].alarming {
+        for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].isAlarming {
             self.prefs.alarms[index].deactivated = true
             self.prefs.alarms[index].isActive = false
             self.prefs.savePrefs()

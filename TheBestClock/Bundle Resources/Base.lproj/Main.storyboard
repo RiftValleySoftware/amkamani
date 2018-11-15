@@ -340,10 +340,10 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lRC-az-iPV" userLabel="Music Test Button Container View">
-                                                <rect key="frame" x="0.0" y="443" width="375" height="164"/>
+                                                <rect key="frame" x="0.0" y="443" width="375" height="160"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xB3-e1-6fp">
-                                                        <rect key="frame" x="137.5" y="67" width="100" height="30"/>
+                                                        <rect key="frame" x="137.5" y="65" width="100" height="30"/>
                                                         <gestureRecognizers/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="Bjk-No-4uU"/>
@@ -391,7 +391,7 @@
                                             <constraint firstAttribute="trailing" secondItem="zMz-At-38F" secondAttribute="trailing" constant="8" id="7UT-w2-pXX"/>
                                             <constraint firstAttribute="trailing" secondItem="Vhh-qj-jcy" secondAttribute="trailing" id="8qT-fD-CPn"/>
                                             <constraint firstItem="lRC-az-iPV" firstAttribute="top" secondItem="zMz-At-38F" secondAttribute="bottom" id="D4p-Wi-0c4"/>
-                                            <constraint firstAttribute="bottom" secondItem="lRC-az-iPV" secondAttribute="bottom" id="DO9-Z9-Xex"/>
+                                            <constraint firstAttribute="bottom" secondItem="lRC-az-iPV" secondAttribute="bottom" constant="4" id="DO9-Z9-Xex"/>
                                             <constraint firstItem="SZV-H4-hT3" firstAttribute="top" secondItem="anU-SX-fsT" secondAttribute="bottom" constant="8" id="DUG-ox-MYm"/>
                                             <constraint firstAttribute="bottom" secondItem="FNf-zv-y39" secondAttribute="bottom" id="E0l-05-jVs"/>
                                             <constraint firstAttribute="bottom" secondItem="Vhh-qj-jcy" secondAttribute="bottom" id="JKi-aK-h35"/>
@@ -423,7 +423,7 @@
                                         </constraints>
                                     </view>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-ALARM-DEACTIVATED-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="4yv-BP-CQW">
-                                        <rect key="frame" x="8" y="578" width="359" height="21"/>
+                                        <rect key="frame" x="8" y="586" width="359" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="D7k-gI-7uv"/>
                                         </constraints>
@@ -448,7 +448,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="4yv-BP-CQW" secondAttribute="trailing" constant="8" id="3ZW-hH-eZN"/>
                                     <constraint firstItem="4yv-BP-CQW" firstAttribute="leading" secondItem="g5Y-c0-3tI" secondAttribute="leading" constant="8" id="3h0-HZ-5xi"/>
-                                    <constraint firstItem="43b-Pc-iFX" firstAttribute="top" secondItem="4yv-BP-CQW" secondAttribute="bottom" constant="8" id="4ac-6B-FVe"/>
+                                    <constraint firstItem="43b-Pc-iFX" firstAttribute="top" secondItem="4yv-BP-CQW" secondAttribute="bottom" id="4ac-6B-FVe"/>
                                     <constraint firstItem="43b-Pc-iFX" firstAttribute="leading" secondItem="g5Y-c0-3tI" secondAttribute="leading" id="5bF-TI-NUT"/>
                                     <constraint firstItem="SpK-gg-rNb" firstAttribute="top" secondItem="g5Y-c0-3tI" secondAttribute="top" id="Cyp-Ht-WjZ"/>
                                     <constraint firstAttribute="trailing" secondItem="SpK-gg-rNb" secondAttribute="trailing" id="XwG-rh-s7B"/>

@@ -247,7 +247,8 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     /// SAVED IN STATE: True, if the alarm is active.
     var isActive: Bool = false {
         didSet {
-            if !self.isActive || (self.isActive != oldValue) {  // If we are changing the active state, we kill snooze.
+            if !self.isActive || (self.isActive != oldValue) {  // If we are changing the active state, we kill snooze and the "bump" time.
+                self.alarmResetTime = nil
                 self.lastSnoozeTime = nil
             }
         }
@@ -257,6 +258,8 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     var lastSnoozeTime: Date!
     /// EPHEMERAL: The time that an alarm was deactivated, so it doesn't keep going off if we reactivate it.
     var deactivateTime: Date!
+    /// EPHEMERAL: The time to be used as the start of the alarm range. This can be "bumped." If nil, then the set alarm time will be used to calculate the range.
+    var alarmResetTime: Date!
     
     /* ################################################################## */
     // MARK: - Instance Calculated Properties
@@ -287,6 +290,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
                 if (!newValue || !self.isActive) && nil != self.lastSnoozeTime {
                     self.deactivated = !newValue && nil != self.lastSnoozeTime
                     self.lastSnoozeTime = nil
+                    self.alarmResetTime = nil
                 }
             }
         }
@@ -298,14 +302,23 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
      */
     var deactivated: Bool {
         get {
+            if nil != self.deactivateTime {
+                let interval = Date().timeIntervalSince(self.deactivateTime)
+                #if DEBUG
+                print("Current deactivate interval: \(interval)")
+                #endif
+                if interval > 0 {
+                    self.deactivateTime = nil
+                }
+            }
             return nil != self.deactivateTime
         }
         
         set {
             if self.isActive, newValue {
-                var now = Date()
-                now.addTimeInterval(TimeInterval(self._alarmTimeInMinutes * 60))
-                self.deactivateTime = now
+                if let endDeactivateTime = Calendar.current.date(byAdding: .minute, value: self._alarmTimeInMinutes, to: self.currentAlarmTime) {
+                    self.deactivateTime = endDeactivateTime
+                }
             } else {
                 if !newValue && nil != self.deactivateTime {
                     self.deactivateTime = nil
@@ -316,50 +329,63 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
 
     /* ################################################################## */
     /**
+     - returns: The alarm set, for today.
+     */
+    var currentAlarmTime: Date! {
+        if nil != self.alarmResetTime { // In case they keep banging on snooze.
+            return self.alarmResetTime
+        }
+        
+        let alarmTimeHours = self.alarmTime / 100
+        let alarmTimeMinutes = self.alarmTime - (alarmTimeHours * 100)
+
+        let todayComponents = Calendar.current.dateComponents([.day, .month, .year], from: Date())
+        let components = DateComponents(year: todayComponents.year, month: todayComponents.month, day: todayComponents.day, hour: alarmTimeHours, minute: alarmTimeMinutes)
+        let date = Calendar.current.date(from: components)
+        
+        return date
+    }
+        
+    /* ################################################################## */
+    /**
      - returns: True, if the alarm should be blaring right now.
      */
-    var alarming: Bool {
-        let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: Date())
-        if self.isActive, let hour = dateComponents.hour, let minute = dateComponents.minute {
-            if self.deactivated {   // We disable any deactivation.
-                let interval = self.deactivateTime.timeIntervalSinceNow
-                if 0 > interval {
-                    self.deactivateTime = nil
-                    return false
-                }
-            } else if self.snoozing {
-                let interval = self.lastSnoozeTime.timeIntervalSinceNow
-                if 0 > interval {
-                    return true
-                }
-            } else {
-                var meTime = hour * 100 + minute
-                if self._alarmTimeInMinutes > meTime {
-                    meTime = 2400 + meTime - self._alarmTimeInMinutes
-                }
-                
-                var alarmTimeHours = self.alarmTime / 100
-                let alarmTimeMinutes = self.alarmTime - (alarmTimeHours * 100)
-                var newAlarmTimeMinutes = alarmTimeMinutes + self._alarmTimeInMinutes
-                
-                while 60 < newAlarmTimeMinutes {
-                    alarmTimeHours += 1
-                    newAlarmTimeMinutes -= 60
-                }
-                
-                while 2359 < alarmTimeHours {
-                    alarmTimeHours -= 24
-                }
-                
-                let timeRange = self.alarmTime..<(alarmTimeHours * 100 + newAlarmTimeMinutes)
-                
-                if timeRange.contains(meTime) {
-                    self.deactivateTime = nil
-                    return true
+    var isAlarming: Bool {
+        if let alarmTimeToday = self.currentAlarmTime {
+            if self.isActive {
+                #if DEBUG
+                print("Alarm Date Today: \(alarmTimeToday)")
+                #endif
+                if !self.deactivated {  // See if we are in a "deactivated" state.
+                    if self.snoozing {  // Are we asleep?
+                        let interval = self.lastSnoozeTime.timeIntervalSinceNow
+                        if 0 > interval {   // If not, wake up.
+                            // We do this little dance to trim off the seconds.
+                            let todayComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: Date())
+                            let components = DateComponents(year: todayComponents.year, month: todayComponents.month, day: todayComponents.day, hour: todayComponents.hour, minute: todayComponents.minute)
+                            self.alarmResetTime = Calendar.current.date(from: components)   // This is a new time for the alarm, starting at the end of snooze.
+                            self.lastSnoozeTime = nil
+                            return true
+                        }
+                        
+                        return false
+                    } else {
+                        if let endAlarmTime = Calendar.current.date(byAdding: .minute, value: self._alarmTimeInMinutes, to: alarmTimeToday) {
+                            let alarmRange = alarmTimeToday...endAlarmTime
+                            
+                            if alarmRange.contains(Date()) {
+                                #if DEBUG
+                                print("Well, this is alarming...")
+                                #endif
+                                return true
+                            }
+                        }
+                    }
                 }
             }
         }
         
+        self.alarmResetTime = nil
         return false
     }
 
