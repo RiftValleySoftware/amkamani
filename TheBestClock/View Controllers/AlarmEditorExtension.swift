@@ -169,11 +169,11 @@ extension MainScreenViewController {
         if nil == self.audioPlayer {
             var soundUrl: URL!
             
-            if .sounds == self.prefs.alarms[inAlarmIndex].selectedSoundMode, let soundUri = URL(string: self.soundSelection[self.prefs.alarms[inAlarmIndex].selectedSoundIndex]) {
+            if .sounds == self.prefs.alarms[inAlarmIndex].selectedSoundMode, let soundUri = URL(string: self.soundSelection[self.prefs.alarms[inAlarmIndex].selectedSoundIndex].urlEncodedString ?? "") {
                 soundUrl = soundUri
-            } else if .music == self.prefs.alarms[inAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let songURI = URL(string: self.prefs.alarms[inAlarmIndex].selectedSongURL) {
+            } else if .music == self.prefs.alarms[inAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let songURI = URL(string: self.prefs.alarms[inAlarmIndex].selectedSongURL.urlEncodedString ?? "") {
                 soundUrl = songURI
-            }  else if .music == self.prefs.alarms[inAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let defaultSongURI = URL(string: self.findSongURL(artistIndex: 0, songIndex: 0)) {
+            }  else if .music == self.prefs.alarms[inAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let defaultSongURI = URL(string: self.findSongURL(artistIndex: 0, songIndex: 0).urlEncodedString ?? "") {
                 soundUrl = defaultSongURI
             }
             
@@ -281,7 +281,10 @@ extension MainScreenViewController {
                 }
             }
             self.alarmEditorActiveSwitch.isOn = currentAlarm.isActive
-            
+
+            self.alarmDeactivatedLabel.textColor = self.selectedColor
+            alarmDeactivatedLabel.font = UIFont.italicSystemFont(ofSize: self.alarmDeactivatedLabelFontSize)
+
             self.alarmEditorVibrateBeepSwitch.tintColor = self.selectedColor
             self.alarmEditorVibrateBeepSwitch.thumbTintColor = self.selectedColor
             self.alarmEditorVibrateBeepSwitch.onTintColor = self.selectedColor
@@ -357,6 +360,7 @@ extension MainScreenViewController {
         self.editPickerContainerView.isHidden = .silence == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || (.music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode && (self.songs.isEmpty || self.artists.isEmpty))
         self.songSelectContainerView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
         self.noMusicDisplayView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || !(self.artists.isEmpty || self.songs.isEmpty)
+        self.alarmDeactivatedLabel.isHidden = !self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive || !self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated
     }
     
     /* ################################################################## */
@@ -504,6 +508,7 @@ extension MainScreenViewController {
             self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated = false
             self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.deactivated = false  // We reset the deactivated state
         }
+        self.showHideItems()
         self.refreshAlarm(self.currentlyEditingAlarmIndex)
     }
     

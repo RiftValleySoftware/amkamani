@@ -195,6 +195,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let alarmEditorSoundPickerFontSize: CGFloat = 24
     /// This is the base font size for the sound test button.
     let alarmEditorSoundButtonFontSize: CGFloat = 30
+    /// This is the base font size for the deactivated label.
+    let alarmDeactivatedLabelFontSize: CGFloat = 15
 
     /* ################################################################## */
     // MARK: - Instance IB Properties
@@ -273,6 +275,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var noMusicDisplayView: UIView!
     /// This is the label that specifies that there is no music available.
     @IBOutlet weak var noMusicAvailableLabel: UILabel!
+    /// This label tells the user that the alarm will not go off until next time.
+    @IBOutlet weak var alarmDeactivatedLabel: UILabel!
     
     /* ################################################################## */
     // MARK: - Instance Properties

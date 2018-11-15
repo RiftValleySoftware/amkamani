@@ -581,6 +581,7 @@ extension MainScreenViewController {
         self.updateMainTime()   // This will update the time. It will also set up our various labels and background colors.
         self.setInfoButtonColor()
         self.noMusicAvailableLabel.text = self.noMusicAvailableLabel.text?.localizedVariant
+        self.alarmDeactivatedLabel.text = self.alarmDeactivatedLabel.text?.localizedVariant
         self.alarmEditorActiveButton.setTitle(self.alarmEditorActiveButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.alarmEditorVibrateButton.setTitle(self.alarmEditorVibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)

@@ -1,3 +1,8 @@
+**Version 1.0.0.2005** *(November 15, 2018)*
+- Changed the method used to run the "heartbeat" of the app.
+- Fixed a bug in the URLs that prevented sounds from playing.
+- Added text to indicate that an alarm is deactivated "until next time."
+
 **Version 1.0.0.2002** *(November 14, 2018)*
 - Fixed the way prefs are saved, so future releases shouldn't crash on startup.
 - Added an indicator if there is no music.

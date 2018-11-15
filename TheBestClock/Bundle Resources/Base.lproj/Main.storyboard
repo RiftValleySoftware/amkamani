@@ -422,6 +422,15 @@
                                             <constraint firstItem="Vhh-qj-jcy" firstAttribute="top" secondItem="SZV-H4-hT3" secondAttribute="bottom" id="zAQ-50-QS3"/>
                                         </constraints>
                                     </view>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-ALARM-DEACTIVATED-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="4yv-BP-CQW">
+                                        <rect key="frame" x="8" y="578" width="359" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="D7k-gI-7uv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="43b-Pc-iFX">
                                         <rect key="frame" x="0.0" y="607" width="375" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -437,6 +446,9 @@
                                 <color key="tintColor" red="1" green="0.97192197729999996" blue="0.33470388369999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="4yv-BP-CQW" secondAttribute="trailing" constant="8" id="3ZW-hH-eZN"/>
+                                    <constraint firstItem="4yv-BP-CQW" firstAttribute="leading" secondItem="g5Y-c0-3tI" secondAttribute="leading" constant="8" id="3h0-HZ-5xi"/>
+                                    <constraint firstItem="43b-Pc-iFX" firstAttribute="top" secondItem="4yv-BP-CQW" secondAttribute="bottom" constant="8" id="4ac-6B-FVe"/>
                                     <constraint firstItem="43b-Pc-iFX" firstAttribute="leading" secondItem="g5Y-c0-3tI" secondAttribute="leading" id="5bF-TI-NUT"/>
                                     <constraint firstItem="SpK-gg-rNb" firstAttribute="top" secondItem="g5Y-c0-3tI" secondAttribute="top" id="Cyp-Ht-WjZ"/>
                                     <constraint firstAttribute="trailing" secondItem="SpK-gg-rNb" secondAttribute="trailing" id="XwG-rh-s7B"/>
@@ -517,6 +529,7 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
                         <outlet property="alarmContainerView" destination="e9A-iM-9M5" id="6UP-GQ-yr1"/>
+                        <outlet property="alarmDeactivatedLabel" destination="4yv-BP-CQW" id="CGC-61-8dO"/>
                         <outlet property="alarmDisplayView" destination="yuf-MI-OfS" id="3SH-Af-kbr"/>
                         <outlet property="alarmEditSoundModeSelector" destination="anU-SX-fsT" id="8p4-cz-h6l"/>
                         <outlet property="alarmEditorActiveButton" destination="N79-EU-S3q" id="oPw-fK-sXc"/>
