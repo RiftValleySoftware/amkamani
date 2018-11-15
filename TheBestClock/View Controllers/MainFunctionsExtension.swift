@@ -356,7 +356,12 @@ extension MainScreenViewController {
         self.updateMainTime()
         self.checkAlarmStatus() // This just makes sure we get "instant on," if that's what we selected.
         if nil == self.ticker {
-            self.ticker = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(type(of: self).checkTicker(_:)), userInfo: nil, repeats: true)
+            self.ticker = RepeatingTimer(timeInterval: 1)
+            self.ticker.eventHandler = self.checkTicker
+            self.ticker.resume()
+//            self.ticker = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [unowned self] timer in
+//                self.checkTicker(timer)
+//            }
         }
     }
     
@@ -366,7 +371,7 @@ extension MainScreenViewController {
      */
     func stopTicker() {
         if nil != self.ticker {
-            self.ticker.invalidate()
+            self.ticker.eventHandler = nil
             self.ticker = nil
         }
     }
@@ -386,8 +391,11 @@ extension MainScreenViewController {
     /**
      This is called from the timer.
      */
-    @objc func checkTicker(_ inTimer: Timer) {
-        DispatchQueue.main.async {
+    func checkTicker() {
+        DispatchQueue.main.sync {
+            #if DEBUG
+            print("Checking Timer %@", String(describing: Date()))
+            #endif
             self.updateMainTime()
             self.checkAlarmStatus()
         }

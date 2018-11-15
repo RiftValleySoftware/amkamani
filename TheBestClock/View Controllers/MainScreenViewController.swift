@@ -28,6 +28,92 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     // MARK: - Instance Types and Structs
     /* ################################################################## */
     /**
+     This class is a wrapper for the low-level GCD event repeater.
+     
+     This was cribbed from here: https://medium.com/@danielgalasko/a-background-repeating-timer-in-swift-412cecfd2ef9
+     */
+    class RepeatingTimer {
+        /// This holds our current run state.
+        private var state: _State = ._suspended
+        
+        /// This is the time between fires, in seconds.
+        let timeInterval: TimeInterval
+        /// This is the callback event handler we registered.
+        var eventHandler: (() -> Void)?
+        
+        /* ############################################################## */
+        /**
+         This calculated property will create a new timer that repeats.
+         
+         It uses the current queue.
+         */
+        private lazy var timer: DispatchSourceTimer = {
+            let t = DispatchSource.makeTimerSource()    // We make a generic, default timer source. No frou-frou.
+            t.schedule(deadline: .now() + self.timeInterval, repeating: self.timeInterval)  // We tell it to repeat at our interval.
+            t.setEventHandler(handler: { [unowned self] in  // This is the callback.
+                self.eventHandler?()    // This just calls the event handler we registered.
+            })
+            return t
+        }()
+        
+        /// This is used to hold state flags for internal use.
+        private enum _State {
+            /// The timer is currently paused.
+            case _suspended
+            /// The timer has been resumed, and is firing.
+            case _resumed
+        }
+        
+        /* ############################################################## */
+        /**
+         Default constructor
+         
+         - parameter timeInterval: The time (in seconds) between fires.
+         */
+        init(timeInterval inTimeInterval: TimeInterval) {
+            self.timeInterval = inTimeInterval
+        }
+
+        /* ############################################################## */
+        /**
+         If the timer is not currently running, we resume. If running, nothing happens.
+         */
+        func resume() {
+            if self.state == ._resumed {
+                return
+            }
+            self.state = ._resumed
+            self.timer.resume()
+        }
+        
+        /* ############################################################## */
+        /**
+         If the timer is currently running, we suspend. If not running, nothing happens.
+         */
+        func suspend() {
+            if self.state == ._suspended {
+                return
+            }
+            self.state = ._suspended
+            self.timer.suspend()
+        }
+
+        /* ############################################################## */
+        /**
+         We have to carefully dismantle this, as we can end up with crashes if we don't clean up properly.
+         */
+        deinit {
+            self.timer.setEventHandler {}
+            self.timer.cancel()
+            self.resume()   // You need to call resume after canceling. I guess it lets the queue clean up.
+            self.eventHandler = nil
+        }
+    }
+    
+    /* ################################################################## */
+    // MARK: - Instance Types and Structs
+    /* ################################################################## */
+    /**
      This struct will contain all the info we need to display our time and date.
      */
     struct TimeDateContainer {
@@ -212,7 +298,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /// This is the basic background color for the whole kit and kaboodle. It gets darker as the brightness is reduced.
     var backgroundColor: UIColor = UIColor.gray
     /// This is the "heartbeat" of the clock. It's a 1-second repeating timer.
-    var ticker: Timer!
+    var ticker: RepeatingTimer!
     /// This is used to cache the selected main font size. We sort of use it as a semaphore.
     var fontSizeCache: CGFloat = 0
     /// This contains information about music items.

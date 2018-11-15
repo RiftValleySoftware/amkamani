@@ -538,7 +538,8 @@ extension MainScreenViewController {
     @IBAction func testSoundButtonHit(_ sender: Any) {
         if "LOCAL-TEST-SOUND".localizedVariant == self.editAlarmTestSoundButton.title(for: .normal) {
             self.editAlarmTestSoundButton.setTitle("LOCAL-PAUSE-SOUND".localizedVariant, for: .normal)
-            if let soundUrl = URL(string: self.soundSelection[self.editAlarmPickerView.selectedRow(inComponent: 0)]) {
+            let soundIndex = self.editAlarmPickerView.selectedRow(inComponent: 0)
+            if let soundURLString = self.soundSelection[soundIndex].urlEncodedString, let soundUrl = URL(string: soundURLString) {
                 self.playThisSound(soundUrl)
             }
         } else {
