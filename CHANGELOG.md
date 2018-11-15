@@ -1,3 +1,6 @@
+**Version 1.0.0.2007** *(TBD)*
+- Made it so there's no wait, once the alarm's minute is crossed (Happens right at the transition, now. Before, it could wait a few seconds).
+
 **Version 1.0.0.2006** *(November 15, 2018)*
 - Changed the method used to run the "heartbeat" of the app.
 - Fixed a bug in the URLs that prevented sounds from playing.

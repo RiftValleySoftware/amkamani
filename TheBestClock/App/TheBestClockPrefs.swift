@@ -371,9 +371,11 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
                         return false
                     } else {
                         if let endAlarmTime = Calendar.current.date(byAdding: .minute, value: self._alarmTimeInMinutes, to: alarmTimeToday) {
-                            let alarmRange = alarmTimeToday...endAlarmTime
-                            
-                            if alarmRange.contains(Date()) {
+                            let alarmRange = alarmTimeToday..<endAlarmTime
+                            // We strip out the seconds.
+                            let todayComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: Date())
+                            let components = DateComponents(year: todayComponents.year, month: todayComponents.month, day: todayComponents.day, hour: todayComponents.hour, minute: todayComponents.minute)
+                            if let date = Calendar.current.date(from: components), alarmRange.contains(date) {
                                 #if DEBUG
                                 print("Well, this is alarming...")
                                 #endif
