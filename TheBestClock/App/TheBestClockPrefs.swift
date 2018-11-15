@@ -40,7 +40,7 @@ extension UIColor {
         if !self.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
             return true
         }
-        return h == 0 && s == 0
+        return 0 == s   // Saturation of zero means no color.
     }
     
     /* ################################################################## */
