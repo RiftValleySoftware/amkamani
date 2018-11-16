@@ -371,4 +371,163 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var selectedFontName: String {
         return self.fontSelection[self.selectedFontIndex]
     }
+    
+    /* ################################################################## */
+    // MARK: - Instance UIPickerView Delegate and Datasource Methods
+    /* ################################################################## */
+    /**
+     There can only be one...
+     
+     - parameter in: The UIPickerView being queried.
+     
+     - returns: 1 (all the time)
+     */
+    func numberOfComponents(in inPickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    /* ################################################################## */
+    /**
+     This simply returns the number of rows in the pickerview. It will switch on which picker is calling it.
+     
+     - parameter inPickerView: The UIPickerView being queried.
+     */
+    func pickerView(_ inPickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if self.colorDisplayPickerView == inPickerView {
+            return self.colorSelection.count
+        } else if self.fontDisplayPickerView == inPickerView {
+            return self.fontSelection.count
+        } else if self.editAlarmPickerView == inPickerView {
+            if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                return self.soundSelection.count
+            } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                return self.artists.count
+            }
+        } else if !self.artists.isEmpty, !self.songs.isEmpty, 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex, self.songSelectionPickerView == inPickerView {
+            let artistName = self.artists[self.editAlarmPickerView.selectedRow(inComponent: 0)]
+            if let songList = self.songs[artistName] {
+                return songList.count
+            }
+        }
+        return 0
+    }
+    
+    /* ################################################################## */
+    /**
+     This will send the proper height for the picker row. The color picker is small squares.
+     
+     - parameter inPickerView: The UIPickerView being queried.
+     */
+    func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        if self.colorDisplayPickerView == inPickerView {
+            return 80
+        } else if self.fontDisplayPickerView == inPickerView {
+            return inPickerView.bounds.size.height * 0.4
+        } else if self.editAlarmPickerView == inPickerView || self.songSelectionPickerView == inPickerView {
+            return 40
+        }
+        return 0
+    }
+    
+    /* ################################################################## */
+    /**
+     This generates one row's content, depending on which picker is being specified.
+     
+     - parameter inPickerView: The UIPickerView being queried.
+     */
+    func pickerView(_ inPickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing inView: UIView?) -> UIView {
+        let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: inPickerView.bounds.size.width, height: self.pickerView(inPickerView, rowHeightForComponent: component)))
+        var ret = inView ?? UIView(frame: frame)    // See if we can reuse an old view.
+        if nil == inView {
+            // Color picker is simple color squares.
+            if self.colorDisplayPickerView == inPickerView {
+                let insetView = UIView(frame: frame.insetBy(dx: inPickerView.bounds.size.width * 0.01, dy: inPickerView.bounds.size.width * 0.01))
+                insetView.backgroundColor = self.colorSelection[row]
+                ret.addSubview(insetView)
+            } else if self.fontDisplayPickerView == inPickerView {    // We send generated times for the font selector.
+                let frame = CGRect(x: 0, y: 0, width: inPickerView.bounds.size.width, height: self.pickerView(inPickerView, rowHeightForComponent: component))
+                let reusingView = nil != inView ? inView!: UIView(frame: frame)
+                self.fontSizeCache = self.pickerView(inPickerView, rowHeightForComponent: 0)
+                ret = self.createDisplayView(reusingView, index: row)
+            } else if self.editAlarmPickerView == inPickerView {
+                let label = UILabel(frame: frame)
+                label.font = UIFont.systemFont(ofSize: self.alarmEditorSoundPickerFontSize)
+                label.adjustsFontSizeToFitWidth = true
+                label.textAlignment = .center
+                label.textColor = self.selectedColor
+                label.backgroundColor = UIColor.clear
+                var text = ""
+                
+                if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                    let pathString = URL(fileURLWithPath: self.soundSelection[row]).lastPathComponent
+                    text = pathString.localizedVariant
+                } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                    text = self.artists[row]
+                }
+                
+                label.text = text
+                
+                ret.addSubview(label)
+            } else if self.songSelectionPickerView == inPickerView {
+                let artistName = self.artists[self.editAlarmPickerView.selectedRow(inComponent: 0)]
+                if let songs = self.songs[artistName] {
+                    let selectedRow = max(0, min(songs.count - 1, row))
+                    let song = songs[selectedRow]
+                    let label = UILabel(frame: frame)
+                    label.font = UIFont.systemFont(ofSize: self.alarmEditorSoundPickerFontSize)
+                    label.adjustsFontSizeToFitWidth = true
+                    label.textAlignment = .center
+                    label.textColor = self.selectedColor
+                    label.backgroundColor = UIColor.clear
+                    label.text = song.songTitle
+                    ret.addSubview(label)
+                }
+            }
+            ret.backgroundColor = UIColor.clear
+        }
+        
+        return ret
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called when a picker row is selected, and sets the value for that picker.
+     
+     - parameter inPickerView: The UIPickerView being queried.
+     */
+    func pickerView(_ inPickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if self.colorDisplayPickerView == inPickerView {
+            self.selectedColorIndex = row
+            self.prefs?.selectedColor = self.selectedColorIndex
+            self.setInfoButtonColor()
+            self.fontDisplayPickerView.reloadComponent(0)
+        } else if self.fontDisplayPickerView == inPickerView {
+            self.selectedFontIndex = row
+            self.prefs?.selectedFont = self.selectedFontIndex
+        } else if self.editAlarmPickerView == inPickerView {
+            self.stopAudioPlayer()
+            self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
+            let currentAlarm = self.prefs.alarms[self.currentlyEditingAlarmIndex]
+            if .sounds == currentAlarm.selectedSoundMode {
+                currentAlarm.selectedSoundIndex = row
+                self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSoundIndex = row
+            } else {
+                self.stopAudioPlayer()
+                self.songSelectionPickerView.reloadComponent(0)
+                self.songSelectionPickerView.selectRow(0, inComponent: 0, animated: true)
+                let songURL = self.findSongURL(artistIndex: self.editAlarmPickerView.selectedRow(inComponent: 0), songIndex: 0)
+                if !songURL.isEmpty {
+                    self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSongURL = songURL
+                    self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSongURL = songURL
+                }
+            }
+        } else if self.songSelectionPickerView == inPickerView {
+            self.stopAudioPlayer()
+            let songURL = self.findSongURL(artistIndex: self.editAlarmPickerView.selectedRow(inComponent: 0), songIndex: row)
+            if !songURL.isEmpty {
+                self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSongURL = songURL
+                self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSongURL = songURL
+            }
+        }
+    }
 }

@@ -399,11 +399,60 @@ extension MainScreenViewController {
     }
     
     /* ################################################################## */
+    /**
+     This is called at load time, to add the various localized accessibility labels and hints to our elements on the main display screen.
+     */
+    func setUpMainScreenAccessibility() {
+        self.mainNumberDisplayView.accessibilityLabel = "LOCAL-ACCESSIBILITY-LABEL-MAIN-TIME".localizedVariant
+        self.mainNumberDisplayView.accessibilityHint = "LOCAL-ACCESSIBILITY-HINT-MAIN-TIME".localizedVariant
+        self.dateDisplayLabel.accessibilityLabel = "LOCAL-ACCESSIBILITY-LABEL-MAIN-DATE".localizedVariant
+        self.amPmLabel.accessibilityLabel = "LOCAL-ACCESSIBILITY-AMPM-LABEL".localizedVariant
+        self.rightBrightnessSlider.accessibilityLabel = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER".localizedVariant
+        self.rightBrightnessSlider.accessibilityHint = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT".localizedVariant
+        self.alarmContainerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-CONTAINER".localizedVariant
+        self.alarmContainerView.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-CONTAINER-HINT".localizedVariant
+        self.alarmDisplayView.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-DISPLAY".localizedVariant
+        self.alarmDisplayView.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-DISPLAY-HINT".localizedVariant
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called at load time, to add the various localized accessibility labels and hints to our elements in the Appearance Editor screen.
+     */
+    func setUpAppearanceEditorAccessibility() {
+        self.colorDisplayPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-COLOR-PICKER-LABEL".localizedVariant
+        self.colorDisplayPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-COLOR-PICKER-HINT".localizedVariant
+        self.fontDisplayPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-FONT-PICKER-LABEL".localizedVariant
+        self.fontDisplayPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-FONT-PICKER-HINT".localizedVariant
+        self.infoButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-INFO-BUTTON-LABEL".localizedVariant
+        self.infoButton.accessibilityHint = "LOCAL-ACCESSIBILITY-INFO-BUTTON-HINT".localizedVariant
+    }
+    
+    /* ################################################################## */
+    /**
+     This is called to update the color of the "info" button in the Appearance Editor.
+     */
+    func setInfoButtonColor() {
+        var textColor: UIColor
+        if 0 == self.selectedColorIndex {
+            textColor = UIColor(white: 1.0, alpha: 1.0)
+        } else {
+            let hue = self.selectedColor.hsba.h
+            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        }
+        
+        self.infoButton.tintColor = textColor
+    }
+
+    /* ################################################################## */
     // MARK: - Instance IBAction Methods
     /* ################################################################## */
     /**
+     This is called when the user taps in an alarm active screen.
+     
+     - parameter: ignored
      */
-    @IBAction func hitTheSnooze(_ inGestureRecognizer: UITapGestureRecognizer) {
+    @IBAction func hitTheSnooze(_: UITapGestureRecognizer) {
         for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].isAlarming {
             self.prefs.alarms[index].snoozing = true
         }
@@ -413,8 +462,11 @@ extension MainScreenViewController {
     
     /* ################################################################## */
     /**
+     This is called when the user long-presses in an alarm active screen.
+     
+     - parameter: ignored
      */
-    @IBAction func shutUpAlready(_ inGestureRecognizer: UILongPressGestureRecognizer) {
+    @IBAction func shutUpAlready(_: UILongPressGestureRecognizer) {
         for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].isAlarming {
             self.prefs.alarms[index].deactivated = true
             self.prefs.alarms[index].isActive = false
@@ -427,11 +479,14 @@ extension MainScreenViewController {
     
     /* ################################################################## */
     /**
+     This is called when the user taps in an alarm on the main screen, toggling it.
+     
+     - parameter inSender: The alarm button that was hit.
      */
-    @IBAction func alarmActiveStateChanged(_ sender: TheBestClockAlarmView) {
+    @IBAction func alarmActiveStateChanged(_ inSender: TheBestClockAlarmView) {
         if -1 == self.currentlyEditingAlarmIndex {
-            for index in 0..<self.alarmButtons.count where self.alarmButtons[index] == sender {
-                if let alarmRecord = sender.alarmRecord {
+            for index in 0..<self.alarmButtons.count where self.alarmButtons[index] == inSender {
+                if let alarmRecord = inSender.alarmRecord {
                     if alarmRecord.isActive {
                         self.prefs.alarms[index].deactivated = true
                     }
@@ -445,9 +500,12 @@ extension MainScreenViewController {
     
     /* ################################################################## */
     /**
+     This is called when a brightness slider is changed.
+     
+     - parameter inSlider: The brightness slider being manipulated.
      */
-    @IBAction func brightnessSliderChanged(_ sender: TheBestClockVerticalBrightnessSliderView) {
-        self.selectedBrightness = max(self.minimumBrightness, min(sender.brightness, 1.0))
+    @IBAction func brightnessSliderChanged(_ inSlider: TheBestClockVerticalBrightnessSliderView) {
+        self.selectedBrightness = max(self.minimumBrightness, min(inSlider.brightness, 1.0))
         let newBrightness = min(1.0, self.selectedBrightness)
         self.prefs?.brightnessLevel = newBrightness
         TheBestClockAppDelegate.recordOriginalBrightness()
@@ -484,8 +542,11 @@ extension MainScreenViewController {
     // MARK: - Appearance Editor Methods
     /* ################################################################## */
     /**
+     This is called when we first open the Appearance (font and color) Editor.
+     
+     - parameter: ignored
      */
-    @IBAction func openAppearanceEditor(_ sender: Any) {
+    @IBAction func openAppearanceEditor(_: Any) {
         self.stopTicker()
         self.fontDisplayPickerView.delegate = self
         self.fontDisplayPickerView.dataSource = self
@@ -502,30 +563,21 @@ extension MainScreenViewController {
     
     /* ################################################################## */
     /**
+     This is called when the user taps in the info button.
+     
+     - parameter: ignored
      */
-    func setInfoButtonColor() {
-        var textColor: UIColor
-        if 0 == self.selectedColorIndex {
-            textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
-        } else {
-            let hue = self.selectedColor.hsba.h
-            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.4 * self.selectedBrightness, alpha: 1.0)
-        }
-        
-        self.infoButton.tintColor = textColor
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBAction func openInfo(_ sender: Any) {
+    @IBAction func openInfo(_: Any) {
         self.performSegue(withIdentifier: "open-info", sender: nil)
     }
     
     /* ################################################################## */
     /**
+     This is called to close the Appearance Editor.
+     
+     - parameter: ignored
      */
-    @IBAction func closeAppearanceEditor(_ sender: Any) {
+    @IBAction func closeAppearanceEditor(_: Any) {
         self.fontDisplayPickerView.delegate = nil
         self.fontDisplayPickerView.dataSource = nil
         self.colorDisplayPickerView.delegate = nil
@@ -584,7 +636,10 @@ extension MainScreenViewController {
         self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
         self.musicTestButton.setTitle("LOCAL-TEST-SONG".localizedVariant, for: .normal)
         self.snoozeGestureRecogninzer.require(toFail: self.shutUpAlreadyGestureRecognizer)
-        
+        // Set up accessibility labels and hints.
+        self.setUpMainScreenAccessibility()
+        self.setUpAppearanceEditorAccessibility()
+        self.setUpAlarmEditorAccessibility()
         self.setUpAlarms()
     }
     
@@ -643,169 +698,12 @@ extension MainScreenViewController {
     }
     
     /* ################################################################## */
-    // MARK: - Instance UIPickerView Delegate and Datasource Methods
-    /* ################################################################## */
-    /**
-     There can only be one...
-     
-     - parameter in: The UIPickerView being queried.
-     
-     - returns: 1 (all the time)
-     */
-    func numberOfComponents(in inPickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    /* ################################################################## */
-    /**
-     This simply returns the number of rows in the pickerview. It will switch on which picker is calling it.
-     
-     - parameter inPickerView: The UIPickerView being queried.
-     */
-    func pickerView(_ inPickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if self.colorDisplayPickerView == inPickerView {
-            return self.colorSelection.count
-        } else if self.fontDisplayPickerView == inPickerView {
-            return self.fontSelection.count
-        } else if self.editAlarmPickerView == inPickerView {
-            if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-                return self.soundSelection.count
-            } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-                return self.artists.count
-            }
-        } else if !self.artists.isEmpty, !self.songs.isEmpty, 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex, self.songSelectionPickerView == inPickerView {
-            let artistName = self.artists[self.editAlarmPickerView.selectedRow(inComponent: 0)]
-            if let songList = self.songs[artistName] {
-                return songList.count
-            }
-        }
-        return 0
-    }
-    
-    /* ################################################################## */
-    /**
-     This will send the proper height for the picker row. The color picker is small squares.
-     
-     - parameter inPickerView: The UIPickerView being queried.
-     */
-    func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        if self.colorDisplayPickerView == inPickerView {
-            return 80
-        } else if self.fontDisplayPickerView == inPickerView {
-            return inPickerView.bounds.size.height * 0.4
-        } else if self.editAlarmPickerView == inPickerView || self.songSelectionPickerView == inPickerView {
-            return 40
-        }
-        return 0
-    }
-    
-    /* ################################################################## */
-    /**
-     This generates one row's content, depending on which picker is being specified.
-     
-     - parameter inPickerView: The UIPickerView being queried.
-     */
-    func pickerView(_ inPickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing inView: UIView?) -> UIView {
-        let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: inPickerView.bounds.size.width, height: self.pickerView(inPickerView, rowHeightForComponent: component)))
-        var ret = inView ?? UIView(frame: frame)    // See if we can reuse an old view.
-        if nil == inView {
-            // Color picker is simple color squares.
-            if self.colorDisplayPickerView == inPickerView {
-                let insetView = UIView(frame: frame.insetBy(dx: inPickerView.bounds.size.width * 0.01, dy: inPickerView.bounds.size.width * 0.01))
-                insetView.backgroundColor = self.colorSelection[row]
-                ret.addSubview(insetView)
-            } else if self.fontDisplayPickerView == inPickerView {    // We send generated times for the font selector.
-                let frame = CGRect(x: 0, y: 0, width: inPickerView.bounds.size.width, height: self.pickerView(inPickerView, rowHeightForComponent: component))
-                let reusingView = nil != inView ? inView!: UIView(frame: frame)
-                self.fontSizeCache = self.pickerView(inPickerView, rowHeightForComponent: 0)
-                ret = self.createDisplayView(reusingView, index: row)
-            } else if self.editAlarmPickerView == inPickerView {
-                let label = UILabel(frame: frame)
-                label.font = UIFont.systemFont(ofSize: self.alarmEditorSoundPickerFontSize)
-                label.adjustsFontSizeToFitWidth = true
-                label.textAlignment = .center
-                label.textColor = self.selectedColor
-                label.backgroundColor = UIColor.clear
-                var text = ""
-                
-                if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-                    let pathString = URL(fileURLWithPath: self.soundSelection[row]).lastPathComponent
-                    text = pathString.localizedVariant
-                } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-                    text = self.artists[row]
-                }
-                
-                label.text = text
-                
-                ret.addSubview(label)
-            } else if self.songSelectionPickerView == inPickerView {
-                let artistName = self.artists[self.editAlarmPickerView.selectedRow(inComponent: 0)]
-                if let songs = self.songs[artistName] {
-                    let selectedRow = max(0, min(songs.count - 1, row))
-                    let song = songs[selectedRow]
-                    let label = UILabel(frame: frame)
-                    label.font = UIFont.systemFont(ofSize: self.alarmEditorSoundPickerFontSize)
-                    label.adjustsFontSizeToFitWidth = true
-                    label.textAlignment = .center
-                    label.textColor = self.selectedColor
-                    label.backgroundColor = UIColor.clear
-                    label.text = song.songTitle
-                    ret.addSubview(label)
-                }
-            }
-            ret.backgroundColor = UIColor.clear
-        }
-        
-        return ret
-    }
-    
-    /* ################################################################## */
-    /**
-     This is called when a picker row is selected, and sets the value for that picker.
-     
-     - parameter inPickerView: The UIPickerView being queried.
-     */
-    func pickerView(_ inPickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if self.colorDisplayPickerView == inPickerView {
-            self.selectedColorIndex = row
-            self.prefs?.selectedColor = self.selectedColorIndex
-            self.setInfoButtonColor()
-            self.fontDisplayPickerView.reloadComponent(0)
-        } else if self.fontDisplayPickerView == inPickerView {
-            self.selectedFontIndex = row
-            self.prefs?.selectedFont = self.selectedFontIndex
-        } else if self.editAlarmPickerView == inPickerView {
-            self.stopAudioPlayer()
-            self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
-            let currentAlarm = self.prefs.alarms[self.currentlyEditingAlarmIndex]
-            if .sounds == currentAlarm.selectedSoundMode {
-                currentAlarm.selectedSoundIndex = row
-                self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSoundIndex = row
-            } else {
-                self.stopAudioPlayer()
-                self.songSelectionPickerView.reloadComponent(0)
-                self.songSelectionPickerView.selectRow(0, inComponent: 0, animated: true)
-                let songURL = self.findSongURL(artistIndex: self.editAlarmPickerView.selectedRow(inComponent: 0), songIndex: 0)
-                if !songURL.isEmpty {
-                    self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSongURL = songURL
-                    self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSongURL = songURL
-                }
-            }
-        } else if self.songSelectionPickerView == inPickerView {
-            self.stopAudioPlayer()
-            let songURL = self.findSongURL(artistIndex: self.editAlarmPickerView.selectedRow(inComponent: 0), songIndex: row)
-            if !songURL.isEmpty {
-                self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSongURL = songURL
-                self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSongURL = songURL
-            }
-        }
-        
-    }
-    
-    /* ################################################################## */
     // MARK: - Instance Alarm Editor Delegate Methods
     /* ################################################################## */
     /**
+     This is called to open the Alarm Editor for an indexed alarm.
+     
+     - parameter inAlarmIndex: 0-2. The index of the alarm to be edited.
      */
     func openAlarmEditor(_ inAlarmIndex: Int) {
         if 0 <= inAlarmIndex, self.prefs.alarms.count > inAlarmIndex {
