@@ -1,3 +1,6 @@
+**Version 1.0.0.2009** *(November 16, 2018)*
+- Audio now plays when silent mode on.
+
 **Version 1.0.0.2008** *(November 16, 2018)*
 - Added the non-exempt encryption flag.
 - Added accessibility strings.
