@@ -76,11 +76,15 @@ class TheBestClockAboutScreenViewController: UIViewController {
 
         // We fish the app version from the bundle.
         var appVersion = ""
-        
+        var appName = ""
+
         if let plistPath = Bundle.main.path(forResource: "Info", ofType: "plist") {
             if let plistDictionary = NSDictionary(contentsOfFile: plistPath) as? [String: Any] {
                 if let versionTemp = plistDictionary["CFBundleShortVersionString"] as? NSString {
                     appVersion = versionTemp as String
+                }
+                if let versionTemp = plistDictionary["CFBundleDisplayName"] as? NSString {
+                    appName = versionTemp as String
                 }
             }
         }
@@ -88,6 +92,6 @@ class TheBestClockAboutScreenViewController: UIViewController {
         // Set up localized text.
         self.theURLButton.setTitle(self.theURLButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.longTextTextarea.text = self.longTextTextarea.text.localizedVariant
-        self.versionLabel.text = "LOCAL-APP-NAME".localizedVariant + " " + appVersion
+        self.versionLabel.text = appName + " " + appVersion
     }
 }
