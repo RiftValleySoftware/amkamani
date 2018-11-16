@@ -122,6 +122,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      */
     func applicationDidBecomeActive(_ application: UIApplication) {
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
+        self.theMainController.startTicker()
         self.theMainController.view.setNeedsLayout()
     }
 
@@ -131,6 +132,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      */
     func applicationWillEnterForeground(_ application: UIApplication) {
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
+        self.theMainController.startTicker()
         self.theMainController.view.setNeedsLayout()
     }
 

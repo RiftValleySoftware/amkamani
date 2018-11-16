@@ -32,7 +32,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      
      This was cribbed from here: https://medium.com/@danielgalasko/a-background-repeating-timer-in-swift-412cecfd2ef9
      */
-    class RepeatingTimer {
+    class RepeatingGCDTimer {
         /// This holds our current run state.
         private var state: _State = ._suspended
         
@@ -302,7 +302,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /// This is the basic background color for the whole kit and kaboodle. It gets darker as the brightness is reduced.
     var backgroundColor: UIColor = UIColor.gray
     /// This is the "heartbeat" of the clock. It's a 1-second repeating timer.
-    var ticker: RepeatingTimer!
+    var ticker: RepeatingGCDTimer!
     /// This is used to cache the selected main font size. We sort of use it as a semaphore.
     var fontSizeCache: CGFloat = 0
     /// This contains information about music items.

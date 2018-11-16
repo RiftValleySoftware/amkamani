@@ -356,7 +356,7 @@ extension MainScreenViewController {
         self.updateMainTime()
         self.checkAlarmStatus() // This just makes sure we get "instant on," if that's what we selected.
         if nil == self.ticker {
-            self.ticker = RepeatingTimer(timeInterval: 1)
+            self.ticker = RepeatingGCDTimer(timeInterval: 1)
             self.ticker.eventHandler = self.checkTicker
             self.ticker.resume()
         }
