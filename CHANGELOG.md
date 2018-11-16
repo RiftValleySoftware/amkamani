@@ -1,4 +1,4 @@
-**Version 1.0.0.2008** *(TBD)*
+**Version 1.0.0.2008** *(November 16, 2018)*
 - Added the non-exempt encryption flag.
 - Added accessibility strings.
 

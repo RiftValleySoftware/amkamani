@@ -48,12 +48,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
          It uses the current queue.
          */
         private lazy var timer: DispatchSourceTimer = {
-            let t = DispatchSource.makeTimerSource()    // We make a generic, default timer source. No frou-frou.
-            t.schedule(deadline: .now() + self.timeInterval, repeating: self.timeInterval)  // We tell it to repeat at our interval.
-            t.setEventHandler(handler: { [unowned self] in  // This is the callback.
+            let timerSource = DispatchSource.makeTimerSource()    // We make a generic, default timer source. No frou-frou.
+            timerSource.schedule(deadline: .now() + self.timeInterval, repeating: self.timeInterval)  // We tell it to repeat at our interval.
+            timerSource.setEventHandler(handler: { [unowned self] in  // This is the callback.
                 self.eventHandler?()    // This just calls the event handler we registered.
             })
-            return t
+            return timerSource
         }()
         
         /// This is used to hold state flags for internal use.
