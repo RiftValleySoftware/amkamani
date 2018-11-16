@@ -1,3 +1,6 @@
+**Version 1.0.0.2008** *(TBD)*
+- Added the non-exempt encryption flag.
+
 **Version 1.0.0.2007** *(November 16, 2018)*
 - Made it so there's no wait, once the alarm's minute is crossed (Happens right at the transition, now. Before, it could wait a few seconds).
 - There was a bug, where the app would not restore its ticker after being backgrounded. That has been fixed.
