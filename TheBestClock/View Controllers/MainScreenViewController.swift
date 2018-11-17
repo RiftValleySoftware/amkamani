@@ -246,7 +246,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /// This is the picker view we use to select playback sounds for the alarm.
     @IBOutlet weak var editAlarmPickerView: UIPickerView!
     /// This is the button that is pressed to test the sounds.
-    @IBOutlet weak var editAlarmTestSoundButton: UIButton!
+    @IBOutlet weak var editAlarmTestSoundButton: TheBestClockSpeakerButton!
     /// This is the "STOP" long press gesture recognizer.
     @IBOutlet var shutUpAlreadyGestureRecognizer: UILongPressGestureRecognizer!
     /// This is the "snooze" tap gesture recognizer.
@@ -264,7 +264,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /// This is the view that holds the test song button.
     @IBOutlet weak var musicTestButtonView: UIView!
     /// This is the test song button.
-    @IBOutlet weak var musicTestButton: UIButton!
+    @IBOutlet weak var musicTestButton: TheBestClockSpeakerButton!
     /// This is a container view for the main edit alarm picker (Sounds and Artists).
     @IBOutlet weak var editPickerContainerView: UIView!
     /// Thi is a container for the secondary music picker (songs)
@@ -313,11 +313,13 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var alarmEditorMinimumHeight: CGFloat = 550
     /// Thi is a simple semaphore to indicate that we are in the process of loading music.
     var isLoadin: Bool = false
+    /// This records the number of snoozes. We use this if we don't have "forever snooze" on.
+    var snoozeCount: Int = 0
     /// This will be the audio player that we use to play the alarm sound.
     var audioPlayer: AVAudioPlayer? {
         didSet {    // We set the Alarm Editor button text to reflect whether or not we play/continue, or pause a playing sound. It will be invisible, unless we are editing an alarm.
             DispatchQueue.main.async {
-                self.editAlarmTestSoundButton.setTitle((nil == self.audioPlayer ? "LOCAL-TEST-SOUND" : "LOCAL-PAUSE-SOUND").localizedVariant, for: .normal)
+                self.editAlarmTestSoundButton.isOn = (nil == self.audioPlayer)
             }
         }
     }
@@ -506,7 +508,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self.prefs?.selectedFont = self.selectedFontIndex
         } else if self.editAlarmPickerView == inPickerView {
             self.stopAudioPlayer()
-            self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
+            self.editAlarmTestSoundButton.isOn = true
             let currentAlarm = self.prefs.alarms[self.currentlyEditingAlarmIndex]
             if .sounds == currentAlarm.selectedSoundMode {
                 currentAlarm.selectedSoundIndex = row

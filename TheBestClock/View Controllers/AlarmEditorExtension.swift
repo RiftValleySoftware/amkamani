@@ -219,8 +219,7 @@ extension MainScreenViewController {
         if nil != self.audioPlayer {
             self.audioPlayer?.pause()
         }
-        self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
-        self.musicTestButton.setTitle("LOCAL-TEST-SONG".localizedVariant, for: .normal)
+        self.musicTestButton.isOn = true
     }
     
     /* ################################################################## */
@@ -232,8 +231,7 @@ extension MainScreenViewController {
             self.audioPlayer?.stop()
             self.audioPlayer = nil
         }
-        self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
-        self.musicTestButton.setTitle("LOCAL-TEST-SONG".localizedVariant, for: .normal)
+        self.musicTestButton.isOn = true
     }
     
     /* ################################################################## */
@@ -305,10 +303,14 @@ extension MainScreenViewController {
             self.dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .focused)
             self.dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .selected)
             self.dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .highlighted)
-            
+
+            self.alarmDeactivatedLabel.textColor = self.selectedColor
+            alarmDeactivatedLabel.font = UIFont.italicSystemFont(ofSize: self.alarmDeactivatedLabelFontSize)
+
             self.alarmEditorActiveSwitch.tintColor = self.selectedColor
             self.alarmEditorActiveSwitch.onTintColor = self.selectedColor
             self.alarmEditorActiveSwitch.thumbTintColor = self.selectedColor
+            self.alarmEditorActiveSwitch.isOn = currentAlarm.isActive
             self.alarmEditorActiveButton.tintColor = self.selectedColor
             if let label = self.alarmEditorActiveButton.titleLabel {
                 label.adjustsFontSizeToFitWidth = true
@@ -317,16 +319,12 @@ extension MainScreenViewController {
                     label.font = font
                 }
             }
-            self.alarmEditorActiveSwitch.isOn = currentAlarm.isActive
-
-            self.alarmDeactivatedLabel.textColor = self.selectedColor
-            alarmDeactivatedLabel.font = UIFont.italicSystemFont(ofSize: self.alarmDeactivatedLabelFontSize)
 
             self.alarmEditorVibrateBeepSwitch.tintColor = self.selectedColor
             self.alarmEditorVibrateBeepSwitch.thumbTintColor = self.selectedColor
             self.alarmEditorVibrateBeepSwitch.onTintColor = self.selectedColor
             self.alarmEditorVibrateButton.tintColor = self.selectedColor
-            
+            self.alarmEditorVibrateBeepSwitch.isOn = currentAlarm.isVibrateOn
             if let label = self.alarmEditorVibrateButton.titleLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.baselineAdjustment = .alignCenters
@@ -336,38 +334,18 @@ extension MainScreenViewController {
             }
             
             self.musicTestButton.tintColor = self.selectedColor
-            if let label = self.musicTestButton.titleLabel {
-                label.adjustsFontSizeToFitWidth = true
-                label.baselineAdjustment = .alignCenters
-                if let font = UIFont(name: self.selectedFontName, size: self.alarmEditorSoundButtonFontSize) {
-                    label.font = font
-                }
-            }
-            
+            self.musicTestButton.isOn = true
             self.editAlarmTestSoundButton.tintColor = self.selectedColor
-            if let label = self.editAlarmTestSoundButton.titleLabel {
-                label.adjustsFontSizeToFitWidth = true
-                label.baselineAdjustment = .alignCenters
-                if let font = UIFont(name: self.selectedFontName, size: self.alarmEditorSoundButtonFontSize) {
-                    label.font = font
-                }
-            }
-            
-            self.alarmEditorVibrateBeepSwitch.isOn = currentAlarm.isVibrateOn
+            self.editAlarmTestSoundButton.isOn = true
+
+            self.alarmEditSoundModeSelector.tintColor = self.selectedColor
             self.alarmEditSoundModeSelector.setEnabled(.denied != MPMediaLibrary.authorizationStatus(), forSegmentAt: 1)
             if !self.alarmEditSoundModeSelector.isEnabledForSegment(at: 1) && .music == currentAlarm.selectedSoundMode {
                 self.alarmEditSoundModeSelector.selectedSegmentIndex = TheBestClockAlarmSetting.AlarmPrefsMode.silence.rawValue
             } else {
                 self.alarmEditSoundModeSelector.selectedSegmentIndex = currentAlarm.selectedSoundMode.rawValue
             }
-            self.alarmEditSoundModeSelector.tintColor = self.selectedColor
-            
-            if let font = UIFont(name: self.selectedFontName, size: 20) {
-                self.alarmEditSoundModeSelector.setTitleTextAttributes([.font: font], for: .normal)
-            }
-            for index in 0..<self.alarmEditSoundModeSelector.numberOfSegments {
-                self.alarmEditSoundModeSelector.setTitle(self.alarmEditSoundModeSelector.titleForSegment(at: index)?.localizedVariant, forSegmentAt: index)
-            }
+
             self.editAlarmPickerView.reloadComponent(0)
             if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
                 self.editAlarmPickerView.selectRow(currentAlarm.selectedSoundIndex, inComponent: 0, animated: false)
@@ -579,24 +557,24 @@ extension MainScreenViewController {
     /* ################################################################## */
     /**
      */
-    @IBAction func testSoundButtonHit(_ sender: Any) {
-        if "LOCAL-TEST-SOUND".localizedVariant == self.editAlarmTestSoundButton.title(for: .normal) {
-            self.editAlarmTestSoundButton.setTitle("LOCAL-PAUSE-SOUND".localizedVariant, for: .normal)
+    @IBAction func testSoundButtonHit(_ inSender: TheBestClockSpeakerButton) {
+        if !inSender.isOn, (nil == self.audioPlayer || !(audioPlayer?.isPlaying ?? false)) {
             let soundIndex = self.editAlarmPickerView.selectedRow(inComponent: 0)
             if let soundURLString = self.soundSelection[soundIndex].urlEncodedString, let soundUrl = URL(string: soundURLString) {
                 self.playThisSound(soundUrl)
             }
-        } else {
+        } else if audioPlayer?.isPlaying ?? false {
             self.pauseAudioPlayer()
+        } else {
+            self.stopAudioPlayer()
         }
     }
     
     /* ################################################################## */
     /**
      */
-    @IBAction func testSongButtonHit(_ sender: Any) {
-        if "LOCAL-TEST-SONG".localizedVariant == self.musicTestButton.title(for: .normal) {
-            self.musicTestButton.setTitle("LOCAL-PAUSE-SONG".localizedVariant, for: .normal)
+    @IBAction func testSongButtonHit(_ inSender: TheBestClockSpeakerButton) {
+        if !inSender.isOn, (nil == self.audioPlayer || !(audioPlayer?.isPlaying ?? false)) {
             var soundUrl: URL!
             
             if .music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let songURI = URL(string: self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSongURL) {
@@ -606,8 +584,10 @@ extension MainScreenViewController {
             if nil != soundUrl {
                 self.playThisSound(soundUrl)
             }
-        } else {
+        } else if audioPlayer?.isPlaying ?? false {
             self.pauseAudioPlayer()
+        } else {
+            self.stopAudioPlayer()
         }
     }
     
@@ -641,6 +621,7 @@ extension MainScreenViewController {
         self.currentlyEditingAlarmIndex = -1
         self.editAlarmScreenContainer.isHidden = true
         self.showAllAlarms()
+        self.snoozeCount = 0
         self.startTicker()
     }
 }

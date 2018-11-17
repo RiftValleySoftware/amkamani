@@ -267,12 +267,15 @@
                                                 </connections>
                                             </view>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="anU-SX-fsT">
-                                                <rect key="frame" x="8" y="167" width="359" height="29"/>
+                                                <rect key="frame" x="8" y="167" width="359" height="41"/>
                                                 <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="1bk-MR-UHD"/>
+                                                </constraints>
                                                 <segments>
-                                                    <segment title="LOCAL-SOUNDS"/>
-                                                    <segment title="LOCAL-PLAYLIST"/>
-                                                    <segment title="LOCAL-NONE"/>
+                                                    <segment title="" image="Speaker"/>
+                                                    <segment title="" image="Music"/>
+                                                    <segment title="" image="Nothing"/>
                                                 </segments>
                                                 <connections>
                                                     <action selector="soundModeChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="kPB-ta-ptr"/>
@@ -280,7 +283,7 @@
                                                 </connections>
                                             </segmentedControl>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SZV-H4-hT3">
-                                                <rect key="frame" x="8" y="203" width="359" height="120"/>
+                                                <rect key="frame" x="8" y="215" width="359" height="120"/>
                                                 <subviews>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZW-w9-tN7">
                                                         <rect key="frame" x="0.0" y="0.0" width="359" height="120"/>
@@ -304,7 +307,7 @@
                                                 </connections>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMz-At-38F" userLabel="Song Select Picker Container View">
-                                                <rect key="frame" x="8" y="323" width="359" height="120"/>
+                                                <rect key="frame" x="8" y="335" width="359" height="120"/>
                                                 <subviews>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJG-jK-HAQ">
                                                         <rect key="frame" x="0.0" y="0.0" width="359" height="120"/>
@@ -328,38 +331,38 @@
                                                 </connections>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-qj-jcy" userLabel="Test Sound Button Container View">
-                                                <rect key="frame" x="0.0" y="323" width="375" height="284"/>
+                                                <rect key="frame" x="0.0" y="335" width="375" height="272"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJp-Wf-Gd4">
-                                                        <rect key="frame" x="143" y="127" width="89" height="30"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" button="YES" playsSound="YES"/>
-                                                        </accessibility>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-BT-OeS" customClass="TheBestClockSpeakerButton" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
+                                                        <rect key="frame" x="162.5" y="111" width="50" height="50"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="89" placeholder="YES" id="Sgy-DW-Z87"/>
-                                                            <constraint firstAttribute="height" constant="30" id="tav-0I-3eD"/>
+                                                            <constraint firstAttribute="height" constant="50" id="gso-sj-ZVS"/>
+                                                            <constraint firstAttribute="width" secondItem="oDq-BT-OeS" secondAttribute="height" multiplier="1:1" id="uP1-pf-Ef3"/>
                                                         </constraints>
-                                                        <state key="normal" title="LOCAL-TEST"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isMusic" value="NO"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="testSoundButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ejf-UD-AVD"/>
+                                                            <action selector="testSoundButtonHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="7Fs-XA-SIB"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
-                                                    <constraint firstItem="GJp-Wf-Gd4" firstAttribute="centerX" secondItem="Vhh-qj-jcy" secondAttribute="centerX" id="YdF-aF-wbN"/>
-                                                    <constraint firstItem="GJp-Wf-Gd4" firstAttribute="centerY" secondItem="Vhh-qj-jcy" secondAttribute="centerY" id="gwA-hP-jTd"/>
+                                                    <constraint firstItem="oDq-BT-OeS" firstAttribute="centerY" secondItem="Vhh-qj-jcy" secondAttribute="centerY" id="1fV-0p-rH6"/>
+                                                    <constraint firstItem="oDq-BT-OeS" firstAttribute="centerX" secondItem="Vhh-qj-jcy" secondAttribute="centerX" id="3ed-m4-sWI"/>
                                                 </constraints>
                                                 <connections>
                                                     <outletCollection property="gestureRecognizers" destination="rou-bS-zuJ" appends="YES" id="vs3-ue-stH"/>
                                                 </connections>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FNf-zv-y39">
-                                                <rect key="frame" x="8" y="203" width="359" height="404"/>
+                                                <rect key="frame" x="8" y="215" width="359" height="392"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-NO-MUSIC-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIf-Gc-eGE">
-                                                        <rect key="frame" x="0.0" y="187" width="359" height="30"/>
+                                                        <rect key="frame" x="0.0" y="181" width="359" height="30"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="Z9S-gi-Tos"/>
@@ -377,36 +380,34 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lRC-az-iPV" userLabel="Music Test Button Container View">
-                                                <rect key="frame" x="0.0" y="443" width="375" height="160"/>
+                                                <rect key="frame" x="0.0" y="455" width="375" height="148"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xB3-e1-6fp">
-                                                        <rect key="frame" x="137.5" y="65" width="100" height="30"/>
-                                                        <accessibility key="accessibilityConfiguration">
-                                                            <accessibilityTraits key="traits" button="YES" playsSound="YES"/>
-                                                        </accessibility>
-                                                        <gestureRecognizers/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dp6-Hz-XAB" customClass="TheBestClockSpeakerButton" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
+                                                        <rect key="frame" x="162.5" y="49" width="50" height="50"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="30" id="Bjk-No-4uU"/>
-                                                            <constraint firstAttribute="width" constant="100" placeholder="YES" id="rrb-He-XLI"/>
+                                                            <constraint firstAttribute="width" secondItem="Dp6-Hz-XAB" secondAttribute="height" multiplier="1:1" id="209-ea-DcV"/>
+                                                            <constraint firstAttribute="height" constant="50" id="Vpb-8A-vQh"/>
                                                         </constraints>
-                                                        <state key="normal" title="LOCAL-TEST-MUSIC"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isMusic" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="testSongButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yFO-cd-70m"/>
-                                                            <outletCollection property="gestureRecognizers" destination="F84-pd-UGS" appends="YES" id="VbT-jj-63G"/>
+                                                            <action selector="testSongButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Np2-13-ESm"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="xB3-e1-6fp" firstAttribute="centerY" secondItem="lRC-az-iPV" secondAttribute="centerY" id="1zw-I4-Qai"/>
-                                                    <constraint firstItem="xB3-e1-6fp" firstAttribute="centerX" secondItem="lRC-az-iPV" secondAttribute="centerX" id="s4C-Ej-wu3"/>
+                                                    <constraint firstItem="Dp6-Hz-XAB" firstAttribute="centerX" secondItem="lRC-az-iPV" secondAttribute="centerX" id="KXM-hx-1rR"/>
+                                                    <constraint firstItem="Dp6-Hz-XAB" firstAttribute="centerY" secondItem="lRC-az-iPV" secondAttribute="centerY" id="zwL-Zk-Izb"/>
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOT-Kd-MBX">
-                                                <rect key="frame" x="0.0" y="199" width="375" height="408"/>
+                                                <rect key="frame" x="0.0" y="211" width="375" height="396"/>
                                                 <subviews>
                                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="HiL-Dd-hOF">
-                                                        <rect key="frame" x="169" y="185.5" width="37" height="37"/>
+                                                        <rect key="frame" x="169" y="179.5" width="37" height="37"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="37" id="LeW-aa-FQk"/>
                                                             <constraint firstAttribute="width" secondItem="HiL-Dd-hOF" secondAttribute="height" multiplier="1:1" id="YIJ-Wp-bZY"/>
@@ -583,7 +584,7 @@
                         <outlet property="editAlarmPickerView" destination="FZW-w9-tN7" id="gZw-aM-4NI"/>
                         <outlet property="editAlarmScreenContainer" destination="g5Y-c0-3tI" id="rwd-Vp-EnO"/>
                         <outlet property="editAlarmScreenMaskView" destination="SpK-gg-rNb" id="zOB-Xb-8pg"/>
-                        <outlet property="editAlarmTestSoundButton" destination="GJp-Wf-Gd4" id="TL5-NA-jkZ"/>
+                        <outlet property="editAlarmTestSoundButton" destination="oDq-BT-OeS" id="7Mk-XV-VGB"/>
                         <outlet property="editAlarmTimeDatePicker" destination="Epq-FZ-noz" id="GuW-2j-icQ"/>
                         <outlet property="editPickerContainerView" destination="SZV-H4-hT3" id="mnH-7G-Kcm"/>
                         <outlet property="flasherView" destination="NOd-rj-VcR" id="qY1-CC-fTM"/>
@@ -594,7 +595,7 @@
                         <outlet property="mainPickerContainerView" destination="KDL-S8-BKg" id="Qml-Ag-nxF"/>
                         <outlet property="musicLookupThrobber" destination="HiL-Dd-hOF" id="Ju8-he-xhT"/>
                         <outlet property="musicLookupThrobberView" destination="LOT-Kd-MBX" id="VKL-W7-aHq"/>
-                        <outlet property="musicTestButton" destination="xB3-e1-6fp" id="R1q-hl-vTU"/>
+                        <outlet property="musicTestButton" destination="Dp6-Hz-XAB" id="Q46-4z-dmv"/>
                         <outlet property="musicTestButtonView" destination="lRC-az-iPV" id="A8B-Qz-Vu7"/>
                         <outlet property="noMusicAvailableLabel" destination="kIf-Gc-eGE" id="t6j-Gl-jnv"/>
                         <outlet property="noMusicDisplayView" destination="FNf-zv-y39" id="k0y-au-NIJ"/>
@@ -749,4 +750,9 @@
             <point key="canvasLocation" x="1212" y="43.628185907046479"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Music" width="26" height="21"/>
+        <image name="Nothing" width="26" height="26"/>
+        <image name="Speaker" width="26" height="26"/>
+    </resources>
 </document>

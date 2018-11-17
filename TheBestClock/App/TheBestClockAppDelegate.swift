@@ -118,6 +118,13 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
 
     /* ################################################################## */
     /**
+     */
+    func applicationDidFinishLaunching(_ application: UIApplication) {
+        TheBestClockPrefs.registerDefaults()
+    }
+    
+    /* ################################################################## */
+    /**
      We force the main controller to lay out its subviews, which will restore its internal brightness level.
      */
     func applicationDidBecomeActive(_ application: UIApplication) {

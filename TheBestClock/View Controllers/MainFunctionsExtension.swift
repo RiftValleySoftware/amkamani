@@ -283,16 +283,23 @@ extension MainScreenViewController {
     func checkAlarmStatus(soundOnly: Bool = false) {
         var index = 0
         var noAlarms = true // If we find an active alarm, this is made false.
+        
         // If we have an active alarm, then we throw the switch, iGor.
         for alarm in self.prefs.alarms {
-            if alarm.isAlarming {
+            if (self.prefs.noSnoozeLimit || !alarm.snoozing || (alarm.snoozing && self.snoozeCount <= self.prefs.snoozeCount)), alarm.isAlarming {
                 noAlarms = false
                 if !soundOnly { // See if we want to be a flasher.
                     self.flashDisplay(self.selectedColor)
                 }
                 self.aooGah(index) // Play a sound and/or vibrate.
-            } else if alarm.snoozing {  // If we have a snozing alarm, then it will "snore."
-                self.zzzz(index)
+            } else if alarm.snoozing {  // If we have a snoozing alarm, then it will "snore."
+                if self.snoozeCount > self.prefs.snoozeCount {
+                    self.snoozeCount = 0
+                    alarm.snoozing = false
+                    alarm.deactivated = true
+                } else {
+                    self.zzzz(index)
+                }
             }
             
             index += 1
@@ -453,26 +460,42 @@ extension MainScreenViewController {
      - parameter: ignored
      */
     @IBAction func hitTheSnooze(_: UITapGestureRecognizer) {
-        for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].isAlarming {
-            self.prefs.alarms[index].snoozing = true
+        if !self.prefs.noSnoozeLimit, self.snoozeCount == self.prefs.snoozeCount {
+            #if DEBUG
+            print("Snooze count of \(self.snoozeCount) exceeded. Time to die. Tears in rain...")
+            #endif
+            self.shutUpAlready()
+        } else {
+            for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].isAlarming {
+                self.prefs.alarms[index].snoozing = true
+            }
+            self.snoozeCount += 1
+            #if DEBUG
+            if !self.prefs.noSnoozeLimit {
+                print("Snooze count of \(self.prefs.snoozeCount) not yet exceeded. This is snooze number \(self.snoozeCount).")
+            } else {
+                print("There is no snooze limit.")
+            }
+            #endif
+           self.stopAudioPlayer()
+            self.alarmDisplayView.isHidden = true
         }
-        self.stopAudioPlayer()
-        self.alarmDisplayView.isHidden = true
     }
     
     /* ################################################################## */
     /**
      This is called when the user long-presses in an alarm active screen.
      
-     - parameter: ignored
+     - parameter: ignored (Can be omitted)
      */
-    @IBAction func shutUpAlready(_: UILongPressGestureRecognizer) {
+    @IBAction func shutUpAlready(_: UILongPressGestureRecognizer! = nil) {
         for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].isAlarming {
             self.prefs.alarms[index].deactivated = true
             self.prefs.alarms[index].isActive = false
             self.prefs.savePrefs()
             self.alarmButtons[index].alarmRecord.isActive = false
         }
+        self.snoozeCount = 0
         self.stopAudioPlayer()
         self.alarmDisplayView.isHidden = true
     }
@@ -633,8 +656,6 @@ extension MainScreenViewController {
         self.alarmDeactivatedLabel.text = self.alarmDeactivatedLabel.text?.localizedVariant
         self.alarmEditorActiveButton.setTitle(self.alarmEditorActiveButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.alarmEditorVibrateButton.setTitle(self.alarmEditorVibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
-        self.editAlarmTestSoundButton.setTitle("LOCAL-TEST-SOUND".localizedVariant, for: .normal)
-        self.musicTestButton.setTitle("LOCAL-TEST-SONG".localizedVariant, for: .normal)
         self.snoozeGestureRecogninzer.require(toFail: self.shutUpAlreadyGestureRecognizer)
         // Set up accessibility labels and hints.
         self.setUpMainScreenAccessibility()

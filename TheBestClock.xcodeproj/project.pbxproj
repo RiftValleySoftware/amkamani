@@ -17,6 +17,7 @@
 		D422FE3E21922C5E0022423B /* TheBestClockAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */; };
 		D443F5E8219ADDFB002A212A /* AlarmEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */; };
 		D44DA634219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44DA633219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift */; };
+		D458720521A0B0EA00919A23 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D458720421A0B0EA00919A23 /* Settings.bundle */; };
 		D46682A821911F5E00471BC0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46682A621911F5E00471BC0 /* Localizable.strings */; };
 		D46F84602190CA1F0026C9AD /* TheBestClockMainDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */; };
 		D46F84622190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */; };
@@ -76,6 +77,7 @@
 		D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockAlarmView.swift; sourceTree = "<group>"; };
 		D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditorExtension.swift; sourceTree = "<group>"; };
 		D44DA633219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockSpeakerButton.swift; sourceTree = "<group>"; };
+		D458720421A0B0EA00919A23 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D46682A721911F5E00471BC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockMainDisplayView.swift; sourceTree = "<group>"; };
 		D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockVerticalBrightnessSliderView.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				D4FDA6F1218FA519009F08C2 /* Fonts */,
 				D413599E218E764100768430 /* Assets.xcassets */,
 				D41359A0218E764100768430 /* LaunchScreen.storyboard */,
+				D458720421A0B0EA00919A23 /* Settings.bundle */,
 			);
 			path = "Bundle Resources";
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				D4A7E117219610AD00F94C32 /* fast-beep.mp3 in Resources */,
 				D4AE3AF621979B8000F706A3 /* videogame-beeps-high-frequency.mp3 in Resources */,
 				D4A7E110219610AD00F94C32 /* single-beep.mp3 in Resources */,
+				D458720521A0B0EA00919A23 /* Settings.bundle in Resources */,
 				D4A7E116219610AD00F94C32 /* annoying-alarm.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
