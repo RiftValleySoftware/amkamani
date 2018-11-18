@@ -1,3 +1,6 @@
+**Version 1.0.0.2012** *(TBD)*
+- New App Icon
+
 **Version 1.0.0.2011** *(November 18, 2018)*
 - Replaced a few strings in the Alarm Editor with icons for localization.
 - Added the ability to specify a "snooze threshold" in the Settings panel for the app.
