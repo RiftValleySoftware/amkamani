@@ -339,12 +339,25 @@ extension MainScreenViewController {
     func flashDisplay(_ inUIColor: UIColor) {
         self.flasherView.backgroundColor = inUIColor
         self.flasherView.alpha = 0
-        UIView.animate(withDuration: 0.05, animations: { [unowned self] in
-            self.flasherView.alpha = 1.0
-        })
-        UIView.animate(withDuration: 0.7, animations: { [unowned self] in
-            self.flasherView.alpha = 0.0
-        })
+        UIView.animate(withDuration: 0.05,
+                       delay: 0,
+                       usingSpringWithDamping: 1.0,
+                       initialSpringVelocity: 0,
+                       options: .allowUserInteraction,
+                       animations: { [unowned self] in
+                        self.flasherView.alpha = 1.0
+            }, completion: { [unowned self] _ in
+                    UIView.animate(withDuration: 0.75,
+                                   delay: 0,
+                                   usingSpringWithDamping: 1.0,
+                                   initialSpringVelocity: 0,
+                                   options: .allowUserInteraction,
+                                   animations: { [unowned self] in
+                                    self.flasherView.alpha = 0.0
+                        },
+                                   completion: nil
+                    )
+            })
     }
     
     /* ################################################################## */

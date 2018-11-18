@@ -209,11 +209,22 @@ class TheBestClockAlarmView: UIControl {
      */
     func snore() {
         let oldAlpha = self.displayLabel.alpha
-        UIView.animate(withDuration: 0.2, animations: { [unowned self] in
-            self.displayLabel.alpha = 0.125
-        })
-        UIView.animate(withDuration: 0.75, animations: { [unowned self] in
-            self.displayLabel.alpha = oldAlpha
+        UIView.animate(withDuration: 0.05,
+                       delay: 0,
+                       usingSpringWithDamping: 1.0,
+                       initialSpringVelocity: 0,
+                       options: .allowUserInteraction,
+                       animations: { [unowned self] in
+                        self.displayLabel.alpha = 0.125
+            }, completion: { [unowned self] _ in
+                UIView.animate(withDuration: 0.75,
+                               delay: 0,
+                               usingSpringWithDamping: 1.0,
+                               initialSpringVelocity: 0,
+                               options: .allowUserInteraction,
+                               animations: { [unowned self] in
+                                self.displayLabel.alpha = oldAlpha
+                    }, completion: nil)
         })
     }
 }

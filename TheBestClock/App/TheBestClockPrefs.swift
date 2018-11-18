@@ -227,9 +227,9 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     // MARK: - Instance Private Constant Properties
     /* ################################################################## */
     /// The number of minutes we snooze for.
-    private let _snoozeTimeInMinutes: Int = 1
+    private let _snoozeTimeInMinutes: Int = 9
     /// The length of time an alarm will blare, in minutes.
-    private let _alarmTimeInMinutes: Int = 2
+    private let _alarmTimeInMinutes: Int = 15
     
     /* ################################################################## */
     // MARK: - Instance Stored Properties

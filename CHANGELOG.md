@@ -1,6 +1,7 @@
-**Version 1.0.0.2010** *(TBD)*
+**Version 1.0.0.2011** *(November 18, 2018)*
 - Replaced a few strings in the Alarm Editor with icons for localization.
 - Added the ability to specify a "snooze threshold" in the Settings panel for the app.
+- Modified the alarm and snooze flasher animations to be a bit more correct, and to possibly reduce interference with taps.
 
 **Version 1.0.0.2009** *(November 16, 2018)*
 - Audio now plays when silent mode on.
