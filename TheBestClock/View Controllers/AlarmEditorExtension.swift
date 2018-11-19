@@ -201,7 +201,7 @@ extension MainScreenViewController {
     func playThisSound(_ inSoundURL: URL) {
         do {
             if nil == self.audioPlayer {
-                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
                 try self.audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
                 self.audioPlayer?.numberOfLoops = -1   // Repeat indefinitely
             }
