@@ -49,7 +49,8 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
             path.addLine(to: bottomLeftPoint)
             path.addArc(withCenter: bottomArcCenterPoint, radius: 4, startAngle: CGFloat.pi, endAngle: 0, clockwise: false)
             path.addLine(to: topRightPoint)
-
+            path.close()
+            
             // We will fill it with a gradient, from whatever the most bright is at the top, to black, at the bottom.
             self._gradientLayer = CAGradientLayer()
             let endColor = UIColor.white == self.endColor ? UIColor(white: 1.0, alpha: 1.0) : UIColor(hue: self.endColor.hsba.h, saturation: 1.0, brightness: 1.0, alpha: 1.0)
