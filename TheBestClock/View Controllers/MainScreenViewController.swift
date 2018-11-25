@@ -277,6 +277,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var noMusicAvailableLabel: UILabel!
     /// This label tells the user that the alarm will not go off until next time.
     @IBOutlet weak var alarmDeactivatedLabel: UILabel!
+    /// This is a transparent view that allows gesture recognizers to disable the alarm.
+    @IBOutlet weak var alarmDisableScreenView: UIView!
     
     /* ################################################################## */
     // MARK: - Instance Properties

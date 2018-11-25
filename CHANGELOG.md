@@ -1,5 +1,7 @@
-**Version 1.0.0.2012** *(TBD)*
+**Version 1.0.0.2012** *(November 25, 2018)*
 - New App Icon
+- The app could crash when the alarm sounded. This has been fixed.
+- The disable alarm touch was unreliable. It should now be much more reliable.
 
 **Version 1.0.0.2011** *(November 18, 2018)*
 - Replaced a few strings in the Alarm Editor with icons for localization.

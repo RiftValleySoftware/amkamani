@@ -288,6 +288,7 @@ extension MainScreenViewController {
         for alarm in self.prefs.alarms {
             if (self.prefs.noSnoozeLimit || !alarm.snoozing || (alarm.snoozing && self.snoozeCount <= self.prefs.snoozeCount)), alarm.isAlarming {
                 noAlarms = false
+                self.alarmDisableScreenView.isHidden = false
                 if !soundOnly { // See if we want to be a flasher.
                     self.flashDisplay(self.selectedColor)
                 }
@@ -346,18 +347,15 @@ extension MainScreenViewController {
                        options: .allowUserInteraction,
                        animations: { [unowned self] in
                         self.flasherView.alpha = 1.0
-            }, completion: { [unowned self] _ in
-                    UIView.animate(withDuration: 0.75,
-                                   delay: 0,
-                                   usingSpringWithDamping: 1.0,
-                                   initialSpringVelocity: 0,
-                                   options: .allowUserInteraction,
-                                   animations: { [unowned self] in
-                                    self.flasherView.alpha = 0.0
-                        },
-                                   completion: nil
-                    )
-            })
+            }, completion: nil)
+        UIView.animate(withDuration: 0.75,
+                       delay: 0,
+                       usingSpringWithDamping: 1.0,
+                       initialSpringVelocity: 0,
+                       options: .allowUserInteraction,
+                       animations: { [unowned self] in
+                        self.flasherView.alpha = 0.0
+            }, completion: nil)
     }
     
     /* ################################################################## */
@@ -473,6 +471,7 @@ extension MainScreenViewController {
      - parameter: ignored
      */
     @IBAction func hitTheSnooze(_: UITapGestureRecognizer) {
+        self.alarmDisableScreenView.isHidden = true
         if !self.prefs.noSnoozeLimit, self.snoozeCount == self.prefs.snoozeCount {
             #if DEBUG
             print("Snooze count of \(self.snoozeCount) exceeded. Time to die. Tears in rain...")
@@ -502,6 +501,7 @@ extension MainScreenViewController {
      - parameter: ignored (Can be omitted)
      */
     @IBAction func shutUpAlready(_: UILongPressGestureRecognizer! = nil) {
+        self.alarmDisableScreenView.isHidden = true
         for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].isAlarming {
             self.prefs.alarms[index].deactivated = true
             self.prefs.alarms[index].isActive = false
@@ -675,6 +675,7 @@ extension MainScreenViewController {
         self.setUpAppearanceEditorAccessibility()
         self.setUpAlarmEditorAccessibility()
         self.setUpAlarms()
+        self.alarmDisableScreenView.isHidden = true
     }
     
     /* ################################################################## */
