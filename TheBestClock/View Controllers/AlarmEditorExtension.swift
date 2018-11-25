@@ -561,6 +561,9 @@ extension MainScreenViewController {
         if !inSender.isOn, (nil == self.audioPlayer || !(audioPlayer?.isPlaying ?? false)) {
             let soundIndex = self.editAlarmPickerView.selectedRow(inComponent: 0)
             if let soundURLString = self.soundSelection[soundIndex].urlEncodedString, let soundUrl = URL(string: soundURLString) {
+                if self.alarmEditorVibrateBeepSwitch.isOn {
+                    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+                }
                 self.playThisSound(soundUrl)
             }
         } else if audioPlayer?.isPlaying ?? false {
@@ -582,6 +585,9 @@ extension MainScreenViewController {
             }
             
             if nil != soundUrl {
+                if self.alarmEditorVibrateBeepSwitch.isOn {
+                    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+                }
                 self.playThisSound(soundUrl)
             }
         } else if audioPlayer?.isPlaying ?? false {

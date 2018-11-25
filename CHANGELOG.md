@@ -1,3 +1,7 @@
+**Version 1.0.0.2014** *(TBD)*
+- When deactivating a snoozing alarm, the alarm would not go into a "next time" mode. It does so now.
+- If the vibrate switch is on when the sound/song test button is hit, the phone will give one vibrate.
+
 **Version 1.0.0.2012** *(November 25, 2018)*
 - New App Icon
 - The app could crash when the alarm sounded. This has been fixed.

@@ -523,7 +523,7 @@ extension MainScreenViewController {
         if -1 == self.currentlyEditingAlarmIndex {
             for index in 0..<self.alarmButtons.count where self.alarmButtons[index] == inSender {
                 if let alarmRecord = inSender.alarmRecord {
-                    if alarmRecord.isActive {
+                    if alarmRecord.isActive || self.prefs.alarms[index].snoozing {
                         self.prefs.alarms[index].deactivated = true
                     }
                     self.prefs.alarms[index].isActive = alarmRecord.isActive
