@@ -149,6 +149,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      */
     func applicationWillTerminate(_ application: UIApplication) {
         UIApplication.shared.isIdleTimerDisabled = false // Put things back the way we found them.
+        self.theMainController.turnOffDeactivations()
         self.theMainController.stopTicker()
         self.theMainController.stopAudioPlayer()
         type(of: self).restoreOriginalBrightness()
@@ -160,6 +161,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      */
     func applicationWillResignActive(_ application: UIApplication) {
         UIApplication.shared.isIdleTimerDisabled = false // Put things back the way we found them.
+        self.theMainController.turnOffDeactivations()
         self.theMainController.stopTicker()
         self.theMainController.stopAudioPlayer()
         type(of: self).restoreOriginalBrightness()

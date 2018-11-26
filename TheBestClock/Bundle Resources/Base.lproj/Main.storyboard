@@ -27,6 +27,7 @@
                                 </accessibility>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="EtU-wI-Juo" appends="YES" id="aDV-oe-KOp"/>
+                                    <outletCollection property="gestureRecognizers" destination="dY2-H1-4Xj" appends="YES" id="5HZ-ZR-icd"/>
                                 </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="none" minimumFontSize="4" translatesAutoresizingMaskIntoConstraints="NO" id="qOc-ks-FdF">
@@ -180,7 +181,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SpK-gg-rNb">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="586"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JKA-TF-KPA">
                                                 <rect key="frame" x="8" y="0.0" width="49" height="31"/>
@@ -327,10 +328,10 @@
                                                 </connections>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-qj-jcy" userLabel="Test Sound Button Container View">
-                                                <rect key="frame" x="0.0" y="335" width="375" height="272"/>
+                                                <rect key="frame" x="0.0" y="335" width="375" height="251"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-BT-OeS" customClass="TheBestClockSpeakerButton" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
-                                                        <rect key="frame" x="162.5" y="111" width="50" height="50"/>
+                                                        <rect key="frame" x="162.5" y="100.5" width="50" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="gso-sj-ZVS"/>
                                                             <constraint firstAttribute="width" secondItem="oDq-BT-OeS" secondAttribute="height" multiplier="1:1" id="uP1-pf-Ef3"/>
@@ -355,10 +356,10 @@
                                                 </connections>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FNf-zv-y39">
-                                                <rect key="frame" x="8" y="215" width="359" height="392"/>
+                                                <rect key="frame" x="8" y="215" width="359" height="371"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-NO-MUSIC-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIf-Gc-eGE">
-                                                        <rect key="frame" x="0.0" y="181" width="359" height="30"/>
+                                                        <rect key="frame" x="0.0" y="170.5" width="359" height="30"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="Z9S-gi-Tos"/>
@@ -376,10 +377,10 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lRC-az-iPV" userLabel="Music Test Button Container View">
-                                                <rect key="frame" x="0.0" y="455" width="375" height="148"/>
+                                                <rect key="frame" x="0.0" y="455" width="375" height="127"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dp6-Hz-XAB" customClass="TheBestClockSpeakerButton" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
-                                                        <rect key="frame" x="162.5" y="49" width="50" height="50"/>
+                                                        <rect key="frame" x="162.5" y="38.5" width="50" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="Dp6-Hz-XAB" secondAttribute="height" multiplier="1:1" id="209-ea-DcV"/>
                                                             <constraint firstAttribute="height" constant="50" id="Vpb-8A-vQh"/>
@@ -400,10 +401,10 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOT-Kd-MBX">
-                                                <rect key="frame" x="0.0" y="211" width="375" height="396"/>
+                                                <rect key="frame" x="0.0" y="211" width="375" height="375"/>
                                                 <subviews>
                                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="HiL-Dd-hOF">
-                                                        <rect key="frame" x="169" y="179.5" width="37" height="37"/>
+                                                        <rect key="frame" x="169" y="169" width="37" height="37"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="37" id="LeW-aa-FQk"/>
                                                             <constraint firstAttribute="width" secondItem="HiL-Dd-hOF" secondAttribute="height" multiplier="1:1" id="YIJ-Wp-bZY"/>
@@ -492,7 +493,7 @@
                                     <constraint firstItem="SpK-gg-rNb" firstAttribute="leading" secondItem="g5Y-c0-3tI" secondAttribute="leading" id="d63-90-lQk"/>
                                     <constraint firstAttribute="bottom" secondItem="43b-Pc-iFX" secondAttribute="bottom" id="meP-3o-aND"/>
                                     <constraint firstAttribute="trailing" secondItem="43b-Pc-iFX" secondAttribute="trailing" id="mmV-Jg-HyN"/>
-                                    <constraint firstAttribute="bottom" secondItem="SpK-gg-rNb" secondAttribute="bottom" constant="40" id="wSl-nO-IEp"/>
+                                    <constraint firstItem="4yv-BP-CQW" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="bottom" id="wSl-nO-IEp"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="rPr-th-5lB" appends="YES" id="hwr-hX-DD0"/>
@@ -521,7 +522,6 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="qzH-bp-wEr" appends="YES" id="MbH-ph-Q4a"/>
-                                    <outletCollection property="gestureRecognizers" destination="dY2-H1-4Xj" appends="YES" id="gSJ-58-Tcu"/>
                                     <outletCollection property="gestureRecognizers" destination="yOI-ks-4mc" appends="YES" id="uti-Qe-3bT"/>
                                 </connections>
                             </view>
@@ -572,9 +572,6 @@
                             <constraint firstItem="KDL-S8-BKg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yD8-CT-Enu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="dY2-H1-4Xj" appends="YES" id="w2o-YL-fcH"/>
-                        </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
@@ -621,6 +618,36 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="dY2-H1-4Xj" userLabel="Open Appearance Editor Double-Tap">
+                    <connections>
+                        <action selector="openAppearanceEditor:" destination="BYZ-38-t0r" id="qvg-8o-gYh"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="EtU-wI-Juo" userLabel="Open Appearance Edtor Long Press">
+                    <connections>
+                        <action selector="openAppearanceEditor:" destination="BYZ-38-t0r" id="AUf-KP-3un"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="vTV-mt-vNG" userLabel="Close Appearance Editor Double-Tap">
+                    <connections>
+                        <action selector="closeAppearanceEditor:" destination="BYZ-38-t0r" id="SSd-aq-jQJ"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="4Dn-no-ExP" userLabel="Close Appearance Editor Long Press">
+                    <connections>
+                        <action selector="closeAppearanceEditor:" destination="BYZ-38-t0r" id="DlY-vB-mpZ"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="rPr-th-5lB" userLabel="Close Alarm Editor Double-Tap">
+                    <connections>
+                        <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" id="avL-n5-Xl4"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="QC1-0w-8EI" userLabel="Close Alarm Editor Long Press">
+                    <connections>
+                        <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" id="R3A-a5-eMh"/>
+                    </connections>
+                </pongPressGestureRecognizer>
                 <tapGestureRecognizer id="qzH-bp-wEr">
                     <connections>
                         <action selector="hitTheSnooze:" destination="BYZ-38-t0r" id="Ob9-eX-P6D"/>
@@ -631,40 +658,10 @@
                         <action selector="shutUpAlready:" destination="BYZ-38-t0r" id="bhg-yw-V5Z"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="dY2-H1-4Xj" userLabel="Open Appearance Editor Double-Tap">
-                    <connections>
-                        <action selector="openAppearanceEditor:" destination="BYZ-38-t0r" id="qvg-8o-gYh"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="vTV-mt-vNG" userLabel="Close Appearance Editor Double-Tap">
-                    <connections>
-                        <action selector="closeAppearanceEditor:" destination="BYZ-38-t0r" id="SSd-aq-jQJ"/>
-                    </connections>
-                </tapGestureRecognizer>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="JuB-FM-I8Y" userLabel="Left Brightness Long Press Absorber"/>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="ACN-Xt-xoM" userLabel="Right Brightness Long Press Absorber"/>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="Ohm-3E-kKF" userLabel="Info Button Tap Absorber"/>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="rPr-th-5lB" userLabel="Close Alarm Editor Double-Tap">
-                    <connections>
-                        <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" id="avL-n5-Xl4"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="EtU-wI-Juo" userLabel="Open Appearance Edtor Long Press">
-                    <connections>
-                        <action selector="openAppearanceEditor:" destination="BYZ-38-t0r" id="AUf-KP-3un"/>
-                    </connections>
-                </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="4Dn-no-ExP" userLabel="Close Appearance Editor Long Press">
-                    <connections>
-                        <action selector="closeAppearanceEditor:" destination="BYZ-38-t0r" id="DlY-vB-mpZ"/>
-                    </connections>
-                </pongPressGestureRecognizer>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ibw-BF-gbI" userLabel="Info Button Long Press Absorber"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="QC1-0w-8EI" userLabel="Close Alarm Editor Long Press">
-                    <connections>
-                        <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" id="R3A-a5-eMh"/>
-                    </connections>
-                </pongPressGestureRecognizer>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="caV-MM-3OZ" userLabel="Button Label Long Press Absorber"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="UY0-GO-scj" userLabel="Date Picker Long Press Absorber"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Ika-Un-Z2T" userLabel="Edit Picker Long Press Absorber"/>

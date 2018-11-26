@@ -299,7 +299,7 @@ extension MainScreenViewController {
                     alarm.snoozing = false
                     alarm.deactivated = true
                 } else {
-                    self.zzzz(index)
+                    self.alarmButtons[index].snore()
                 }
             }
             
@@ -360,14 +360,6 @@ extension MainScreenViewController {
     
     /* ################################################################## */
     /**
-     - This is called periodically to tell a snoozing alarm to "snore" (visibly pulse).
-     */
-    func zzzz(_ inIndex: Int) {
-        self.alarmButtons[inIndex].snore()
-    }
-    
-    /* ################################################################## */
-    /**
      This starts our regular 1-second ticker.
      */
     func startTicker() {
@@ -411,8 +403,8 @@ extension MainScreenViewController {
             #if DEBUG
             print("Checking Timer: " + String(describing: Date()))
             #endif
-            self.updateMainTime()
             self.checkAlarmStatus()
+            self.updateMainTime()
         }
     }
     
@@ -461,6 +453,23 @@ extension MainScreenViewController {
         
         self.infoButton.tintColor = textColor
     }
+    
+    /* ################################################################## */
+    /**
+     This is called when the app is reactivated.
+     
+     It resets all the "deactivations" snoozes.
+     */
+    func turnOffDeactivations() {
+        self.alarmDisableScreenView.isHidden = true
+        for index in 0..<self.prefs.alarms.count {
+            if self.prefs.alarms[index].snoozing || !self.prefs.alarms[index].isActive {
+                self.prefs.alarms[index].deactivated = false
+                self.prefs.alarms[index].snoozing = false
+            }
+        }
+        self.snoozeCount = 0
+    }
 
     /* ################################################################## */
     // MARK: - Instance IBAction Methods
@@ -489,8 +498,11 @@ extension MainScreenViewController {
                 print("There is no snooze limit.")
             }
             #endif
-           self.stopAudioPlayer()
+            self.stopAudioPlayer()
             self.alarmDisplayView.isHidden = true
+            for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].snoozing {
+                self.alarmButtons[index].snore()
+            }
         }
     }
     

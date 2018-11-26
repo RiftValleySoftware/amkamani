@@ -1,6 +1,9 @@
 **Version 1.0.0.2014** *(TBD)*
 - When deactivating a snoozing alarm, the alarm would not go into a "next time" mode. It does so now.
 - If the vibrate switch is on when the sound/song test button is hit, the phone will give one vibrate.
+- Made a bit more room between the test button and the text that displays a note about "next time."
+- Made the "snoring" a bit more efficient and responsive.
+- Made it so that the "deactivations" and snoozing are turned off if the app goes into the background (but not if the app is behind a pulldown).
 
 **Version 1.0.0.2012** *(November 25, 2018)*
 - New App Icon
@@ -20,7 +23,7 @@
 - Added accessibility strings.
 
 **Version 1.0.0.2007** *(November 16, 2018)*
-- Made it so there's no wait, once the alarm's minute is crossed (Happens right at the transition, now. Before, it could wait a few seconds).
+- Made it so there's no wait, once the alarm's minute is crossed (Happens right at the transition, now. Before, it could wait a few seconds).1
 - There was a bug, where the app would not restore its ticker after being backgrounded. That has been fixed.
 
 **Version 1.0.0.2006** *(November 15, 2018)*
