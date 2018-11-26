@@ -40,8 +40,8 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
             // We will draw a "blunt teardrop" shape, with a rounded top and bottom. Wide at the top, narrow at the bottom. Rounded on both the top and the bottom. No sharp edges.
             let topRightPoint = CGPoint(x: self.bounds.size.width, y: self.bounds.midX)
             let arcCenterPoint = CGPoint(x: self.bounds.midX, y: self.bounds.midX)
-            let bottomLeftPoint = CGPoint(x: self.bounds.midX - 4, y: bounds.size.height - 4)
-            let bottomArcCenterPoint = CGPoint(x: self.bounds.midX, y: bounds.size.height - 4)
+            let bottomLeftPoint = CGPoint(x: self.bounds.midX - 4, y: self.bounds.size.height - 4)
+            let bottomArcCenterPoint = CGPoint(x: self.bounds.midX, y: self.bounds.size.height - 4)
             
             let path = UIBezierPath()
             path.move(to: topRightPoint)
