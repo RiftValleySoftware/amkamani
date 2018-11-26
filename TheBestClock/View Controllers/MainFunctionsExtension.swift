@@ -74,11 +74,11 @@ extension MainScreenViewController {
             var startColor: UIColor
             
             if 0 == self.selectedColorIndex {   // White just uses...white. No need to get fancy.
-                endColor = UIColor(white: 0.9 * self.selectedBrightness, alpha: 1.0)
+                endColor = UIColor(white: 0.6 * self.selectedBrightness, alpha: 1.0)
                 startColor = UIColor(white: 1.25 * self.selectedBrightness, alpha: 1.0)
             } else {    // We use HSB to change the brightness, without changing the color.
                 let hue = self.selectedColor.hsba.h
-                endColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.9 * self.selectedBrightness, alpha: 1.0)
+                endColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.6 * self.selectedBrightness, alpha: 1.0)
                 startColor = UIColor(hue: hue, saturation: 0.85, brightness: 1.25 * self.selectedBrightness, alpha: 1.0)
             }
             

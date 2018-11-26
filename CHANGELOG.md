@@ -4,6 +4,7 @@
 - Made a bit more room between the test button and the text that displays a note about "next time."
 - Made the "snoring" a bit more efficient and responsive.
 - Made it so that the "deactivations" and snoozing are turned off if the app goes into the background (but not if the app is behind a pulldown).
+- Made the gradient a bit more extreme, and made the active alarms stand out a bit more.
 
 **Version 1.0.0.2012** *(November 25, 2018)*
 - New App Icon

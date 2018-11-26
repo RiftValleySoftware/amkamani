@@ -109,7 +109,7 @@ class TheBestClockAlarmView: UIControl {
         if nil == self.fontColor {
             textColor = UIColor(white: brightness, alpha: alpha)
         } else {
-            textColor = UIColor(hue: self.fontColor.hsba.h, saturation: 1.0, brightness: 0.85 * brightness, alpha: alpha)
+            textColor = UIColor(hue: self.fontColor.hsba.h, saturation: 1.0, brightness: brightness, alpha: alpha)
         }
         
         let time = self.alarmRecord.alarmTime
