@@ -313,7 +313,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var artists: [String] = []
     /// This is the narrowest that a screen can be to properly accommodate an Alarm Editor. Under this, and we need to force portrait mode.
     var alarmEditorMinimumHeight: CGFloat = 550
-    /// Thi is a simple semaphore to indicate that we are in the process of loading music.
+    /// This is a simple semaphore to indicate that we are in the process of loading music.
     var isLoadin: Bool = false
     /// This records the number of snoozes. We use this if we don't have "forever snooze" on.
     var snoozeCount: Int = 0
