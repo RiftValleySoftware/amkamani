@@ -49,7 +49,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
          */
         private lazy var timer: DispatchSourceTimer = {
             let timerSource = DispatchSource.makeTimerSource()    // We make a generic, default timer source. No frou-frou.
-            timerSource.schedule(deadline: .now() + self.timeInterval, repeating: self.timeInterval)  // We tell it to repeat at our interval.
+            timerSource.schedule(deadline: .now() + self.timeInterval, repeating: self.timeInterval, leeway: .milliseconds(100))  // We tell it to repeat at our interval.
             timerSource.setEventHandler(handler: { [unowned self] in  // This is the callback.
                 self.eventHandler?()    // This just calls the event handler we registered.
             })

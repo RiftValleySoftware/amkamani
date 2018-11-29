@@ -6,6 +6,7 @@
 - Made it so that the "deactivations" and snoozing are turned off if the app goes into the background (but not if the app is behind a pulldown).
 - Made the gradient a bit more extreme, and made the active alarms stand out a bit more.
 - The settings bundle now uses the main localizable file (makes localization easier).
+- The event timer now has some leeway, which helps reduce the energy footprint of the app.
 
 **Version 1.0.0.2012** *(November 25, 2018)*
 - New App Icon
