@@ -278,7 +278,7 @@ extension MainScreenViewController {
     /**
      This scans the alarms, and looks for anyone that wants to ring their bell.
      
-     - parameter soundOnly: IOf true (default is false), then this will not flash the display, and will only trigger the sound.
+     - parameter soundOnly: If true (default is false), then this will not flash the display, and will only trigger the sound.
      */
     func checkAlarmStatus(soundOnly: Bool = false) {
         var index = 0
@@ -286,14 +286,14 @@ extension MainScreenViewController {
         
         // If we have an active alarm, then we throw the switch, iGor.
         for alarm in self.prefs.alarms {
-            if (self.prefs.noSnoozeLimit || !alarm.snoozing || (alarm.snoozing && self.snoozeCount <= self.prefs.snoozeCount)), alarm.isAlarming {
+            if alarm.isActive, alarm.isAlarming, (self.prefs.noSnoozeLimit || !alarm.snoozing || (alarm.snoozing && self.snoozeCount <= self.prefs.snoozeCount)) {
                 noAlarms = false
                 self.alarmDisableScreenView.isHidden = false
                 if !soundOnly { // See if we want to be a flasher.
                     self.flashDisplay(self.selectedColor)
                 }
                 self.aooGah(index) // Play a sound and/or vibrate.
-            } else if alarm.snoozing {  // If we have a snoozing alarm, then it will "snore."
+            } else if alarm.isActive, alarm.snoozing {  // If we have a snoozing alarm, then it will "snore."
                 if self.snoozeCount > self.prefs.snoozeCount {
                     self.snoozeCount = 0
                     alarm.snoozing = false
@@ -320,15 +320,17 @@ extension MainScreenViewController {
      */
     func aooGah(_ inIndex: Int) {
         self.alarmDisplayView.isHidden = false
-        if self.prefs.alarms[inIndex].isVibrateOn {
-            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+        if self.prefs.alarms[inIndex].isActive, self.prefs.alarms[inIndex].isAlarming { // Belt and suspenders...
+            if self.prefs.alarms[inIndex].isVibrateOn {
+                AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+            }
+            
+            if self.wholeScreenThrobberView.isHidden, .denied != MPMediaLibrary.authorizationStatus(), .music == self.prefs.alarms[inIndex].selectedSoundMode, self.artists.isEmpty {
+                self.loadMediaLibrary(displayWholeScreenThrobber: true)
+            }
+            
+            self.playSound(inIndex)
         }
-        
-        if self.wholeScreenThrobberView.isHidden, .denied != MPMediaLibrary.authorizationStatus(), .music == self.prefs.alarms[inIndex].selectedSoundMode, self.artists.isEmpty {
-            self.loadMediaLibrary(displayWholeScreenThrobber: true)
-        }
-        
-        self.playSound(inIndex)
     }
     
     /* ################################################################## */
@@ -400,9 +402,6 @@ extension MainScreenViewController {
      */
     func checkTicker() {
         DispatchQueue.main.sync {
-            #if DEBUG
-            print("Checking Timer: " + String(describing: Date()))
-            #endif
             self.checkAlarmStatus()
             self.updateMainTime()
         }
@@ -482,22 +481,12 @@ extension MainScreenViewController {
     @IBAction func hitTheSnooze(_: UITapGestureRecognizer) {
         self.alarmDisableScreenView.isHidden = true
         if !self.prefs.noSnoozeLimit, self.snoozeCount == self.prefs.snoozeCount {
-            #if DEBUG
-            print("Snooze count of \(self.snoozeCount) exceeded. Time to die. Tears in rain...")
-            #endif
             self.shutUpAlready()
         } else {
             for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].isAlarming {
                 self.prefs.alarms[index].snoozing = true
             }
             self.snoozeCount += 1
-            #if DEBUG
-            if !self.prefs.noSnoozeLimit {
-                print("Snooze count of \(self.prefs.snoozeCount) not yet exceeded. This is snooze number \(self.snoozeCount).")
-            } else {
-                print("There is no snooze limit.")
-            }
-            #endif
             self.stopAudioPlayer()
             self.alarmDisplayView.isHidden = true
             for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].snoozing {

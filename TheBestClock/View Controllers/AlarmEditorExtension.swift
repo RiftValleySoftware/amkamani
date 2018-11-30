@@ -55,13 +55,17 @@ extension MainScreenViewController {
                         self.loadUpOnMusic()
                         
                     default:
-                        TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
-                        self.dunLoadin()
+                        DispatchQueue.main.async {
+                            TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
+                            self.dunLoadin()
+                        }
                     }
                 }
             }
         } else {
-            self.dunLoadin()
+            DispatchQueue.main.async {
+                self.dunLoadin()
+            }
         }
     }
     
@@ -83,23 +87,21 @@ extension MainScreenViewController {
      This is called after the music has been loaded. It sets up the Alarm Editor.
      */
     func dunLoadin() {
-        DispatchQueue.main.async {
-            self.isLoadin = false
-            self.editAlarmPickerView.reloadComponent(0)
-            self.songSelectionPickerView.reloadComponent(0)
-            self.selectSong()
-            self.showHideItems()
-            self.editAlarmTimeDatePicker.isEnabled = true
-            self.alarmEditorActiveButton.isEnabled = true
-            self.alarmEditorVibrateButton.isEnabled = true
-            self.alarmEditorVibrateBeepSwitch.isEnabled = true
-            self.alarmEditorActiveSwitch.isEnabled = true
-            self.alarmEditSoundModeSelector.isEnabled = true
-            self.hideLargeLookupThrobber()
-            self.hideLookupThrobber()
-            self.noMusicAvailableLabel.textColor = self.selectedColor
-            self.noMusicAvailableLabel.font = UIFont(name: self.selectedFontName, size: self.alarmEditorTopFontSize)
-        }
+        self.isLoadin = false
+        self.editAlarmPickerView.reloadComponent(0)
+        self.songSelectionPickerView.reloadComponent(0)
+        self.selectSong()
+        self.showHideItems()
+        self.editAlarmTimeDatePicker.isEnabled = true
+        self.alarmEditorActiveButton.isEnabled = true
+        self.alarmEditorVibrateButton.isEnabled = true
+        self.alarmEditorVibrateBeepSwitch.isEnabled = true
+        self.alarmEditorActiveSwitch.isEnabled = true
+        self.alarmEditSoundModeSelector.isEnabled = true
+        self.hideLargeLookupThrobber()
+        self.hideLookupThrobber()
+        self.noMusicAvailableLabel.textColor = self.selectedColor
+        self.noMusicAvailableLabel.font = UIFont(name: self.selectedFontName, size: self.alarmEditorTopFontSize)
     }
     
     /* ################################################################## */
@@ -216,10 +218,10 @@ extension MainScreenViewController {
      If the audio player is going, this pauses it. Nothing happens if no audio player is going.
      */
     func pauseAudioPlayer() {
-        if nil != self.audioPlayer {
-            self.audioPlayer?.pause()
+        self.audioPlayer?.pause()
+        DispatchQueue.main.async {
+            self.musicTestButton.isOn = true
         }
-        self.musicTestButton.isOn = true
     }
     
     /* ################################################################## */
@@ -227,11 +229,11 @@ extension MainScreenViewController {
      This terminates the audio player. Nothing happens if no audio player is going.
      */
     func stopAudioPlayer() {
-        if nil != self.audioPlayer {
-            self.audioPlayer?.stop()
-            self.audioPlayer = nil
+        self.audioPlayer?.stop()
+        self.audioPlayer = nil
+        DispatchQueue.main.async {
+            self.musicTestButton.isOn = true
         }
-        self.musicTestButton.isOn = true
     }
     
     /* ################################################################## */

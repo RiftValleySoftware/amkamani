@@ -7,11 +7,12 @@
 - Made the gradient a bit more extreme, and made the active alarms stand out a bit more.
 - The settings bundle now uses the main localizable file (makes localization easier).
 - The event timer now has some leeway, which helps reduce the energy footprint of the app.
+- Did some work to make sure that static data members are set in a synchronous thread.
 
 **Version 1.0.0.2012** *(November 25, 2018)*
 - New App Icon
 - The app could crash when the alarm sounded. This has been fixed.
-- The disable alarm touch was unreliable. It should now be much more reliable.
+- The disable alarm touch was unreliable. It should now be more reliable.
 
 **Version 1.0.0.2011** *(November 18, 2018)*
 - Replaced a few strings in the Alarm Editor with icons for localization.

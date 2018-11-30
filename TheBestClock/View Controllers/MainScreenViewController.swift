@@ -33,11 +33,16 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      This was cribbed from here: https://medium.com/@danielgalasko/a-background-repeating-timer-in-swift-412cecfd2ef9
      */
     class RepeatingGCDTimer {
+        /// This queue will be used to ensure that the operation counter is called atomically. Since it is static, it will be atomic.
+        private static let _staticQueue = DispatchQueue(label: "MainScreenViewController_RepeatingGCDTimer_Static_Queue")
+        
         /// This holds our current run state.
         private var state: _State = ._suspended
         
         /// This is the time between fires, in seconds.
         let timeInterval: TimeInterval
+        /// This is the leeway we give the timer, in milliseconds. It is an Int.
+        let leewayInMilliseconds: Int
         /// This is the callback event handler we registered.
         var eventHandler: (() -> Void)?
         
@@ -49,7 +54,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
          */
         private lazy var timer: DispatchSourceTimer = {
             let timerSource = DispatchSource.makeTimerSource()    // We make a generic, default timer source. No frou-frou.
-            timerSource.schedule(deadline: .now() + self.timeInterval, repeating: self.timeInterval, leeway: .milliseconds(100))  // We tell it to repeat at our interval.
+            timerSource.schedule(deadline: .now() + self.timeInterval, repeating: self.timeInterval, leeway: .milliseconds(self.leewayInMilliseconds))  // We tell it to repeat at our interval.
             timerSource.setEventHandler(handler: { [unowned self] in  // This is the callback.
                 self.eventHandler?()    // This just calls the event handler we registered.
             })
@@ -69,9 +74,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
          Default constructor
          
          - parameter timeInterval: The time (in seconds) between fires.
+         - parameter leewayInMilliseconds: This is the number of milliseconds of "slop" we give the timer. It is optional, and default is 100.
          */
-        init(timeInterval inTimeInterval: TimeInterval) {
+        init(timeInterval inTimeInterval: TimeInterval, leewayInMilliseconds inLeewayInMilliseconds: Int = 100) {
             self.timeInterval = inTimeInterval
+            self.leewayInMilliseconds = inLeewayInMilliseconds
         }
 
         /* ############################################################## */
@@ -82,8 +89,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             if self.state == ._resumed {
                 return
             }
-            self.state = ._resumed
-            self.timer.resume()
+            type(of: self)._staticQueue.sync {    // This just makes sure the assignment happens in a thread-safe manner.
+                self.state = ._resumed
+                self.timer.resume()
+            }
         }
         
         /* ############################################################## */
@@ -94,8 +103,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
             if self.state == ._suspended {
                 return
             }
-            self.state = ._suspended
-            self.timer.suspend()
+            type(of: self)._staticQueue.sync {    // This just makes sure the assignment happens in a thread-safe manner.
+                self.state = ._suspended
+                self.timer.suspend()
+            }
         }
 
         /* ############################################################## */
@@ -103,10 +114,12 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
          We have to carefully dismantle this, as we can end up with crashes if we don't clean up properly.
          */
         deinit {
-            self.timer.setEventHandler {}
-            self.timer.cancel()
-            self.resume()   // You need to call resume after canceling. I guess it lets the queue clean up.
-            self.eventHandler = nil
+            type(of: self)._staticQueue.sync {    // This just makes sure the assignment happens in a thread-safe manner.
+                self.timer.setEventHandler(handler: nil)
+                self.timer.cancel()
+                self.resume()   // You need to call resume after canceling. I guess it lets the queue clean up.
+                self.eventHandler = nil
+            }
         }
     }
     
@@ -319,9 +332,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var snoozeCount: Int = 0
     /// This will be the audio player that we use to play the alarm sound.
     var audioPlayer: AVAudioPlayer? {
-        didSet {    // We set the Alarm Editor button text to reflect whether or not we play/continue, or pause a playing sound. It will be invisible, unless we are editing an alarm.
+        didSet {    // We set the Alarm Editor button to reflect whether or not we play/continue, or pause a playing sound. It will be invisible, unless we are editing an alarm.
             DispatchQueue.main.async {
-                self.editAlarmTestSoundButton.isOn = (nil == self.audioPlayer)
+                if 0 <= self.currentlyEditingAlarmIndex {   // Only counts if we have the editor open.
+                    self.editAlarmTestSoundButton.isOn = (nil == self.audioPlayer)
+                }
             }
         }
     }

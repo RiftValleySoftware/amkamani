@@ -19,6 +19,9 @@ import UIKit
 class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
     /// This is a special variable that holds the screen brightness level from just before we first change it from the app. We will use this to restore the original screen brightness.
     static var originalScreenBrightness: CGFloat!
+    /// This queue will be used to ensure that the operation counter is called atomically. Since it is static, it will be atomic.
+    static let staticQueue = DispatchQueue(label: "RVP_Alarm_Clock_Queue")
+    
     /// This refers to the main controller
     var theMainController: MainScreenViewController!
     /// Used to possibly force orientation for the Alarm Editor Screen.
@@ -80,7 +83,9 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      */
     class func recordOriginalBrightness() {
         if nil == self.originalScreenBrightness {
-            self.originalScreenBrightness = UIScreen.main.brightness
+            TheBestClockAppDelegate.staticQueue.sync {    // This just makes sure the assignment happens in a thread-safe manner.
+                self.originalScreenBrightness = UIScreen.main.brightness
+            }
         }
     }
     
@@ -90,7 +95,9 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      */
     class func restoreOriginalBrightness() {
         if nil != self.originalScreenBrightness {
-            UIScreen.main.brightness = self.originalScreenBrightness
+            TheBestClockAppDelegate.staticQueue.sync {    // This just makes sure the assignment happens in a thread-safe manner.
+                UIScreen.main.brightness = self.originalScreenBrightness
+            }
         }
     }
     
@@ -101,7 +108,9 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      - parameter orientation: The orientation that should be locked.
      */
     class func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
-        self.delegateObject.orientationLock = orientation
+        TheBestClockAppDelegate.staticQueue.sync {    // This just makes sure the assignment happens in a thread-safe manner.
+            self.delegateObject.orientationLock = orientation
+        }
     }
     
     /* ################################################################## */
@@ -113,7 +122,9 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      */
     class func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation: UIInterfaceOrientation) {
         self.lockOrientation(orientation)
-        UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
+        TheBestClockAppDelegate.staticQueue.sync {    // This just makes sure the assignment happens in a thread-safe manner.
+            UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
+        }
     }
 
     /* ################################################################## */
