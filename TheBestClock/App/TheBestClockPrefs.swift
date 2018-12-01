@@ -224,12 +224,12 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     }
     
     /* ################################################################## */
-    // MARK: - Instance Private Constant Properties
+    // MARK: - Instance Internal Constant Properties
     /* ################################################################## */
     /// The number of minutes we snooze for.
-    private let _snoozeTimeInMinutes: Int = 9
+    let snoozeTimeInMinutes: Int = 9
     /// The length of time an alarm will blare, in minutes.
-    private let _alarmTimeInMinutes: Int = 15
+    let alarmTimeInMinutes: Int = 15
     
     /* ################################################################## */
     // MARK: - Instance Stored Properties
@@ -275,7 +275,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
         set {
             if self.isActive, newValue {
                 var now = Date()
-                now.addTimeInterval(TimeInterval(self._snoozeTimeInMinutes * 60))
+                now.addTimeInterval(TimeInterval(self.snoozeTimeInMinutes * 60))
                 // We do this to chop off any dangling seconds.
                 let todayComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: now)
                 let components = DateComponents(year: todayComponents.year, month: todayComponents.month, day: todayComponents.day, hour: todayComponents.hour, minute: todayComponents.minute)
@@ -308,7 +308,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
         
         set {
             if self.isActive, newValue {
-                if let endDeactivateTime = Calendar.current.date(byAdding: .minute, value: self._alarmTimeInMinutes, to: self.currentAlarmTime) {
+                if let endDeactivateTime = Calendar.current.date(byAdding: .minute, value: self.alarmTimeInMinutes, to: self.currentAlarmTime) {
                     self.deactivateTime = endDeactivateTime
                 }
             } else {
@@ -362,7 +362,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
                         
                         return false
                     } else {
-                        if let endAlarmTime = Calendar.current.date(byAdding: .minute, value: self._alarmTimeInMinutes, to: alarmTimeToday) {
+                        if let endAlarmTime = Calendar.current.date(byAdding: .minute, value: self.alarmTimeInMinutes, to: alarmTimeToday) {
                             let alarmRange = alarmTimeToday..<endAlarmTime
                             // We strip out the seconds.
                             let todayComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: Date())
@@ -382,7 +382,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
         self.alarmResetTime = nil
         return false
     }
-
+    
     /* ################################################################## */
     /**
      This is the standard NSCoding saver.

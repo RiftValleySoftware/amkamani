@@ -279,6 +279,7 @@ extension MainScreenViewController {
             if self.alarmEditorMinimumHeight > UIScreen.main.bounds.size.height || self.alarmEditorMinimumHeight > UIScreen.main.bounds.size.width {
                 TheBestClockAppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
             }
+            
             TheBestClockAppDelegate.restoreOriginalBrightness()
             let currentAlarm = self.prefs.alarms[self.currentlyEditingAlarmIndex]
             
@@ -525,8 +526,9 @@ extension MainScreenViewController {
         self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive = inSwitch.isOn
         self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.isActive = inSwitch.isOn
         if wasInactive && inSwitch.isOn {   // This allows us to reset the state by turning the alarm off and then on again. Just like The IT Crowd.
-            self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated = false
-            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.deactivated = false  // We reset the deactivated state
+            // We toggle the deactivated state, so the user can set the alarm to go off later, in case it isn't set to do that.
+            self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated = !self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated
+            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.deactivated = self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated  // We reset the deactivated state
         }
         self.showHideItems()
         self.refreshAlarm(self.currentlyEditingAlarmIndex)
@@ -613,6 +615,7 @@ extension MainScreenViewController {
             let minutes = calendar.component(.minute, from: date)
             
             let time = hour * 100 + minutes
+
             self.prefs.alarms[self.currentlyEditingAlarmIndex].alarmTime = time
             self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated = false
             self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord = self.prefs.alarms[self.currentlyEditingAlarmIndex]
