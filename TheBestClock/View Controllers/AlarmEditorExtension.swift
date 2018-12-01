@@ -272,6 +272,7 @@ extension MainScreenViewController {
     func openAlarmEditorScreen() {
         self.stopTicker()
         if 0 <= self.currentlyEditingAlarmIndex, self.prefs.alarms.count > self.currentlyEditingAlarmIndex {
+            UIScreen.main.brightness = 1.0
             if .music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode {   // We do this here, because it can take a little while for things to catch up, and we can get no throbber if we wait until just before we load the media.
                 self.showLookupThrobber()
             }
@@ -612,9 +613,11 @@ extension MainScreenViewController {
             let minutes = calendar.component(.minute, from: date)
             
             let time = hour * 100 + minutes
-            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.alarmTime = time
-            self.prefs.alarms[self.currentlyEditingAlarmIndex] = self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord
-            self.alarmButtons[self.currentlyEditingAlarmIndex].setNeedsDisplay()
+            self.prefs.alarms[self.currentlyEditingAlarmIndex].alarmTime = time
+            self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated = false
+            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord = self.prefs.alarms[self.currentlyEditingAlarmIndex]
+            self.alarmDeactivatedLabel.isHidden = true
+            self.refreshAlarm(self.currentlyEditingAlarmIndex)
         }
     }
     

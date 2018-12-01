@@ -340,6 +340,9 @@ extension MainScreenViewController {
      - parameter inUIColor: This is the color to flash.
      */
     func flashDisplay(_ inUIColor: UIColor) {
+        self.selectedBrightness = 1.0
+        self.prefs?.brightnessLevel = self.selectedBrightness
+        UIScreen.main.brightness = self.selectedBrightness
         self.flasherView.backgroundColor = inUIColor
         self.flasherView.alpha = 0
         UIView.animate(withDuration: 0.05,
@@ -350,7 +353,7 @@ extension MainScreenViewController {
                        animations: { [unowned self] in
                         self.flasherView.alpha = 1.0
             }, completion: nil)
-        UIView.animate(withDuration: 0.75,
+        UIView.animate(withDuration: 0.7,
                        delay: 0,
                        usingSpringWithDamping: 1.0,
                        initialSpringVelocity: 0,
@@ -366,7 +369,7 @@ extension MainScreenViewController {
      */
     func startTicker() {
         self.updateMainTime()
-        self.checkAlarmStatus() // This just makes sure we get "instant on," if that's what we selected.
+        self.checkTicker() // This just makes sure we get "instant on," if that's what we selected.
         if nil == self.ticker {
             self.ticker = RepeatingGCDTimer(timeInterval: 1)
             self.ticker.eventHandler = self.checkTicker
@@ -401,7 +404,7 @@ extension MainScreenViewController {
      This is called from the timer.
      */
     func checkTicker() {
-        DispatchQueue.main.sync {
+        DispatchQueue.main.async {
             self.checkAlarmStatus()
             self.updateMainTime()
         }
@@ -531,7 +534,7 @@ extension MainScreenViewController {
                     self.prefs.savePrefs()
                 }
             }
-            self.checkAlarmStatus() // This just makes sure we get "instant on," if that's what we selected.
+            self.checkTicker() // This just makes sure we get "instant on," if that's what we selected.
         }
     }
     
