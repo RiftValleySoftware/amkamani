@@ -40,7 +40,7 @@ class TheGreatRiftValleyDrawing: UIControl {
             self.layoutSubviews()
         }
     }
-
+    
     /* ################################################################## */
     /**
      */
@@ -103,7 +103,7 @@ class TheGreatRiftValleyDrawing: UIControl {
         moonAndMountainsOutlinePath.addCurve(to: CGPoint(x: 286.9, y: 219.7), controlPoint1: CGPoint(x: 303.1, y: 175.5), controlPoint2: CGPoint(x: 297.5, y: 198.8))
         moonAndMountainsOutlinePath.addLine(to: CGPoint(x: 251, y: 164.4))
         moonAndMountainsOutlinePath.close()
-
+        
         let tmPath = UIBezierPath()
         tmPath.move(to: CGPoint(x: 86.2, y: 290.6))
         tmPath.addCurve(to: CGPoint(x: 85.7, y: 290.6), controlPoint1: CGPoint(x: 86.2, y: 290.6), controlPoint2: CGPoint(x: 86, y: 290.6))
@@ -632,13 +632,13 @@ class TheGreatRiftValleyDrawing: UIControl {
         theGreatRiftValleyPath.addLine(to: CGPoint(x: 220.3, y: 26))
         theGreatRiftValleyPath.addLine(to: CGPoint(x: 220.3, y: 26))
         theGreatRiftValleyPath.close()
-
+        
         let path = UIBezierPath()
         
         path.append(moonAndMountainsOutlinePath)
         path.append(theGreatRiftValleyPath)
         path.append(tmPath)
-
+        
         let scaleX = self.bounds.width / path.bounds.size.width
         let scaleY = self.bounds.height / path.bounds.size.height
         let scale = min(scaleX, scaleY)
@@ -656,25 +656,20 @@ class TheGreatRiftValleyDrawing: UIControl {
         if self.baseColor.isGrayscale {
             lineEndColor = UIColor(white: 1.6 - self.baseColor.whiteLevel, alpha: 1.0)
             lineStartColor = UIColor(white: 1.5 - self.baseColor.whiteLevel, alpha: 1.0)
+        } else if !self.moonColor.isClear {
+            lineEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 0.4, alpha: 1.0)
+            lineStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 0.3, alpha: 1.0)
         } else {
-            lineEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 0.4, alpha: 1.0)
-            lineStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 0.3, alpha: 1.0)
+            lineEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 1.0, alpha: 1.0)
+            lineStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 0.9, alpha: 1.0)
         }
         
-        if self.moonColor.isClear { // Clear moon, means we switch the color up to 11.
-            if self.baseColor.isGrayscale {
-                lineEndColor = UIColor(white: self.baseColor.whiteLevel, alpha: 1.0)
-                lineStartColor = UIColor(white: max(0, self.baseColor.whiteLevel - 0.1), alpha: 1.0)
-            } else {
-                lineEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-                lineStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 0.9, alpha: 1.0)
-            }
-        } else if self.moonColor.isGrayscale {  // Otherwise, we mute the main color, and amp up the moon.
-            fillEndColor = UIColor(white: self.baseColor.whiteLevel, alpha: 1.0)
-            fillStartColor = UIColor(white: max(0, self.baseColor.whiteLevel - 0.1), alpha: 1.0)
-        } else {
-            fillEndColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-            fillStartColor = UIColor(hue: self.baseColor.hsba.h, saturation: 1.0, brightness: 0.9, alpha: 1.0)
+        if !self.moonColor.isClear, self.moonColor.isGrayscale {  // Otherwise, we mute the main color, and amp up the moon.
+            fillEndColor = UIColor(white: self.moonColor.whiteLevel, alpha: 1.0)
+            fillStartColor = UIColor(white: max(0, self.moonColor.whiteLevel - 0.1), alpha: 1.0)
+        } else if !self.moonColor.isClear {
+            fillEndColor = UIColor(hue: self.moonColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 1.0, alpha: 1.0)
+            fillStartColor = UIColor(hue: self.moonColor.hsba.h, saturation: self.baseColor.hsba.s, brightness: 0.9, alpha: 1.0)
         }
         
         self._gradientLayer = CAGradientLayer()
@@ -682,7 +677,7 @@ class TheGreatRiftValleyDrawing: UIControl {
         self._gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
         self._gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
         self._gradientLayer.frame = self.bounds
-
+        
         let shape = CAShapeLayer()
         shape.path = path.cgPath
         self._gradientLayer.mask = shape
@@ -699,7 +694,7 @@ class TheGreatRiftValleyDrawing: UIControl {
             self._moonFillGradientLayer.mask = shape
             self.layer.addSublayer(self._moonFillGradientLayer)
         }
-
+        
         self.layer.addSublayer(self._gradientLayer)
     }
     

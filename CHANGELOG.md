@@ -1,3 +1,6 @@
+**Version 1.0.0.2015** *(TBD)*
+- Tweaked the branding control in the info screen.
+
 **Version 1.0.0.2014** *(December 1, 2018)*
 - When deactivating a snoozing alarm, the alarm would not go into a "next time" mode. It does so now.
 - If the vibrate switch is on when the sound/song test button is hit, the phone will give one vibrate.
