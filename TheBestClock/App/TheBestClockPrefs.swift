@@ -318,26 +318,71 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
             }
         }
     }
-
     /* ################################################################## */
     /**
-     - returns: The alarm set, for today.
+     - returns: The alarm set, for today, with the possibility of being deferred.
      */
     var currentAlarmTime: Date! {
         if nil != self.alarmResetTime { // In case they keep banging on snooze.
             return self.alarmResetTime
         }
         
+        return self.todaysAlarmTime
+    }
+    
+    /* ################################################################## */
+    /**
+     - returns: The alarm set, for today.
+     */
+    var todaysAlarmTime: Date! {
         let alarmTimeHours = self.alarmTime / 100
         let alarmTimeMinutes = self.alarmTime - (alarmTimeHours * 100)
-
+        
         let todayComponents = Calendar.current.dateComponents([.day, .month, .year], from: Date())
         let components = DateComponents(year: todayComponents.year, month: todayComponents.month, day: todayComponents.day, hour: alarmTimeHours, minute: alarmTimeMinutes)
         let date = Calendar.current.date(from: components)
         
         return date
     }
+    
+    /* ################################################################## */
+    /**
+     This just resets the two main "ephemeral" states.
+     */
+    func clearState() {
+        self.lastSnoozeTime = nil
+        self.alarmResetTime = nil
+    }
+    
+    /* ################################################################## */
+    /**
+     - parameter withResetAdded: An optional Bool (default is false), that, if true, will include a cascading reset time.
+     - returns: 1 if the alarm will be going off now. 0, if the alarm will not go off soon, or -1 if the alarm will go off within the alarm time window from now.
+     */
+    func alarmEngaged(withResetAdded: Bool = false) -> Int {
+        if let alarmDate = withResetAdded ? self.currentAlarmTime : self.todaysAlarmTime {
+            let todayComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: Date())
+            // We do this, so we look at only the integer minutes, and not seconds.
+            let components = DateComponents(year: todayComponents.year, month: todayComponents.month, day: todayComponents.day, hour: todayComponents.hour, minute: todayComponents.minute)
+            if let todayNow = Calendar.current.date(from: components) {
+                let backwards = todayNow.addingTimeInterval(TimeInterval(self.alarmTimeInMinutes * -60))
+                let backwardsRange = backwards...todayNow
+                if backwardsRange.contains(alarmDate) {
+                    return 1
+                }
+                
+                let forwards = todayNow.addingTimeInterval(TimeInterval(self.alarmTimeInMinutes * 60))
+                let forwardsRange = todayNow...forwards // todayNow is actually not considered, as it was already eaten by backwards.
+                
+                if forwardsRange.contains(alarmDate) {
+                    return -1
+                }
+            }
+        }
         
+        return 0
+    }
+    
     /* ################################################################## */
     /**
      - returns: True, if the alarm should be blaring right now.
@@ -540,9 +585,11 @@ class TheBestClockPrefs: NSObject {
                 }
                 if let unarchivedObject = self._loadedPrefs.object(forKey: (type(of: self).PrefsKeys.alarms.rawValue + String(index)) as NSString) as? Data {
                     if let alarm = NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject) as? TheBestClockAlarmSetting {
+                        let oldResetTime = self._alarms[index].alarmResetTime  // This makes sure we preserve any reset in progress. This is not saved in prefs.
                         let oldSnoozeTime = self._alarms[index].lastSnoozeTime  // This makes sure we preserve any snoozing in progress. This is not saved in prefs.
                         let oldDeactivateTime = self._alarms[index].deactivateTime  // This makes sure we preserve any deactivated alarms in progress. This is not saved in prefs.
                         self._alarms[index] = alarm
+                        self._alarms[index].alarmResetTime = oldResetTime
                         self._alarms[index].lastSnoozeTime = oldSnoozeTime
                         self._alarms[index].deactivateTime = oldDeactivateTime
                     }

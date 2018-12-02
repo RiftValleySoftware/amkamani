@@ -372,7 +372,7 @@ extension MainScreenViewController {
         self.musicTestButtonView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
         self.songSelectContainerView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
         self.noMusicDisplayView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || !(self.artists.isEmpty || self.songs.isEmpty)
-        self.alarmDeactivatedLabel.isHidden = !self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive || !self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated
+        self.alarmDeactivatedLabel.isHidden = (0 >= self.prefs.alarms[self.currentlyEditingAlarmIndex].alarmEngaged()) || !self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive || !self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated
         self.alarmEditorVibrateButton.isHidden = "iPad" == UIDevice.current.model   // Hide these on iPads, which don't do vibrate.
         self.alarmEditorVibrateBeepSwitch.isHidden = "iPad" == UIDevice.current.model
     }
@@ -610,8 +610,9 @@ extension MainScreenViewController {
             let time = hour * 100 + minutes
 
             self.prefs.alarms[self.currentlyEditingAlarmIndex].alarmTime = time
-            self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated = false
+            self.prefs.alarms[self.currentlyEditingAlarmIndex].clearState()
             self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord = self.prefs.alarms[self.currentlyEditingAlarmIndex]
+            
             self.alarmDeactivatedLabel.isHidden = true
             self.refreshAlarm(self.currentlyEditingAlarmIndex)
         }

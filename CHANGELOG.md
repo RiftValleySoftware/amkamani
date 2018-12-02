@@ -10,6 +10,7 @@
 - Localized the sounds.
 - Now force-copy the localization files to the settings bundle.
 - Deleted the tests, as we won't use them for this project.
+- Fixed a bug, where the "everlasting snooze" wasn't working properly.
 
 **Version 1.0.0.2014** *(December 1, 2018)*
 - When deactivating a snoozing alarm, the alarm would not go into a "next time" mode. It does so now.

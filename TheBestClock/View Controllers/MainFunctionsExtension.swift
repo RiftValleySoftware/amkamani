@@ -320,13 +320,11 @@ extension MainScreenViewController {
      */
     func aooGah(_ inIndex: Int) {
         self.alarmDisplayView.isHidden = false
-        if self.prefs.alarms[inIndex].isActive, self.prefs.alarms[inIndex].isAlarming { // Belt and suspenders...
-            if self.prefs.alarms[inIndex].isVibrateOn {
-                AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-            }
-            
-            self.playSound(inIndex)
+        if self.prefs.alarms[inIndex].isVibrateOn {
+            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
         }
+        
+        self.playSound(inIndex)
     }
     
     /* ################################################################## */
