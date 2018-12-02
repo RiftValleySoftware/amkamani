@@ -367,6 +367,7 @@ extension MainScreenViewController {
             self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [unowned self] (_) in
                 self.checkTicker()
             })
+            self.timer.tolerance = 0.1  // 100ms tolerance.
         }
     }
     
