@@ -370,10 +370,10 @@ extension MainScreenViewController {
     func startTicker() {
         self.updateMainTime()
         self.checkTicker() // This just makes sure we get "instant on," if that's what we selected.
-        if nil == self.ticker {
-            self.ticker = RepeatingGCDTimer(timeInterval: 1)
-            self.ticker.eventHandler = self.checkTicker
-            self.ticker.resume()
+        if nil == self.timer {
+            self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [unowned self] (_) in
+                self.checkTicker()
+            })
         }
     }
     
@@ -382,9 +382,9 @@ extension MainScreenViewController {
      This stops our regular 1-second ticker.
      */
     func stopTicker() {
-        if nil != self.ticker {
-            self.ticker.eventHandler = nil
-            self.ticker = nil
+        if nil != self.timer {
+            self.timer.invalidate()
+            self.timer = nil
         }
     }
     
