@@ -181,7 +181,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SpK-gg-rNb">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="586"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="578"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JKA-TF-KPA">
                                                 <rect key="frame" x="8" y="0.0" width="49" height="31"/>
@@ -339,10 +339,10 @@
                                                 </connections>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-qj-jcy" userLabel="Test Sound Button Container View">
-                                                <rect key="frame" x="0.0" y="295" width="375" height="291"/>
+                                                <rect key="frame" x="0.0" y="295" width="375" height="283"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-BT-OeS" customClass="TheBestClockSpeakerButton" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
-                                                        <rect key="frame" x="162.5" y="120.5" width="50" height="50"/>
+                                                        <rect key="frame" x="162.5" y="116.5" width="50" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="gso-sj-ZVS"/>
                                                             <constraint firstAttribute="width" secondItem="oDq-BT-OeS" secondAttribute="height" multiplier="1:1" id="uP1-pf-Ef3"/>
@@ -367,15 +367,15 @@
                                                 </connections>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FNf-zv-y39">
-                                                <rect key="frame" x="8" y="195" width="359" height="391"/>
+                                                <rect key="frame" x="8" y="195" width="359" height="383"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-NO-MUSIC-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIf-Gc-eGE">
-                                                        <rect key="frame" x="0.0" y="180.5" width="359" height="30"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-NO-MUSIC-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="kIf-Gc-eGE">
+                                                        <rect key="frame" x="0.0" y="176.5" width="359" height="30"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="Z9S-gi-Tos"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="30"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -388,10 +388,10 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lRC-az-iPV" userLabel="Music Test Button Container View">
-                                                <rect key="frame" x="0.0" y="395" width="375" height="187"/>
+                                                <rect key="frame" x="0.0" y="395" width="375" height="179"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dp6-Hz-XAB" customClass="TheBestClockSpeakerButton" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
-                                                        <rect key="frame" x="162.5" y="68.5" width="50" height="50"/>
+                                                        <rect key="frame" x="162.5" y="64.5" width="50" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="Dp6-Hz-XAB" secondAttribute="height" multiplier="1:1" id="209-ea-DcV"/>
                                                             <constraint firstAttribute="height" constant="50" id="Vpb-8A-vQh"/>
@@ -412,20 +412,20 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOT-Kd-MBX">
-                                                <rect key="frame" x="0.0" y="191" width="375" height="395"/>
+                                                <rect key="frame" x="0.0" y="191" width="375" height="387"/>
                                                 <subviews>
                                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="HiL-Dd-hOF">
-                                                        <rect key="frame" x="169" y="179" width="37" height="37"/>
+                                                        <rect key="frame" x="169" y="175" width="37" height="37"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="37" id="LeW-aa-FQk"/>
                                                             <constraint firstAttribute="width" secondItem="HiL-Dd-hOF" secondAttribute="height" multiplier="1:1" id="YIJ-Wp-bZY"/>
                                                         </constraints>
                                                     </activityIndicatorView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hat-Qc-Nd0">
-                                                        <rect key="frame" x="0.0" y="216" width="375" height="179"/>
+                                                        <rect key="frame" x="0.0" y="212" width="375" height="175"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-MUSIC-LOOKUP-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="ogr-sL-Hgh">
-                                                                <rect key="frame" x="0.0" y="79" width="375" height="21"/>
+                                                                <rect key="frame" x="0.0" y="77" width="375" height="21"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="21" id="WfW-HU-Dqz"/>
                                                                 </constraints>
@@ -496,7 +496,7 @@
                                         </constraints>
                                     </view>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-ALARM-DEACTIVATED-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="4yv-BP-CQW">
-                                        <rect key="frame" x="8" y="586" width="359" height="21"/>
+                                        <rect key="frame" x="8" y="578" width="359" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="D7k-gI-7uv"/>
                                         </constraints>
@@ -521,7 +521,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="4yv-BP-CQW" secondAttribute="trailing" constant="8" id="3ZW-hH-eZN"/>
                                     <constraint firstItem="4yv-BP-CQW" firstAttribute="leading" secondItem="g5Y-c0-3tI" secondAttribute="leading" constant="8" id="3h0-HZ-5xi"/>
-                                    <constraint firstItem="43b-Pc-iFX" firstAttribute="top" secondItem="4yv-BP-CQW" secondAttribute="bottom" id="4ac-6B-FVe"/>
+                                    <constraint firstItem="43b-Pc-iFX" firstAttribute="top" secondItem="4yv-BP-CQW" secondAttribute="bottom" constant="8" id="4ac-6B-FVe"/>
                                     <constraint firstItem="43b-Pc-iFX" firstAttribute="leading" secondItem="g5Y-c0-3tI" secondAttribute="leading" id="5bF-TI-NUT"/>
                                     <constraint firstItem="SpK-gg-rNb" firstAttribute="top" secondItem="g5Y-c0-3tI" secondAttribute="top" id="Cyp-Ht-WjZ"/>
                                     <constraint firstAttribute="trailing" secondItem="SpK-gg-rNb" secondAttribute="trailing" id="XwG-rh-s7B"/>

@@ -12,10 +12,6 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>CFBundleLocalizations</key>
-	<array>
-		<string>en</string>
-	</array>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
@@ -32,7 +28,7 @@
 	<string>Play music as an alarm</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>let's go digital regular.ttf</string>
+		<string>let&apos;s go digital regular.ttf</string>
 		<string>AnglicanText.ttf</string>
 		<string>Canterbury.ttf</string>
 		<string>CelticHand.ttf</string>

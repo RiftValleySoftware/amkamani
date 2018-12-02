@@ -72,18 +72,18 @@
 
 /* ALARM EDITOR */
 
-"LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-LABEL" =   "This is a Switch That Will Change the Enabled State of the Alarm";
-"LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-HINT"  =   "Use This to Change Whether or Not the Alarm is Active";
+"LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-LABEL"     =   "This is a Switch That Will Change the Enabled State of the Alarm";
+"LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-HINT"      =   "Use This to Change Whether or Not the Alarm is Active";
 "LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-LABEL"    =   "This is a Switch That Will Tell the Phone Vibrate When the Alarm Goes Off";
-"LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-HINT" =  "Use This to Change Whether or Not the Phone Vibrates When the Alarm Goes Off";
-"LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-LABEL"   =   "This is The Time Selector for the Alarm";
-"LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-HINT"    =   "Use This to Choose the Time the Alarm is Set";
-"LOCAL-ACCESSIBILITY-ALARM-MODE-LABEL"      =       "This is A Segmented Switch That Allows You to Select the Alarm Audio Mode";
-"LOCAL-ACCESSIBILITY-ALARM-MODE-HINT"       =       "You Can Choose A Repeating Sound, Music From Your Music Library, or Silence";
-"LOCAL-ACCESSIBILITY-EDIT-PICKER-LABEL"     =       "This is a Picker That Allows You to Either Choose a Sound, or An Artist From Your Music Collection";
-"LOCAL-ACCESSIBILITY-EDIT-PICKER-HINT"      =       "If You Are in Sound Mode, Then This Will Choose A Sound. Otherwise, It Will Choose An Artist From Your Music Collection";
-"LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-LABEL"    =   "This is a Picker That Allows You to Choose One of the Songs From the Selected Artist";
-"LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-HINT"     =   "When You Select An Artist, This Will be Updated to the Available Songs for That Artist";
+"LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-HINT"     =  "Use This to Change Whether or Not the Phone Vibrates When the Alarm Goes Off";
+"LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-LABEL"       =   "This is The Time Selector for the Alarm";
+"LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-HINT"        =   "Use This to Choose the Time the Alarm is Set";
+"LOCAL-ACCESSIBILITY-ALARM-MODE-LABEL"              =       "This is A Segmented Switch That Allows You to Select the Alarm Audio Mode";
+"LOCAL-ACCESSIBILITY-ALARM-MODE-HINT"               =       "You Can Choose A Repeating Sound, Music From Your Music Library, or Silence";
+"LOCAL-ACCESSIBILITY-EDIT-PICKER-LABEL"             =       "This is a Picker That Allows You to Either Choose a Sound, or An Artist From Your Music Collection";
+"LOCAL-ACCESSIBILITY-EDIT-PICKER-HINT"              =       "If You Are in Sound Mode, Then This Will Choose A Sound. Otherwise, It Will Choose An Artist From Your Music Collection";
+"LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-LABEL"        =   "This is a Picker That Allows You to Choose One of the Songs From the Selected Artist";
+"LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-HINT"         =   "When You Select An Artist, This Will be Updated to the Available Songs for That Artist";
 "LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-LABEL"  =   "This is A Button That Allows You to Test The Selected Sound";
 "LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-HINT"   =   "If You Press This Button, It Will Play the Selected Sound Repeatedly, and You Can Pause by Pressing This Button Again";
 "LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-LABEL"   =   "This is A Button That Allows You to Test The Selected Song";
@@ -91,7 +91,7 @@
 
 /* SYSTEM SETTINGS */
 
-"LOCAL-SNOOZE-COUNT"    = "Snooze Count";
-"LOCAL-FOREVER-SNOOZE"  = "No Snooze Limit";
+"LOCAL-SNOOZE-COUNT"    = "Number of Snoozes";
+"LOCAL-FOREVER-SNOOZE"  = "No Limit";
 "LOCAL-SNOOZE-LABEL"    = "From 1 to 7 Snoozes";
 

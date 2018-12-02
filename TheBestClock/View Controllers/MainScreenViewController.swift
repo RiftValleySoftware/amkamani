@@ -424,7 +424,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         } else if self.fontDisplayPickerView == inPickerView {
             self.selectedFontIndex = row
             self.prefs?.selectedFont = self.selectedFontIndex
-        } else if self.editAlarmPickerView == inPickerView, 0 < self.currentlyEditingAlarmIndex {
+        } else if self.editAlarmPickerView == inPickerView, 0 <= self.currentlyEditingAlarmIndex {
             self.stopAudioPlayer()
             self.editAlarmTestSoundButton.isOn = true
             let currentAlarm = self.prefs.alarms[self.currentlyEditingAlarmIndex]
@@ -432,11 +432,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 currentAlarm.selectedSoundIndex = row
                 self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSoundIndex = row
             } else {
-                self.stopAudioPlayer()
                 self.songSelectionPickerView.reloadComponent(0)
                 self.songSelectionPickerView.selectRow(0, inComponent: 0, animated: true)
                 let songURL = self.findSongURL(artistIndex: self.editAlarmPickerView.selectedRow(inComponent: 0), songIndex: 0)
-                if !songURL.isEmpty, 0 < self.currentlyEditingAlarmIndex {
+                if !songURL.isEmpty, 0 <= self.currentlyEditingAlarmIndex {
                     self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSongURL = songURL
                     self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSongURL = songURL
                 }
@@ -444,7 +443,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         } else if self.songSelectionPickerView == inPickerView {
             self.stopAudioPlayer()
             let songURL = self.findSongURL(artistIndex: self.editAlarmPickerView.selectedRow(inComponent: 0), songIndex: row)
-            if !songURL.isEmpty, 0 < self.currentlyEditingAlarmIndex {
+            if !songURL.isEmpty, 0 <= self.currentlyEditingAlarmIndex {
                 self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSongURL = songURL
                 self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSongURL = songURL
             }

@@ -5,6 +5,10 @@
 - I **FINALLY** figured out what was causing the alarm crash, and fixed it. It was the music library load.
 - Narrowed the requirement for forced portrait a bit. Probably won't make any difference.
 - The active/vibrate switch buttons now use a normal font.
+- Added placeholders for French and Spanish localization.
+- Switched the font of the "No Music Available" label to use the system italic.
+- Localized the sounds.
+- Now force-copy the localization files to the settings bundle.
 
 **Version 1.0.0.2014** *(December 1, 2018)*
 - When deactivating a snoozing alarm, the alarm would not go into a "next time" mode. It does so now.

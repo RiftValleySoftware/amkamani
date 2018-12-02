@@ -12,50 +12,71 @@
 		D413599D218E763F00768430 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D413599B218E763F00768430 /* Main.storyboard */; };
 		D413599F218E764100768430 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D413599E218E764100768430 /* Assets.xcassets */; };
 		D41359A2218E764100768430 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41359A0218E764100768430 /* LaunchScreen.storyboard */; };
-		D41359AD218E764100768430 /* TheBestClockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41359AC218E764100768430 /* TheBestClockTests.swift */; };
-		D41359B8218E764100768430 /* TheBestClockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41359B7218E764100768430 /* TheBestClockUITests.swift */; };
 		D422FE3E21922C5E0022423B /* TheBestClockAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */; };
 		D443F5E8219ADDFB002A212A /* AlarmEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */; };
 		D44DA634219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44DA633219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift */; };
 		D458720521A0B0EA00919A23 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D458720421A0B0EA00919A23 /* Settings.bundle */; };
-		D46682A821911F5E00471BC0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46682A621911F5E00471BC0 /* Localizable.strings */; };
 		D46F84602190CA1F0026C9AD /* TheBestClockMainDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */; };
 		D46F84622190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */; };
-		D481013F2195F00700EEA7FD /* AnglicanText.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D481013C2195F00700EEA7FD /* AnglicanText.ttf */; };
-		D48101402195F00700EEA7FD /* Canterbury.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D481013D2195F00700EEA7FD /* Canterbury.ttf */; };
-		D48101412195F00700EEA7FD /* CelticHand.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D481013E2195F00700EEA7FD /* CelticHand.ttf */; };
 		D487C1062191CE2F00FBDC77 /* TheBestClockPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C1052191CE2E00FBDC77 /* TheBestClockPrefs.swift */; };
 		D49C31FA2195058700598F7E /* TheGreatRiftValleyDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49C31F92195058700598F7E /* TheGreatRiftValleyDrawing.swift */; };
-		D4A7E110219610AD00F94C32 /* single-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E105219610AD00F94C32 /* single-beep.mp3 */; };
-		D4A7E111219610AD00F94C32 /* electronic-buzz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E106219610AD00F94C32 /* electronic-buzz.mp3 */; };
-		D4A7E113219610AD00F94C32 /* high-fast-beeps.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E108219610AD00F94C32 /* high-fast-beeps.mp3 */; };
-		D4A7E116219610AD00F94C32 /* annoying-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E10B219610AD00F94C32 /* annoying-alarm.mp3 */; };
-		D4A7E117219610AD00F94C32 /* fast-beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A7E10C219610AD00F94C32 /* fast-beep.mp3 */; };
-		D4AE3AF421979B8000F706A3 /* crazy-bird.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4AE3AF021979B8000F706A3 /* crazy-bird.mp3 */; };
-		D4AE3AF521979B8000F706A3 /* videogame-beeps-lower-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4AE3AF121979B8000F706A3 /* videogame-beeps-lower-frequency.mp3 */; };
-		D4AE3AF621979B8000F706A3 /* videogame-beeps-high-frequency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4AE3AF221979B8000F706A3 /* videogame-beeps-high-frequency.mp3 */; };
-		D4AE3AF721979B8000F706A3 /* escalation.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4AE3AF321979B8000F706A3 /* escalation.mp3 */; };
 		D4D4AD462194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4AD452194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift */; };
+		D4D56C5A21B43424003025FF /* escalation.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4D56C5C21B43424003025FF /* escalation.mp3 */; };
+		D4D56C5D21B43429003025FF /* fast-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4D56C5F21B43429003025FF /* fast-beep.mp3 */; };
+		D4D56C6021B4342C003025FF /* annoying-alarm.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4D56C6221B4342C003025FF /* annoying-alarm.mp3 */; };
+		D4D56C6621B43441003025FF /* crazy-bird.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4D56C6821B43441003025FF /* crazy-bird.mp3 */; };
+		D4D56C6921B43446003025FF /* high-fast-beeps.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4D56C6B21B43446003025FF /* high-fast-beeps.mp3 */; };
+		D4D56C6C21B4344C003025FF /* electronic-buzz.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4D56C6E21B4344C003025FF /* electronic-buzz.mp3 */; };
+		D4D56C6F21B43450003025FF /* single-beep.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4D56C7121B43450003025FF /* single-beep.mp3 */; };
+		D4D56C7221B43454003025FF /* videogame-beeps-high-frequency.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4D56C7421B43454003025FF /* videogame-beeps-high-frequency.mp3 */; };
+		D4D56C7521B43459003025FF /* videogame-beeps-lower-frequency.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4D56C7721B43459003025FF /* videogame-beeps-lower-frequency.mp3 */; };
+		D4D56C7821B43611003025FF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46682A621911F5E00471BC0 /* Localizable.strings */; };
 		D4D8E04E219AEF7C0007BBAA /* MainFunctionsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D8E04D219AEF7C0007BBAA /* MainFunctionsExtension.swift */; };
-		D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */; };
+		D4FCC23121B439C600D92BD4 /* AnglicanText.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FCC22D21B439C600D92BD4 /* AnglicanText.ttf */; };
+		D4FCC23221B439C600D92BD4 /* let's go digital regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FCC22E21B439C600D92BD4 /* let's go digital regular.ttf */; };
+		D4FCC23321B439C600D92BD4 /* Canterbury.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FCC22F21B439C600D92BD4 /* Canterbury.ttf */; };
+		D4FCC23421B439C600D92BD4 /* CelticHand.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FCC23021B439C600D92BD4 /* CelticHand.ttf */; };
+		D4FCC23521B439E400D92BD4 /* AnglicanText.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = D4FCC22D21B439C600D92BD4 /* AnglicanText.ttf */; };
+		D4FCC23621B439E400D92BD4 /* Canterbury.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = D4FCC22F21B439C600D92BD4 /* Canterbury.ttf */; };
+		D4FCC23721B439E400D92BD4 /* CelticHand.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = D4FCC23021B439C600D92BD4 /* CelticHand.ttf */; };
+		D4FCC23821B439E400D92BD4 /* let's go digital regular.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = D4FCC22E21B439C600D92BD4 /* let's go digital regular.ttf */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		D41359A9218E764100768430 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D413598C218E763F00768430 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D4135993218E763F00768430;
-			remoteInfo = TheBestClock;
+/* Begin PBXCopyFilesBuildPhase section */
+		D4D56C1F21B42877003025FF /* Copy Fonts */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Fonts;
+			dstSubfolderSpec = 7;
+			files = (
+				D4FCC23521B439E400D92BD4 /* AnglicanText.ttf in Copy Fonts */,
+				D4FCC23621B439E400D92BD4 /* Canterbury.ttf in Copy Fonts */,
+				D4FCC23721B439E400D92BD4 /* CelticHand.ttf in Copy Fonts */,
+				D4FCC23821B439E400D92BD4 /* let's go digital regular.ttf in Copy Fonts */,
+			);
+			name = "Copy Fonts";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D41359B4218E764100768430 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D413598C218E763F00768430 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D4135993218E763F00768430;
-			remoteInfo = TheBestClock;
+		D4D56C3B21B43034003025FF /* Copy Sounds */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				D4D56C7521B43459003025FF /* videogame-beeps-lower-frequency.mp3 in Copy Sounds */,
+				D4D56C7221B43454003025FF /* videogame-beeps-high-frequency.mp3 in Copy Sounds */,
+				D4D56C6F21B43450003025FF /* single-beep.mp3 in Copy Sounds */,
+				D4D56C6C21B4344C003025FF /* electronic-buzz.mp3 in Copy Sounds */,
+				D4D56C6921B43446003025FF /* high-fast-beeps.mp3 in Copy Sounds */,
+				D4D56C6621B43441003025FF /* crazy-bird.mp3 in Copy Sounds */,
+				D4D56C6021B4342C003025FF /* annoying-alarm.mp3 in Copy Sounds */,
+				D4D56C5D21B43429003025FF /* fast-beep.mp3 in Copy Sounds */,
+				D4D56C5A21B43424003025FF /* escalation.mp3 in Copy Sounds */,
+			);
+			name = "Copy Sounds";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* End PBXContainerItemProxy section */
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		67ADC8B37E0BB5AC5821F6D6 /* Pods_TheBestClock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheBestClock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,62 +85,41 @@
 		D4135994218E763F00768430 /* Rift Valley Alarm Clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rift Valley Alarm Clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4135997218E763F00768430 /* TheBestClockAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockAppDelegate.swift; sourceTree = "<group>"; };
 		D4135999218E763F00768430 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
-		D413599C218E763F00768430 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D413599E218E764100768430 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D41359A1218E764100768430 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D41359A3218E764100768430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D41359A8218E764100768430 /* TheBestClockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheBestClockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D41359AC218E764100768430 /* TheBestClockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockTests.swift; sourceTree = "<group>"; };
-		D41359AE218E764100768430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D41359B3218E764100768430 /* TheBestClockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheBestClockUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D41359B7218E764100768430 /* TheBestClockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockUITests.swift; sourceTree = "<group>"; };
-		D41359B9218E764100768430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockAlarmView.swift; sourceTree = "<group>"; };
 		D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditorExtension.swift; sourceTree = "<group>"; };
 		D44DA633219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockSpeakerButton.swift; sourceTree = "<group>"; };
 		D458720421A0B0EA00919A23 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		D46682A721911F5E00471BC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockMainDisplayView.swift; sourceTree = "<group>"; };
 		D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockVerticalBrightnessSliderView.swift; sourceTree = "<group>"; };
-		D481013C2195F00700EEA7FD /* AnglicanText.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AnglicanText.ttf; sourceTree = "<group>"; };
-		D481013D2195F00700EEA7FD /* Canterbury.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Canterbury.ttf; sourceTree = "<group>"; };
-		D481013E2195F00700EEA7FD /* CelticHand.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CelticHand.ttf; sourceTree = "<group>"; };
 		D487C1052191CE2E00FBDC77 /* TheBestClockPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockPrefs.swift; sourceTree = "<group>"; };
 		D48A40D02198B5BA00ED8E73 /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
 		D48A40D12198B5BA00ED8E73 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D48A40D22198B5BA00ED8E73 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D49C31F92195058700598F7E /* TheGreatRiftValleyDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheGreatRiftValleyDrawing.swift; sourceTree = "<group>"; };
-		D4A7E105219610AD00F94C32 /* single-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "single-beep.mp3"; sourceTree = "<group>"; };
-		D4A7E106219610AD00F94C32 /* electronic-buzz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "electronic-buzz.mp3"; sourceTree = "<group>"; };
-		D4A7E108219610AD00F94C32 /* high-fast-beeps.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "high-fast-beeps.mp3"; sourceTree = "<group>"; };
-		D4A7E10B219610AD00F94C32 /* annoying-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "annoying-alarm.mp3"; sourceTree = "<group>"; };
-		D4A7E10C219610AD00F94C32 /* fast-beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "fast-beep.mp3"; sourceTree = "<group>"; };
-		D4AE3AF021979B8000F706A3 /* crazy-bird.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "crazy-bird.mp3"; sourceTree = "<group>"; };
-		D4AE3AF121979B8000F706A3 /* videogame-beeps-lower-frequency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "videogame-beeps-lower-frequency.mp3"; sourceTree = "<group>"; };
-		D4AE3AF221979B8000F706A3 /* videogame-beeps-high-frequency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "videogame-beeps-high-frequency.mp3"; sourceTree = "<group>"; };
-		D4AE3AF321979B8000F706A3 /* escalation.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = escalation.mp3; sourceTree = "<group>"; };
 		D4B704062190B9940094E320 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "Pods/Reveal-SDK/RevealServer-19/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		D4D4AD452194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockAboutScreenViewController.swift; sourceTree = "<group>"; };
+		D4D56C2121B42C2D003025FF /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D4D56C2221B42C37003025FF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D4D56C2321B42DC4003025FF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D4D56C4C21B433B3003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D4D56C4D21B433B3003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D4D56C5B21B43424003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Base; path = Base.lproj/escalation.mp3; sourceTree = "<group>"; };
+		D4D56C5E21B43429003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Base; path = "Base.lproj/fast-beep.mp3"; sourceTree = "<group>"; };
+		D4D56C6121B4342C003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Base; path = "Base.lproj/annoying-alarm.mp3"; sourceTree = "<group>"; };
+		D4D56C6721B43441003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Base; path = "Base.lproj/crazy-bird.mp3"; sourceTree = "<group>"; };
+		D4D56C6A21B43446003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Base; path = "Base.lproj/high-fast-beeps.mp3"; sourceTree = "<group>"; };
+		D4D56C6D21B4344C003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Base; path = "Base.lproj/electronic-buzz.mp3"; sourceTree = "<group>"; };
+		D4D56C7021B43450003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Base; path = "Base.lproj/single-beep.mp3"; sourceTree = "<group>"; };
+		D4D56C7321B43454003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Base; path = "Base.lproj/videogame-beeps-high-frequency.mp3"; sourceTree = "<group>"; };
+		D4D56C7621B43459003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Base; path = "Base.lproj/videogame-beeps-lower-frequency.mp3"; sourceTree = "<group>"; };
 		D4D8E04D219AEF7C0007BBAA /* MainFunctionsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFunctionsExtension.swift; sourceTree = "<group>"; };
-		D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "let's go digital regular.ttf"; sourceTree = "<group>"; };
+		D4FCC22D21B439C600D92BD4 /* AnglicanText.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AnglicanText.ttf; sourceTree = "<group>"; };
+		D4FCC22E21B439C600D92BD4 /* let's go digital regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "let's go digital regular.ttf"; sourceTree = "<group>"; };
+		D4FCC22F21B439C600D92BD4 /* Canterbury.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Canterbury.ttf; sourceTree = "<group>"; };
+		D4FCC23021B439C600D92BD4 /* CelticHand.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CelticHand.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		D41359A5218E764100768430 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D41359B0218E764100768430 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		A7DE492AABB4E6094A94D6D2 /* Pods */ = {
@@ -135,8 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				D4135996218E763F00768430 /* TheBestClock */,
-				D41359AB218E764100768430 /* TheBestClockTests */,
-				D41359B6218E764100768430 /* TheBestClockUITests */,
 				D4135995218E763F00768430 /* Products */,
 				A7DE492AABB4E6094A94D6D2 /* Pods */,
 				EF02A0F6866AEB1885ED33AE /* Frameworks */,
@@ -147,8 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				D4135994218E763F00768430 /* Rift Valley Alarm Clock.app */,
-				D41359A8218E764100768430 /* TheBestClockTests.xctest */,
-				D41359B3218E764100768430 /* TheBestClockUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,31 +160,13 @@
 			path = TheBestClock;
 			sourceTree = "<group>";
 		};
-		D41359AB218E764100768430 /* TheBestClockTests */ = {
-			isa = PBXGroup;
-			children = (
-				D41359AC218E764100768430 /* TheBestClockTests.swift */,
-				D41359AE218E764100768430 /* Info.plist */,
-			);
-			path = TheBestClockTests;
-			sourceTree = "<group>";
-		};
-		D41359B6218E764100768430 /* TheBestClockUITests */ = {
-			isa = PBXGroup;
-			children = (
-				D41359B7218E764100768430 /* TheBestClockUITests.swift */,
-				D41359B9218E764100768430 /* Info.plist */,
-			);
-			path = TheBestClockUITests;
-			sourceTree = "<group>";
-		};
 		D41359C5218E768600768430 /* Bundle Resources */ = {
 			isa = PBXGroup;
 			children = (
 				D413599B218E763F00768430 /* Main.storyboard */,
 				D46682A621911F5E00471BC0 /* Localizable.strings */,
-				D4A7E103219610AD00F94C32 /* Sounds */,
 				D4FDA6F1218FA519009F08C2 /* Fonts */,
+				D4D56C2621B43016003025FF /* Sounds */,
 				D413599E218E764100768430 /* Assets.xcassets */,
 				D41359A0218E764100768430 /* LaunchScreen.storyboard */,
 				D458720421A0B0EA00919A23 /* Settings.bundle */,
@@ -229,18 +207,18 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
-		D4A7E103219610AD00F94C32 /* Sounds */ = {
+		D4D56C2621B43016003025FF /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				D4AE3AF021979B8000F706A3 /* crazy-bird.mp3 */,
-				D4AE3AF321979B8000F706A3 /* escalation.mp3 */,
-				D4AE3AF221979B8000F706A3 /* videogame-beeps-high-frequency.mp3 */,
-				D4AE3AF121979B8000F706A3 /* videogame-beeps-lower-frequency.mp3 */,
-				D4A7E105219610AD00F94C32 /* single-beep.mp3 */,
-				D4A7E106219610AD00F94C32 /* electronic-buzz.mp3 */,
-				D4A7E108219610AD00F94C32 /* high-fast-beeps.mp3 */,
-				D4A7E10B219610AD00F94C32 /* annoying-alarm.mp3 */,
-				D4A7E10C219610AD00F94C32 /* fast-beep.mp3 */,
+				D4D56C7721B43459003025FF /* videogame-beeps-lower-frequency.mp3 */,
+				D4D56C7421B43454003025FF /* videogame-beeps-high-frequency.mp3 */,
+				D4D56C7121B43450003025FF /* single-beep.mp3 */,
+				D4D56C6E21B4344C003025FF /* electronic-buzz.mp3 */,
+				D4D56C6B21B43446003025FF /* high-fast-beeps.mp3 */,
+				D4D56C6821B43441003025FF /* crazy-bird.mp3 */,
+				D4D56C6221B4342C003025FF /* annoying-alarm.mp3 */,
+				D4D56C5F21B43429003025FF /* fast-beep.mp3 */,
+				D4D56C5C21B43424003025FF /* escalation.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -248,10 +226,10 @@
 		D4FDA6F1218FA519009F08C2 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				D481013C2195F00700EEA7FD /* AnglicanText.ttf */,
-				D481013D2195F00700EEA7FD /* Canterbury.ttf */,
-				D481013E2195F00700EEA7FD /* CelticHand.ttf */,
-				D4FDA6F2218FA519009F08C2 /* let's go digital regular.ttf */,
+				D4FCC22D21B439C600D92BD4 /* AnglicanText.ttf */,
+				D4FCC22F21B439C600D92BD4 /* Canterbury.ttf */,
+				D4FCC23021B439C600D92BD4 /* CelticHand.ttf */,
+				D4FCC22E21B439C600D92BD4 /* let's go digital regular.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -277,6 +255,9 @@
 			buildPhases = (
 				D46F045F2190B4370045FBB2 /* SwiftLINT */,
 				D4135990218E763F00768430 /* Sources */,
+				D4D56C2021B4288E003025FF /* Copy Localizable Files to Settings Bundle */,
+				D4D56C1F21B42877003025FF /* Copy Fonts */,
+				D4D56C3B21B43034003025FF /* Copy Sounds */,
 				D4135992218E763F00768430 /* Resources */,
 			);
 			buildRules = (
@@ -287,42 +268,6 @@
 			productName = TheBestClock;
 			productReference = D4135994218E763F00768430 /* Rift Valley Alarm Clock.app */;
 			productType = "com.apple.product-type.application";
-		};
-		D41359A7218E764100768430 /* TheBestClockTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D41359BF218E764100768430 /* Build configuration list for PBXNativeTarget "TheBestClockTests" */;
-			buildPhases = (
-				D41359A4218E764100768430 /* Sources */,
-				D41359A5218E764100768430 /* Frameworks */,
-				D41359A6218E764100768430 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D41359AA218E764100768430 /* PBXTargetDependency */,
-			);
-			name = TheBestClockTests;
-			productName = TheBestClockTests;
-			productReference = D41359A8218E764100768430 /* TheBestClockTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		D41359B2218E764100768430 /* TheBestClockUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D41359C2218E764100768430 /* Build configuration list for PBXNativeTarget "TheBestClockUITests" */;
-			buildPhases = (
-				D41359AF218E764100768430 /* Sources */,
-				D41359B0218E764100768430 /* Frameworks */,
-				D41359B1218E764100768430 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D41359B5218E764100768430 /* PBXTargetDependency */,
-			);
-			name = TheBestClockUITests;
-			productName = TheBestClockUITests;
-			productReference = D41359B3218E764100768430 /* TheBestClockUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -337,14 +282,6 @@
 					D4135993218E763F00768430 = {
 						CreatedOnToolsVersion = 10.0;
 					};
-					D41359A7218E764100768430 = {
-						CreatedOnToolsVersion = 10.0;
-						TestTargetID = D4135993218E763F00768430;
-					};
-					D41359B2218E764100768430 = {
-						CreatedOnToolsVersion = 10.0;
-						TestTargetID = D4135993218E763F00768430;
-					};
 				};
 			};
 			buildConfigurationList = D413598F218E763F00768430 /* Build configuration list for PBXProject "TheBestClock" */;
@@ -353,6 +290,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				es,
+				fr,
 				Base,
 			);
 			mainGroup = D413598B218E763F00768430;
@@ -361,8 +300,6 @@
 			projectRoot = "";
 			targets = (
 				D4135993218E763F00768430 /* Rift Valley Alarm Clock */,
-				D41359A7218E764100768430 /* TheBestClockTests */,
-				D41359B2218E764100768430 /* TheBestClockUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -372,38 +309,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4FCC23221B439C600D92BD4 /* let's go digital regular.ttf in Resources */,
+				D4FCC23321B439C600D92BD4 /* Canterbury.ttf in Resources */,
+				D4D56C7821B43611003025FF /* Localizable.strings in Resources */,
+				D413599F218E764100768430 /* Assets.xcassets in Resources */,
+				D4FCC23421B439C600D92BD4 /* CelticHand.ttf in Resources */,
 				D413599D218E763F00768430 /* Main.storyboard in Resources */,
 				D41359A2218E764100768430 /* LaunchScreen.storyboard in Resources */,
-				D46682A821911F5E00471BC0 /* Localizable.strings in Resources */,
-				D413599F218E764100768430 /* Assets.xcassets in Resources */,
-				D48101412195F00700EEA7FD /* CelticHand.ttf in Resources */,
-				D4FDA6F3218FA519009F08C2 /* let's go digital regular.ttf in Resources */,
-				D48101402195F00700EEA7FD /* Canterbury.ttf in Resources */,
-				D481013F2195F00700EEA7FD /* AnglicanText.ttf in Resources */,
-				D4AE3AF521979B8000F706A3 /* videogame-beeps-lower-frequency.mp3 in Resources */,
-				D4AE3AF721979B8000F706A3 /* escalation.mp3 in Resources */,
-				D4AE3AF421979B8000F706A3 /* crazy-bird.mp3 in Resources */,
-				D4A7E113219610AD00F94C32 /* high-fast-beeps.mp3 in Resources */,
-				D4A7E111219610AD00F94C32 /* electronic-buzz.mp3 in Resources */,
-				D4A7E117219610AD00F94C32 /* fast-beep.mp3 in Resources */,
-				D4AE3AF621979B8000F706A3 /* videogame-beeps-high-frequency.mp3 in Resources */,
-				D4A7E110219610AD00F94C32 /* single-beep.mp3 in Resources */,
+				D4FCC23121B439C600D92BD4 /* AnglicanText.ttf in Resources */,
 				D458720521A0B0EA00919A23 /* Settings.bundle in Resources */,
-				D4A7E116219610AD00F94C32 /* annoying-alarm.mp3 in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D41359A6218E764100768430 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D41359B1218E764100768430 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +342,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\n";
 		};
+		D4D56C2021B4288E003025FF /* Copy Localizable Files to Settings Bundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Localizable Files to Settings Bundle";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp -Rf ${PROJECT_DIR}/TheBestClock/Bundle\\ Resources/*.lproj ${PROJECT_DIR}/TheBestClock/Bundle\\ Resources/Settings.bundle/\nrm -drf ${PROJECT_DIR}/TheBestClock/Bundle\\ Resources/Settings.bundle/Base.lproj/\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -449,42 +381,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D41359A4218E764100768430 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D41359AD218E764100768430 /* TheBestClockTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D41359AF218E764100768430 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D41359B8218E764100768430 /* TheBestClockUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		D41359AA218E764100768430 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D4135993218E763F00768430 /* Rift Valley Alarm Clock */;
-			targetProxy = D41359A9218E764100768430 /* PBXContainerItemProxy */;
-		};
-		D41359B5218E764100768430 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D4135993218E763F00768430 /* Rift Valley Alarm Clock */;
-			targetProxy = D41359B4218E764100768430 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D413599B218E763F00768430 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D413599C218E763F00768430 /* Base */,
+				D4D56C4C21B433B3003025FF /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -492,7 +395,7 @@
 		D41359A0218E764100768430 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D41359A1218E764100768430 /* Base */,
+				D4D56C4D21B433B3003025FF /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -500,9 +403,83 @@
 		D46682A621911F5E00471BC0 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D46682A721911F5E00471BC0 /* Base */,
+				D4D56C2121B42C2D003025FF /* es */,
+				D4D56C2221B42C37003025FF /* fr */,
+				D4D56C2321B42DC4003025FF /* en */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		D4D56C5C21B43424003025FF /* escalation.mp3 */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4D56C5B21B43424003025FF /* Base */,
+			);
+			name = escalation.mp3;
+			sourceTree = "<group>";
+		};
+		D4D56C5F21B43429003025FF /* fast-beep.mp3 */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4D56C5E21B43429003025FF /* Base */,
+			);
+			name = "fast-beep.mp3";
+			sourceTree = "<group>";
+		};
+		D4D56C6221B4342C003025FF /* annoying-alarm.mp3 */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4D56C6121B4342C003025FF /* Base */,
+			);
+			name = "annoying-alarm.mp3";
+			sourceTree = "<group>";
+		};
+		D4D56C6821B43441003025FF /* crazy-bird.mp3 */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4D56C6721B43441003025FF /* Base */,
+			);
+			name = "crazy-bird.mp3";
+			sourceTree = "<group>";
+		};
+		D4D56C6B21B43446003025FF /* high-fast-beeps.mp3 */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4D56C6A21B43446003025FF /* Base */,
+			);
+			name = "high-fast-beeps.mp3";
+			sourceTree = "<group>";
+		};
+		D4D56C6E21B4344C003025FF /* electronic-buzz.mp3 */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4D56C6D21B4344C003025FF /* Base */,
+			);
+			name = "electronic-buzz.mp3";
+			sourceTree = "<group>";
+		};
+		D4D56C7121B43450003025FF /* single-beep.mp3 */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4D56C7021B43450003025FF /* Base */,
+			);
+			name = "single-beep.mp3";
+			sourceTree = "<group>";
+		};
+		D4D56C7421B43454003025FF /* videogame-beeps-high-frequency.mp3 */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4D56C7321B43454003025FF /* Base */,
+			);
+			name = "videogame-beeps-high-frequency.mp3";
+			sourceTree = "<group>";
+		};
+		D4D56C7721B43459003025FF /* videogame-beeps-lower-frequency.mp3 */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4D56C7621B43459003025FF /* Base */,
+			);
+			name = "videogame-beeps-lower-frequency.mp3";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -512,6 +489,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -573,6 +551,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -670,88 +649,6 @@
 			};
 			name = Release;
 		};
-		D41359C0218E764100768430 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P53V4JS928;
-				INFOPLIST_FILE = TheBestClockTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.TheBestClockTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheBestClock.app/TheBestClock";
-			};
-			name = Debug;
-		};
-		D41359C1218E764100768430 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P53V4JS928;
-				INFOPLIST_FILE = TheBestClockTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.TheBestClockTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheBestClock.app/TheBestClock";
-			};
-			name = Release;
-		};
-		D41359C3218E764100768430 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P53V4JS928;
-				INFOPLIST_FILE = TheBestClockUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.TheBestClockUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = TheBestClock;
-			};
-			name = Debug;
-		};
-		D41359C4218E764100768430 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P53V4JS928;
-				INFOPLIST_FILE = TheBestClockUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.TheBestClockUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = TheBestClock;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -769,24 +666,6 @@
 			buildConfigurations = (
 				D41359BD218E764100768430 /* Debug */,
 				D41359BE218E764100768430 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D41359BF218E764100768430 /* Build configuration list for PBXNativeTarget "TheBestClockTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D41359C0218E764100768430 /* Debug */,
-				D41359C1218E764100768430 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D41359C2218E764100768430 /* Build configuration list for PBXNativeTarget "TheBestClockUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D41359C3218E764100768430 /* Debug */,
-				D41359C4218E764100768430 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
