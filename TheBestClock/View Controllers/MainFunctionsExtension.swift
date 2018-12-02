@@ -325,10 +325,6 @@ extension MainScreenViewController {
                 AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
             }
             
-            if self.wholeScreenThrobberView.isHidden, .denied != MPMediaLibrary.authorizationStatus(), .music == self.prefs.alarms[inIndex].selectedSoundMode, self.artists.isEmpty {
-                self.loadMediaLibrary(displayWholeScreenThrobber: true)
-            }
-            
             self.playSound(inIndex)
         }
     }
@@ -341,7 +337,6 @@ extension MainScreenViewController {
      */
     func flashDisplay(_ inUIColor: UIColor) {
         self.selectedBrightness = 1.0
-        self.prefs?.brightnessLevel = self.selectedBrightness
         UIScreen.main.brightness = self.selectedBrightness
         self.flasherView.backgroundColor = inUIColor
         self.flasherView.alpha = 0
@@ -492,6 +487,8 @@ extension MainScreenViewController {
             self.snoozeCount += 1
             self.stopAudioPlayer()
             self.alarmDisplayView.isHidden = true
+            self.selectedBrightness = self.prefs.brightnessLevel
+            self.brightnessSliderChanged()
             for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].snoozing {
                 self.alarmButtons[index].snore()
             }
@@ -544,9 +541,14 @@ extension MainScreenViewController {
      
      - parameter inSlider: The brightness slider being manipulated.
      */
-    @IBAction func brightnessSliderChanged(_ inSlider: TheBestClockVerticalBrightnessSliderView) {
-        self.selectedBrightness = max(self.minimumBrightness, min(inSlider.brightness, 1.0))
-        let newBrightness = min(1.0, self.selectedBrightness)
+    @IBAction func brightnessSliderChanged(_ inSlider: TheBestClockVerticalBrightnessSliderView! = nil) {
+        var newBrightness: CGFloat = 1.0
+        
+        if nil != inSlider {
+            self.selectedBrightness = Swift.max(self.minimumBrightness, Swift.min(inSlider.brightness, 1.0))
+        }
+        
+        newBrightness = Swift.min(newBrightness, Swift.max(self.minimumBrightness, self.selectedBrightness))
         self.prefs?.brightnessLevel = newBrightness
         TheBestClockAppDelegate.recordOriginalBrightness()
         UIScreen.main.brightness = newBrightness    // Also dim the screen.
@@ -671,6 +673,7 @@ extension MainScreenViewController {
         self.setInfoButtonColor()
         self.noMusicAvailableLabel.text = self.noMusicAvailableLabel.text?.localizedVariant
         self.alarmDeactivatedLabel.text = self.alarmDeactivatedLabel.text?.localizedVariant
+        self.musicLookupLabel.text = self.musicLookupLabel.text?.localizedVariant
         self.alarmEditorActiveButton.setTitle(self.alarmEditorActiveButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.alarmEditorVibrateButton.setTitle(self.alarmEditorVibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.snoozeGestureRecogninzer.require(toFail: self.shutUpAlreadyGestureRecognizer)

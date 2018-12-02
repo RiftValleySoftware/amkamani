@@ -309,7 +309,7 @@ extension MainScreenViewController {
             self.dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .highlighted)
 
             self.alarmDeactivatedLabel.textColor = self.selectedColor
-            alarmDeactivatedLabel.font = UIFont.italicSystemFont(ofSize: self.alarmDeactivatedLabelFontSize)
+            self.musicLookupLabel.textColor = self.selectedColor
 
             self.alarmEditorActiveSwitch.tintColor = self.selectedColor
             self.alarmEditorActiveSwitch.onTintColor = self.selectedColor
@@ -319,9 +319,9 @@ extension MainScreenViewController {
             if let label = self.alarmEditorActiveButton.titleLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.baselineAdjustment = .alignCenters
-                if let font = UIFont(name: self.selectedFontName, size: self.alarmEditorTopFontSize) {
-                    label.font = font
-                }
+//                if let font = UIFont(name: self.selectedFontName, size: self.alarmEditorTopFontSize) {
+//                    label.font = font
+//                }
             }
 
             self.alarmEditorVibrateBeepSwitch.tintColor = self.selectedColor
@@ -332,9 +332,9 @@ extension MainScreenViewController {
             if let label = self.alarmEditorVibrateButton.titleLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.baselineAdjustment = .alignCenters
-                if let font = UIFont(name: self.selectedFontName, size: self.alarmEditorTopFontSize) {
-                    label.font = font
-                }
+//                if let font = UIFont(name: self.selectedFontName, size: self.alarmEditorTopFontSize) {
+//                    label.font = font
+//                }
             }
             
             self.musicTestButton.tintColor = self.selectedColor
@@ -374,12 +374,14 @@ extension MainScreenViewController {
     /**
      */
     func showHideItems() {
-        self.testSoundContainerView.isHidden = .sounds != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode
-        self.musicTestButtonView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
-        self.editPickerContainerView.isHidden = .silence == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || (.music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode && (self.songs.isEmpty || self.artists.isEmpty))
-        self.songSelectContainerView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
-        self.noMusicDisplayView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || !(self.artists.isEmpty || self.songs.isEmpty)
-        self.alarmDeactivatedLabel.isHidden = !self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive || !self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated
+        if 0 < self.currentlyEditingAlarmIndex {
+            self.testSoundContainerView.isHidden = .sounds != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode
+            self.musicTestButtonView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
+            self.editPickerContainerView.isHidden = .silence == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || (.music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode && (self.songs.isEmpty || self.artists.isEmpty))
+            self.songSelectContainerView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
+            self.noMusicDisplayView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || !(self.artists.isEmpty || self.songs.isEmpty)
+            self.alarmDeactivatedLabel.isHidden = !self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive || !self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated
+        }
         self.alarmEditorVibrateButton.isHidden = "iPad" == UIDevice.current.model   // Hide these on iPads, which don't do vibrate.
         self.alarmEditorVibrateBeepSwitch.isHidden = "iPad" == UIDevice.current.model
     }

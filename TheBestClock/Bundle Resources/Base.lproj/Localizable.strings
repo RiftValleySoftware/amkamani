@@ -28,6 +28,7 @@
 "LOCAL-UNKNOWN-ARTIST"                      =       "Unknown Artist";
 "LOCAL-UNKNOWN-ARTIST"                      =       "Unknown Artist";
 "LOCAL-NO-MUSIC-LABEL"                      =       "No Music Available";
+"LOCAL-MUSIC-LOOKUP-LABEL"                  =       "Fetching Your Music Library";
 "LOCAL-ALARM-DEACTIVATED-LABEL"             =       "This alarm will not go off until next time.";
 "annoying-alarm.mp3"                        =       "Classic Alarm";
 "electronic-buzz.mp3"                       =       "Strident Beeps";

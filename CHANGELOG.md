@@ -1,7 +1,10 @@
-**Version 1.0.0.2015** *(TBD)*
+**Version 1.0.0.2015** *(December 2, 2018)*
 - Tweaked the branding control in the info screen.
 - The "deactivated" state can now be toggled by switching the activated state switch.
 - Replaced the GCD timer with a standard high-level timer.
+- I **FINALLY** figured out what was causing the alarm crash, and fixed it. It was the music library load.
+- Narrowed the requirement for forced portrait a bit. Probably won't make any difference.
+- The active/vibrate switch buttons now use a normal font.
 
 **Version 1.0.0.2014** *(December 1, 2018)*
 - When deactivating a snoozing alarm, the alarm would not go into a "next time" mode. It does so now.

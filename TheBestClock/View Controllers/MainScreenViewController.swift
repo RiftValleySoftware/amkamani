@@ -109,8 +109,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let alarmEditorSoundPickerFontSize: CGFloat = 24
     /// This is the base font size for the sound test button.
     let alarmEditorSoundButtonFontSize: CGFloat = 30
-    /// This is the base font size for the deactivated label.
-    let alarmDeactivatedLabelFontSize: CGFloat = 15
 
     /* ################################################################## */
     // MARK: - Instance IB Properties
@@ -193,6 +191,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var alarmDeactivatedLabel: UILabel!
     /// This is a transparent view that allows gesture recognizers to disable the alarm.
     @IBOutlet weak var alarmDisableScreenView: UIView!
+    /// This is the label that is displayed while the music is being looked up.
+    @IBOutlet weak var musicLookupLabel: UILabel!
     
     /* ################################################################## */
     // MARK: - Instance Properties
@@ -226,7 +226,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /// This is an index of the keys (artists) for the songs Dictionary.
     var artists: [String] = []
     /// This is the narrowest that a screen can be to properly accommodate an Alarm Editor. Under this, and we need to force portrait mode.
-    var alarmEditorMinimumHeight: CGFloat = 550
+    var alarmEditorMinimumHeight: CGFloat = 500
     /// This is a simple semaphore to indicate that we are in the process of loading music.
     var isLoadin: Bool = false
     /// This records the number of snoozes. We use this if we don't have "forever snooze" on.
@@ -424,7 +424,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         } else if self.fontDisplayPickerView == inPickerView {
             self.selectedFontIndex = row
             self.prefs?.selectedFont = self.selectedFontIndex
-        } else if self.editAlarmPickerView == inPickerView {
+        } else if self.editAlarmPickerView == inPickerView, 0 < self.currentlyEditingAlarmIndex {
             self.stopAudioPlayer()
             self.editAlarmTestSoundButton.isOn = true
             let currentAlarm = self.prefs.alarms[self.currentlyEditingAlarmIndex]
@@ -436,7 +436,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 self.songSelectionPickerView.reloadComponent(0)
                 self.songSelectionPickerView.selectRow(0, inComponent: 0, animated: true)
                 let songURL = self.findSongURL(artistIndex: self.editAlarmPickerView.selectedRow(inComponent: 0), songIndex: 0)
-                if !songURL.isEmpty {
+                if !songURL.isEmpty, 0 < self.currentlyEditingAlarmIndex {
                     self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSongURL = songURL
                     self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSongURL = songURL
                 }
@@ -444,7 +444,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
         } else if self.songSelectionPickerView == inPickerView {
             self.stopAudioPlayer()
             let songURL = self.findSongURL(artistIndex: self.editAlarmPickerView.selectedRow(inComponent: 0), songIndex: row)
-            if !songURL.isEmpty {
+            if !songURL.isEmpty, 0 < self.currentlyEditingAlarmIndex {
                 self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSongURL = songURL
                 self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSongURL = songURL
             }

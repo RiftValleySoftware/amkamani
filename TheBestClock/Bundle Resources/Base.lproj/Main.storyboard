@@ -207,6 +207,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N79-EU-S3q">
                                                         <rect key="frame" x="0.0" y="0.0" width="124.5" height="31"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="LOCAL-ACTIVE-SWITCH"/>
                                                         <connections>
                                                             <action selector="activeButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NKz-Mj-eA4"/>
@@ -214,6 +215,7 @@
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s52-VF-TQ5">
                                                         <rect key="frame" x="124.5" y="0.0" width="124.5" height="31"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="LOCAL-VIBRATE-BEEP-SWITCH"/>
                                                         <connections>
                                                             <action selector="vibrateButtonHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rp5-7w-vad"/>
@@ -238,13 +240,13 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jK9-7k-U8Q" userLabel="Date Picker Container View">
-                                                <rect key="frame" x="8" y="39" width="359" height="128"/>
+                                                <rect key="frame" x="8" y="39" width="359" height="100"/>
                                                 <subviews>
                                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Epq-FZ-noz">
-                                                        <rect key="frame" x="0.0" y="8" width="359" height="120"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="100"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="GQ5-gn-ODe"/>
-                                                            <constraint firstAttribute="height" priority="999" constant="120" id="VD8-7d-1i5"/>
+                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="GQ5-gn-ODe"/>
+                                                            <constraint firstAttribute="height" priority="999" constant="100" id="VD8-7d-1i5"/>
                                                         </constraints>
                                                         <date key="date" timeIntervalSinceReferenceDate="563297011.76202798">
                                                             <!--2018-11-07 15:23:31 +0000-->
@@ -260,14 +262,14 @@
                                                     <constraint firstAttribute="bottom" secondItem="Epq-FZ-noz" secondAttribute="bottom" id="6vG-23-hb6"/>
                                                     <constraint firstItem="Epq-FZ-noz" firstAttribute="leading" secondItem="jK9-7k-U8Q" secondAttribute="leading" id="eDZ-4E-GnU"/>
                                                     <constraint firstAttribute="trailing" secondItem="Epq-FZ-noz" secondAttribute="trailing" id="flt-MU-aX1"/>
-                                                    <constraint firstItem="Epq-FZ-noz" firstAttribute="top" secondItem="jK9-7k-U8Q" secondAttribute="top" constant="8" id="uWc-gq-eTV"/>
+                                                    <constraint firstItem="Epq-FZ-noz" firstAttribute="top" secondItem="jK9-7k-U8Q" secondAttribute="top" id="uWc-gq-eTV"/>
                                                 </constraints>
                                                 <connections>
                                                     <outletCollection property="gestureRecognizers" destination="UY0-GO-scj" appends="YES" id="xfo-tY-xq6"/>
                                                 </connections>
                                             </view>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="anU-SX-fsT">
-                                                <rect key="frame" x="8" y="175" width="359" height="41"/>
+                                                <rect key="frame" x="8" y="147" width="359" height="41"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="1bk-MR-UHD"/>
@@ -283,13 +285,13 @@
                                                 </connections>
                                             </segmentedControl>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SZV-H4-hT3">
-                                                <rect key="frame" x="8" y="223" width="359" height="120"/>
+                                                <rect key="frame" x="8" y="195" width="359" height="100"/>
                                                 <subviews>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZW-w9-tN7">
-                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="120"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="100"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" priority="999" constant="120" id="5q3-nd-gXD"/>
-                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="hY3-du-1uv"/>
+                                                            <constraint firstAttribute="height" priority="999" constant="100" id="5q3-nd-gXD"/>
+                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="hY3-du-1uv"/>
                                                         </constraints>
                                                         <connections>
                                                             <outlet property="dataSource" destination="BYZ-38-t0r" id="O2d-FG-ckt"/>
@@ -310,13 +312,13 @@
                                                 </connections>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMz-At-38F" userLabel="Song Select Picker Container View">
-                                                <rect key="frame" x="8" y="343" width="359" height="120"/>
+                                                <rect key="frame" x="8" y="295" width="359" height="100"/>
                                                 <subviews>
                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJG-jK-HAQ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="120"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="100"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" priority="999" constant="120" id="40g-oa-2UA"/>
-                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="5BY-om-mjc"/>
+                                                            <constraint firstAttribute="height" priority="999" constant="100" id="40g-oa-2UA"/>
+                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="5BY-om-mjc"/>
                                                         </constraints>
                                                         <connections>
                                                             <outlet property="dataSource" destination="BYZ-38-t0r" id="mr7-bI-Ekm"/>
@@ -337,10 +339,10 @@
                                                 </connections>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-qj-jcy" userLabel="Test Sound Button Container View">
-                                                <rect key="frame" x="0.0" y="343" width="375" height="243"/>
+                                                <rect key="frame" x="0.0" y="295" width="375" height="291"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-BT-OeS" customClass="TheBestClockSpeakerButton" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
-                                                        <rect key="frame" x="162.5" y="96.5" width="50" height="50"/>
+                                                        <rect key="frame" x="162.5" y="120.5" width="50" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="gso-sj-ZVS"/>
                                                             <constraint firstAttribute="width" secondItem="oDq-BT-OeS" secondAttribute="height" multiplier="1:1" id="uP1-pf-Ef3"/>
@@ -365,10 +367,10 @@
                                                 </connections>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FNf-zv-y39">
-                                                <rect key="frame" x="8" y="223" width="359" height="363"/>
+                                                <rect key="frame" x="8" y="195" width="359" height="391"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-NO-MUSIC-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIf-Gc-eGE">
-                                                        <rect key="frame" x="0.0" y="166.5" width="359" height="30"/>
+                                                        <rect key="frame" x="0.0" y="180.5" width="359" height="30"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="Z9S-gi-Tos"/>
@@ -386,10 +388,10 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lRC-az-iPV" userLabel="Music Test Button Container View">
-                                                <rect key="frame" x="0.0" y="463" width="375" height="119"/>
+                                                <rect key="frame" x="0.0" y="395" width="375" height="187"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dp6-Hz-XAB" customClass="TheBestClockSpeakerButton" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
-                                                        <rect key="frame" x="162.5" y="34.5" width="50" height="50"/>
+                                                        <rect key="frame" x="162.5" y="68.5" width="50" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="Dp6-Hz-XAB" secondAttribute="height" multiplier="1:1" id="209-ea-DcV"/>
                                                             <constraint firstAttribute="height" constant="50" id="Vpb-8A-vQh"/>
@@ -410,19 +412,43 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOT-Kd-MBX">
-                                                <rect key="frame" x="0.0" y="219" width="375" height="367"/>
+                                                <rect key="frame" x="0.0" y="191" width="375" height="395"/>
                                                 <subviews>
                                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="HiL-Dd-hOF">
-                                                        <rect key="frame" x="169" y="165" width="37" height="37"/>
+                                                        <rect key="frame" x="169" y="179" width="37" height="37"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="37" id="LeW-aa-FQk"/>
                                                             <constraint firstAttribute="width" secondItem="HiL-Dd-hOF" secondAttribute="height" multiplier="1:1" id="YIJ-Wp-bZY"/>
                                                         </constraints>
                                                     </activityIndicatorView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hat-Qc-Nd0">
+                                                        <rect key="frame" x="0.0" y="216" width="375" height="179"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-MUSIC-LOOKUP-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="ogr-sL-Hgh">
+                                                                <rect key="frame" x="0.0" y="79" width="375" height="21"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="21" id="WfW-HU-Dqz"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="20"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="ogr-sL-Hgh" firstAttribute="centerY" secondItem="Hat-Qc-Nd0" secondAttribute="centerY" id="55M-89-dfQ"/>
+                                                            <constraint firstItem="ogr-sL-Hgh" firstAttribute="leading" secondItem="Hat-Qc-Nd0" secondAttribute="leading" id="6XB-ie-VSu"/>
+                                                            <constraint firstAttribute="trailing" secondItem="ogr-sL-Hgh" secondAttribute="trailing" id="hi6-hj-Goa"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstItem="Hat-Qc-Nd0" firstAttribute="top" secondItem="HiL-Dd-hOF" secondAttribute="bottom" id="1EN-XS-FtC"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Hat-Qc-Nd0" secondAttribute="trailing" id="AOg-E7-Lf5"/>
                                                     <constraint firstItem="HiL-Dd-hOF" firstAttribute="centerY" secondItem="LOT-Kd-MBX" secondAttribute="centerY" id="EbH-WI-rx0"/>
+                                                    <constraint firstItem="Hat-Qc-Nd0" firstAttribute="leading" secondItem="LOT-Kd-MBX" secondAttribute="leading" id="qMc-tD-pFe"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Hat-Qc-Nd0" secondAttribute="bottom" id="sht-vD-CFy"/>
                                                     <constraint firstItem="HiL-Dd-hOF" firstAttribute="centerX" secondItem="LOT-Kd-MBX" secondAttribute="centerX" id="wQw-CH-e9O"/>
                                                 </constraints>
                                             </view>
@@ -469,12 +495,12 @@
                                             <constraint firstItem="Vhh-qj-jcy" firstAttribute="top" secondItem="SZV-H4-hT3" secondAttribute="bottom" id="zAQ-50-QS3"/>
                                         </constraints>
                                     </view>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-ALARM-DEACTIVATED-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="4yv-BP-CQW">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOCAL-ALARM-DEACTIVATED-LABEL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="4yv-BP-CQW">
                                         <rect key="frame" x="8" y="586" width="359" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="D7k-gI-7uv"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -609,6 +635,7 @@
                         <outlet property="leftBrightnessSlider" destination="7io-PK-JhC" id="AAh-kC-gSO"/>
                         <outlet property="mainNumberDisplayView" destination="tA9-HM-M61" id="4MX-Vs-nAa"/>
                         <outlet property="mainPickerContainerView" destination="KDL-S8-BKg" id="Qml-Ag-nxF"/>
+                        <outlet property="musicLookupLabel" destination="ogr-sL-Hgh" id="5Gr-l6-Jbj"/>
                         <outlet property="musicLookupThrobber" destination="HiL-Dd-hOF" id="Ju8-he-xhT"/>
                         <outlet property="musicLookupThrobberView" destination="LOT-Kd-MBX" id="VKL-W7-aHq"/>
                         <outlet property="musicTestButton" destination="Dp6-Hz-XAB" id="Q46-4z-dmv"/>
