@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.0</string>
 	<key>CFBundleVersion</key>
-	<string>2015</string>
+	<string>2016</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -28,7 +28,7 @@
 	<string>Play music as an alarm</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>let&apos;s go digital regular.ttf</string>
+		<string>let's go digital regular.ttf</string>
 		<string>AnglicanText.ttf</string>
 		<string>Canterbury.ttf</string>
 		<string>CelticHand.ttf</string>

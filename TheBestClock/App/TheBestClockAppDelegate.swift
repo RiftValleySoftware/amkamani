@@ -92,6 +92,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
     class func restoreOriginalBrightness() {
         if nil != self.originalScreenBrightness {
             UIScreen.main.brightness = self.originalScreenBrightness
+            self.originalScreenBrightness = nil
         }
     }
     
