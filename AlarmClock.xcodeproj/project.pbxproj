@@ -235,7 +235,6 @@
 				D4D8E04D219AEF7C0007BBAA /* MainFunctionsExtension.swift */,
 				D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */,
 				D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */,
-				D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */,
 				D4D4AD452194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift */,
 			);
 			path = "Views And Controllers";
@@ -247,6 +246,7 @@
 				D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */,
 				D49C31F92195058700598F7E /* TheGreatRiftValleyDrawing.swift */,
 				D44DA633219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift */,
+				D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */,
 			);
 			path = "Custom Controls";
 			sourceTree = "<group>";

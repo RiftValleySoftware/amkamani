@@ -114,6 +114,7 @@ extension MainScreenViewController {
             inContainerView.addContainedView(displayLabelGradient)
             
             inContainerView.mask = displayLabel // This is where the gradient magic happens. The label is used as a mask.
+            inContainerView.accessibilityLabel = self.currentTimeString.time + " " + self.currentTimeString.amPm
         }
         
         return inContainerView
@@ -133,12 +134,18 @@ extension MainScreenViewController {
             textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.3 * self.selectedBrightness, alpha: 1.0)
         }
         
-        self.amPmLabel.font = UIFont(name: self.selectedFontName, size: self.amPmLabelFontSize)
-        self.amPmLabel.text = self.currentTimeString.amPm
-        self.amPmLabel.adjustsFontSizeToFitWidth = true
-        self.amPmLabel.textAlignment = .right
-        self.amPmLabel.baselineAdjustment = .alignCenters
-        self.amPmLabel.textColor = textColor
+        if !self.currentTimeString.amPm.isEmpty {
+            self.amPmLabel.isHidden = false
+            self.amPmLabel.font = UIFont(name: self.selectedFontName, size: self.amPmLabelFontSize)
+            self.amPmLabel.text = self.currentTimeString.amPm
+            self.amPmLabel.adjustsFontSizeToFitWidth = true
+            self.amPmLabel.textAlignment = .right
+            self.amPmLabel.baselineAdjustment = .alignCenters
+            self.amPmLabel.textColor = textColor
+            self.amPmLabel.accessibilityLabel = "LOCAL-ACCESSIBILITY-AMPM-LABEL".localizedVariant + " " + self.currentTimeString.amPm
+        } else {
+            self.amPmLabel.isHidden = true
+        }
     }
     
     /* ################################################################## */
@@ -178,6 +185,7 @@ extension MainScreenViewController {
         self.alarmButtons = []
         
         if !alarms.isEmpty {
+            self.alarmContainerView.isAccessibilityElement = false  // This prevents the container from interfering with the alarm buttons.
             let percentage = CGFloat(1) / CGFloat(alarms.count)   // This will be used for our auto-layout stuff.
             var prevButton: TheBestClockAlarmView!
             var index = 0
@@ -412,7 +420,8 @@ extension MainScreenViewController {
         self.mainNumberDisplayView.accessibilityLabel = "LOCAL-ACCESSIBILITY-LABEL-MAIN-TIME".localizedVariant
         self.mainNumberDisplayView.accessibilityHint = "LOCAL-ACCESSIBILITY-HINT-MAIN-TIME".localizedVariant
         self.dateDisplayLabel.accessibilityLabel = "LOCAL-ACCESSIBILITY-LABEL-MAIN-DATE".localizedVariant
-        self.amPmLabel.accessibilityLabel = "LOCAL-ACCESSIBILITY-AMPM-LABEL".localizedVariant
+        self.leftBrightnessSlider.accessibilityLabel = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER".localizedVariant
+        self.leftBrightnessSlider.accessibilityHint = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT".localizedVariant
         self.rightBrightnessSlider.accessibilityLabel = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER".localizedVariant
         self.rightBrightnessSlider.accessibilityHint = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT".localizedVariant
         self.alarmContainerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-CONTAINER".localizedVariant
@@ -459,6 +468,17 @@ extension MainScreenViewController {
         self.editAlarmTestSoundButton.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-HINT".localizedVariant
         self.musicTestButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-LABEL".localizedVariant
         self.musicTestButton.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-HINT".localizedVariant
+        
+        let sortedViews = self.alarmEditSoundModeSelector.subviews.sorted(by: { $0.frame.origin.x < $1.frame.origin.x })
+        
+        sortedViews[0].accessibilityLabel = "LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SOUND-LABEL".localizedVariant
+        sortedViews[0].accessibilityHint = "LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SOUND-HINT".localizedVariant
+        
+        sortedViews[1].accessibilityLabel = "LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-MUSIC-LABEL".localizedVariant
+        sortedViews[1].accessibilityHint = "LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-MUSIC-HINT".localizedVariant
+        
+        sortedViews[2].accessibilityLabel = "LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SILENCE-LABEL".localizedVariant
+        sortedViews[2].accessibilityHint = "LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SILENCE-HINT".localizedVariant
     }
 
     /* ################################################################## */
@@ -627,6 +647,13 @@ extension MainScreenViewController {
         self.colorDisplayPickerView.selectRow(self.selectedColorIndex, inComponent: 0, animated: false)
         TheBestClockAppDelegate.restoreOriginalBrightness()
         self.mainPickerContainerView.isHidden = false
+        
+        // Need to do this because of the whacky way we are presenting the editor screen. The underneath controls can "bleed through."
+        self.mainNumberDisplayView.isAccessibilityElement = false
+        self.dateDisplayLabel.isAccessibilityElement = false
+        self.amPmLabel.isAccessibilityElement = false
+        self.leftBrightnessSlider.isAccessibilityElement = false
+        self.rightBrightnessSlider.isAccessibilityElement = false
     }
     
     /* ################################################################## */
@@ -652,6 +679,13 @@ extension MainScreenViewController {
         self.colorDisplayPickerView.dataSource = nil
         self.fontSizeCache = 0
         self.mainPickerContainerView.isHidden = true
+        
+        self.mainNumberDisplayView.isAccessibilityElement = true
+        self.dateDisplayLabel.isAccessibilityElement = true
+        self.amPmLabel.isAccessibilityElement = true
+        self.leftBrightnessSlider.isAccessibilityElement = true
+        self.rightBrightnessSlider.isAccessibilityElement = true
+        
         self.startTicker()
     }
     

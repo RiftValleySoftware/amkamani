@@ -65,38 +65,48 @@
 "LOCAL-ACCESSIBILITY-HINT-MAIN-TIME"        =       "If You Long-Press or Double-Tap, it Will Open the Color and Font Editor";
 "LOCAL-ACCESSIBILITY-LABEL-MAIN-DATE"       =       "The Main Date Display";
 "LOCAL-ACCESSIBILITY-AMPM-LABEL"            =       "The Ante Meridian Display";
-"LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER"     =       "This is A Slider to Adjust Display Brightness";
+"LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER"     =       "Adjust Display Brightness";
 "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT"    =   "Sliding Up or Down the Screen Adjusts Brightness. Down is Darker.";
 "LOCAL-ACCESSIBILITY-ALARM-CONTAINER"       =       "These are the Three Alarms Available to the Clock";
-"LOCAL-ACCESSIBILITY-ALARM-CONTAINER-HINT"  =       "If You Tap on an Alarm, it Will Enable or Disable that Alarm. If You Long-Press on an Alarm, it Will Open the Alarm Editor for that Alarm.";
+"LOCAL-ACCESSIBILITY-ALARM-CONTAINER-ON"    =       "This Alarm Is Active";
+"LOCAL-ACCESSIBILITY-ALARM-CONTAINER-OFF"   =       "This Alarm Is Not Active";
+"LOCAL-ACCESSIBILITY-ALARM-CONTAINER-HINT"  =       "If You Tap on the Alarm, it Will Enable or Disable the Alarm. If You Long-Press on the Alarm, it Will Open the Alarm Editor.";
 "LOCAL-ACCESSIBILITY-ALARM-DISPLAY"         =       "The Alarm is Currently Going Off, and This Is A Flashing Screen";
 "LOCAL-ACCESSIBILITY-ALARM-DISPLAY-HINT"    =       "If You Tap in the Screen, the Alarm Will \"Sleep\". If You Long-Press in the Screen, the Alarm Will Turn Off Completely.";
 
 /* APPEARANCE EDITOR */
 
-"LOCAL-ACCESSIBILITY-COLOR-PICKER-LABEL"    =       "This is a Picker View That Allows You to Select A Font Color";
+"LOCAL-ACCESSIBILITY-COLOR-PICKER-LABEL"    =       "Select A Font Color";
 "LOCAL-ACCESSIBILITY-COLOR-PICKER-HINT"     =       "Scroll Vertically to Select A New Color for the Displays";
-"LOCAL-ACCESSIBILITY-FONT-SELECTOR-LABEL"   =       "This is a Picker That Allows You to Choose A Display Font";
+"LOCAL-ACCESSIBILITY-FONT-SELECTOR-LABEL"   =       "Choose A Display Font";
 "LOCAL-ACCESSIBILITY-FONT-SELECTOR-HINT"    =       "Scroll Vertically to Select A New Font for the Displays";
-"LOCAL-ACCESSIBILITY-INFO-BUTTON-LABEL"     =       "This Is A Button That Will Display Information About This App";
+"LOCAL-ACCESSIBILITY-INFO-BUTTON-LABEL"     =       "Display Information About This App";
 "LOCAL-ACCESSIBILITY-INFO-BUTTON-HINT"      =       "Tapping On This Button Will Bring Up A Screen With Information About This App";
 
 /* ALARM EDITOR */
 
-"LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-LABEL"     =   "This is a Switch That Will Change the Enabled State of the Alarm";
+"LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-LABEL"     =   "Enable or Disable the Alarm";
 "LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-HINT"      =   "Use This to Change Whether or Not the Alarm is Active";
-"LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-LABEL"    =   "This is a Switch That Will Tell the Phone Vibrate When the Alarm Goes Off";
+"LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-LABEL"    =   "Vibrate On Alarm";
 "LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-HINT"     =   "Use This to Change Whether or Not the Phone Vibrates When the Alarm Goes Off";
-"LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-LABEL"       =   "This is The Time Selector for the Alarm";
+"LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-LABEL"       =   "Set Alarm Time";
 "LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-HINT"        =   "Use This to Choose the Time the Alarm is Set";
-"LOCAL-ACCESSIBILITY-ALARM-MODE-LABEL"              =   "This is A Segmented Switch That Allows You to Select the Alarm Audio Mode";
+"LOCAL-ACCESSIBILITY-ALARM-MODE-LABEL"              =   "Set Alarm Sound";
 "LOCAL-ACCESSIBILITY-ALARM-MODE-HINT"               =   "You Can Choose A Repeating Sound, Music From Your Music Library, or Silence";
-"LOCAL-ACCESSIBILITY-EDIT-PICKER-LABEL"             =   "This is a Picker That Allows You to Either Choose a Sound, or An Artist From Your Music Collection";
+"LOCAL-ACCESSIBILITY-EDIT-PICKER-LABEL"             =   "Choose A Sound or An Artist";
 "LOCAL-ACCESSIBILITY-EDIT-PICKER-HINT"              =   "If You Are in Sound Mode, Then This Will Choose A Sound. Otherwise, It Will Choose An Artist From Your Music Collection";
-"LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-LABEL"        =   "This is a Picker That Allows You to Choose One of the Songs From the Selected Artist";
+"LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-LABEL"        =   "Choose A Song By the Selected Artist";
 "LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-HINT"         =   "When You Select An Artist, This Will be Updated to the Available Songs for That Artist";
-"LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-LABEL"  =   "This is A Button That Allows You to Test The Selected Sound";
+"LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-LABEL"  =   "Test The Selected Sound";
 "LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-HINT"   =   "If You Press This Button, It Will Play the Selected Sound Repeatedly, and You Can Pause by Pressing This Button Again";
-"LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-LABEL"   =   "This is A Button That Allows You to Test The Selected Song";
+"LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-LABEL"   =   "Test The Selected Song";
 "LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-HINT"    =   "If You Press This Button, It Will Play the Selected Song Repeatedly, and You Can Pause by Pressing This Button Again";
 
+"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-LABEL"       =   "Play Sound";
+"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-HINT"        =   "This is a segmented switch that will allow you to select from a collection of preset sounds (leftmost segment), a song from your music library (center segment), or no sound at all (rightmost segment) when the alarm goes off.";
+"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SOUND-LABEL" =   "Play A Selected Sound";
+"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SOUND-HINT"  =   "If you select this mode, when the alarm goes off, one of several selected sounds will play repeatedly. You will select which sound to play in the picker just below this switch.";
+"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-MUSIC-LABEL" =   "Play A Selected Song From Your Music Library";
+"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-MUSIC-HINT"  =   "If you select this mode, when the alarm goes off, a song that you select from your music library will play repeatedly. You will select which song to play in the two pickers just below this switch.";
+"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SILENCE-LABEL"   =   "Silent Alarm";
+"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SILENCE-HINT"    =   "If you select this mode, when the alarm goes off, no sounds will play. Only the screen will flash. The phone may vibrate, if you have that selected.";

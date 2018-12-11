@@ -334,6 +334,13 @@ extension MainScreenViewController {
                 }
             }
         }
+        
+        // Need to do this because of the whacky way we are presenting the editor screen. The underneath controls can "bleed through."
+        self.mainNumberDisplayView.isAccessibilityElement = false
+        self.dateDisplayLabel.isAccessibilityElement = false
+        self.amPmLabel.isAccessibilityElement = false
+        self.leftBrightnessSlider.isAccessibilityElement = false
+        self.rightBrightnessSlider.isAccessibilityElement = false
     }
     
     /* ################################################################## */
@@ -603,6 +610,13 @@ extension MainScreenViewController {
         self.editAlarmScreenContainer.isHidden = true
         self.showAllAlarms()
         self.snoozeCount = 0
+        
+        self.mainNumberDisplayView.isAccessibilityElement = true
+        self.dateDisplayLabel.isAccessibilityElement = true
+        self.amPmLabel.isAccessibilityElement = true
+        self.leftBrightnessSlider.isAccessibilityElement = true
+        self.rightBrightnessSlider.isAccessibilityElement = true
+
         self.startTicker()
     }
 }

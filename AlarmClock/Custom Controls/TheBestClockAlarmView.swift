@@ -80,7 +80,8 @@ class TheBestClockAlarmView: UIControl {
             self.longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(type(of: self).longPressGesture(_:)))
             self.addGestureRecognizer(self.longPressGestureRecognizer)
         }
-        
+
+        self.displayLabel.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-CONTAINER-HINT".localizedVariant
         self.backgroundColor = UIColor.clear
         self.displayLabel.frame = frame
         self.addSubview(self.displayLabel)
@@ -127,6 +128,10 @@ class TheBestClockAlarmView: UIControl {
             dateFormatter.dateStyle = .none
             
             self.displayLabel.text = dateFormatter.string(from: pickerDate)
+        }
+        
+        if let displayText = self.displayLabel?.text {
+            self.displayLabel.accessibilityLabel = displayText + ". " + ("LOCAL-ACCESSIBILITY-ALARM-CONTAINER-O" + (self.alarmRecord.isActive ? "N" : "FF")).localizedVariant
         }
 
         self.displayLabel.textColor = textColor
