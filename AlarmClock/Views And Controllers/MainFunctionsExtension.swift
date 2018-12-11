@@ -428,12 +428,39 @@ extension MainScreenViewController {
     func setUpAppearanceEditorAccessibility() {
         self.colorDisplayPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-COLOR-PICKER-LABEL".localizedVariant
         self.colorDisplayPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-COLOR-PICKER-HINT".localizedVariant
-        self.fontDisplayPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-FONT-PICKER-LABEL".localizedVariant
-        self.fontDisplayPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-FONT-PICKER-HINT".localizedVariant
+        self.fontDisplayPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-FONT-SELECTOR-LABEL".localizedVariant
+        self.fontDisplayPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-FONT-SELECTOR-HINT".localizedVariant
         self.infoButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-INFO-BUTTON-LABEL".localizedVariant
         self.infoButton.accessibilityHint = "LOCAL-ACCESSIBILITY-INFO-BUTTON-HINT".localizedVariant
     }
     
+    /* ################################################################## */
+    /**
+     This is called at load time, to add the various localized accessibility labels and hints to our elements in the Alarm Editor screen.
+     */
+    func setUpAlarmEditorAccessibility() {
+        self.alarmEditorActiveSwitch.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-LABEL".localizedVariant
+        self.alarmEditorActiveSwitch.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-HINT".localizedVariant
+        self.alarmEditorActiveButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-LABEL".localizedVariant
+        self.alarmEditorActiveButton.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-HINT".localizedVariant
+        self.alarmEditorVibrateBeepSwitch.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-LABEL".localizedVariant
+        self.alarmEditorVibrateBeepSwitch.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-HINT".localizedVariant
+        self.alarmEditorVibrateButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-LABEL".localizedVariant
+        self.alarmEditorVibrateButton.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-HINT".localizedVariant
+        self.editAlarmTimeDatePicker.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-LABEL".localizedVariant
+        self.editAlarmTimeDatePicker.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-HINT".localizedVariant
+        self.alarmEditSoundModeSelector.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-MODE-LABEL".localizedVariant
+        self.alarmEditSoundModeSelector.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-MODE-HINT".localizedVariant
+        self.editAlarmPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-EDIT-PICKER-LABEL".localizedVariant
+        self.editAlarmPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-PICKER-HINT".localizedVariant
+        self.songSelectionPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-LABEL".localizedVariant
+        self.songSelectionPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-HINT".localizedVariant
+        self.editAlarmTestSoundButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-LABEL".localizedVariant
+        self.editAlarmTestSoundButton.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-HINT".localizedVariant
+        self.musicTestButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-LABEL".localizedVariant
+        self.musicTestButton.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-HINT".localizedVariant
+    }
+
     /* ################################################################## */
     /**
      This is called to update the color of the "info" button in the Appearance Editor.
