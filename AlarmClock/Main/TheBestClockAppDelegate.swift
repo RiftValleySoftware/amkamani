@@ -29,10 +29,11 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
 
     /* ##################################################################################################################################*/
     /**
-     This returns the application delegate object.
+     This returns the application delegate object. Nil if an error (should never happen).
      */
-    class var delegateObject: TheBestClockAppDelegate {
-        return (UIApplication.shared.delegate as? TheBestClockAppDelegate)!
+    class var delegateObject: TheBestClockAppDelegate! {
+        precondition(UIApplication.shared.delegate is TheBestClockAppDelegate)
+        return UIApplication.shared.delegate as? TheBestClockAppDelegate
     }
     
     /* ################################################################## */
@@ -82,6 +83,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
     class func recordOriginalBrightness() {
         if nil == self.originalScreenBrightness {
             self.originalScreenBrightness = UIScreen.main.brightness
+            assert(0 <= self.originalScreenBrightness && 1.0 >= self.originalScreenBrightness)
         }
     }
     
@@ -91,6 +93,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      */
     class func restoreOriginalBrightness() {
         if nil != self.originalScreenBrightness {
+            assert(0 <= self.originalScreenBrightness && 1.0 >= self.originalScreenBrightness)
             UIScreen.main.brightness = self.originalScreenBrightness
             self.originalScreenBrightness = nil
         }

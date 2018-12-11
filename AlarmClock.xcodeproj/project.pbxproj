@@ -12,6 +12,7 @@
 		D413599D218E763F00768430 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D413599B218E763F00768430 /* Main.storyboard */; };
 		D413599F218E764100768430 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D413599E218E764100768430 /* Assets.xcassets */; };
 		D41359A2218E764100768430 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41359A0218E764100768430 /* LaunchScreen.storyboard */; };
+		D41DB3D021C00A4A00481A16 /* RVS_Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41DB3CF21C00A4A00481A16 /* RVS_Utils.swift */; };
 		D422FE3E21922C5E0022423B /* TheBestClockAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */; };
 		D443F5E8219ADDFB002A212A /* AlarmEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */; };
 		D44DA634219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44DA633219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift */; };
@@ -87,6 +88,7 @@
 		D4135999218E763F00768430 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		D413599E218E764100768430 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D41359A3218E764100768430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D41DB3CF21C00A4A00481A16 /* RVS_Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Utils.swift; sourceTree = "<group>"; };
 		D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockAlarmView.swift; sourceTree = "<group>"; };
 		D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditorExtension.swift; sourceTree = "<group>"; };
 		D44DA633219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockSpeakerButton.swift; sourceTree = "<group>"; };
@@ -134,7 +136,7 @@
 		D413598B218E763F00768430 = {
 			isa = PBXGroup;
 			children = (
-				D4135996218E763F00768430 /* TheBestClock */,
+				D4135996218E763F00768430 /* AlarmClock */,
 				D4135995218E763F00768430 /* Products */,
 				A7DE492AABB4E6094A94D6D2 /* Pods */,
 				EF02A0F6866AEB1885ED33AE /* Frameworks */,
@@ -149,15 +151,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D4135996218E763F00768430 /* TheBestClock */ = {
+		D4135996218E763F00768430 /* AlarmClock */ = {
 			isa = PBXGroup;
 			children = (
-				D41359C7218E76A500768430 /* App */,
-				D41359C8218E76B600768430 /* View Controllers */,
+				D41359C7218E76A500768430 /* Main */,
+				D41359C8218E76B600768430 /* Views And Controllers */,
+				D41DB3D121C00ADD00481A16 /* Custom Controls */,
 				D41359C5218E768600768430 /* Bundle Resources */,
 				D41359C6218E769400768430 /* Meta */,
 			);
-			path = TheBestClock;
+			path = AlarmClock;
 			sourceTree = "<group>";
 		};
 		D41359C5218E768600768430 /* Bundle Resources */ = {
@@ -182,16 +185,17 @@
 			path = Meta;
 			sourceTree = "<group>";
 		};
-		D41359C7218E76A500768430 /* App */ = {
+		D41359C7218E76A500768430 /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				D4135997218E763F00768430 /* TheBestClockAppDelegate.swift */,
 				D487C1052191CE2E00FBDC77 /* TheBestClockPrefs.swift */,
+				D41DB3CF21C00A4A00481A16 /* RVS_Utils.swift */,
 			);
-			path = App;
+			path = Main;
 			sourceTree = "<group>";
 		};
-		D41359C8218E76B600768430 /* View Controllers */ = {
+		D41359C8218E76B600768430 /* Views And Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				D4135999218E763F00768430 /* MainScreenViewController.swift */,
@@ -199,12 +203,19 @@
 				D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */,
 				D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */,
 				D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */,
-				D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */,
 				D4D4AD452194F4FA008D3FCC /* TheBestClockAboutScreenViewController.swift */,
+			);
+			path = "Views And Controllers";
+			sourceTree = "<group>";
+		};
+		D41DB3D121C00ADD00481A16 /* Custom Controls */ = {
+			isa = PBXGroup;
+			children = (
+				D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */,
 				D49C31F92195058700598F7E /* TheGreatRiftValleyDrawing.swift */,
 				D44DA633219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift */,
 			);
-			path = "View Controllers";
+			path = "Custom Controls";
 			sourceTree = "<group>";
 		};
 		D4D56C2621B43016003025FF /* Sounds */ = {
@@ -284,7 +295,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D413598F218E763F00768430 /* Build configuration list for PBXProject "TheBestClock" */;
+			buildConfigurationList = D413598F218E763F00768430 /* Build configuration list for PBXProject "AlarmClock" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -368,6 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4D8E04E219AEF7C0007BBAA /* MainFunctionsExtension.swift in Sources */,
+				D41DB3D021C00A4A00481A16 /* RVS_Utils.swift in Sources */,
 				D413599A218E763F00768430 /* MainScreenViewController.swift in Sources */,
 				D487C1062191CE2F00FBDC77 /* TheBestClockPrefs.swift in Sources */,
 				D46F84622190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift in Sources */,
@@ -612,7 +624,7 @@
 				DEVELOPMENT_TEAM = P53V4JS928;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/TheBestClock/Meta/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/AlarmClock/Meta/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -635,7 +647,7 @@
 				DEVELOPMENT_TEAM = P53V4JS928;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/TheBestClock/Meta/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/AlarmClock/Meta/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -652,7 +664,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D413598F218E763F00768430 /* Build configuration list for PBXProject "TheBestClock" */ = {
+		D413598F218E763F00768430 /* Build configuration list for PBXProject "AlarmClock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D41359BA218E764100768430 /* Debug */,

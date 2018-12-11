@@ -1,0 +1,102 @@
+/**
+ © Copyright 2018, The Great Rift Valley Software Company. All rights reserved.
+ 
+ This code is proprietary and confidential code,
+ It is NOT to be reused or combined into any application,
+ unless done so, specifically under written license from The Great Rift Valley Software Company.
+ 
+ The Great Rift Valley Software Company: https://riftvalleysoftware.com
+ */
+
+/* INFO STRING */
+
+"INFO_PRIVACY_REQUEST"                      =       "Play music as an alarm";   // This is the string we use to ask permission to get ath the user's music collection.
+
+/* ERRORS */
+
+"ERROR_HEADER_MEDIA"                        =       "DEVICE MEDIA ERROR";   // The header for media error alerts.
+"ERROR_TEXT_MEDIA_PERMISSION_DENIED"        =       "You are not allowed to read any media from this device.";  // No permission alert text.
+"ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER"   =       "There was a technical problem creating the sound player."; // Unknown technical error alert text.
+"BASIC-OK-BUTTON"                           =       "OK";   // Alert OK button.
+
+/* ALARM EDITOR */
+
+"LOCAL-ACTIVE-SWITCH"                       =       "Active";   // The button/label next to the Alarm Active switch.
+"LOCAL-VIBRATE-BEEP-SWITCH"                 =       "Vibrate";  // The button/label next to the Vibrate switch (hidden for iPad).
+"LOCAL-UNKNOWN-SONG"                        =       "Unknown Song";     // This is displayed if there is a song without a title.
+"LOCAL-UNKNOWN-ALBUM"                       =       "Unknown Album";    // This is displayed if there is an album without a name (required, but never actually displayed).
+"LOCAL-UNKNOWN-ARTIST"                      =       "Unknown Artist";   // This is displayed if there is an artist without a name.
+"LOCAL-NO-MUSIC-LABEL"                      =       "No Music Available";   // This is what is displayed in the Alarm Editor if there is no music available.
+"LOCAL-MUSIC-LOOKUP-LABEL"                  =       "Fetching Your Music Library";  // This is displayed while the throbber is up, while the music is being fetched.
+"LOCAL-ALARM-DEACTIVATED-LABEL"             =       "This alarm will not go off until next time.";  // This is displayed if the alarm is not going to go off right now, even though it could.
+
+/* NAMES OF SOUNDS */
+
+"annoying-alarm.mp3"                        =       "Classic Alarm";
+"electronic-buzz.mp3"                       =       "Strident Beeps";
+"fast-beep.mp3"                             =       "Subtle Ringing";
+"high-fast-beeps.mp3"                       =       "Fast Subtle Beeps";
+"single-beep.mp3"                           =       "Basic Beeps";
+"crazy-bird.mp3"                            =       "Crazy Bird";
+"escalation.mp3"                            =       "Escalating Alarm";
+"videogame-beeps-high-frequency.mp3"        =       "High-Frequency Electronic";
+"videogame-beeps-lower-frequency.mp3"       =       "Low-Frequency Electronic";
+
+/* INFO SCREEN */
+
+"LOCAL-APP-INFO-URL"                        =       "https://riftvalleysoftware.com";           // Do not change this for localization.
+"LOCAL-APP-INFO-URL-BUTTON-TEXT"            =       "The Great Rift Valley Software Company";   // Do not change this for localization.
+
+"LOCAL-APP-INFO-TEXT"                       =       "When I have something to say, I'll say it here.";
+
+/* SYSTEM SETTINGS */
+// These are displayed in the system settings area.
+
+"LOCAL-SNOOZE-COUNT"    = "Number of Snoozes";      // The number of snoozes can be set, so the user can snooze several times, then the alarm gives up
+"LOCAL-FOREVER-SNOOZE"  = "No Limit";               // They can have "no limit," so that the snooze never gives up.
+"LOCAL-SNOOZE-LABEL"    = "From 1 to 7 Snoozes";    // You can have 1 to 7 snoozes before giving up.
+
+/* ACCESSIBILITY */
+// These are accessibility strings that are attached to the screen items. They are not visible, but can be read by the device.
+
+/* MAIN SCREEN */
+
+"LOCAL-ACCESSIBILITY-LABEL-MAIN-TIME"       =       "The Main Time Display";
+"LOCAL-ACCESSIBILITY-HINT-MAIN-TIME"        =       "If You Long-Press or Double-Tap, it Will Open the Color and Font Editor";
+"LOCAL-ACCESSIBILITY-LABEL-MAIN-DATE"       =       "The Main Date Display";
+"LOCAL-ACCESSIBILITY-AMPM-LABEL"            =       "The Ante Meridian Display";
+"LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER"     =       "This is A Slider to Adjust Display Brightness";
+"LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT"    =   "Sliding Up or Down the Screen Adjusts Brightness. Down is Darker.";
+"LOCAL-ACCESSIBILITY-ALARM-CONTAINER"       =       "These are the Three Alarms Available to the Clock";
+"LOCAL-ACCESSIBILITY-ALARM-CONTAINER-HINT"  =       "If You Tap on an Alarm, it Will Enable or Disable that Alarm. If You Long-Press on an Alarm, it Will Open the Alarm Editor for that Alarm.";
+"LOCAL-ACCESSIBILITY-ALARM-DISPLAY"         =       "The Alarm is Currently Going Off, and This Is A Flashing Screen";
+"LOCAL-ACCESSIBILITY-ALARM-DISPLAY-HINT"    =       "If You Tap in the Screen, the Alarm Will \"Sleep\". If You Long-Press in the Screen, the Alarm Will Turn Off Completely.";
+
+/* APPEARANCE EDITOR */
+
+"LOCAL-ACCESSIBILITY-COLOR-PICKER-LABEL"    =       "This is a Picker View That Allows You to Select A Font Color";
+"LOCAL-ACCESSIBILITY-COLOR-PICKER-HINT"     =       "Scroll Vertically to Select A New Color for the Displays";
+"LOCAL-ACCESSIBILITY-FONT-SELECTOR-LABEL"   =       "This is a Picker That Allows You to Choose A Display Font";
+"LOCAL-ACCESSIBILITY-FONT-SELECTOR-HINT"    =       "Scroll Vertically to Select A New Font for the Displays";
+"LOCAL-ACCESSIBILITY-INFO-BUTTON-LABEL"     =       "This Is A Button That Will Display Information About This App";
+"LOCAL-ACCESSIBILITY-INFO-BUTTON-HINT"      =       "Tapping On This Button Will Bring Up A Screen With Information About This App";
+
+/* ALARM EDITOR */
+
+"LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-LABEL"     =   "This is a Switch That Will Change the Enabled State of the Alarm";
+"LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-HINT"      =   "Use This to Change Whether or Not the Alarm is Active";
+"LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-LABEL"    =   "This is a Switch That Will Tell the Phone Vibrate When the Alarm Goes Off";
+"LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-HINT"     =   "Use This to Change Whether or Not the Phone Vibrates When the Alarm Goes Off";
+"LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-LABEL"       =   "This is The Time Selector for the Alarm";
+"LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-HINT"        =   "Use This to Choose the Time the Alarm is Set";
+"LOCAL-ACCESSIBILITY-ALARM-MODE-LABEL"              =   "This is A Segmented Switch That Allows You to Select the Alarm Audio Mode";
+"LOCAL-ACCESSIBILITY-ALARM-MODE-HINT"               =   "You Can Choose A Repeating Sound, Music From Your Music Library, or Silence";
+"LOCAL-ACCESSIBILITY-EDIT-PICKER-LABEL"             =   "This is a Picker That Allows You to Either Choose a Sound, or An Artist From Your Music Collection";
+"LOCAL-ACCESSIBILITY-EDIT-PICKER-HINT"              =   "If You Are in Sound Mode, Then This Will Choose A Sound. Otherwise, It Will Choose An Artist From Your Music Collection";
+"LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-LABEL"        =   "This is a Picker That Allows You to Choose One of the Songs From the Selected Artist";
+"LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-HINT"         =   "When You Select An Artist, This Will be Updated to the Available Songs for That Artist";
+"LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-LABEL"  =   "This is A Button That Allows You to Test The Selected Sound";
+"LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-HINT"   =   "If You Press This Button, It Will Play the Selected Sound Repeatedly, and You Can Pause by Pressing This Button Again";
+"LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-LABEL"   =   "This is A Button That Allows You to Test The Selected Song";
+"LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-HINT"    =   "If You Press This Button, It Will Play the Selected Song Repeatedly, and You Can Pause by Pressing This Button Again";
+
