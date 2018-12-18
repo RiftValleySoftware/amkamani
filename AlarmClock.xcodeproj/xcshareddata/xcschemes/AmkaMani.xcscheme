@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D4135993218E763F00768430"
-               BuildableName = "Rift Valley Alarm Clock.app"
-               BlueprintName = "Rift Valley Alarm Clock"
+               BuildableName = "AmkaMani.app"
+               BlueprintName = "AmkaMani"
                ReferencedContainer = "container:AlarmClock.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -49,8 +49,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4135993218E763F00768430"
-            BuildableName = "Rift Valley Alarm Clock.app"
-            BlueprintName = "Rift Valley Alarm Clock"
+            BuildableName = "AmkaMani.app"
+            BlueprintName = "AmkaMani"
             ReferencedContainer = "container:AlarmClock.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,8 +82,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4135993218E763F00768430"
-            BuildableName = "Rift Valley Alarm Clock.app"
-            BlueprintName = "Rift Valley Alarm Clock"
+            BuildableName = "AmkaMani.app"
+            BlueprintName = "AmkaMani"
             ReferencedContainer = "container:AlarmClock.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -101,8 +101,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4135993218E763F00768430"
-            BuildableName = "Rift Valley Alarm Clock.app"
-            BlueprintName = "Rift Valley Alarm Clock"
+            BuildableName = "AmkaMani.app"
+            BlueprintName = "AmkaMani"
             ReferencedContainer = "container:AlarmClock.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

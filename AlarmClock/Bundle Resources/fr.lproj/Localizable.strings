@@ -44,10 +44,10 @@
 
 /* INFO SCREEN */
 
+"LOCAL-APP-INFO-TEXT"                       =       "When I have something to say, I'll say it here.";
+
 "LOCAL-APP-INFO-URL"                        =       "https://riftvalleysoftware.com";           // Do not change this for localization.
 "LOCAL-APP-INFO-URL-BUTTON-TEXT"            =       "The Great Rift Valley Software Company";   // Do not change this for localization.
-
-"LOCAL-APP-INFO-TEXT"                       =       "When I have something to say, I'll say it here.";
 
 /* SYSTEM SETTINGS */
 // These are displayed in the system settings area.

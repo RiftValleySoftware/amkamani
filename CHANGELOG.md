@@ -4,6 +4,7 @@
 - Fixed a bug, where a couple of accessibility strings in the Appearance Editor were not being properly set.
 - Added accessibility strings to the alarm set segmented switch.
 - Tweaked the accessibility strings.
+- Renamed the app to "AmkaMani".
 
 **Version 1.0.0.2015** *(December 2, 2018)*
 - Tweaked the branding control in the info screen.
