@@ -1,4 +1,4 @@
-**Version 1.0.0.2016** *(TBD)*
+**Version 1.0.0.2016** *(December 18, 2018)*
 - Fixed a minor cosmetic bug, where switching out of the app would not always restore the correct original brightness level.
 - Added testing and QC stuff.
 - Fixed a bug, where a couple of accessibility strings in the Appearance Editor were not being properly set.

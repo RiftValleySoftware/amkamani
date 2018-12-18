@@ -719,7 +719,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.amkamani;
+				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.alarmclock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 4.2;
@@ -742,7 +742,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.amkamani;
+				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.alarmclock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 4.2;
