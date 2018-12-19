@@ -18,6 +18,10 @@ import UIKit
  */
 class TheBestClockAboutScreenViewController: UIViewController {
     private let _urlButtonFontSize: CGFloat = 15
+    /// This is the URI for the corporation. It is not localized.
+    let corporateURI =   "https://riftvalleysoftware.com"
+    /// This is the name of the corporation. It is not localized.
+    let corporateName =   "The Great Rift Valley Software Company"
 
     @IBOutlet var logoImageControl: TheGreatRiftValleyDrawing!
     @IBOutlet weak var versionLabel: UILabel!
@@ -36,7 +40,7 @@ class TheBestClockAboutScreenViewController: UIViewController {
      - parameter: The item that called us. Ignored.
      */
     @IBAction func resolveURL(_: Any! = nil) {
-        if let openLink = URL(string: "LOCAL-APP-INFO-URL".localizedVariant) {
+        if let openLink = URL(string: corporateURI) {
             UIApplication.shared.open(openLink, options: [:], completionHandler: nil)
         }
     }
@@ -90,7 +94,7 @@ class TheBestClockAboutScreenViewController: UIViewController {
         }
         
         // Set up localized text.
-        self.theURLButton.setTitle(self.theURLButton.title(for: .normal)?.localizedVariant, for: .normal)
+        self.theURLButton.setTitle(corporateName, for: .normal)
         self.longTextTextarea.text = self.longTextTextarea.text.localizedVariant
         self.versionLabel.text = appName + " " + appVersion
     }

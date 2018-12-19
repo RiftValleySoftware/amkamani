@@ -13,12 +13,12 @@
         <!--Main Screen-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Main Screen" id="BYZ-38-t0r" customClass="MainScreenViewController" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Main Screen" id="BYZ-38-t0r" customClass="MainScreenViewController" customModule="AmkaMani" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tA9-HM-M61" customClass="TheBestClockMainDisplayView" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tA9-HM-M61" customClass="TheBestClockMainDisplayView" customModule="AmkaMani" customModuleProvider="target">
                                 <rect key="frame" x="8" y="80" width="359" height="547"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" hint="LOCAL-ACCESSIBILITY-HINT-MAIN-TIME" label="LOCAL-ACCESSIBILITY-LABEL-MAIN-TIME">
@@ -54,7 +54,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7io-PK-JhC" customClass="TheBestClockVerticalBrightnessSliderView" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7io-PK-JhC" customClass="TheBestClockVerticalBrightnessSliderView" customModule="AmkaMani" customModuleProvider="target">
                                 <rect key="frame" x="4" y="80" width="64" height="547"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" hint="LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT" label="LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER">
@@ -72,7 +72,7 @@
                                     <outletCollection property="gestureRecognizers" destination="JuB-FM-I8Y" appends="YES" id="ehN-j8-H9E"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjC-JH-pnM" customClass="TheBestClockVerticalBrightnessSliderView" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjC-JH-pnM" customClass="TheBestClockVerticalBrightnessSliderView" customModule="AmkaMani" customModuleProvider="target">
                                 <rect key="frame" x="307.5" y="80" width="63.5" height="547"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" hint="LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT" label="LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER">
@@ -341,7 +341,7 @@
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-qj-jcy" userLabel="Test Sound Button Container View">
                                                 <rect key="frame" x="0.0" y="295" width="375" height="283"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-BT-OeS" customClass="TheBestClockSpeakerButton" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-BT-OeS" customClass="TheBestClockSpeakerButton" customModule="AmkaMani" customModuleProvider="target">
                                                         <rect key="frame" x="162.5" y="116.5" width="50" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="gso-sj-ZVS"/>
@@ -390,7 +390,7 @@
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lRC-az-iPV" userLabel="Music Test Button Container View">
                                                 <rect key="frame" x="0.0" y="395" width="375" height="179"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dp6-Hz-XAB" customClass="TheBestClockSpeakerButton" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dp6-Hz-XAB" customClass="TheBestClockSpeakerButton" customModule="AmkaMani" customModuleProvider="target">
                                                         <rect key="frame" x="162.5" y="64.5" width="50" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="Dp6-Hz-XAB" secondAttribute="height" multiplier="1:1" id="209-ea-DcV"/>
@@ -711,12 +711,12 @@
         <!--About Screen-->
         <scene sceneID="iYY-ZI-elm">
             <objects>
-                <viewController title="About Screen" id="7ze-OY-b4R" customClass="TheBestClockAboutScreenViewController" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="About Screen" id="7ze-OY-b4R" customClass="TheBestClockAboutScreenViewController" customModule="AmkaMani" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LbW-TP-6mb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECo-iI-WzI" customClass="TheGreatRiftValleyDrawing" customModule="Rift_Valley_Alarm_Clock" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECo-iI-WzI" customClass="TheGreatRiftValleyDrawing" customModule="AmkaMani" customModuleProvider="target">
                                 <rect key="frame" x="123.5" y="20" width="128" height="128"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>

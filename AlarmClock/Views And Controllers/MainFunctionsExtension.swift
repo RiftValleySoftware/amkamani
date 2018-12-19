@@ -417,9 +417,8 @@ extension MainScreenViewController {
      This is called at load time, to add the various localized accessibility labels and hints to our elements on the main display screen.
      */
     func setUpMainScreenAccessibility() {
-        self.mainNumberDisplayView.accessibilityLabel = "LOCAL-ACCESSIBILITY-LABEL-MAIN-TIME".localizedVariant
         self.mainNumberDisplayView.accessibilityHint = "LOCAL-ACCESSIBILITY-HINT-MAIN-TIME".localizedVariant
-        self.dateDisplayLabel.accessibilityLabel = "LOCAL-ACCESSIBILITY-LABEL-MAIN-DATE".localizedVariant + ". " + (self.dateDisplayLabel.text ?? "")
+        self.dateDisplayLabel.accessibilityLabel = self.dateDisplayLabel.text ?? ""
         self.leftBrightnessSlider.accessibilityLabel = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER".localizedVariant
         self.leftBrightnessSlider.accessibilityHint = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT".localizedVariant
         self.rightBrightnessSlider.accessibilityLabel = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER".localizedVariant

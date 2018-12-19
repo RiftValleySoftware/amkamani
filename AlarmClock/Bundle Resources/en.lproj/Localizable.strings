@@ -46,9 +46,6 @@
 
 "LOCAL-APP-INFO-TEXT"                       =       "When I have something to say, I'll say it here.";
 
-"LOCAL-APP-INFO-URL"                        =       "https://riftvalleysoftware.com";           // Do not change this for localization.
-"LOCAL-APP-INFO-URL-BUTTON-TEXT"            =       "The Great Rift Valley Software Company";   // Do not change this for localization.
-
 /* SYSTEM SETTINGS */
 // These are displayed in the system settings area.
 
@@ -62,8 +59,6 @@
 /* MAIN SCREEN */
 
 "LOCAL-ACCESSIBILITY-HINT-MAIN-TIME"        =       "If You Long-Press or Double-Tap, it Will Open the Color and Font Editor";
-"LOCAL-ACCESSIBILITY-LABEL-MAIN-DATE"       =       "The Main Date Display";
-"LOCAL-ACCESSIBILITY-AMPM-LABEL"            =       "The Ante Meridian Display";
 "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER"     =       "Adjust Display Brightness";
 "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT"    =   "Sliding Up or Down the Screen Adjusts Brightness. Down is Darker.";
 "LOCAL-ACCESSIBILITY-ALARM-CONTAINER"       =       "These are the Three Alarms Available to the Clock";
