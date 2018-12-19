@@ -1,3 +1,6 @@
+**Version 1.0.0.2017** *(TBD)*
+- More accessibility work.
+
 **Version 1.0.0.2016** *(December 18, 2018)*
 - Fixed a minor cosmetic bug, where switching out of the app would not always restore the correct original brightness level.
 - Added testing and QC stuff.

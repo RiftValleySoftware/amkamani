@@ -101,11 +101,6 @@
 "LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-LABEL"   =   "Test The Selected Song";
 "LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-HINT"    =   "If You Press This Button, It Will Play the Selected Song Repeatedly, and You Can Pause by Pressing This Button Again";
 
-"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-LABEL"       =   "Play Sound";
-"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-HINT"        =   "This is a segmented switch that will allow you to select from a collection of preset sounds (leftmost segment), a song from your music library (center segment), or no sound at all (rightmost segment) when the alarm goes off.";
-"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SOUND-LABEL" =   "Play A Selected Sound";
-"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SOUND-HINT"  =   "If you select this mode, when the alarm goes off, one of several selected sounds will play repeatedly. You will select which sound to play in the picker just below this switch.";
-"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-MUSIC-LABEL" =   "Play A Selected Song From Your Music Library";
-"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-MUSIC-HINT"  =   "If you select this mode, when the alarm goes off, a song that you select from your music library will play repeatedly. You will select which song to play in the two pickers just below this switch.";
-"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SILENCE-LABEL"   =   "Silent Alarm";
-"LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SILENCE-HINT"    =   "If you select this mode, when the alarm goes off, no sounds will play. Only the screen will flash. The phone may vibrate, if you have that selected.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Speaker-LABEL"    =   "Play A Selected Sound. If you select this mode, when the alarm goes off, one of several selected sounds will play repeatedly. You will select which sound to play in the picker just below this switch.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Music-LABEL"  =   "Play A Selected Song From Your Music Library. If you select this mode, when the alarm goes off, a song that you select from your music library will play repeatedly. You will select which song to play in the two pickers just below this switch.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Nothing-LABEL"    =   "Silent Alarm. If you select this mode, when the alarm goes off, no sounds will play. Only the screen will flash. The phone may vibrate, if you have that selected.";

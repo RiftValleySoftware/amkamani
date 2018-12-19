@@ -419,7 +419,7 @@ extension MainScreenViewController {
     func setUpMainScreenAccessibility() {
         self.mainNumberDisplayView.accessibilityLabel = "LOCAL-ACCESSIBILITY-LABEL-MAIN-TIME".localizedVariant
         self.mainNumberDisplayView.accessibilityHint = "LOCAL-ACCESSIBILITY-HINT-MAIN-TIME".localizedVariant
-        self.dateDisplayLabel.accessibilityLabel = "LOCAL-ACCESSIBILITY-LABEL-MAIN-DATE".localizedVariant
+        self.dateDisplayLabel.accessibilityLabel = "LOCAL-ACCESSIBILITY-LABEL-MAIN-DATE".localizedVariant + ". " + (self.dateDisplayLabel.text ?? "")
         self.leftBrightnessSlider.accessibilityLabel = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER".localizedVariant
         self.leftBrightnessSlider.accessibilityHint = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT".localizedVariant
         self.rightBrightnessSlider.accessibilityLabel = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER".localizedVariant
@@ -469,16 +469,13 @@ extension MainScreenViewController {
         self.musicTestButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-LABEL".localizedVariant
         self.musicTestButton.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-HINT".localizedVariant
         
-        let sortedViews = self.alarmEditSoundModeSelector.subviews.sorted(by: { $0.frame.origin.x < $1.frame.origin.x })
-        
-        sortedViews[0].accessibilityLabel = "LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SOUND-LABEL".localizedVariant
-        sortedViews[0].accessibilityHint = "LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SOUND-HINT".localizedVariant
-        
-        sortedViews[1].accessibilityLabel = "LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-MUSIC-LABEL".localizedVariant
-        sortedViews[1].accessibilityHint = "LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-MUSIC-HINT".localizedVariant
-        
-        sortedViews[2].accessibilityLabel = "LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SILENCE-LABEL".localizedVariant
-        sortedViews[2].accessibilityHint = "LOCAL-ACCESSIBILITY-SOUND-MODE-SWITCH-SILENCE-HINT".localizedVariant
+        for trailer in ["Speaker", "Music", "Nothing"].enumerated() {
+            let imageName = trailer.element
+            if let image = UIImage(named: imageName) {
+                image.accessibilityLabel = ("LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-" + trailer.element + "-LABEL").localizedVariant
+                self.alarmEditSoundModeSelector.setImage(image, forSegmentAt: trailer.offset)
+            }
+        }
     }
 
     /* ################################################################## */
