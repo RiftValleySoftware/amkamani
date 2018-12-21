@@ -20,9 +20,16 @@ import UIKit
  */
 @IBDesignable
 class TheBestClockVerticalBrightnessSliderView: UIControl {
+    /// This is how much space we have around the control. The hit rect will be the entire control, but the slider will be inset by this much.
+    private let _paddingInDisplayUnits: CGFloat = 4
+    
+    /// This is the gradient fill layer.
     private var _gradientLayer: CAGradientLayer!
+    
+    /// This is set to true, when the control is first shown.
     private var _firstTime: Bool = false
     
+    /// These are the top color and brightness.
     @IBInspectable var endColor: UIColor = UIColor.white
     @IBInspectable var brightness: CGFloat = 1.0
     
@@ -37,17 +44,18 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
         self._gradientLayer?.removeFromSuperlayer()
         self.backgroundColor = UIColor.clear    // Make sure that our background color is clear.
         if self.isEnabled && self.isTracking {  // We don't draw the slider unless we are both enabled, and tracking.
+            let drawingBounds = self.bounds.insetBy(dx: self._paddingInDisplayUnits, dy: self._paddingInDisplayUnits)
             // We will draw a "blunt teardrop" shape, with a rounded top and bottom. Wide at the top, narrow at the bottom. Rounded on both the top and the bottom. No sharp edges.
-            let topRightPoint = CGPoint(x: self.bounds.size.width, y: self.bounds.midX)
-            let arcCenterPoint = CGPoint(x: self.bounds.midX, y: self.bounds.midX)
-            let bottomLeftPoint = CGPoint(x: self.bounds.midX - 4, y: self.bounds.size.height - 4)
-            let bottomArcCenterPoint = CGPoint(x: self.bounds.midX, y: self.bounds.size.height - 4)
+            let topRightPoint = CGPoint(x: drawingBounds.size.width, y: drawingBounds.midX)
+            let arcCenterPoint = CGPoint(x: drawingBounds.midX, y: drawingBounds.midX)
+            let bottomLeftPoint = CGPoint(x: drawingBounds.midX - self._paddingInDisplayUnits, y: drawingBounds.size.height - self._paddingInDisplayUnits)
+            let bottomArcCenterPoint = CGPoint(x: drawingBounds.midX, y: drawingBounds.size.height - self._paddingInDisplayUnits)
             
             let path = UIBezierPath()
             path.move(to: topRightPoint)
-            path.addArc(withCenter: arcCenterPoint, radius: self.bounds.midX, startAngle: 0, endAngle: CGFloat.pi, clockwise: false)
+            path.addArc(withCenter: arcCenterPoint, radius: drawingBounds.midX - (self._paddingInDisplayUnits * 2), startAngle: 0, endAngle: CGFloat.pi, clockwise: false)
             path.addLine(to: bottomLeftPoint)
-            path.addArc(withCenter: bottomArcCenterPoint, radius: 4, startAngle: CGFloat.pi, endAngle: 0, clockwise: false)
+            path.addArc(withCenter: bottomArcCenterPoint, radius: self._paddingInDisplayUnits, startAngle: CGFloat.pi, endAngle: 0, clockwise: false)
             path.addLine(to: topRightPoint)
             path.close()
             

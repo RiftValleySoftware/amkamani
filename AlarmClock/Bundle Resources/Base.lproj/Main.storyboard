@@ -55,7 +55,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7io-PK-JhC" customClass="TheBestClockVerticalBrightnessSliderView" customModule="AmkaMani" customModuleProvider="target">
-                                <rect key="frame" x="4" y="80" width="64" height="547"/>
+                                <rect key="frame" x="0.0" y="80" width="67.5" height="547"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" hint="LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT" label="LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER">
                                     <accessibilityTraits key="traits" button="YES" image="YES" updatesFrequently="YES" adjustable="YES" allowsDirectInteraction="YES"/>
@@ -73,7 +73,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjC-JH-pnM" customClass="TheBestClockVerticalBrightnessSliderView" customModule="AmkaMani" customModuleProvider="target">
-                                <rect key="frame" x="307.5" y="80" width="63.5" height="547"/>
+                                <rect key="frame" x="307.5" y="80" width="67.5" height="547"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" hint="LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT" label="LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER">
                                     <accessibilityTraits key="traits" button="YES" image="YES" updatesFrequently="YES" adjustable="YES" allowsDirectInteraction="YES"/>
@@ -567,17 +567,17 @@
                             <constraint firstItem="qOc-ks-FdF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="0au-jr-8mN"/>
                             <constraint firstItem="pSU-VZ-odd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3OI-sk-XYJ"/>
                             <constraint firstItem="yuf-MI-OfS" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="46a-RS-nVp"/>
-                            <constraint firstItem="7io-PK-JhC" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.17" priority="999" id="5XF-Sz-jU9"/>
+                            <constraint firstItem="7io-PK-JhC" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.18" priority="999" id="5XF-Sz-jU9"/>
                             <constraint firstItem="PB0-FQ-trb" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="6ZA-0g-lZb"/>
                             <constraint firstItem="PB0-FQ-trb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="9TO-Kv-G5d"/>
                             <constraint firstItem="sjC-JH-pnM" firstAttribute="bottom" secondItem="7io-PK-JhC" secondAttribute="bottom" id="9bi-Wy-a3R"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yuf-MI-OfS" secondAttribute="trailing" id="A2i-S2-fSm"/>
-                            <constraint firstItem="7io-PK-JhC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="CkD-kH-pE3"/>
+                            <constraint firstItem="7io-PK-JhC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CkD-kH-pE3"/>
                             <constraint firstItem="Glo-Ay-KuA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="D1N-UJ-clk"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pSU-VZ-odd" secondAttribute="trailing" constant="8" id="JNg-Ny-wNw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Glo-Ay-KuA" secondAttribute="trailing" id="JzJ-18-A1u"/>
                             <constraint firstItem="tA9-HM-M61" firstAttribute="bottom" secondItem="e9A-iM-9M5" secondAttribute="top" id="MC8-JJ-0wu"/>
-                            <constraint firstItem="sjC-JH-pnM" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.17" priority="999" id="MzY-hs-1xh"/>
+                            <constraint firstItem="sjC-JH-pnM" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.18" priority="999" id="MzY-hs-1xh"/>
                             <constraint firstItem="tA9-HM-M61" firstAttribute="top" secondItem="qOc-ks-FdF" secondAttribute="bottom" id="NpL-em-auG"/>
                             <constraint firstItem="PB0-FQ-trb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Oxa-Aj-eXh"/>
                             <constraint firstItem="Glo-Ay-KuA" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Oy6-mH-WIm"/>
@@ -590,7 +590,7 @@
                             <constraint firstItem="g5Y-c0-3tI" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Tw6-ov-JH5"/>
                             <constraint firstItem="PB0-FQ-trb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="UZm-fy-1Ld"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qOc-ks-FdF" secondAttribute="trailing" constant="8" id="WSx-ez-pQf"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sjC-JH-pnM" secondAttribute="trailing" constant="4" id="Zk7-sD-LDk"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sjC-JH-pnM" secondAttribute="trailing" id="Zk7-sD-LDk"/>
                             <constraint firstItem="KDL-S8-BKg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cQw-xG-9T7"/>
                             <constraint firstItem="g5Y-c0-3tI" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="ddE-C8-1qt"/>
                             <constraint firstItem="tA9-HM-M61" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="dnB-0k-m0u"/>
