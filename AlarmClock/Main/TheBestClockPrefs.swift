@@ -335,7 +335,7 @@ class TheBestClockPrefs: NSObject {
     // MARK: Private Static Properties
     /* ################################################################## */
     /** This is the key for the prefs used by this app. */
-    private static let _mainPrefsKey: String = "TheBestClockPrefs"
+    private static let _mainPrefsKey: String = "AmkaMani_SavedSettings"
     private static let _numberOfAlarms = 3
     
     /* ################################################################## */
@@ -374,6 +374,7 @@ class TheBestClockPrefs: NSObject {
                 self._loadedPrefs.setObject(snoozeCount, forKey: type(of: self).PrefsKeys.snoozeCount.rawValue as NSString)
             }
             NSKeyedUnarchiver.setClass(TheBestClockAlarmSetting.self, forClassName: "TheBestClockAlarmSetting")
+            // We cycle through the number of alarms that we are supposed to have. We either load saved settings, or we create new empty settings for each alarm.
             for index in 0..<type(of: self)._numberOfAlarms {
                 if self._alarms.count == index {    // This makes sure that we account for any empty spots (shouldn't happen).
                     self._alarms.append(TheBestClockAlarmSetting())
