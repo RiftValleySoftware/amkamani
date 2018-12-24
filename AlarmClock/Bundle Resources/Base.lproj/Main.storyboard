@@ -55,7 +55,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7io-PK-JhC" customClass="TheBestClockVerticalBrightnessSliderView" customModule="AmkaMani" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="80" width="67.5" height="547"/>
+                                <rect key="frame" x="0.0" y="20" width="67.5" height="607"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" hint="LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT" label="LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER">
                                     <accessibilityTraits key="traits" button="YES" image="YES" updatesFrequently="YES" adjustable="YES" allowsDirectInteraction="YES"/>
@@ -73,7 +73,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjC-JH-pnM" customClass="TheBestClockVerticalBrightnessSliderView" customModule="AmkaMani" customModuleProvider="target">
-                                <rect key="frame" x="307.5" y="80" width="67.5" height="547"/>
+                                <rect key="frame" x="307.5" y="20" width="67.5" height="607"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" hint="LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT" label="LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER">
                                     <accessibilityTraits key="traits" button="YES" image="YES" updatesFrequently="YES" adjustable="YES" allowsDirectInteraction="YES"/>
@@ -584,7 +584,7 @@
                             <constraint firstItem="e9A-iM-9M5" firstAttribute="top" secondItem="7io-PK-JhC" secondAttribute="bottom" id="Qkl-2J-5Cp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="e9A-iM-9M5" secondAttribute="bottom" id="RB4-Kz-y8W"/>
                             <constraint firstItem="sjC-JH-pnM" firstAttribute="top" secondItem="7io-PK-JhC" secondAttribute="top" id="Rzd-tC-3AQ"/>
-                            <constraint firstItem="7io-PK-JhC" firstAttribute="top" secondItem="qOc-ks-FdF" secondAttribute="bottom" id="Sm9-e3-TgO"/>
+                            <constraint firstItem="7io-PK-JhC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Sm9-e3-TgO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KDL-S8-BKg" secondAttribute="bottom" id="TNe-HS-9MG"/>
                             <constraint firstItem="g5Y-c0-3tI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Tlt-gN-u5g"/>
                             <constraint firstItem="g5Y-c0-3tI" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Tw6-ov-JH5"/>

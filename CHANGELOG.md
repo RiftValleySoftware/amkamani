@@ -3,6 +3,7 @@
 - Changed the source of the display name in the info screen.
 - Changed the prefs key, so we will get new prefs.
 - Changed the brightness sliders, so they have a larger hit test area.
+- The brightness sliders now extend further up.
 
 **Version 1.0.0.2016** *(December 18, 2018)*
 - Fixed a minor cosmetic bug, where switching out of the app would not always restore the correct original brightness level.
