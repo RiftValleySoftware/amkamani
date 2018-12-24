@@ -16,7 +16,6 @@
 		D422FE3E21922C5E0022423B /* TheBestClockAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */; };
 		D443F5E8219ADDFB002A212A /* AlarmEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */; };
 		D44DA634219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44DA633219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift */; };
-		D44EA81521C00CC400696E19 /* Rift_Valley_Alarm_Clock_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44EA81421C00CC400696E19 /* Rift_Valley_Alarm_Clock_UITests.swift */; };
 		D458720521A0B0EA00919A23 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D458720421A0B0EA00919A23 /* Settings.bundle */; };
 		D46F84602190CA1F0026C9AD /* TheBestClockMainDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */; };
 		D46F84622190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */; };
@@ -43,16 +42,6 @@
 		D4FCC23721B439E400D92BD4 /* CelticHand.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = D4FCC23021B439C600D92BD4 /* CelticHand.ttf */; };
 		D4FCC23821B439E400D92BD4 /* let's go digital regular.ttf in Copy Fonts */ = {isa = PBXBuildFile; fileRef = D4FCC22E21B439C600D92BD4 /* let's go digital regular.ttf */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		D44EA81721C00CC400696E19 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D413598C218E763F00768430 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D4135993218E763F00768430;
-			remoteInfo = "Rift Valley Alarm Clock";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		D4D56C1F21B42877003025FF /* Copy Fonts */ = {
@@ -103,9 +92,6 @@
 		D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockAlarmView.swift; sourceTree = "<group>"; };
 		D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditorExtension.swift; sourceTree = "<group>"; };
 		D44DA633219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockSpeakerButton.swift; sourceTree = "<group>"; };
-		D44EA81221C00CC400696E19 /* Rift Valley Alarm Clock UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rift Valley Alarm Clock UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D44EA81421C00CC400696E19 /* Rift_Valley_Alarm_Clock_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rift_Valley_Alarm_Clock_UITests.swift; sourceTree = "<group>"; };
-		D44EA81621C00CC400696E19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D458720421A0B0EA00919A23 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockMainDisplayView.swift; sourceTree = "<group>"; };
 		D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockVerticalBrightnessSliderView.swift; sourceTree = "<group>"; };
@@ -138,13 +124,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D44EA80F21C00CC400696E19 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D44EA83121C01A5A00696E19 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -168,7 +147,6 @@
 			isa = PBXGroup;
 			children = (
 				D4135996218E763F00768430 /* AlarmClock */,
-				D44EA81321C00CC400696E19 /* Rift Valley Alarm Clock UITests */,
 				D4135995218E763F00768430 /* Products */,
 				A7DE492AABB4E6094A94D6D2 /* Pods */,
 				EF02A0F6866AEB1885ED33AE /* Frameworks */,
@@ -179,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				D4135994218E763F00768430 /* AmkaMani.app */,
-				D44EA81221C00CC400696E19 /* Rift Valley Alarm Clock UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -251,15 +228,6 @@
 			path = "Custom Controls";
 			sourceTree = "<group>";
 		};
-		D44EA81321C00CC400696E19 /* Rift Valley Alarm Clock UITests */ = {
-			isa = PBXGroup;
-			children = (
-				D44EA81421C00CC400696E19 /* Rift_Valley_Alarm_Clock_UITests.swift */,
-				D44EA81621C00CC400696E19 /* Info.plist */,
-			);
-			path = "Rift Valley Alarm Clock UITests";
-			sourceTree = "<group>";
-		};
 		D4D56C2621B43016003025FF /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,24 +291,6 @@
 			productReference = D4135994218E763F00768430 /* AmkaMani.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D44EA81121C00CC400696E19 /* Rift Valley Alarm Clock UITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D44EA81B21C00CC400696E19 /* Build configuration list for PBXNativeTarget "Rift Valley Alarm Clock UITests" */;
-			buildPhases = (
-				D44EA80E21C00CC400696E19 /* Sources */,
-				D44EA80F21C00CC400696E19 /* Frameworks */,
-				D44EA81021C00CC400696E19 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D44EA81821C00CC400696E19 /* PBXTargetDependency */,
-			);
-			name = "Rift Valley Alarm Clock UITests";
-			productName = "Rift Valley Alarm Clock UITests";
-			productReference = D44EA81221C00CC400696E19 /* Rift Valley Alarm Clock UITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -353,10 +303,6 @@
 				TargetAttributes = {
 					D4135993218E763F00768430 = {
 						CreatedOnToolsVersion = 10.0;
-					};
-					D44EA81121C00CC400696E19 = {
-						CreatedOnToolsVersion = 10.1;
-						TestTargetID = D4135993218E763F00768430;
 					};
 				};
 			};
@@ -376,7 +322,6 @@
 			projectRoot = "";
 			targets = (
 				D4135993218E763F00768430 /* AmkaMani */,
-				D44EA81121C00CC400696E19 /* Rift Valley Alarm Clock UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -395,13 +340,6 @@
 				D41359A2218E764100768430 /* LaunchScreen.storyboard in Resources */,
 				D4FCC23121B439C600D92BD4 /* AnglicanText.ttf in Resources */,
 				D458720521A0B0EA00919A23 /* Settings.bundle in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D44EA81021C00CC400696E19 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,23 +404,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D44EA80E21C00CC400696E19 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D44EA81521C00CC400696E19 /* Rift_Valley_Alarm_Clock_UITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		D44EA81821C00CC400696E19 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D4135993218E763F00768430 /* AmkaMani */;
-			targetProxy = D44EA81721C00CC400696E19 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D413599B218E763F00768430 /* Main.storyboard */ = {
@@ -750,46 +672,6 @@
 			};
 			name = Release;
 		};
-		D44EA81921C00CC400696E19 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P53V4JS928;
-				INFOPLIST_FILE = "Rift Valley Alarm Clock UITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.Rift-Valley-Alarm-Clock-UITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Rift Valley Alarm Clock";
-			};
-			name = Debug;
-		};
-		D44EA81A21C00CC400696E19 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P53V4JS928;
-				INFOPLIST_FILE = "Rift Valley Alarm Clock UITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.riftvalleysoftware.Rift-Valley-Alarm-Clock-UITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Rift Valley Alarm Clock";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -807,15 +689,6 @@
 			buildConfigurations = (
 				D41359BD218E764100768430 /* Debug */,
 				D41359BE218E764100768430 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D44EA81B21C00CC400696E19 /* Build configuration list for PBXNativeTarget "Rift Valley Alarm Clock UITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D44EA81921C00CC400696E19 /* Debug */,
-				D44EA81A21C00CC400696E19 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
