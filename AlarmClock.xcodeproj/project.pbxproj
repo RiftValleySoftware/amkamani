@@ -117,6 +117,7 @@
 		D4D56C7321B43454003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Base; path = "Base.lproj/videogame-beeps-high-frequency.mp3"; sourceTree = "<group>"; };
 		D4D56C7621B43459003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Base; path = "Base.lproj/videogame-beeps-lower-frequency.mp3"; sourceTree = "<group>"; };
 		D4D8E04D219AEF7C0007BBAA /* MainFunctionsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFunctionsExtension.swift; sourceTree = "<group>"; };
+		D4E4620021D16D8500C9D8CD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4FCC22D21B439C600D92BD4 /* AnglicanText.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AnglicanText.ttf; sourceTree = "<group>"; };
 		D4FCC22E21B439C600D92BD4 /* let's go digital regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "let's go digital regular.ttf"; sourceTree = "<group>"; };
 		D4FCC22F21B439C600D92BD4 /* Canterbury.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Canterbury.ttf; sourceTree = "<group>"; };
@@ -315,6 +316,7 @@
 				es,
 				fr,
 				Base,
+				de,
 			);
 			mainGroup = D413598B218E763F00768430;
 			productRefGroup = D4135995218E763F00768430 /* Products */;
@@ -429,6 +431,7 @@
 				D4D56C2121B42C2D003025FF /* es */,
 				D4D56C2221B42C37003025FF /* fr */,
 				D4D56C2321B42DC4003025FF /* en */,
+				D4E4620021D16D8500C9D8CD /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
