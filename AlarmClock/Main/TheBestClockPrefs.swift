@@ -157,11 +157,12 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     
     /* ################################################################## */
     /**
-     This just resets the two main "ephemeral" states.
+     This just resets the three main "ephemeral" states.
      */
     func clearState() {
         self.lastSnoozeTime = nil
         self.alarmResetTime = nil
+        self.deactivated = false
     }
     
     /* ################################################################## */
