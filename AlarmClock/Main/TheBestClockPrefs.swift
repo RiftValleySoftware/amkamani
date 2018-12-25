@@ -91,7 +91,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
                 self.deactivateTime = nil
             } else {
                 if (!newValue || !self.isActive) && nil != self.lastSnoozeTime {
-                    self.deactivated = !newValue && nil != self.lastSnoozeTime
+                    self.deactivated = !newValue && nil != self.lastSnoozeTime  // This is to make sure that we don't go off again as soon as we close the editor.
                     self.lastSnoozeTime = nil
                     self.alarmResetTime = nil
                 }
