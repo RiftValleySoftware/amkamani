@@ -159,6 +159,7 @@ class TheBestClockAlarmView: UIControl {
             self.displayLabel.text = dateFormatter.string(from: pickerDate)
         }
         
+        // We use the text to create a relevant accessibility label.
         if let displayText = self.displayLabel?.text {
             self.displayLabel.accessibilityLabel = displayText + ". " + ("LOCAL-ACCESSIBILITY-ALARM-CONTAINER-O" + (self.alarmRecord.isActive ? "N" : "FF")).localizedVariant
         }

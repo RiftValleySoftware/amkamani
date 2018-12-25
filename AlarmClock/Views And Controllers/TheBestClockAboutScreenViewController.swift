@@ -62,10 +62,10 @@ class TheBestClockAboutScreenViewController: UIViewController {
      is because the prepare from the main controller is called after the load, and we
      need to use the data it gives us.
      
-     - parameter animated: We ignore this, and pass it up to the superclass.
+     - parameter inAnimated: We ignore this, and pass it up to the superclass.
      */
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewWillAppear(_ inAnimated: Bool) {
+        super.viewWillAppear(inAnimated)
         // Set all the items to use our selected color.
         self.logoImageControl.baseColor = self.baseColor
         self.logoImageControl.moonColor = self.baseColor
