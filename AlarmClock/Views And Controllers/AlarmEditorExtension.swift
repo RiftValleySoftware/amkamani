@@ -258,6 +258,7 @@ extension MainScreenViewController {
             currentAlarm.snoozing = false
             self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.isActive = true
             self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.snoozing = false
+            self.alarmButtons[self.currentlyEditingAlarmIndex].fullBright = true
             self.alarmEditorActiveSwitch.isOn = true
             self.showOnlyThisAlarm(self.currentlyEditingAlarmIndex)
             let time = currentAlarm.alarmTime
@@ -604,6 +605,7 @@ extension MainScreenViewController {
      */
     @IBAction func closeAlarmEditorScreen(_ sender: Any! = nil) {
         TheBestClockAppDelegate.lockOrientation(.all)
+        self.alarmButtons[self.currentlyEditingAlarmIndex].fullBright = false
         self.stopAudioPlayer()
         self.prefs.savePrefs() // We commit the changes we made, here.
         self.currentlyEditingAlarmIndex = -1

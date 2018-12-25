@@ -24,8 +24,6 @@ protocol TheBestClockAlarmViewDelegate: class {
 /**
  */
 class TheBestClockAlarmView: UIControl {
-    private var _currentAlpha: CGFloat = 1.0
-    
     weak var delegate: TheBestClockAlarmViewDelegate!
     var index: Int = 0
     /// This holds our state for the alarm we're displaying.
@@ -33,6 +31,8 @@ class TheBestClockAlarmView: UIControl {
     var fontName: String = ""
     var fontColor: UIColor!
     var brightness: CGFloat = 1.0
+    /// This is set to true while the Alarm Editor is up. It tells us to ignore the set brightness, and display an active alarm as 1.0.
+    var fullBright: Bool = false
     var desiredFontSize: CGFloat = 0 {  // This is the only one to generate a redraw in order to improve efficiency, so always call this last.
         didSet {
             DispatchQueue.main.async {
@@ -95,7 +95,7 @@ class TheBestClockAlarmView: UIControl {
         self.displayLabel.font = UIFont(name: self.fontName, size: self.desiredFontSize)
         self.displayLabel.text = ""
         var textColor: UIColor
-        let brightness = self.brightness
+        let brightness = self.fullBright ? 1.0 : self.brightness
         var alpha: CGFloat
         
         let activeAlpha = CGFloat(1.0)
