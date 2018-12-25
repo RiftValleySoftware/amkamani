@@ -48,6 +48,10 @@ class TheBestClockSpeakerButton: UIButton {
     // MARK: - Instance Superclass Overrides
     /* ################################################################## */
     /**
+     Called when touches start on the control.
+     
+     - parameter inTouches: The set of touches that are happening now.
+     - with: The event for the touches. It is optional.
      */
     override func touchesBegan(_ inTouches: Set<UITouch>, with inEvent: UIEvent?) {
         if let touchLocation = inTouches.first?.location(in: self) {
@@ -61,6 +65,10 @@ class TheBestClockSpeakerButton: UIButton {
     
     /* ################################################################## */
     /**
+     Called as tracking starts.
+     
+     - parameter inTouch: The current touch.
+     - with: The event for the touch. It is optional.
      */
     override func beginTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let touchLocation = inTouch.location(in: self)
@@ -71,6 +79,10 @@ class TheBestClockSpeakerButton: UIButton {
     
     /* ################################################################## */
     /**
+     Called repeatedly as tracking continues.
+     
+     - parameter inTouch: The current touch.
+     - with: The event for the touch. It is optional.
      */
     override func continueTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let touchLocation = inTouch.location(in: self)
@@ -81,6 +93,10 @@ class TheBestClockSpeakerButton: UIButton {
     
     /* ################################################################## */
     /**
+     Called when tracking is done.
+     
+     - parameter inTouch: The current touch. It is optional.
+     - with: The event for the touch. It is optional.
      */
     override func endTracking(_ inTouch: UITouch?, with inEvent: UIEvent?) {
         self.isHighlighted = false
@@ -90,6 +106,10 @@ class TheBestClockSpeakerButton: UIButton {
 
     /* ################################################################## */
     /**
+     Called when touches end on the control.
+     
+     - parameter inTouches: The set of touches that are happening now.
+     - with: The event for the touches. It is optional.
      */
     override func touchesEnded(_ inTouches: Set<UITouch>, with inEvent: UIEvent?) {
         if let touchLocation = inTouches.first?.location(in: self) {
@@ -105,6 +125,11 @@ class TheBestClockSpeakerButton: UIButton {
     
     /* ################################################################## */
     /**
+     The main drawing routine.
+     
+     This was mostly created by PaintCode, but it has been adapted for brevity and flexibility.
+     
+     - parameter inRect: The drawing rect.
      */
     override func draw(_ rect: CGRect) {
         // This is the speaker Icon

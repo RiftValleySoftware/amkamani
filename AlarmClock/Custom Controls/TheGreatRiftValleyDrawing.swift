@@ -26,6 +26,7 @@ class TheGreatRiftValleyDrawing: UIControl {
     
     /* ################################################################## */
     /**
+     This is the base color for the lines in the drawing.
      */
     @IBInspectable var baseColor: UIColor = UIColor.black {
         didSet {
@@ -34,6 +35,7 @@ class TheGreatRiftValleyDrawing: UIControl {
     }
     /* ################################################################## */
     /**
+     This is a fill color for the moon.
      */
     @IBInspectable var moonColor: UIColor = UIColor.clear {
         didSet {
@@ -43,6 +45,7 @@ class TheGreatRiftValleyDrawing: UIControl {
     
     /* ################################################################## */
     /**
+     Called when the views will be laid out. We use it to add a gesture recognizer for taps.
      */
     override func layoutSubviews() {
         if nil == self._tapGestureRecognizer {
@@ -54,6 +57,11 @@ class TheGreatRiftValleyDrawing: UIControl {
     
     /* ################################################################## */
     /**
+     The main drawing routine.
+     
+     This was mostly created by PaintCode, but it has been adapted for brevity and flexibility.
+     
+     - parameter inRect: The drawing rect.
      */
     override func draw(_ inRect: CGRect) {
         self._moonFillGradientLayer?.removeFromSuperlayer()  // Remove any previous gradient fill layers.
@@ -700,8 +708,11 @@ class TheGreatRiftValleyDrawing: UIControl {
     
     /* ################################################################## */
     /**
+     Called when the control is tapped.
+     
+     - parameter: ignored.
      */
-    @IBAction func controlTapped(_ sender: Any) {
+    @IBAction func controlTapped(_: Any) {
         self.sendActions(for: .touchUpInside)
     }
 }

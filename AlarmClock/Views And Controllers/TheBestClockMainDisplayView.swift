@@ -14,9 +14,7 @@ import UIKit
 // MARK: - Main Class -
 /* ###################################################################################################################################### */
 /**
+ This is really just a placeholder. It does nothing but create a namespace.
  */
 class TheBestClockMainDisplayView: UIView {
-    /* ################################################################## */
-    /**
-     */
 }

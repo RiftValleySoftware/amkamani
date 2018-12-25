@@ -22,17 +22,28 @@ protocol TheBestClockAlarmViewDelegate: class {
 // MARK: - Main Class -
 /* ###################################################################################################################################### */
 /**
+ This is the view class for each alarm button. It is a button with a label in it. The label contains the alarm time and state.
+ 
+ It has a pulsing "snore" for sleeping.
  */
 class TheBestClockAlarmView: UIControl {
+    /// Our delegate
     weak var delegate: TheBestClockAlarmViewDelegate!
+    /// Which alarm this is. 0-based index.
     var index: Int = 0
     /// This holds our state for the alarm we're displaying.
     var alarmRecord: TheBestClockAlarmSetting!
+    /// The name of the font to be used for the alarm display.
     var fontName: String = ""
+    /// The color to display the alarm.
     var fontColor: UIColor!
+    /// The brightness to use for active alarm display.
     var brightness: CGFloat = 1.0
     /// This is set to true while the Alarm Editor is up. It tells us to ignore the set brightness, and display an active alarm as 1.0.
     var fullBright: Bool = false
+    /// This is the gesture recognizer we use to detect a long-press.
+    var longPressGestureRecognizer: UILongPressGestureRecognizer!
+    /// This is the size we want the display to be.
     var desiredFontSize: CGFloat = 0 {  // This is the only one to generate a redraw in order to improve efficiency, so always call this last.
         didSet {
             DispatchQueue.main.async {
@@ -41,11 +52,15 @@ class TheBestClockAlarmView: UIControl {
         }
     }
     
+    /// This is the label object for the alarm.
     @IBOutlet var displayLabel: UILabel!
-    var longPressGestureRecognizer: UILongPressGestureRecognizer!
     
     /* ################################################################## */
     /**
+     Basic initializer.
+     
+     - parameter frame: The frame for the control.
+     - parameter alarmRecord: The alarm object to be associated with this button.
      */
     init(   frame inFrame: CGRect = CGRect.zero,
             alarmRecord inAlarmRecord: TheBestClockAlarmSetting
@@ -56,6 +71,9 @@ class TheBestClockAlarmView: UIControl {
     
     /* ################################################################## */
     /**
+     Coder initializer.
+     
+     - parameter coder: The coder that contains our state.
      */
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -63,10 +81,16 @@ class TheBestClockAlarmView: UIControl {
     
     /* ################################################################## */
     /**
+     Called when we will lay out the subviews.
+     
+     We use this to set up most of our control state.
      */
     override func layoutSubviews() {
         super.layoutSubviews()
+        // We inset slightly horizontally.
         let frame = self.bounds.insetBy(dx: self.bounds.size.width / 40, dy: 0)
+        
+        // See if we need to add a label.
         if nil == self.displayLabel {
             self.displayLabel = UILabel(frame: frame)
             self.displayLabel.adjustsFontSizeToFitWidth = true
@@ -76,11 +100,13 @@ class TheBestClockAlarmView: UIControl {
             self.displayLabel.backgroundColor = UIColor.clear
         }
         
+        // See if we need to add a gesture recognizer.
         if nil == self.longPressGestureRecognizer {
             self.longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(type(of: self).longPressGesture(_:)))
             self.addGestureRecognizer(self.longPressGestureRecognizer)
         }
-
+        
+        // Add any accessibility hint. This is static for the button.
         self.displayLabel.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-CONTAINER-HINT".localizedVariant
         self.backgroundColor = UIColor.clear
         self.displayLabel.frame = frame
@@ -89,9 +115,12 @@ class TheBestClockAlarmView: UIControl {
     
     /* ################################################################## */
     /**
+     The drawing routine. The display is rendered here.
+     
+     - parameter inRect: The rect in which the drawing is to be done.
      */
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
+    override func draw(_ inRect: CGRect) {
+        super.draw(inRect)
         self.displayLabel.font = UIFont(name: self.fontName, size: self.desiredFontSize)
         self.displayLabel.text = ""
         var textColor: UIColor
@@ -139,6 +168,10 @@ class TheBestClockAlarmView: UIControl {
     
     /* ################################################################## */
     /**
+     Called as tracking starts.
+     
+     - parameter inTouch: The current touch.
+     - with: The event for the touch. It is optional.
      */
     override func beginTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let ret = super.beginTracking(inTouch, with: inEvent)
@@ -153,6 +186,10 @@ class TheBestClockAlarmView: UIControl {
     
     /* ################################################################## */
     /**
+     Called repeatedly as tracking continues.
+     
+     - parameter inTouch: The current touch.
+     - with: The event for the touch. It is optional.
      */
     override func continueTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let touchLocation = inTouch.location(in: self)
@@ -168,6 +205,10 @@ class TheBestClockAlarmView: UIControl {
     
     /* ################################################################## */
     /**
+     Called when tracking is done.
+     
+     - parameter inTouch: The current touch. It is optional.
+     - with: The event for the touch. It is optional.
      */
     override func endTracking(_ inTouch: UITouch?, with inEvent: UIEvent?) {
         if let touchLocation = inTouch?.location(in: self) {
@@ -192,6 +233,9 @@ class TheBestClockAlarmView: UIControl {
     
     /* ################################################################## */
     /**
+     Called to cancel tracking.
+     
+     - parameter with: The cancel event. It is optional.
      */
     override func cancelTracking(with inEvent: UIEvent?) {
         self.isHighlighted = false
@@ -204,13 +248,19 @@ class TheBestClockAlarmView: UIControl {
     
     /* ################################################################## */
     /**
+     Called upon a long press. We use this to open the Alarm Editor.
+     
+     - parameter: ignored.
      */
-    @IBAction func longPressGesture(_ inGestureRecognizer: UILongPressGestureRecognizer) {
+    @IBAction func longPressGesture(_: UILongPressGestureRecognizer) {
         self.delegate?.openAlarmEditor(self.index)
     }
     
     /* ################################################################## */
     /**
+     This animates a "snore."
+     
+     This is a pulsing of brightness.
      */
     func snore() {
         let oldAlpha = self.displayLabel.alpha
