@@ -49,9 +49,9 @@
 /* SYSTEM SETTINGS */
 // These are displayed in the system settings area.
 
-"LOCAL-SNOOZE-COUNT"    = "Number of Snoozes";      // The number of snoozes can be set, so the user can snooze several times, then the alarm gives up
-"LOCAL-FOREVER-SNOOZE"  = "No Limit";               // They can have "no limit," so that the snooze never gives up.
-"LOCAL-SNOOZE-LABEL"    = "From 1 to 7 Snoozes";    // You can have 1 to 7 snoozes before giving up.
+"LOCAL-SNOOZE-COUNT"                        =       "Number of Snoozes";      // The number of snoozes can be set, so the user can snooze several times, then the alarm gives up
+"LOCAL-FOREVER-SNOOZE"                      =       "No Limit";               // They can have "no limit," so that the snooze never gives up.
+"LOCAL-SNOOZE-LABEL"                        =       "From 1 to 7 Snoozes";    // You can have 1 to 7 snoozes before giving up.
 
 /* ACCESSIBILITY */
 // These are accessibility strings that are attached to the screen items. They are not visible, but can be read by the device.
