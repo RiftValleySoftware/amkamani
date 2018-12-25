@@ -1,4 +1,4 @@
-THE GREAT RIFT VALLEY ALARM CLOCK
+AmkaMani
 =
 This is a very fundamental iOS-based (iPhone or iPad) alarm clock app.
 
