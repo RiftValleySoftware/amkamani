@@ -605,7 +605,9 @@ extension MainScreenViewController {
      */
     @IBAction func closeAlarmEditorScreen(_ sender: Any! = nil) {
         TheBestClockAppDelegate.lockOrientation(.all)
-        self.alarmButtons[self.currentlyEditingAlarmIndex].fullBright = false
+        if 0 <= self.currentlyEditingAlarmIndex, self.alarmButtons.count > self.currentlyEditingAlarmIndex {
+            self.alarmButtons[self.currentlyEditingAlarmIndex].fullBright = false
+        }
         self.stopAudioPlayer()
         self.prefs.savePrefs() // We commit the changes we made, here.
         self.currentlyEditingAlarmIndex = -1
