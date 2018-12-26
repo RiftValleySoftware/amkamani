@@ -404,6 +404,14 @@ class TheBestClockPrefs: NSObject {
     }
     
     /* ################################################################## */
+    // MARK: Class Static Properties
+    /* ################################################################## */
+    /**
+     This is our minimum brightness threshold. We don't let the text and stuff quite make it to 0.
+     */
+    static let minimumBrightness: CGFloat = 0.15
+    
+    /* ################################################################## */
     // MARK: Class Static Calculated Properties
     /* ################################################################## */
     /**
@@ -597,7 +605,7 @@ class TheBestClockPrefs: NSObject {
         
         set {
             if self.loadPrefs() {
-                let value = NSNumber(value: Float(newValue))
+                let value = NSNumber(value: Float(Swift.min(type(of: self).minimumBrightness, newValue)))   // Make sure we don't go below minimum.
                 self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.brightnessLevel.rawValue as NSString)
                 self.savePrefs()
             }

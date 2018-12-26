@@ -83,7 +83,7 @@ extension MainScreenViewController {
             }
             
             // The background can get darker than the text.
-            self.backgroundColor = (self.selectedBrightness == self.minimumBrightness) ? UIColor.black : UIColor(white: 0.25 * self.selectedBrightness, alpha: 1.0)
+            self.backgroundColor = (self.selectedBrightness <= TheBestClockPrefs.minimumBrightness) ? UIColor.black : UIColor(white: 0.25 * self.selectedBrightness, alpha: 1.0)
             if self.mainPickerContainerView.isHidden, -1 == self.currentlyEditingAlarmIndex { // We don't do this if we are in the appearance or alarm editor.
                 TheBestClockAppDelegate.recordOriginalBrightness()
                 UIScreen.main.brightness = self.selectedBrightness    // Also dim the screen.
@@ -529,7 +529,7 @@ extension MainScreenViewController {
             self.snoozeCount += 1
             self.stopAudioPlayer()
             self.alarmDisplayView.isHidden = true
-            self.selectedBrightness = self.prefs.brightnessLevel
+            self.selectedBrightness = Swift.max(TheBestClockPrefs.minimumBrightness, self.prefs.brightnessLevel)
             self.brightnessSliderChanged()
             for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].snoozing {
                 self.alarmButtons[index].snore()
@@ -587,10 +587,10 @@ extension MainScreenViewController {
         var newBrightness: CGFloat = 1.0
         
         if nil != inSlider {
-            self.selectedBrightness = Swift.max(self.minimumBrightness, Swift.min(inSlider.brightness, 1.0))
+            self.selectedBrightness = Swift.max(TheBestClockPrefs.minimumBrightness, Swift.min(inSlider.brightness, 1.0))
         }
         
-        newBrightness = Swift.min(newBrightness, Swift.max(self.minimumBrightness, self.selectedBrightness))
+        newBrightness = Swift.max(newBrightness, Swift.max(TheBestClockPrefs.minimumBrightness, self.selectedBrightness))
         self.prefs?.brightnessLevel = newBrightness
         TheBestClockAppDelegate.recordOriginalBrightness()
         UIScreen.main.brightness = newBrightness    // Also dim the screen.
@@ -724,7 +724,7 @@ extension MainScreenViewController {
         self.prefs = TheBestClockPrefs()
         self.selectedFontIndex = self.prefs.selectedFont
         self.selectedColorIndex = self.prefs.selectedColor
-        self.selectedBrightness = self.prefs.brightnessLevel
+        self.selectedBrightness = Swift.max(TheBestClockPrefs.minimumBrightness, self.prefs.brightnessLevel)
         self.updateMainTime()   // This will update the time. It will also set up our various labels and background colors.
         self.setInfoButtonColor()
         self.noMusicAvailableLabel.text = self.noMusicAvailableLabel.text?.localizedVariant

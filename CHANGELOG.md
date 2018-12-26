@@ -6,6 +6,7 @@
 - The brightness sliders now extend further up.
 - Added a placeholder for German localization.
 - Made it so that the alarm display at the bottom of the Alarm Editor is set to full brightness when editing (it was dimmed, before, if the app was dimmed).
+- Tweaks to make sure that we never go below minimum brightness.
 
 **Version 1.0.0.2016** *(December 18, 2018)*
 - Fixed a minor cosmetic bug, where switching out of the app would not always restore the correct original brightness level.

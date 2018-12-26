@@ -95,8 +95,6 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                              "Papyrus",
                                              "TrebuchetMS-Bold",
                                              "Verdana-Bold"]
-    /// This is our minimum brightness threshold. We don't let the text and stuff quite make it to 0.
-    let minimumBrightness: CGFloat = 0.15
     /// This is the base font size for the ante meridian label near the top of the screen.
     let amPmLabelFontSize: CGFloat = 30
     /// This is the base font size for the date display along the top.
