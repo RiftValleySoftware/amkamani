@@ -1,4 +1,4 @@
-**Version 1.0.0.2017** *(TBD)*
+**Version 1.0.0.2017** *(December 26, 2018)*
 - More accessibility work.
 - Changed the source of the display name in the info screen.
 - Changed the prefs key, so we will get new prefs.
