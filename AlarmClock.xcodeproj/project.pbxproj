@@ -32,6 +32,7 @@
 		D4D56C7221B43454003025FF /* videogame-beeps-high-frequency.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4D56C7421B43454003025FF /* videogame-beeps-high-frequency.mp3 */; };
 		D4D56C7521B43459003025FF /* videogame-beeps-lower-frequency.mp3 in Copy Sounds */ = {isa = PBXBuildFile; fileRef = D4D56C7721B43459003025FF /* videogame-beeps-lower-frequency.mp3 */; };
 		D4D56C7821B43611003025FF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46682A621911F5E00471BC0 /* Localizable.strings */; };
+		D4D71E2921D5734300ACBB47 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4D71E2B21D5734300ACBB47 /* InfoPlist.strings */; };
 		D4D8E04E219AEF7C0007BBAA /* MainFunctionsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D8E04D219AEF7C0007BBAA /* MainFunctionsExtension.swift */; };
 		D4FCC23121B439C600D92BD4 /* AnglicanText.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FCC22D21B439C600D92BD4 /* AnglicanText.ttf */; };
 		D4FCC23221B439C600D92BD4 /* let's go digital regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4FCC22E21B439C600D92BD4 /* let's go digital regular.ttf */; };
@@ -116,6 +117,9 @@
 		D4D56C7021B43450003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Base; path = "Base.lproj/single-beep.mp3"; sourceTree = "<group>"; };
 		D4D56C7321B43454003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Base; path = "Base.lproj/videogame-beeps-high-frequency.mp3"; sourceTree = "<group>"; };
 		D4D56C7621B43459003025FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Base; path = "Base.lproj/videogame-beeps-lower-frequency.mp3"; sourceTree = "<group>"; };
+		D4D71E2C21D5734500ACBB47 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D4D71E2D21D5734600ACBB47 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D4D71E2E21D5734700ACBB47 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D4D8E04D219AEF7C0007BBAA /* MainFunctionsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFunctionsExtension.swift; sourceTree = "<group>"; };
 		D4E4620021D16D8500C9D8CD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4FCC22D21B439C600D92BD4 /* AnglicanText.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AnglicanText.ttf; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				D413599B218E763F00768430 /* Main.storyboard */,
+				D4D71E2B21D5734300ACBB47 /* InfoPlist.strings */,
 				D46682A621911F5E00471BC0 /* Localizable.strings */,
 				D4FDA6F1218FA519009F08C2 /* Fonts */,
 				D4D56C2621B43016003025FF /* Sounds */,
@@ -342,6 +347,7 @@
 				D41359A2218E764100768430 /* LaunchScreen.storyboard in Resources */,
 				D4FCC23121B439C600D92BD4 /* AnglicanText.ttf in Resources */,
 				D458720521A0B0EA00919A23 /* Settings.bundle in Resources */,
+				D4D71E2921D5734300ACBB47 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +512,16 @@
 				D4D56C7621B43459003025FF /* Base */,
 			);
 			name = "videogame-beeps-lower-frequency.mp3";
+			sourceTree = "<group>";
+		};
+		D4D71E2B21D5734300ACBB47 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4D71E2C21D5734500ACBB47 /* es */,
+				D4D71E2D21D5734600ACBB47 /* fr */,
+				D4D71E2E21D5734700ACBB47 /* de */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

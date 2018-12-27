@@ -1,3 +1,6 @@
+**Version 1.0.0.2018** *(TBD)*
+- Added the localizable InfoPlist.strings file.
+
 **Version 1.0.0.2017** *(December 26, 2018)*
 - More accessibility work.
 - Changed the source of the display name in the info screen.
