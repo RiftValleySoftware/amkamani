@@ -1,6 +1,7 @@
 **Version 1.0.0.2018** *(TBD)*
 - Added the localizable InfoPlist.strings file.
 - Added a bit of a "fail-safe" check when playing a sound, where we make sure the authorization and saved song URI are valid for Music Mode. If not, we switch to Sound Mode when the alarm is played.
+- The screen brightness now goes to full when editing the color and font (not just the alarm).
 
 **Version 1.0.0.2017** *(December 26, 2018)*
 - More accessibility work.

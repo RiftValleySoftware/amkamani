@@ -73,20 +73,24 @@ extension MainScreenViewController {
             var endColor: UIColor
             var startColor: UIColor
             
+            let brightness = self.mainPickerContainerView.isHidden ? self.selectedBrightness : 1.0
+            
             if 0 == self.selectedColorIndex {   // White just uses...white. No need to get fancy.
-                endColor = UIColor(white: 0.6 * self.selectedBrightness, alpha: 1.0)
-                startColor = UIColor(white: 1.25 * self.selectedBrightness, alpha: 1.0)
+                endColor = UIColor(white: 0.6 * brightness, alpha: 1.0)
+                startColor = UIColor(white: 1.25 * brightness, alpha: 1.0)
             } else {    // We use HSB to change the brightness, without changing the color.
                 let hue = self.selectedColor.hsba.h
-                endColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.6 * self.selectedBrightness, alpha: 1.0)
-                startColor = UIColor(hue: hue, saturation: 0.85, brightness: 1.25 * self.selectedBrightness, alpha: 1.0)
+                endColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.6 * brightness, alpha: 1.0)
+                startColor = UIColor(hue: hue, saturation: 0.85, brightness: 1.25 * brightness, alpha: 1.0)
             }
             
             // The background can get darker than the text.
             self.backgroundColor = (self.selectedBrightness <= TheBestClockPrefs.minimumBrightness) ? UIColor.black : UIColor(white: 0.25 * self.selectedBrightness, alpha: 1.0)
             if self.mainPickerContainerView.isHidden, -1 == self.currentlyEditingAlarmIndex { // We don't do this if we are in the appearance or alarm editor.
                 TheBestClockAppDelegate.recordOriginalBrightness()
-                UIScreen.main.brightness = self.selectedBrightness    // Also dim the screen.
+                UIScreen.main.brightness = brightness    // Also dim the screen.
+            } else if !self.mainPickerContainerView.isHidden {
+                UIScreen.main.brightness = brightness    // If we are editing, we get full brightness.
             }
             
             // We create a gradient layer, with our color going from slightly darker, to full brightness.
