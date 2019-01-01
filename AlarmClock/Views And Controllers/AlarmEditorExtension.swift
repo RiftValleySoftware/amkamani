@@ -170,7 +170,6 @@ extension MainScreenViewController {
     /* ################################################################## */
     /**
      This is called to play a sound, choosing from the various alarms. That alarm's indexed sound will be used.
-     It is also used to continue a paused audio player (in which case, the sound is actually ignored).
      
      - parameter inAlarmIndex: This is the index of the alarm that we want to use to play the sound.
      */
@@ -178,12 +177,32 @@ extension MainScreenViewController {
         if nil == self.audioPlayer {
             var soundUrl: URL!
             
-            if .sounds == self.prefs.alarms[inAlarmIndex].selectedSoundMode, let soundUri = URL(string: self.soundSelection[self.prefs.alarms[inAlarmIndex].selectedSoundIndex].urlEncodedString ?? "") {
-                soundUrl = soundUri
-            } else if .music == self.prefs.alarms[inAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let songURI = URL(string: self.prefs.alarms[inAlarmIndex].selectedSongURL.urlEncodedString ?? "") {
-                soundUrl = songURI
-            }  else if .music == self.prefs.alarms[inAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let defaultSongURI = URL(string: self.findSongURL(artistIndex: 0, songIndex: 0).urlEncodedString ?? "") {
-                soundUrl = defaultSongURI
+            // We do a check here, to make sure that, if we are in music mode, we have authorization, and a valid URI. If not, we switch to sound mode.
+            // The idea is that it's really important that the alarm go off; even if it is not the one chosen by the user.
+            // Also, we can't have an authorization request pop up here. Something needs to happen.
+            // We will accept an authorization AND either a valid saved URI OR a valid default URI. Otherwise, we switch over to sound mode, temporarily.
+            if .music == self.prefs.alarms[inAlarmIndex].selectedSoundMode
+                && (
+                    .authorized != MPMediaLibrary.authorizationStatus()
+                    || (
+                        nil == URL(string: self.prefs.alarms[inAlarmIndex].selectedSongURL.urlEncodedString ?? "") && nil == URL(string: self.findSongURL(artistIndex: 0, songIndex: 0).urlEncodedString ?? "")
+                    )
+                ) {
+                // We use the sound URI, without forcing the alarm to change its saved mode.
+                soundUrl = URL(string: self.soundSelection[self.prefs.alarms[inAlarmIndex].selectedSoundIndex].urlEncodedString ?? "")
+            }
+            
+            if nil == soundUrl {    // Assuming we didn't "fail over" to a sound.
+                // Standard sound. We're kinda screwed, if the sound URI is bad.
+                if .sounds == self.prefs.alarms[inAlarmIndex].selectedSoundMode, let soundUri = URL(string: self.soundSelection[self.prefs.alarms[inAlarmIndex].selectedSoundIndex].urlEncodedString ?? "") {
+                    soundUrl = soundUri
+                // Music, and valid saved song URI
+                } else if .music == self.prefs.alarms[inAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let songURI = URL(string: self.prefs.alarms[inAlarmIndex].selectedSongURL.urlEncodedString ?? "") {
+                    soundUrl = songURI
+                // Music, but the saved song URI is invalid, so we switch to the default one.
+                }  else if .music == self.prefs.alarms[inAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let defaultSongURI = URL(string: self.findSongURL(artistIndex: 0, songIndex: 0).urlEncodedString ?? "") {
+                    soundUrl = defaultSongURI
+                }
             }
             
             if nil != soundUrl {
