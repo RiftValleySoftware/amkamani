@@ -10,10 +10,18 @@
 
 import UIKit
 
+/* ###################################################################################################################################### */
+// MARK: - Delegate -
+/* ###################################################################################################################################### */
+/**
+ The delegate is very simple. We just call it to open the alarm editor.
+ */
 protocol TheBestClockAlarmViewDelegate: class {
     /* ################################################################## */
     /**
      This will be called to open the alarm editor if the button is activated.
+     
+     - parameter alarmIndex: The 0-based index of the alarm to be edited (0-2).
      */
     func openAlarmEditor(_ alarmIndex: Int)
 }
