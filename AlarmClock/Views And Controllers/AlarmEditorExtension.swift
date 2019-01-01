@@ -190,6 +190,10 @@ extension MainScreenViewController {
                 ) {
                 // We use the sound URI, without forcing the alarm to change its saved mode.
                 soundUrl = URL(string: self.soundSelection[self.prefs.alarms[inAlarmIndex].selectedSoundIndex].urlEncodedString ?? "")
+                
+                if nil == soundUrl {    // One last fallback. The first sound in the list.
+                    soundUrl = URL(string: self.soundSelection[0].urlEncodedString ?? "")
+                }
             }
             
             if nil == soundUrl {    // Assuming we didn't "fail over" to a sound.
