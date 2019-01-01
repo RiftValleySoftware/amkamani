@@ -266,7 +266,6 @@ extension MainScreenViewController {
     func openAlarmEditorScreen() {
         self.stopTicker()
         if 0 <= self.currentlyEditingAlarmIndex, self.prefs.alarms.count > self.currentlyEditingAlarmIndex {
-            UIScreen.main.brightness = 1.0
             if .music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode {   // We do this here, because it can take a little while for things to catch up, and we can get no throbber if we wait until just before we load the media.
                 self.showLookupThrobber()
             }
@@ -357,7 +356,9 @@ extension MainScreenViewController {
                     self.activeSwitchChanged(self.alarmEditorActiveSwitch)
                 }
             }
-        }
+            
+            UIScreen.main.brightness = 1.0  // Brighten the screen all the way for the editor.
+       }
         
         // Need to do this because of the whacky way we are presenting the editor screen. The underneath controls can "bleed through."
         self.mainNumberDisplayView.isAccessibilityElement = false
