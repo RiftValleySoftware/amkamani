@@ -1,4 +1,4 @@
-**Version 1.0.0.2018** *(TBD)*
+**Version 1.0.0.2019** *(January 2, 2019)*
 - Added the localizable InfoPlist.strings file.
 - Completely changed the way that the "snooze limit" is handled in the System Prefs section. I was quite unsatisfied with the previous version.
 - The prefs have been completely reset, so you'll need to respecify the settings.
