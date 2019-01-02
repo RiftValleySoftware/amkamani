@@ -50,8 +50,6 @@
 // These are displayed in the system settings area.
 
 "LOCAL-SNOOZE-COUNT"                        =       "Number of Snoozes";      // The number of snoozes can be set, so the user can snooze several times, then the alarm gives up
-"LOCAL-FOREVER-SNOOZE"                      =       "No Limit";               // They can have "no limit," so that the snooze never gives up.
-"LOCAL-SNOOZE-LABEL"                        =       "From 1 to 7 Snoozes";    // You can have 1 to 7 snoozes before giving up.
 "RVS_SnoozeCount_0"                         =       "No Limit";               // This is displayed for no limit.
 "RVS_SnoozeCount_1"                         =       "1 Snooze";               // This is displayed for 1 snooze count.
 "RVS_SnoozeCount_2"                         =       "2 Snoozes";              // This is displayed for 1 snooze count.
