@@ -199,7 +199,7 @@ extension MainScreenViewController {
                 self.addAlarmView(alarmButton, percentage: percentage, previousView: prevButton)
                 alarmButton.delegate = self
                 alarmButton.index = index
-                alarmButton.alarmRecord.deactivated = true  // We start off deactivated, so we don't start blaring immediately.
+                alarmButton.alarmRecord.deferred = true  // We start off deactivated, so we don't start blaring immediately.
                 index += 1
                 prevButton = alarmButton
             }
@@ -306,10 +306,10 @@ extension MainScreenViewController {
                 }
                 self.aooGah(index) // Play a sound and/or vibrate.
             } else if alarm.isActive, alarm.snoozing {  // If we have a snoozing alarm, then it will "snore."
-                if self.snoozeCount > self.prefs.snoozeCount {
+                if !self.prefs.noSnoozeLimit, self.snoozeCount > self.prefs.snoozeCount {
                     self.snoozeCount = 0
                     alarm.snoozing = false
-                    alarm.deactivated = true
+                    alarm.deferred = true
                 } else {
                     self.alarmButtons[index].snore()
                 }
@@ -507,7 +507,7 @@ extension MainScreenViewController {
         self.alarmDisableScreenView.isHidden = true
         for index in 0..<self.prefs.alarms.count {
             if self.prefs.alarms[index].snoozing || !self.prefs.alarms[index].isActive {
-                self.prefs.alarms[index].deactivated = false
+                self.prefs.alarms[index].deferred = false
                 self.prefs.alarms[index].snoozing = false
             }
         }
@@ -550,7 +550,7 @@ extension MainScreenViewController {
     @IBAction func shutUpAlready(_: UILongPressGestureRecognizer! = nil) {
         self.alarmDisableScreenView.isHidden = true
         for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].isAlarming {
-            self.prefs.alarms[index].deactivated = true
+            self.prefs.alarms[index].deferred = true
             self.prefs.alarms[index].isActive = false
             self.prefs.savePrefs()
             self.alarmButtons[index].alarmRecord.isActive = false
@@ -571,7 +571,7 @@ extension MainScreenViewController {
             for index in 0..<self.alarmButtons.count where self.alarmButtons[index] == inSender {
                 if let alarmRecord = inSender.alarmRecord {
                     if alarmRecord.isActive || self.prefs.alarms[index].snoozing {
-                        self.prefs.alarms[index].deactivated = true
+                        self.prefs.alarms[index].deferred = true
                     }
                     self.prefs.alarms[index].isActive = alarmRecord.isActive
                     self.prefs.savePrefs()
@@ -594,7 +594,7 @@ extension MainScreenViewController {
             self.selectedBrightness = Swift.max(TheBestClockPrefs.minimumBrightness, Swift.min(inSlider.brightness, 1.0))
         }
         
-        newBrightness = Swift.max(newBrightness, Swift.max(TheBestClockPrefs.minimumBrightness, self.selectedBrightness))
+        newBrightness = Swift.min(1.0, Swift.max(newBrightness, Swift.max(TheBestClockPrefs.minimumBrightness, self.selectedBrightness)))
         self.prefs?.brightnessLevel = newBrightness
         TheBestClockAppDelegate.recordOriginalBrightness()
         UIScreen.main.brightness = newBrightness    // Also dim the screen.

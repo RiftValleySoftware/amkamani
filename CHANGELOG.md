@@ -1,5 +1,8 @@
 **Version 1.0.0.2018** *(TBD)*
 - Added the localizable InfoPlist.strings file.
+- Completely changed the way that the "snooze limit" is handled in the System Prefs section. I was quite unsatisfied with the previous version.
+- The prefs have been completely reset, so you'll need to respecify the settings.
+- Removed the double-tap gestures.
 - Added a bit of a "fail-safe" check when playing a sound, where we make sure the authorization and saved song URI are valid for Music Mode. If not, we switch to Sound Mode when the alarm is played.
 - The screen brightness now goes to full when editing the color and font (not just the alarm).
 

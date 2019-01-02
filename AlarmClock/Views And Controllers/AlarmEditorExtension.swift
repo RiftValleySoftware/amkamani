@@ -377,7 +377,7 @@ extension MainScreenViewController {
         self.musicTestButtonView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
         self.songSelectContainerView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
         self.noMusicDisplayView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || !(self.artists.isEmpty || self.songs.isEmpty)
-        self.alarmDeactivatedLabel.isHidden = (0 >= self.prefs.alarms[self.currentlyEditingAlarmIndex].alarmEngaged()) || !self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive || !self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated
+        self.alarmDeactivatedLabel.isHidden = (0 >= self.prefs.alarms[self.currentlyEditingAlarmIndex].alarmEngaged()) || !self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive || !self.prefs.alarms[self.currentlyEditingAlarmIndex].deferred
         self.alarmEditorVibrateButton.isHidden = "iPad" == UIDevice.current.model   // Hide these on iPads, which don't do vibrate.
         self.alarmEditorVibrateBeepSwitch.isHidden = "iPad" == UIDevice.current.model
     }
@@ -525,8 +525,8 @@ extension MainScreenViewController {
         self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.isActive = inSwitch.isOn
         if wasInactive && inSwitch.isOn {   // This allows us to reset the state by turning the alarm off and then on again. Just like The IT Crowd.
             // We toggle the deactivated state, so the user can set the alarm to go off later, in case it isn't set to do that.
-            self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated = !self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated
-            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.deactivated = self.prefs.alarms[self.currentlyEditingAlarmIndex].deactivated  // We reset the deactivated state
+            self.prefs.alarms[self.currentlyEditingAlarmIndex].deferred = !self.prefs.alarms[self.currentlyEditingAlarmIndex].deferred
+            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.deferred = self.prefs.alarms[self.currentlyEditingAlarmIndex].deferred  // We reset the deactivated state
         }
         self.showHideItems()
         self.refreshAlarm(self.currentlyEditingAlarmIndex)

@@ -27,7 +27,6 @@
                                 </accessibility>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="EtU-wI-Juo" appends="YES" id="aDV-oe-KOp"/>
-                                    <outletCollection property="gestureRecognizers" destination="dY2-H1-4Xj" appends="YES" id="5HZ-ZR-icd"/>
                                 </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="none" minimumFontSize="4" translatesAutoresizingMaskIntoConstraints="NO" id="qOc-ks-FdF">
@@ -174,7 +173,6 @@
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="4Dn-no-ExP" appends="YES" id="tSU-SU-ZZ3"/>
-                                    <outletCollection property="gestureRecognizers" destination="vTV-mt-vNG" appends="YES" id="a9A-RP-ngU"/>
                                 </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g5Y-c0-3tI">
@@ -531,7 +529,6 @@
                                     <constraint firstItem="4yv-BP-CQW" firstAttribute="top" secondItem="SpK-gg-rNb" secondAttribute="bottom" id="wSl-nO-IEp"/>
                                 </constraints>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="rPr-th-5lB" appends="YES" id="hwr-hX-DD0"/>
                                     <outletCollection property="gestureRecognizers" destination="QC1-0w-8EI" appends="YES" id="1RA-Pa-7Nf"/>
                                 </connections>
                             </view>
@@ -654,31 +651,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="dY2-H1-4Xj" userLabel="Open Appearance Editor Double-Tap">
-                    <connections>
-                        <action selector="openAppearanceEditor:" destination="BYZ-38-t0r" id="qvg-8o-gYh"/>
-                    </connections>
-                </tapGestureRecognizer>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="EtU-wI-Juo" userLabel="Open Appearance Edtor Long Press">
                     <connections>
                         <action selector="openAppearanceEditor:" destination="BYZ-38-t0r" id="AUf-KP-3un"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="vTV-mt-vNG" userLabel="Close Appearance Editor Double-Tap">
-                    <connections>
-                        <action selector="closeAppearanceEditor:" destination="BYZ-38-t0r" id="SSd-aq-jQJ"/>
-                    </connections>
-                </tapGestureRecognizer>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="4Dn-no-ExP" userLabel="Close Appearance Editor Long Press">
                     <connections>
                         <action selector="closeAppearanceEditor:" destination="BYZ-38-t0r" id="DlY-vB-mpZ"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="rPr-th-5lB" userLabel="Close Alarm Editor Double-Tap">
-                    <connections>
-                        <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" id="avL-n5-Xl4"/>
-                    </connections>
-                </tapGestureRecognizer>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="QC1-0w-8EI" userLabel="Close Alarm Editor Long Press">
                     <connections>
                         <action selector="closeAlarmEditorScreen:" destination="BYZ-38-t0r" id="R3A-a5-eMh"/>

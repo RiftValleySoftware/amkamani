@@ -33,9 +33,9 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     // MARK: - Instance Internal Constant Properties
     /* ################################################################## */
     /// The number of minutes we snooze for.
-    let snoozeTimeInMinutes: Int = 9
+    let snoozeTimeInMinutes: Int = 1 // 9
     /// The length of time an alarm will blare, in minutes.
-    let alarmTimeInMinutes: Int = 15
+    let alarmTimeInMinutes: Int = 2 // 15
     
     /* ################################################################## */
     // MARK: - Instance Stored Properties
@@ -91,7 +91,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
                 self.deactivateTime = nil
             } else {
                 if (!newValue || !self.isActive) && nil != self.lastSnoozeTime {
-                    self.deactivated = !newValue && nil != self.lastSnoozeTime  // This is to make sure that we don't go off again as soon as we close the editor.
+                    self.deferred = !newValue && nil != self.lastSnoozeTime  // This is to make sure that we don't go off again as soon as we close the editor.
                     self.lastSnoozeTime = nil
                     self.alarmResetTime = nil
                 }
@@ -101,9 +101,9 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     
     /* ################################################################## */
     /**
-     - returns: True, if the alarm has been "deactivated," and should not go off again.
+     - returns: True, if the alarm has been "deferred," and should not go off again.
      */
-    var deactivated: Bool {
+    var deferred: Bool {
         get {
             if nil != self.deactivateTime {
                 let interval = Date().timeIntervalSince(self.deactivateTime)
@@ -162,7 +162,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     func clearState() {
         self.lastSnoozeTime = nil
         self.alarmResetTime = nil
-        self.deactivated = false
+        self.deferred = false
     }
     
     /* ################################################################## */
@@ -201,10 +201,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     var isAlarming: Bool {
         if let alarmTimeToday = self.currentAlarmTime {
             if self.isActive {
-                #if DEBUG
-                print("Alarm Date Today: \(alarmTimeToday)")
-                #endif
-                if !self.deactivated {  // See if we are in a "deactivated" state.
+                if !self.deferred {  // See if we are in a "deactivated" state.
                     if self.snoozing {  // Are we asleep?
                         let interval = self.lastSnoozeTime.timeIntervalSinceNow
                         if 0 > interval {   // If not, wake up.
@@ -320,8 +317,7 @@ class TheBestClockPrefs: NSObject {
     class func registerDefaults() {
         var loadedPrefs: [String: Any] = [:]
         NSKeyedArchiver.setClassName("TheBestClockAlarmSetting", for: TheBestClockAlarmSetting.self)
-        loadedPrefs[self.PrefsKeys.noSnoozeLimit.rawValue] = 1
-        loadedPrefs[self.PrefsKeys.snoozeCount.rawValue] = 4
+        loadedPrefs[self.PrefsKeys.snoozeCount.rawValue] = 0
         loadedPrefs[self.PrefsKeys.selectedColor.rawValue] = 0
         loadedPrefs[self.PrefsKeys.selectedFont.rawValue] = 0
         loadedPrefs[self.PrefsKeys.brightnessLevel.rawValue] = 1.0
@@ -336,7 +332,7 @@ class TheBestClockPrefs: NSObject {
     // MARK: Private Static Properties
     /* ################################################################## */
     /** This is the key for the prefs used by this app. */
-    private static let _mainPrefsKey: String = "AmkaMani_SavedSettings"
+    private static let _mainPrefsKey: String = "AmkaMani_Settings"
     private static let _numberOfAlarms = 3
     
     /* ################################################################## */
@@ -351,7 +347,7 @@ class TheBestClockPrefs: NSObject {
     /* ################################################################## */
     /** These are the keys we use for our persistent prefs dictionary. */
     private enum PrefsKeys: String {
-        case snoozeCount, noSnoozeLimit, selectedColor, selectedFont, brightnessLevel, alarms
+        case snoozeCount, selectedColor, selectedFont, brightnessLevel, alarms
     }
     
     /* ################################################################## */
@@ -368,9 +364,6 @@ class TheBestClockPrefs: NSObject {
         if let temp = UserDefaults.standard.object(forKey: type(of: self)._mainPrefsKey) as? NSDictionary {
             let defaults = UserDefaults.standard
             self._loadedPrefs = NSMutableDictionary(dictionary: temp)
-            if let noSnoozeLimit = defaults.value(forKey: type(of: self).PrefsKeys.noSnoozeLimit.rawValue) as? NSNumber {
-                self._loadedPrefs.setObject(noSnoozeLimit, forKey: type(of: self).PrefsKeys.noSnoozeLimit.rawValue as NSString)
-            }
             if let snoozeCount = defaults.value(forKey: type(of: self).PrefsKeys.snoozeCount.rawValue) as? NSNumber {
                 self._loadedPrefs.setObject(snoozeCount, forKey: type(of: self).PrefsKeys.snoozeCount.rawValue as NSString)
             }
@@ -399,7 +392,10 @@ class TheBestClockPrefs: NSObject {
         for index in 0..<type(of: self)._numberOfAlarms where self._alarms.count == index {
             self._alarms.append(TheBestClockAlarmSetting())
         }
-        
+        #if DEBUG
+        print("Loaded Prefs: \(String(describing: self._loadedPrefs))")
+        #endif
+
         return nil != self._loadedPrefs
     }
     
@@ -494,10 +490,8 @@ class TheBestClockPrefs: NSObject {
     var snoozeCount: Int {
         get {
             var ret: Int = 0
-            if !self.noSnoozeLimit, self.loadPrefs() {
-                if let temp = self._loadedPrefs.object(forKey: type(of: self).PrefsKeys.snoozeCount.rawValue) as? NSNumber {
-                    ret = temp.intValue
-                }
+            if let temp = self._loadedPrefs.object(forKey: type(of: self).PrefsKeys.snoozeCount.rawValue) as? NSNumber {
+                ret = temp.intValue
             }
             
             return ret
@@ -514,27 +508,10 @@ class TheBestClockPrefs: NSObject {
     
     /* ################################################################## */
     /**
-     - returns: true, if we are in "Forever Snooze" mode (no limit).
+     - returns: true, if we are in "Forever Snooze" mode (no limit). READ ONLY
      */
     var noSnoozeLimit: Bool {
-        get {
-            var ret: Bool = false
-            if self.loadPrefs() {
-                if let temp = self._loadedPrefs.object(forKey: type(of: self).PrefsKeys.noSnoozeLimit.rawValue) as? NSNumber {
-                    ret = temp.boolValue
-                }
-            }
-            
-            return ret
-        }
-        
-        set {
-            if self.loadPrefs() {
-                let value = NSNumber(value: newValue)
-                self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.noSnoozeLimit.rawValue as NSString)
-                self.savePrefs()
-            }
-        }
+        return 0 == self.snoozeCount
     }
     
     /* ################################################################## */
@@ -605,7 +582,7 @@ class TheBestClockPrefs: NSObject {
         
         set {
             if self.loadPrefs() {
-                let value = NSNumber(value: Float(Swift.min(type(of: self).minimumBrightness, newValue)))   // Make sure we don't go below minimum.
+                let value = NSNumber(value: Float(Swift.min(1.0, Swift.max(type(of: self).minimumBrightness, newValue))))   // Make sure we don't go below minimum.
                 self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.brightnessLevel.rawValue as NSString)
                 self.savePrefs()
             }
