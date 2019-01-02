@@ -269,11 +269,11 @@ extension MainScreenViewController {
             if .music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode {   // We do this here, because it can take a little while for things to catch up, and we can get no throbber if we wait until just before we load the media.
                 self.showLookupThrobber()
             }
+            
             if self.alarmEditorMinimumHeight > UIScreen.main.bounds.size.height || self.alarmEditorMinimumHeight > UIScreen.main.bounds.size.width {
                 TheBestClockAppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
             }
             
-            TheBestClockAppDelegate.restoreOriginalBrightness()
             let currentAlarm = self.prefs.alarms[self.currentlyEditingAlarmIndex]
             
             currentAlarm.isActive = true

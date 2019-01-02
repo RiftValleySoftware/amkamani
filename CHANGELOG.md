@@ -1,3 +1,6 @@
+**Version 1.0.0.2020** *(January 2, 2019)*
+- Fixed a bug, where the ioriginal screen brightness wasn't being properly restored if an editor had been opened.
+
 **Version 1.0.0.2019** *(January 2, 2019)*
 - Added the localizable InfoPlist.strings file.
 - Completely changed the way that the "snooze limit" is handled in the System Prefs section. I was quite unsatisfied with the previous version.

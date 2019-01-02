@@ -583,6 +583,11 @@ class TheBestClockPrefs: NSObject {
         set {
             if self.loadPrefs() {
                 let value = NSNumber(value: Float(Swift.min(1.0, Swift.max(type(of: self).minimumBrightness, newValue))))   // Make sure we don't go below minimum.
+                #if DEBUG
+                if let temp = self._loadedPrefs.object(forKey: type(of: self).PrefsKeys.brightnessLevel.rawValue) as? NSNumber {
+                    print("Changing stored brightness from \(temp) to \(value)")
+                }
+                #endif
                 self._loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.brightnessLevel.rawValue as NSString)
                 self.savePrefs()
             }

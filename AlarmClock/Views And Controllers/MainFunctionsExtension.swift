@@ -90,7 +90,7 @@ extension MainScreenViewController {
                 TheBestClockAppDelegate.recordOriginalBrightness()
                 UIScreen.main.brightness = brightness    // Also dim the screen.
             } else if !self.mainPickerContainerView.isHidden {
-                UIScreen.main.brightness = brightness    // If we are editing, we get full brightness.
+                UIScreen.main.brightness = 1.0    // If we are editing, we get full brightness.
             }
             
             // We create a gradient layer, with our color going from slightly darker, to full brightness.
@@ -594,7 +594,7 @@ extension MainScreenViewController {
             self.selectedBrightness = Swift.max(TheBestClockPrefs.minimumBrightness, Swift.min(inSlider.brightness, 1.0))
         }
         
-        newBrightness = Swift.min(1.0, Swift.max(newBrightness, Swift.max(TheBestClockPrefs.minimumBrightness, self.selectedBrightness)))
+        newBrightness = Swift.min(1.0, Swift.max(TheBestClockPrefs.minimumBrightness, self.selectedBrightness))
         self.prefs?.brightnessLevel = newBrightness
         TheBestClockAppDelegate.recordOriginalBrightness()
         UIScreen.main.brightness = newBrightness    // Also dim the screen.
@@ -645,7 +645,6 @@ extension MainScreenViewController {
         self.colorDisplayPickerView.backgroundColor = self.backgroundColor
         self.fontDisplayPickerView.selectRow(self.selectedFontIndex, inComponent: 0, animated: false)
         self.colorDisplayPickerView.selectRow(self.selectedColorIndex, inComponent: 0, animated: false)
-        TheBestClockAppDelegate.restoreOriginalBrightness()
         self.mainPickerContainerView.isHidden = false
         
         // Need to do this because of the whacky way we are presenting the editor screen. The underneath controls can "bleed through."

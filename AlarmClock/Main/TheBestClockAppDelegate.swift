@@ -85,6 +85,11 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
             self.originalScreenBrightness = UIScreen.main.brightness
             assert(0 <= self.originalScreenBrightness && 1.0 >= self.originalScreenBrightness)
         }
+        
+        // If the app had backgrounded while an editor was open, then the screen brightness needs to go all the way up again.
+        if let mainController = self.delegateObject.theMainController, -1 < mainController.currentlyEditingAlarmIndex || !mainController.mainPickerContainerView.isHidden {
+            UIScreen.main.brightness = 1.0
+        }
     }
     
     /* ################################################################## */
@@ -125,6 +130,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
     /**
      */
     func applicationDidFinishLaunching(_ application: UIApplication) {
+        type(of: self).recordOriginalBrightness()
         TheBestClockPrefs.registerDefaults()
     }
     
@@ -143,6 +149,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      We force the main controller to lay out its subviews, which will restore its internal brightness level.
      */
     func applicationWillEnterForeground(_ application: UIApplication) {
+        type(of: self).recordOriginalBrightness()
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
         self.theMainController.startTicker()
         self.theMainController.view.setNeedsLayout()
