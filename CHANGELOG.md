@@ -1,3 +1,6 @@
+**Version 1.0.0.2021** *(TBD)*
+- Addressed a possible issue with the alarm stop touch events being disregarded.
+
 **Version 1.0.0.2020** *(January 2, 2019)*
 - Fixed a bug, where the ioriginal screen brightness wasn't being properly restored if an editor had been opened.
 

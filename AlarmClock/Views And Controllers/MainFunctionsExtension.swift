@@ -735,7 +735,7 @@ extension MainScreenViewController {
         self.musicLookupLabel.text = self.musicLookupLabel.text?.localizedVariant
         self.alarmEditorActiveButton.setTitle(self.alarmEditorActiveButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.alarmEditorVibrateButton.setTitle(self.alarmEditorVibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
-        self.snoozeGestureRecogninzer.require(toFail: self.shutUpAlreadyGestureRecognizer)
+        self.shutUpAlreadyGestureRecognizer.require(toFail: self.snoozeGestureRecogninzer)
         // Set up accessibility labels and hints.
         self.setUpMainScreenAccessibility()
         self.setUpAppearanceEditorAccessibility()
