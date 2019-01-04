@@ -331,6 +331,8 @@ extension MainScreenViewController {
      - parameter inIndex: This is the index of the alarm to be played.
      */
     func aooGah(_ inIndex: Int) {
+        UIApplication.shared.isIdleTimerDisabled = false // Toggle this to try to "wake" the touch sensor.
+        UIApplication.shared.isIdleTimerDisabled = true
         self.alarmDisplayView.isHidden = false
         if self.prefs.alarms[inIndex].isVibrateOn {
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
