@@ -1,4 +1,4 @@
-**Version 1.0.0.2021** *(TBD)*
+**Version 1.0.0.2021** *(January 7, 2019)*
 - Added a bit of code to ensure that the touch sensor is "woken up" when the alarm sounds. After extended periods of time, the system can "sleep" the touch sensor, so it requires two taps.
 
 **Version 1.0.0.2020** *(January 2, 2019)*
