@@ -319,7 +319,7 @@ extension MainScreenViewController {
         }
         
         // If we are in hush time, then we shouldn't be talking.
-        if noAlarms {
+        if noAlarms && 0 <= self.currentlyEditingAlarmIndex {
             self.stopAudioPlayer()
         }
     }

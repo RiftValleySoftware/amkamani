@@ -1,3 +1,6 @@
+**Version 1.0.0.2022** *(January 9, 2019)*
+- Fixed a bug, where sometimes, testing a song would not work in the alarm editor.
+
 **Version 1.0.0.2021** *(January 7, 2019)*
 - Added a bit of code to ensure that the touch sensor is "woken up" when the alarm sounds. After extended periods of time, the system can "sleep" the touch sensor, so it requires two taps.
 
