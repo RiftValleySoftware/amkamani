@@ -107,22 +107,26 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
         get {
             if nil != self.deactivateTime {
                 let interval = Date().timeIntervalSince(self.deactivateTime)
-                if interval > 0 {
+                if 0 < interval || Double(-self.alarmTimeInMinutes) < interval {   // If we are greater than 0, it means that we are past the deferral window, so we can nuke the deferral. Same for if the period is greater than the deferral.
                     self.deactivateTime = nil
+                    return false
                 }
+                
+                return true
             }
-            return nil != self.deactivateTime
+            
+            return false
         }
         
         set {
-            if self.isActive, newValue {
+            if newValue {
                 if let endDeactivateTime = Calendar.current.date(byAdding: .minute, value: self.alarmTimeInMinutes, to: self.currentAlarmTime) {
                     self.deactivateTime = endDeactivateTime
+                    
+                    _ = self.deferred   // Nuke the deferral, if we are too late.
                 }
             } else {
-                if !newValue && nil != self.deactivateTime {
-                    self.deactivateTime = nil
-                }
+                self.deactivateTime = nil
             }
         }
     }
@@ -131,6 +135,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
      - returns: The alarm set, for today, with the possibility of being deferred.
      */
     var currentAlarmTime: Date! {
+        _ = self.deferred           // We do this to clear away any deferral.
         if nil != self.alarmResetTime { // In case they keep banging on snooze.
             return self.alarmResetTime
         }

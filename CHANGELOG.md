@@ -1,3 +1,6 @@
+**Version 1.0.0.2023** *(TBD)*
+- Fixed an issue, where the deferral wasn't being set correctly after re-activating after a snooze. It should always be deferred when reactivating from the main display.
+
 **Version 1.0.0.2022** *(January 9, 2019)*
 - Fixed a bug, where sometimes, testing a song would not work in the alarm editor.
 - Switched over to a new Bundle ID and organization.
