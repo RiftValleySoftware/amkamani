@@ -195,6 +195,8 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /* ################################################################## */
     // MARK: - Instance Properties
     /* ################################################################## */
+    /// This is set to true if an alarm goes off. We then check it to see if we need to stop a playing audio loop when the alarm ends. Otherwise, we could keep playing forever.
+    var alarmSounded: Bool = false
     /// These are the persistent prefs that store our settings.
     var prefs: TheBestClockPrefs!
     /// If the Alarm Editor is open, then this is the index of the alarm being edited. It is -1 if the Alarm Editor is not open.

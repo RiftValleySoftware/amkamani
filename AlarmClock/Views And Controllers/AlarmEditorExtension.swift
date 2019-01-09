@@ -638,7 +638,8 @@ extension MainScreenViewController {
         self.editAlarmScreenContainer.isHidden = true
         self.showAllAlarms()
         self.snoozeCount = 0
-        
+        self.alarmSounded = false
+
         self.mainNumberDisplayView.isAccessibilityElement = true
         self.dateDisplayLabel.isAccessibilityElement = true
         self.amPmLabel.isAccessibilityElement = true

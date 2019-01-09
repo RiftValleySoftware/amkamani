@@ -1,5 +1,6 @@
-**Version 1.0.0.2023** *(TBD)*
+**Version 1.0.0.2023** *(January 9, 2019)*
 - Fixed an issue, where the deferral wasn't being set correctly after re-activating after a snooze. It should always be deferred when reactivating from the main display.
+- Fixed an issue, where letting a sound play out for the entire alarm period would keep it going forever.
 
 **Version 1.0.0.2022** *(January 9, 2019)*
 - Fixed a bug, where sometimes, testing a song would not work in the alarm editor.

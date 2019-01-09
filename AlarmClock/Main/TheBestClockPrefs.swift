@@ -101,13 +101,18 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     
     /* ################################################################## */
     /**
+     This handles "deferring" an alarm. That prevents it from going off immediately when turned back on.
+     
+     Basic rule: It should ALWAYS be deferred when activating from the front panel, or when starting/bringing forward the app. It can be reset from the Alarm Editor Screen.
+     
      - returns: True, if the alarm has been "deferred," and should not go off again.
      */
     var deferred: Bool {
         get {
-            if nil != self.deactivateTime {
-                let interval = Date().timeIntervalSince(self.deactivateTime)
-                if 0 < interval || Double(-self.alarmTimeInMinutes) < interval {   // If we are greater than 0, it means that we are past the deferral window, so we can nuke the deferral. Same for if the period is greater than the deferral.
+            if nil != self.deactivateTime { // See if we even have a deferral in place.
+                let interval = Date().timeIntervalSince(self.deactivateTime)    // How long has it been since we deactivated?
+                // If we are greater than 0, it means that we are past the deferral window, so we can nuke the deferral.
+                if 0 < interval {
                     self.deactivateTime = nil
                     return false
                 }
@@ -120,6 +125,7 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
         
         set {
             if newValue {
+                // What we do here, is add the alarm time to our current set time (not the current time). We have that many minutes of time before the deferral makes no sense.
                 if let endDeactivateTime = Calendar.current.date(byAdding: .minute, value: self.alarmTimeInMinutes, to: self.currentAlarmTime) {
                     self.deactivateTime = endDeactivateTime
                     

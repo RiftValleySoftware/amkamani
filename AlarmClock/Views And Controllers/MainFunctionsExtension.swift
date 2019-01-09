@@ -300,6 +300,7 @@ extension MainScreenViewController {
         for alarm in self.prefs.alarms {
             if alarm.isActive, alarm.isAlarming, (self.prefs.noSnoozeLimit || !alarm.snoozing || (alarm.snoozing && self.snoozeCount <= self.prefs.snoozeCount)) {
                 noAlarms = false
+                self.alarmSounded = true
                 self.alarmDisableScreenView.isHidden = false
                 if !soundOnly { // See if we want to be a flasher.
                     self.flashDisplay(self.selectedColor)
@@ -318,8 +319,9 @@ extension MainScreenViewController {
             index += 1
         }
         
-        // If we are in hush time, then we shouldn't be talking.
-        if noAlarms && 0 <= self.currentlyEditingAlarmIndex {
+        // If we are in hush time, then we shouldn't be talking. We don't do this if we are in the Alarm Editor (where the test would be running).
+        if noAlarms, self.alarmSounded, 0 > self.currentlyEditingAlarmIndex {
+            self.alarmSounded = false
             self.stopAudioPlayer()
         }
     }
