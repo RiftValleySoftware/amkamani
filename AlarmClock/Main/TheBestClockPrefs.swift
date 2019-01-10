@@ -111,8 +111,8 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
         get {
             if nil != self.deactivateTime { // See if we even have a deferral in place.
                 let interval = Date().timeIntervalSince(self.deactivateTime)    // How long has it been since we deactivated?
-                // If we are greater than 0, it means that we are past the deferral window, so we can nuke the deferral.
-                if self.snoozing || 0 < interval {
+                // If we are greater than 0, it means that we are past the deferral window, so we can nuke the deferral. Also, being more than the alarm time in minutes away nukes the deferral.
+                if self.snoozing || 0 < interval || (Int(Swift.abs(interval / 60)) > self.alarmTimeInMinutes) {
                     self.deactivateTime = nil
                     return false
                 }
