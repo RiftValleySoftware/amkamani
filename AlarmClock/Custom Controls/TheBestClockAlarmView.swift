@@ -172,7 +172,17 @@ class TheBestClockAlarmView: UIControl {
             self.displayLabel.accessibilityLabel = displayText + ". " + ("LOCAL-ACCESSIBILITY-ALARM-CONTAINER-O" + (self.alarmRecord.isActive ? "N" : "FF")).localizedVariant
         }
 
-        self.displayLabel.textColor = textColor
+        if self.alarmRecord.isActive, self.alarmRecord.deferred {
+            self.displayLabel.backgroundColor = textColor
+            if let myController = self.delegate as? MainScreenViewController {
+                self.displayLabel.textColor = myController.view.backgroundColor
+            } else {
+                self.displayLabel.textColor = UIColor.black
+            }
+        } else {
+            self.displayLabel.backgroundColor = UIColor.clear
+            self.displayLabel.textColor = textColor
+        }
     }
     
     /* ################################################################## */

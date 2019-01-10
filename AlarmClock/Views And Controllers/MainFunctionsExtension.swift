@@ -578,6 +578,7 @@ extension MainScreenViewController {
                         self.prefs.alarms[index].deferred = true
                     }
                     self.prefs.alarms[index].isActive = alarmRecord.isActive
+                    alarmRecord.deferred = self.prefs.alarms[index].deferred
                     self.prefs.savePrefs()
                 }
             }

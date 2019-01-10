@@ -1,5 +1,6 @@
 **Version 1.0.0.2024** *(January 10, 2019)*
 - Fixed an issue caused by my previous messing around, where turning an alarm off and on in the main display would cause that alarm to not go off.
+- The alarm display now shows reversed if the alarm is deferred.
 
 **Version 1.0.0.2023** *(January 9, 2019)*
 - Fixed an issue, where the deferral wasn't being set correctly after re-activating after a snooze. It should always be deferred when reactivating from the main display.
