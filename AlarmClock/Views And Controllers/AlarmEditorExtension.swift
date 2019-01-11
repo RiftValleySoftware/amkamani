@@ -265,6 +265,8 @@ extension MainScreenViewController {
      */
     func openAlarmEditorScreen() {
         self.stopTicker()
+        self.impactFeedbackGenerator?.impactOccurred()
+        self.impactFeedbackGenerator?.prepare()
         if 0 <= self.currentlyEditingAlarmIndex, self.prefs.alarms.count > self.currentlyEditingAlarmIndex {
             if .music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode {   // We do this here, because it can take a little while for things to catch up, and we can get no throbber if we wait until just before we load the media.
                 self.showLookupThrobber()
@@ -628,6 +630,8 @@ extension MainScreenViewController {
      This closes the alarm editor screen, making sure that everything is put back where it belongs.
      */
     @IBAction func closeAlarmEditorScreen(_ sender: Any! = nil) {
+        self.impactFeedbackGenerator?.impactOccurred()
+        self.impactFeedbackGenerator?.prepare()
         TheBestClockAppDelegate.lockOrientation(.all)
         if 0 <= self.currentlyEditingAlarmIndex, self.alarmButtons.count > self.currentlyEditingAlarmIndex {
             self.alarmButtons[self.currentlyEditingAlarmIndex].fullBright = false

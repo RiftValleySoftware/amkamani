@@ -231,6 +231,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var isLoadin: Bool = false
     /// This records the number of snoozes. We use this if we don't have "forever snooze" on.
     var snoozeCount: Int = 0
+    /// This will provide haptic/audio feedback for opening and closing the editors, and for ending alarms.
+    var impactFeedbackGenerator: UIImpactFeedbackGenerator?
+    /// This will provide haptic/audio feedback for selection "ticks."
+    var selectionFeedbackGenerator: UISelectionFeedbackGenerator?
     /// This will be the audio player that we use to play the alarm sound.
     var audioPlayer: AVAudioPlayer? {
         didSet {    // We set the Alarm Editor button to reflect whether or not we play/continue, or pause a playing sound. It will be invisible, unless we are editing an alarm.

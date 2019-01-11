@@ -1,6 +1,7 @@
 **Version 1.0.0.2025** *(January 11, 2019)*
 - The app now auto-hides the Home Bar on X-phones and latest-gen iPads.
 - reduced the minimum brightness (new phones have much brighter screens).
+- Added haptics for various events.
 
 **Version 1.0.0.2024** *(January 10, 2019)*
 - Fixed an issue caused by my previous messing around, where turning an alarm off and on in the main display would cause that alarm to not go off.

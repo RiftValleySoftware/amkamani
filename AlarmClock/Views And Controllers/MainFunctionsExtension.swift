@@ -531,6 +531,9 @@ extension MainScreenViewController {
         if !self.prefs.noSnoozeLimit, self.snoozeCount == self.prefs.snoozeCount {
             self.shutUpAlready()
         } else {
+            self.impactFeedbackGenerator?.prepare()
+            self.impactFeedbackGenerator?.impactOccurred()
+            
             for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].isAlarming {
                 self.prefs.alarms[index].snoozing = true
             }
@@ -552,6 +555,10 @@ extension MainScreenViewController {
      - parameter: ignored (Can be omitted)
      */
     @IBAction func shutUpAlready(_: UILongPressGestureRecognizer! = nil) {
+        self.impactFeedbackGenerator?.impactOccurred()
+        self.impactFeedbackGenerator?.prepare()
+        self.impactFeedbackGenerator?.impactOccurred()
+        self.impactFeedbackGenerator?.prepare()
         self.alarmDisableScreenView.isHidden = true
         for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].isAlarming {
             self.prefs.alarms[index].deferred = true
@@ -572,6 +579,8 @@ extension MainScreenViewController {
      */
     @IBAction func alarmActiveStateChanged(_ inSender: TheBestClockAlarmView) {
         if -1 == self.currentlyEditingAlarmIndex {
+            self.selectionFeedbackGenerator?.selectionChanged()
+            self.selectionFeedbackGenerator?.prepare()
             for index in 0..<self.alarmButtons.count where self.alarmButtons[index] == inSender {
                 if let alarmRecord = inSender.alarmRecord {
                     if !alarmRecord.isActive || self.prefs.alarms[index].snoozing {
@@ -599,6 +608,9 @@ extension MainScreenViewController {
             self.selectedBrightness = Swift.max(TheBestClockPrefs.minimumBrightness, Swift.min(inSlider.brightness, 1.0))
         }
         
+        self.selectionFeedbackGenerator?.selectionChanged()
+        self.selectionFeedbackGenerator?.prepare()
+        
         newBrightness = Swift.min(1.0, Swift.max(TheBestClockPrefs.minimumBrightness, self.selectedBrightness))
         self.prefs?.brightnessLevel = newBrightness
         TheBestClockAppDelegate.recordOriginalBrightness()
@@ -613,6 +625,8 @@ extension MainScreenViewController {
      - parameter inSlider: The slider object that called this
      */
     @IBAction func brightnessSliderOpened(_ inSlider: TheBestClockVerticalBrightnessSliderView) {
+        self.impactFeedbackGenerator?.impactOccurred()
+        self.impactFeedbackGenerator?.prepare()
         if inSlider == self.rightBrightnessSlider {
             self.leftBrightnessSlider.isEnabled = false
         } else {
@@ -627,6 +641,8 @@ extension MainScreenViewController {
      - parameter: ignored
      */
     @IBAction func brightnessSliderClosed(_: Any) {
+        self.impactFeedbackGenerator?.impactOccurred()
+        self.impactFeedbackGenerator?.prepare()
         self.leftBrightnessSlider.isEnabled = true
         self.rightBrightnessSlider.isEnabled = true
     }
@@ -641,6 +657,8 @@ extension MainScreenViewController {
      */
     @IBAction func openAppearanceEditor(_: Any) {
         self.stopTicker()
+        self.impactFeedbackGenerator?.impactOccurred()
+        self.impactFeedbackGenerator?.prepare()
         self.fontDisplayPickerView.delegate = self
         self.fontDisplayPickerView.dataSource = self
         self.colorDisplayPickerView.delegate = self
@@ -677,6 +695,8 @@ extension MainScreenViewController {
      - parameter: ignored
      */
     @IBAction func closeAppearanceEditor(_: Any) {
+        self.impactFeedbackGenerator?.impactOccurred()
+        self.impactFeedbackGenerator?.prepare()
         self.fontDisplayPickerView.delegate = nil
         self.fontDisplayPickerView.dataSource = nil
         self.colorDisplayPickerView.delegate = nil
@@ -747,6 +767,10 @@ extension MainScreenViewController {
         self.setUpAlarmEditorAccessibility()
         self.setUpAlarms()
         self.alarmDisableScreenView.isHidden = true
+        self.impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        self.impactFeedbackGenerator?.prepare()
+        self.selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        self.selectionFeedbackGenerator?.prepare()
         self.setNeedsUpdateOfHomeIndicatorAutoHidden()
     }
     
