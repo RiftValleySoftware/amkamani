@@ -415,7 +415,7 @@ class TheBestClockPrefs: NSObject {
     /**
      This is our minimum brightness threshold. We don't let the text and stuff quite make it to 0.
      */
-    static let minimumBrightness: CGFloat = 0.15
+    static let minimumBrightness: CGFloat = 0.1
     
     /* ################################################################## */
     // MARK: Class Static Calculated Properties

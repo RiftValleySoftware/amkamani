@@ -747,6 +747,7 @@ extension MainScreenViewController {
         self.setUpAlarmEditorAccessibility()
         self.setUpAlarms()
         self.alarmDisableScreenView.isHidden = true
+        self.setNeedsUpdateOfHomeIndicatorAutoHidden()
     }
     
     /* ################################################################## */

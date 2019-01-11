@@ -243,6 +243,16 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
 
     /* ################################################################## */
+    // MARK: - Instance Override Calculated Properties
+    /* ################################################################## */
+    /**
+     - returns true, indicating that X-phones should hide the Home Bar.
+     */
+    override var prefersHomeIndicatorAutoHidden: Bool {
+        return true
+    }
+    
+    /* ################################################################## */
     // MARK: - Instance Calculated Properties
     /* ################################################################## */
     /**
