@@ -603,13 +603,16 @@ extension MainScreenViewController {
      */
     @IBAction func brightnessSliderChanged(_ inSlider: TheBestClockVerticalBrightnessSliderView! = nil) {
         var newBrightness: CGFloat = 1.0
+        let oldBrighness = self.selectedBrightness
         
         if nil != inSlider {
             self.selectedBrightness = Swift.max(TheBestClockPrefs.minimumBrightness, Swift.min(inSlider.brightness, 1.0))
         }
         
-        self.selectionFeedbackGenerator?.selectionChanged()
-        self.selectionFeedbackGenerator?.prepare()
+        if Int(oldBrighness * 100) != Int(self.selectedBrightness * 100) {  // Only tick for fairly significant changes.
+            self.selectionFeedbackGenerator?.selectionChanged()
+            self.selectionFeedbackGenerator?.prepare()
+        }
         
         newBrightness = Swift.min(1.0, Swift.max(TheBestClockPrefs.minimumBrightness, self.selectedBrightness))
         self.prefs?.brightnessLevel = newBrightness
