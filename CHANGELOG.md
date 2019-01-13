@@ -1,5 +1,6 @@
-**Version 1.0.0.2026** *(TBD)*
+**Version 1.0.0.2026** *(January 13, 2019)*
 - Reduced the number of haptic "ticks" when adjusting brightness.
+- Wrote the content for the info screen.
 
 **Version 1.0.0.2025** *(January 11, 2019)*
 - The app now auto-hides the Home Bar on X-phones and latest-gen iPads.

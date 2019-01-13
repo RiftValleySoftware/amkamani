@@ -19,7 +19,7 @@ import UIKit
 class TheBestClockAboutScreenViewController: UIViewController {
     private let _urlButtonFontSize: CGFloat = 15
     /// This is the URI for the corporation. It is not localized.
-    let corporateURI =   "https://riftvalleysoftware.com"
+    let corporateURI =   "https://riftvalleysoftware.com/work/ios-apps/amkamani/"
     /// This is the name of the corporation. It is not localized.
     let corporateName =   "The Great Rift Valley Software Company"
 

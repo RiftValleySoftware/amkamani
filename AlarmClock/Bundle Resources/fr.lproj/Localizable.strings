@@ -44,7 +44,7 @@
 
 /* INFO SCREEN */
 
-"LOCAL-APP-INFO-TEXT"                       =       "When I have something to say, I'll say it here.";
+"LOCAL-APP-INFO-TEXT"                       =       "AmkaMani is the ultimate bedside alarm clock. It's designed to replace the traditional standalone alarm clock you've always relied upon to wake you up every morning.\nTap in one of the three alarms along the bottom of the display to enable the alarm, and long-press in an alarm to set that alarm.";
 
 /* SYSTEM SETTINGS */
 // These are displayed in the system settings area.
