@@ -139,6 +139,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      We force the main controller to lay out its subviews, which will restore its internal brightness level.
      */
     func applicationDidBecomeActive(_ application: UIApplication) {
+        type(of: self).recordOriginalBrightness()
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
         self.theMainController.startTicker()
         self.theMainController.view.setNeedsLayout()

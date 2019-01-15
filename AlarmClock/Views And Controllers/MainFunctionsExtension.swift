@@ -717,6 +717,19 @@ extension MainScreenViewController {
     }
     
     /* ################################################################## */
+    // MARK: - Instance Methods
+    /* ################################################################## */
+    /**
+     */
+    func setProperScreenBrightness() {
+        if -1 < self.currentlyEditingAlarmIndex || !self.mainPickerContainerView.isHidden {
+            UIScreen.main.brightness = 1.0  // Brighten the screen all the way for the editors.
+        } else {
+            self.updateMainTime()   // Otherwise, just use the set brightness.
+        }
+    }
+    
+    /* ################################################################## */
     // MARK: - Instance Superclass Overrides
     /* ################################################################## */
     /**
@@ -785,7 +798,7 @@ extension MainScreenViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.fontSizeCache = 0
-        self.updateMainTime()
+        self.setProperScreenBrightness()
         if self.mainPickerContainerView.isHidden, -1 == self.currentlyEditingAlarmIndex { // We don't do this if we are in the appearance editor.
             UIScreen.main.brightness = self.selectedBrightness    // Dim the screen.
         } else {
@@ -808,6 +821,7 @@ extension MainScreenViewController {
         self.fontSizeCache = 0
         self.startTicker()
         self.updateMainTime()
+        self.setProperScreenBrightness()
     }
     
     /* ################################################################## */
