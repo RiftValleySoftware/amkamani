@@ -2,6 +2,7 @@
 - If the editors are shown after cycling away, the incorrect brightness was restored. We now ensure they always get full brightness if one of the editors is open.
 - Changed the splash background to match the bottom of the gradient.
 - There was one more place where the user-set system brightness was not being properly recorded and restored. This has been fixed.
+- Added preliminary French localization.
 
 **Version 1.0.0.2026** *(January 13, 2019)*
 - Reduced the number of haptic "ticks" when adjusting brightness.
