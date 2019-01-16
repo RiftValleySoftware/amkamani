@@ -10,7 +10,7 @@
 /* INFO STRING */
 
 
-"NSAppleMusicUsageDescription" = "Lire la musique en tant qu'alarme"; // This is the string we use to ask permission to get at the user's music collection.
+"NSAppleMusicUsageDescription" = "Lire la musique en tant qu'alarme"; // This is the string we use to ask permission to get ath the user's music collection.
 
 /* ERRORS */
 

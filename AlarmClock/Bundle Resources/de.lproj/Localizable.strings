@@ -7,101 +7,101 @@
  
  The Great Rift Valley Software Company: https://riftvalleysoftware.com
  */
-
 /* INFO STRING */
 
-"NSAppleMusicUsageDescription"              =       "Play music as an alarm";   // This is the string we use to ask permission to get ath the user's music collection.
+
+"NSAppleMusicUsageDescription" = "Musik als Alarm abspielen"; // This is the string we use to ask permission to get ath the user's music collection.
 
 /* ERRORS */
 
-"ERROR_HEADER_MEDIA"                        =       "DEVICE MEDIA ERROR";   // The header for media error alerts.
-"ERROR_TEXT_MEDIA_PERMISSION_DENIED"        =       "You are not allowed to read any media from this device.";  // No permission alert text.
-"ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER"   =       "There was a technical problem creating the sound player."; // Unknown technical error alert text.
-"BASIC-OK-BUTTON"                           =       "OK";   // Alert OK button.
+"ERROR_HEADER_MEDIA" = "GERÄTEMEDIENFEHLER"; // The header for media error alerts.
+"ERROR_TEXT_MEDIA_PERMISSION_DENIED" = "Sie dürfen keine Medien von diesem Gerät lesen."; // No permission alert text.
+"ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER" = "Es gab ein technisches Problem mit der Erstellung des Sound-Players."; // Unknown technical error alert text.
+"BASIC-OK-BUTTON" = "OK"; // Alert OK button.
 
 /* ALARM EDITOR */
 
-"LOCAL-ACTIVE-SWITCH"                       =       "Active";   // The button/label next to the Alarm Active switch.
-"LOCAL-VIBRATE-BEEP-SWITCH"                 =       "Vibrate";  // The button/label next to the Vibrate switch (hidden for iPad).
-"LOCAL-UNKNOWN-SONG"                        =       "Unknown Song";     // This is displayed if there is a song without a title.
-"LOCAL-UNKNOWN-ALBUM"                       =       "Unknown Album";    // This is displayed if there is an album without a name (required, but never actually displayed).
-"LOCAL-UNKNOWN-ARTIST"                      =       "Unknown Artist";   // This is displayed if there is an artist without a name.
-"LOCAL-NO-MUSIC-LABEL"                      =       "No Music Available";   // This is what is displayed in the Alarm Editor if there is no music available.
-"LOCAL-MUSIC-LOOKUP-LABEL"                  =       "Fetching Your Music Library";  // This is displayed while the throbber is up, while the music is being fetched.
-"LOCAL-ALARM-DEACTIVATED-LABEL"             =       "This alarm will not go off until next time.";  // This is displayed if the alarm is not going to go off right now, even though it could.
+"LOCAL-ACTIVE-SWITCH" = "Aktiv"; // The button/label next to the Alarm Active switch.
+"LOCAL-VIBRATE-BEEP-SWITCH" = "Vibrieren"; // The button/label next to the Vibrate switch (hidden for iPad).
+"LOCAL-UNKNOWN-SONG" = "Unbekannter Song"; // This is displayed if there is a song without a title.
+"LOCAL-UNKNOWN-ALBUM" = "Unbekanntes Album"; // This is displayed if there is an album without a name (required, but never actually displayed).
+"LOCAL-UNKNOWN-ARTIST" = "Unbekannter Künstler"; // This is displayed if there is an artist without a name.
+"LOCAL-NO-MUSIC-LABEL" = "Keine Musik verfügbar"; // This is what is displayed in the Alarm Editor if there is no music available.
+"LOCAL-MUSIC-LOOKUP-LABEL" = "Ihre Musikbibliothek wird abgerufen"; // This is displayed while the throbber is up, while the music is being fetched.
+"LOCAL-ALARM-DEACTIVATED-LABEL" = "Dieser Alarm wird erst beim nächsten Mal ausgelöst."; // This is displayed if the alarm is not going to go off right now, even though it could.
 
 /* NAMES OF SOUNDS */
 
-"annoying-alarm.mp3"                        =       "Classic Alarm";
-"electronic-buzz.mp3"                       =       "Strident Beeps";
-"fast-beep.mp3"                             =       "Subtle Ringing";
-"high-fast-beeps.mp3"                       =       "Fast Subtle Beeps";
-"single-beep.mp3"                           =       "Basic Beeps";
-"crazy-bird.mp3"                            =       "Crazy Bird";
-"escalation.mp3"                            =       "Escalating Alarm";
-"videogame-beeps-high-frequency.mp3"        =       "High-Frequency Electronic";
-"videogame-beeps-lower-frequency.mp3"       =       "Low-Frequency Electronic";
+"annoying-alarm.mp3" = "Klassischer Wecker";
+"electronic-buzz.mp3" = "Schrilles Piepen";
+"fast-beep.mp3" = "Dezentes Klingeln";
+"high-fast-beeps.mp3" = "Schnelles dezentes Piepen";
+"single-beep.mp3" = "Einfaches Piepen";
+"crazy-bird.mp3" = "Verrückter Vogel";
+"escalation.mp3" = "Eskalierender Alarm";
+"videogame-beeps-high-frequency.mp3" = "Elektronisch – Hochfrequenz";
+"videogame-beeps-lower-frequency.mp3" = "Elektronisch – Niederfrequenz";
 
 /* INFO SCREEN */
 
-"LOCAL-APP-INFO-TEXT"                       =       "AmkaMani is the ultimate bedside alarm clock. It's designed to replace the traditional standalone alarm clock you've always relied upon to wake you up every morning.\nTap in one of the three alarms along the bottom of the display to enable the alarm, and long-press in an alarm to set that alarm.";
+"LOCAL-APP-INFO-TEXT" = "AmkaMani ist der ultimative Wecker. Er ist als Ersatz für Ihren herkömmlichen, eigenständigen Wecker gedacht, der Sie bisher jeden Morgen zuverlässig geweckt hat.\nTippen Sie am unteren Rand des Displays auf einen der drei Alarme, um ihn zu aktivieren. Durch langes Drücken können Sie diesen Alarm einstellen.";
 
 /* SYSTEM SETTINGS */
 // These are displayed in the system settings area.
 
-"LOCAL-SNOOZE-COUNT"                        =       "Number of Snoozes";      // The number of snoozes can be set, so the user can snooze several times, then the alarm gives up
-"RVS_SnoozeCount_0"                         =       "No Limit";               // This is displayed for no limit.
-"RVS_SnoozeCount_1"                         =       "1 Snooze";               // This is displayed for 1 snooze count.
-"RVS_SnoozeCount_2"                         =       "2 Snoozes";              // This is displayed for 1 snooze count.
-"RVS_SnoozeCount_3"                         =       "3 Snoozes";              // This is displayed for 1 snooze count.
-"RVS_SnoozeCount_4"                         =       "4 Snoozes";              // This is displayed for 1 snooze count.
-"RVS_SnoozeCount_5"                         =       "5 Snoozes";              // This is displayed for 1 snooze count.
-"RVS_SnoozeCount_6"                         =       "6 Snoozes";              // This is displayed for 1 snooze count.
-"RVS_SnoozeCount_7"                         =       "7 Snoozes";              // This is displayed for 1 snooze count.
+"LOCAL-SNOOZE-COUNT" = "Anzahl der erneuten Erinnerungen"; // The number of snoozes can be set, so the user can snooze several times, then the alarm gives up
+"RVS_SnoozeCount_0" = "Keine Begrenzung"; // This is displayed for no limit.
+"RVS_SnoozeCount_1" = "1 erneute Erinnerung"; // This is displayed for 1 snooze count.
+"RVS_SnoozeCount_2" = "2 erneute Erinnerungen"; // This is displayed for 1 snooze count.
+"RVS_SnoozeCount_3" = "3 erneute Erinnerungen"; // This is displayed for 1 snooze count.
+"RVS_SnoozeCount_4" = "4 erneute Erinnerungen"; // This is displayed for 1 snooze count.
+"RVS_SnoozeCount_5" = "5 erneute Erinnerungen"; // This is displayed for 1 snooze count.
+"RVS_SnoozeCount_6" = "6 erneute Erinnerungen"; // This is displayed for 1 snooze count.
+"RVS_SnoozeCount_7" = "7 erneute Erinnerungen"; // This is displayed for 1 snooze count.
 
 /* ACCESSIBILITY */
 // These are accessibility strings that are attached to the screen items. They are not visible, but can be read by the device.
-
 /* MAIN SCREEN */
 
-"LOCAL-ACCESSIBILITY-HINT-MAIN-TIME"        =       "If You Long-Press or Double-Tap, it Will Open the Color and Font Editor";
-"LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER"     =       "Adjust Display Brightness";
-"LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT"    =   "Sliding Up or Down the Screen Adjusts Brightness. Down is Darker.";
-"LOCAL-ACCESSIBILITY-ALARM-CONTAINER"       =       "These are the Three Alarms Available to the Clock";
-"LOCAL-ACCESSIBILITY-ALARM-CONTAINER-ON"    =       "This Alarm Is Active";
-"LOCAL-ACCESSIBILITY-ALARM-CONTAINER-OFF"   =       "This Alarm Is Not Active";
-"LOCAL-ACCESSIBILITY-ALARM-CONTAINER-HINT"  =       "If You Tap on the Alarm, it Will Enable or Disable the Alarm. If You Long-Press on the Alarm, it Will Open the Alarm Editor.";
-"LOCAL-ACCESSIBILITY-ALARM-DISPLAY"         =       "The Alarm is Currently Going Off, and This Is A Flashing Screen";
-"LOCAL-ACCESSIBILITY-ALARM-DISPLAY-HINT"    =       "If You Tap in the Screen, the Alarm Will \"Sleep\". If You Long-Press in the Screen, the Alarm Will Turn Off Completely.";
+
+"LOCAL-ACCESSIBILITY-HINT-MAIN-TIME" = "Durch längeres Drücken oder Doppeltippen wird der Farben- und Schriftarten-Editor geöffnet";
+"LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER" = "Bildschirmhelligkeit anpassen";
+"LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT" = "Aufwärts- oder Abwärtsstreichen auf dem Bildschirm passt die Helligkeit an. Abwärts macht ihn dunkler.";
+"LOCAL-ACCESSIBILITY-ALARM-CONTAINER" = "Dies sind die drei Alarme, die für den Wecker verfügbar sind";
+"LOCAL-ACCESSIBILITY-ALARM-CONTAINER-ON" = "Dieser Alarm ist aktiv";
+"LOCAL-ACCESSIBILITY-ALARM-CONTAINER-OFF" = "Dieser Alarm ist nicht aktiv";
+"LOCAL-ACCESSIBILITY-ALARM-CONTAINER-HINT" = "Wenn Sie auf den Alarm tippen, wird der Alarm aktiviert oder deaktiviert. Wenn Sie lange auf den Alarm drücken, wird der Alarm-Editor geöffnet.";
+"LOCAL-ACCESSIBILITY-ALARM-DISPLAY" = "Der Alarm wurde gerade ausgelöst und dies ist ein blinkender Bildschirm";
+"LOCAL-ACCESSIBILITY-ALARM-DISPLAY-HINT" = "Wenn Sie auf den Bildschirm tippen, wechselt der Alarm in den Ruhezustand („Sleep“-Modus). Wenn Sie lange auf den Bildschirm drücken, wird der Alarm ganz ausgeschaltet.";
 
 /* APPEARANCE EDITOR */
 
-"LOCAL-ACCESSIBILITY-COLOR-PICKER-LABEL"    =       "Select A Font Color";
-"LOCAL-ACCESSIBILITY-COLOR-PICKER-HINT"     =       "Scroll Vertically to Select A New Color for the Displays";
-"LOCAL-ACCESSIBILITY-FONT-SELECTOR-LABEL"   =       "Choose A Display Font";
-"LOCAL-ACCESSIBILITY-FONT-SELECTOR-HINT"    =       "Scroll Vertically to Select A New Font for the Displays";
-"LOCAL-ACCESSIBILITY-INFO-BUTTON-LABEL"     =       "Display Information About This App";
-"LOCAL-ACCESSIBILITY-INFO-BUTTON-HINT"      =       "Tapping On This Button Will Bring Up A Screen With Information About This App";
+"LOCAL-ACCESSIBILITY-COLOR-PICKER-LABEL" = "Schriftfarbe auswählen";
+"LOCAL-ACCESSIBILITY-COLOR-PICKER-HINT" = "Vertikal scrollen, um eine neue Farbe für die Anzeigen auszuwählen";
+"LOCAL-ACCESSIBILITY-FONT-SELECTOR-LABEL" = "Schriftart für die Anzeige auswählen";
+"LOCAL-ACCESSIBILITY-FONT-SELECTOR-HINT" = "Vertikal scrollen, um eine neue Schriftart für Anzeigen auszuwählen";
+"LOCAL-ACCESSIBILITY-INFO-BUTTON-LABEL" = "Informationen über diese App anzeigen";
+"LOCAL-ACCESSIBILITY-INFO-BUTTON-HINT" = "Beim Antippen dieser Schaltfläche wird ein Bildschirm mit Informationen über diese App angezeigt";
 
 /* ALARM EDITOR */
 
-"LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-LABEL"     =   "Enable or Disable the Alarm";
-"LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-HINT"      =   "Use This to Change Whether or Not the Alarm is Active";
-"LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-LABEL"    =   "Vibrate On Alarm";
-"LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-HINT"     =   "Use This to Change Whether or Not the Phone Vibrates When the Alarm Goes Off";
-"LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-LABEL"       =   "Set Alarm Time";
-"LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-HINT"        =   "Use This to Choose the Time the Alarm is Set";
-"LOCAL-ACCESSIBILITY-ALARM-MODE-LABEL"              =   "Set Alarm Sound";
-"LOCAL-ACCESSIBILITY-ALARM-MODE-HINT"               =   "You Can Choose A Repeating Sound, Music From Your Music Library, or Silence";
-"LOCAL-ACCESSIBILITY-EDIT-PICKER-LABEL"             =   "Choose A Sound or An Artist";
-"LOCAL-ACCESSIBILITY-EDIT-PICKER-HINT"              =   "If You Are in Sound Mode, Then This Will Choose A Sound. Otherwise, It Will Choose An Artist From Your Music Collection";
-"LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-LABEL"        =   "Choose A Song By the Selected Artist";
-"LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-HINT"         =   "When You Select An Artist, This Will be Updated to the Available Songs for That Artist";
-"LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-LABEL"  =   "Test The Selected Sound";
-"LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-HINT"   =   "If You Press This Button, It Will Play the Selected Sound Repeatedly, and You Can Pause by Pressing This Button Again";
-"LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-LABEL"   =   "Test The Selected Song";
-"LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-HINT"    =   "If You Press This Button, It Will Play the Selected Song Repeatedly, and You Can Pause by Pressing This Button Again";
+"LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-LABEL" = "Den Alarm aktivieren oder deaktivieren";
+"LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-HINT" = "Hiermit aktivieren oder deaktivieren Sie den Alarm";
+"LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-LABEL" = "Bei Alarm vibrieren";
+"LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-HINT" = "Hiermit ändern Sie, ob das Telefon vibriert, wenn der Wecker angeht";
+"LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-LABEL" = "Weckzeit einstellen";
+"LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-HINT" = "Hiermit wählen Sie Zeit aus, auf die der Wecker eingestellt ist";
+"LOCAL-ACCESSIBILITY-ALARM-MODE-LABEL" = "Weckton einstellen";
+"LOCAL-ACCESSIBILITY-ALARM-MODE-HINT" = "Sie können einen sich wiederholenden Weckton, Musik aus Ihrer Musikbibliothek oder Stille auswählen";
+"LOCAL-ACCESSIBILITY-EDIT-PICKER-LABEL" = "Einen Ton oder einen Künstler wählen";
+"LOCAL-ACCESSIBILITY-EDIT-PICKER-HINT" = "Im Ton-Modus wird hiermit ein Weckton ausgewählt. Andernfalls wird ein Künstler aus Ihrer Musiksammlung ausgewählt";
+"LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-LABEL" = "Einen Song von dem ausgewählten Künstler wählen";
+"LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-HINT" = "Wenn Sie einen Künstler auswählen, wird dieses Auswahlfeld mit den verfügbaren Songs dieses Künstlers aktualisiert";
+"LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-LABEL" = "Ausgewählten Ton testen";
+"LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-HINT" = "Beim Drücken dieser Taste wird der ausgewählte Ton wiederholt abgespielt und SIe können ihn durch erneutes Drücken dieser Taste pausieren";
+"LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-LABEL" = "Ausgewählten Song testen";
+"LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-HINT" = "Beim Drücken dieser Taste wird der ausgewählte Song wiederholt abgespielt und Sie können ihn durch erneutes Drücken dieser Taste pausieren";
 
-"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Speaker-LABEL"    =   "Play A Selected Sound. If you select this mode, when the alarm goes off, one of several selected sounds will play repeatedly. You will select which sound to play in the picker just below this switch.";
-"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Music-LABEL"  =   "Play A Selected Song From Your Music Library. If you select this mode, when the alarm goes off, a song that you select from your music library will play repeatedly. You will select which song to play in the two pickers just below this switch.";
-"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Nothing-LABEL"    =   "Silent Alarm. If you select this mode, when the alarm goes off, no sounds will play. Only the screen will flash. The phone may vibrate, if you have that selected.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Speaker-LABEL" = "Ausgewählten Ton abspielen. Wenn Sie diesen Modus auswählen wird beim Auslösen des Alarms einer von mehreren ausgewählten Tönen wiederholt abgespielt. Sie wählen diesen Ton mit Hilfe der Tonauswahl direkt unterhalb dieses Schalters aus.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Music-LABEL" = "Ausgewählten Song aus Ihrer Musikbibliothek spielen. Wenn Sie diesen Modus auswählen, wird beim Auslösen des Alarms der Song wiederholt abgespielt, den Sie aus Ihrer Musikbibliothek auswählen. Sie wählen diesen Song mit Hilfe der beiden Auswahlfelder direkt unter diesem Schalter aus.";
+"LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-Nothing-LABEL" = "Stiller Alarm. Wenn Sie diesen Modus wählen, werden beim Auslösen des Alarms keine Töne abgespielt. Nur der Bildschirm blinkt. Das Telefon kann vibrieren, wenn Sie dies ausgewählt haben.";
