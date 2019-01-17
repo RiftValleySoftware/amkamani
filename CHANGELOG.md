@@ -1,7 +1,8 @@
-**Version 1.0.0.2027** *(TBD)*
-- If the editors are shown after cycling away, the incorrect brightness was restored. We now ensure they always get full brightness if one of the editors is open.
-- Changed the splash background to match the bottom of the gradient.
+**Version 1.0.0.3000** *(January 17, 2018)*
+- Release Candidate 0
+- If the editors are shown after cycling away, the incorrect brightness was set (It needs to be 100%). We now ensure they always get full brightness if one of the editors is open.
 - There was one more place where the user-set system brightness was not being properly recorded and restored. This has been fixed.
+- Changed the splash background to match the bottom of the gradient.
 - Added all localizations.
 
 **Version 1.0.0.2026** *(January 13, 2019)*
