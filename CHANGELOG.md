@@ -1,3 +1,7 @@
+**Version 1.0.1.2000** *(TBD)*
+- Added a placeholder for an "alarm disable double-tap." Not activating it until I've spent som time testing. It may not be the best idea to implement it, as folks may think they are snoozing, when they are actually deactivating.
+- Improved the failover for the long-press deactivate.
+
 **Version 1.0.0.3000** *(January 17, 2018)*
 - Release Candidate 0
 - If the editors are shown after cycling away, the incorrect brightness was set (It needs to be 100%). We now ensure they always get full brightness if one of the editors is open.

@@ -158,7 +158,9 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /// This is the button that is pressed to test the sounds.
     @IBOutlet weak var editAlarmTestSoundButton: TheBestClockSpeakerButton!
     /// This is the "STOP" long press gesture recognizer.
-    @IBOutlet var shutUpAlreadyGestureRecognizer: UILongPressGestureRecognizer!
+    @IBOutlet var shutUpAlreadyLongPressGestureRecognizer: UILongPressGestureRecognizer!
+    /// This is the "STOP" double-tap gesture recognizer.
+    @IBOutlet var shutUpAlreadyDoubleTapRecognizer: UITapGestureRecognizer!
     /// This is the "snooze" tap gesture recognizer.
     @IBOutlet var snoozeGestureRecogninzer: UITapGestureRecognizer!
     /// This is a view that we temorarily put up while fetching the music collection.

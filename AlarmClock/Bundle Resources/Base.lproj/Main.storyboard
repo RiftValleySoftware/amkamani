@@ -555,6 +555,7 @@
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="qzH-bp-wEr" appends="YES" id="MbH-ph-Q4a"/>
                                     <outletCollection property="gestureRecognizers" destination="yOI-ks-4mc" appends="YES" id="uti-Qe-3bT"/>
+                                    <outletCollection property="gestureRecognizers" destination="sCl-QW-ddQ" appends="YES" id="k3r-0K-ezG"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -640,7 +641,8 @@
                         <outlet property="noMusicAvailableLabel" destination="kIf-Gc-eGE" id="t6j-Gl-jnv"/>
                         <outlet property="noMusicDisplayView" destination="FNf-zv-y39" id="k0y-au-NIJ"/>
                         <outlet property="rightBrightnessSlider" destination="sjC-JH-pnM" id="ian-iB-eyU"/>
-                        <outlet property="shutUpAlreadyGestureRecognizer" destination="yOI-ks-4mc" id="zsO-ef-NT5"/>
+                        <outlet property="shutUpAlreadyDoubleTapRecognizer" destination="sCl-QW-ddQ" id="hak-0K-LvG"/>
+                        <outlet property="shutUpAlreadyLongPressGestureRecognizer" destination="yOI-ks-4mc" id="zsO-ef-NT5"/>
                         <outlet property="snoozeGestureRecogninzer" destination="qzH-bp-wEr" id="cof-UO-0g4"/>
                         <outlet property="songSelectContainerView" destination="zMz-At-38F" id="tEs-2g-Dnl"/>
                         <outlet property="songSelectionPickerView" destination="AJG-jK-HAQ" id="aLc-By-PXw"/>
@@ -676,6 +678,11 @@
                         <action selector="shutUpAlready:" destination="BYZ-38-t0r" id="bhg-yw-V5Z"/>
                     </connections>
                 </pongPressGestureRecognizer>
+                <tapGestureRecognizer enabled="NO" numberOfTapsRequired="2" id="sCl-QW-ddQ" userLabel="Disable Alarm Double-Tap">
+                    <connections>
+                        <action selector="shutUpAlready:" destination="BYZ-38-t0r" id="EnY-wy-HgT"/>
+                    </connections>
+                </tapGestureRecognizer>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="JuB-FM-I8Y" userLabel="Left Brightness Long Press Absorber"/>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="ACN-Xt-xoM" userLabel="Right Brightness Long Press Absorber"/>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="Ohm-3E-kKF" userLabel="Info Button Tap Absorber"/>

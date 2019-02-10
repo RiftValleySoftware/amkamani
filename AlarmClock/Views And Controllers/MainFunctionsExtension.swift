@@ -554,7 +554,7 @@ extension MainScreenViewController {
      
      - parameter: ignored (Can be omitted)
      */
-    @IBAction func shutUpAlready(_: UILongPressGestureRecognizer! = nil) {
+    @IBAction func shutUpAlready(_: Any! = nil) {
         self.impactFeedbackGenerator?.impactOccurred()
         self.impactFeedbackGenerator?.prepare()
         self.impactFeedbackGenerator?.impactOccurred()
@@ -776,7 +776,8 @@ extension MainScreenViewController {
         self.musicLookupLabel.text = self.musicLookupLabel.text?.localizedVariant
         self.alarmEditorActiveButton.setTitle(self.alarmEditorActiveButton.title(for: .normal)?.localizedVariant, for: .normal)
         self.alarmEditorVibrateButton.setTitle(self.alarmEditorVibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
-        self.shutUpAlreadyGestureRecognizer.require(toFail: self.snoozeGestureRecogninzer)
+        self.snoozeGestureRecogninzer.require(toFail: self.shutUpAlreadyDoubleTapRecognizer)
+        self.snoozeGestureRecogninzer.require(toFail: self.shutUpAlreadyLongPressGestureRecognizer)
         // Set up accessibility labels and hints.
         self.setUpMainScreenAccessibility()
         self.setUpAppearanceEditorAccessibility()
