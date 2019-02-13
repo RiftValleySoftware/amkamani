@@ -1,3 +1,5 @@
+**Version 1.0.2.2000** *(TBD)*
+
 **Version 1.0.1.3000** *(February 11, 2019)*
 - Added a placeholder for an "alarm disable double-tap." Not activating it, as folks may think they are snoozing, when they are actually deactivating.
 - Improved the failover for the long-press deactivate.
