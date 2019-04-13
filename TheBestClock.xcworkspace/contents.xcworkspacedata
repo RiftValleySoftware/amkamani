@@ -18,7 +18,7 @@
       </FileRef>
    </Group>
    <FileRef
-      location = "group:/Users/cmarshall/Documents/Development/RiftValley/AlarmClock/AlarmClock.xcodeproj">
+      location = "group:AlarmClock.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
