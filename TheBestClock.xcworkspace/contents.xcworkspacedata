@@ -11,10 +11,10 @@
          location = "group:CHANGELOG.md">
       </FileRef>
       <FileRef
-         location = "group:.swift-version">
+         location = "group:.swiftlint.yml">
       </FileRef>
       <FileRef
-         location = "group:.swiftlint.yml">
+         location = "group:jazzy.sh">
       </FileRef>
    </Group>
    <FileRef
