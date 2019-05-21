@@ -31,6 +31,7 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
     
     /// These are the top color and brightness.
     @IBInspectable var endColor: UIColor = UIColor.white
+    /// Brightness level (changes)
     @IBInspectable var brightness: CGFloat = 1.0
     
     /* ################################################################## */

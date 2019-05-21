@@ -44,11 +44,15 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      This struct will contain information about a song in our media library.
      */
     struct SongInfo {
+        /// The title of the song
         var songTitle: String
+        /// The name of the song artist
         var artistName: String
+        /// The title of the album on which the song is found
         var albumTitle: String
+        /// The URL to the song resource in the library
         var resourceURI: String!
-        
+        /// This is a text description of the song
         var description: String {
             var ret: String = ""
             

@@ -17,18 +17,25 @@ import UIKit
  This is a simple ViewController that manages the only other view controller in the app: The about box.
  */
 class TheBestClockAboutScreenViewController: UIViewController {
+    /// The size of the font we use for the URL button
     private let _urlButtonFontSize: CGFloat = 15
     /// This is the URI for the corporation. It is not localized.
     let corporateURI =   "https://riftvalleysoftware.com/work/ios-apps/amkamani/"
     /// This is the name of the corporation. It is not localized.
     let corporateName =   "The Great Rift Valley Software Company"
 
+    ///  The big logo that takes the user to the Web site
     @IBOutlet var logoImageControl: TheGreatRiftValleyDrawing!
+    /// The label for the version display
     @IBOutlet weak var versionLabel: UILabel!
+    /// The button for the corporate URL display
     @IBOutlet weak var theURLButton: UIButton!
+    /// The area where the long text is shown
     @IBOutlet weak var longTextTextarea: UITextView!
     
+    /// The base color for the display
     var baseColor: UIColor = UIColor.white
+    /// The base font for the display
     var baseFont: UIFont!
     
     /* ################################################################## */

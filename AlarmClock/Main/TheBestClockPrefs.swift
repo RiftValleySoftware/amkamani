@@ -20,13 +20,29 @@ class TheBestClockAlarmSetting: NSObject, NSCoding {
     /* ################################################################## */
     /** These are the keys we use for our alarms dictionary. */
     private enum AlarmPrefsKeys: String {
-        case alarmTime, isActive, isVibrateOn, selectedSoundMode, selectedSoundIndex, selectedSongURL
+        /// The set time for this alarm
+        case alarmTime
+        /// Whether or not the alarm is currently active
+        case isActive
+        /// Is the alarm set to vibrate when going off?
+        case isVibrateOn
+        /// The sound mode (music, sound, silent)
+        case selectedSoundMode
+        /// If sound, the selected preset sound index
+        case selectedSoundIndex
+        /// If music, the selected resource URL for the song
+        case selectedSongURL
     }
     
     /* ################################################################## */
     /** These are the keys we use to specify the alarm sound mode. */
     public enum AlarmPrefsMode: Int {
-        case sounds, music, silence
+        /// Play from a selection of preset sounds
+        case sounds
+        /// Play a song from the music library
+        case music
+        /// Rely on flashing scree and, possibly, vibrate
+        case silence
     }
     
     /* ################################################################## */
@@ -343,6 +359,7 @@ class TheBestClockPrefs: NSObject {
     /* ################################################################## */
     /** This is the key for the prefs used by this app. */
     private static let _mainPrefsKey: String = "AmkaMani_Settings"
+    /// The fixed number of alarms
     private static let _numberOfAlarms = 3
     
     /* ################################################################## */
@@ -350,6 +367,7 @@ class TheBestClockPrefs: NSObject {
     /* ################################################################## */
     /** We load the user prefs into this Dictionary object. */
     private var _loadedPrefs: NSMutableDictionary! = nil
+    /// The alarms that we have loaded
     private var _alarms: [TheBestClockAlarmSetting] = []
     
     /* ################################################################## */
@@ -357,7 +375,16 @@ class TheBestClockPrefs: NSObject {
     /* ################################################################## */
     /** These are the keys we use for our persistent prefs dictionary. */
     private enum PrefsKeys: String {
-        case snoozeCount, selectedColor, selectedFont, brightnessLevel, alarms
+        /// This is how many times you can "snooze" before the app gives up
+        case snoozeCount
+        /// This is the color selected for the fonts
+        case selectedColor
+        /// This is the font we are using to display the clock
+        case selectedFont
+        /// This is the fixed brightness level for the display
+        case brightnessLevel
+        /// These are the alarms
+        case alarms
     }
     
     /* ################################################################## */

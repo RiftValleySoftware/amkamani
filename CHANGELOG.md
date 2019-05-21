@@ -1,7 +1,7 @@
 **Version 1.0.2.2000** *(TBD)*
 - Updated to Swift 5
-- Slight refactoring of some internal code to make it more efficient.
-- Major cleanup for open-sourcing the app.
+- Some refactoring of internal code to make it more efficient.
+- Documentation cleanup for open-sourcing the app.
 
 **Version 1.0.1.3000** *(February 11, 2019)*
 - Added a placeholder for an "alarm disable double-tap." Not activating it, as folks may think they are snoozing, when they are actually deactivating.

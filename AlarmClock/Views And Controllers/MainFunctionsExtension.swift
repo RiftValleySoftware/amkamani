@@ -42,13 +42,13 @@ extension MainScreenViewController {
      This creates the display, as a gradient-filled font.
      */
     func createDisplayView(_ inContainerView: UIView, index inIndex: Int) -> UIView {
-        for subView in inContainerView.subviews {
-            subView.removeFromSuperview()
+        inContainerView.subviews.forEach {
+            $0.removeFromSuperview()
         }
         
         if let sublayers = inContainerView.layer.sublayers {
-            for subLayer in sublayers {
-                subLayer.removeFromSuperlayer()
+            sublayers.forEach {
+                $0.removeFromSuperlayer()
             }
         }
         
@@ -181,8 +181,8 @@ extension MainScreenViewController {
      */
     func setUpAlarms() {
         // Take out the trash.
-        for subview in self.alarmContainerView.subviews {
-            subview.removeFromSuperview()
+        self.alarmContainerView.subviews.forEach {
+            $0.removeFromSuperview()
         }
         
         let alarms = self.prefs.alarms
@@ -194,8 +194,8 @@ extension MainScreenViewController {
             var prevButton: TheBestClockAlarmView!
             var index = 0
             
-            for alarm in alarms {
-                let alarmButton = TheBestClockAlarmView(alarmRecord: alarm)
+            alarms.forEach {
+                let alarmButton = TheBestClockAlarmView(alarmRecord: $0)
                 self.addAlarmView(alarmButton, percentage: percentage, previousView: prevButton)
                 alarmButton.delegate = self
                 alarmButton.index = index
@@ -213,13 +213,11 @@ extension MainScreenViewController {
      This updates the alarm buttons to reflect the brightness, color and font.
      */
     func updateAlarms() {
-        let alarms = self.alarmButtons
-        
-        for alarm in alarms {
-            alarm.brightness = self.selectedBrightness
-            alarm.fontColor = 0 == self.selectedColorIndex ? nil : self.selectedColor
-            alarm.fontName = self.selectedFontName
-            alarm.desiredFontSize = self.alarmsFontSize
+        self.alarmButtons.forEach {
+            $0.brightness = self.selectedBrightness
+            $0.fontColor = 0 == self.selectedColorIndex ? nil : self.selectedColor
+            $0.fontName = self.selectedFontName
+            $0.desiredFontSize = self.alarmsFontSize
         }
     }
     
@@ -297,8 +295,8 @@ extension MainScreenViewController {
         var noAlarms = true // If we find an active alarm, this is made false.
         
         // If we have an active alarm, then we throw the switch, iGor.
-        for alarm in self.prefs.alarms {
-            if alarm.isActive, alarm.isAlarming, (self.prefs.noSnoozeLimit || !alarm.snoozing || (alarm.snoozing && self.snoozeCount <= self.prefs.snoozeCount)) {
+        self.prefs.alarms.forEach {
+            if $0.isActive, $0.isAlarming, (self.prefs.noSnoozeLimit || !$0.snoozing || ($0.snoozing && self.snoozeCount <= self.prefs.snoozeCount)) {
                 noAlarms = false
                 self.alarmSounded = true
                 self.alarmDisableScreenView.isHidden = false
@@ -306,11 +304,11 @@ extension MainScreenViewController {
                     self.flashDisplay(self.selectedColor)
                 }
                 self.aooGah(index) // Play a sound and/or vibrate.
-            } else if alarm.isActive, alarm.snoozing {  // If we have a snoozing alarm, then it will "snore."
+            } else if $0.isActive, $0.snoozing {  // If we have a snoozing alarm, then it will "snore."
                 if !self.prefs.noSnoozeLimit, self.snoozeCount > self.prefs.snoozeCount {
                     self.snoozeCount = 0
-                    alarm.snoozing = false
-                    alarm.deferred = true
+                    $0.snoozing = false
+                    $0.deferred = true
                 } else {
                     self.alarmButtons[index].snore()
                 }
@@ -509,10 +507,10 @@ extension MainScreenViewController {
      */
     func turnOffDeactivations() {
         self.alarmDisableScreenView.isHidden = true
-        for index in 0..<self.prefs.alarms.count {
-            if self.prefs.alarms[index].snoozing || !self.prefs.alarms[index].isActive {
-                self.prefs.alarms[index].deferred = false
-                self.prefs.alarms[index].snoozing = false
+        for i in self.prefs.alarms.enumerated() {
+            if self.prefs.alarms[i.offset].snoozing || !self.prefs.alarms[i.offset].isActive {
+                self.prefs.alarms[i.offset].deferred = false
+                self.prefs.alarms[i.offset].snoozing = false
             }
         }
         self.snoozeCount = 0
@@ -534,16 +532,17 @@ extension MainScreenViewController {
             self.impactFeedbackGenerator?.prepare()
             self.impactFeedbackGenerator?.impactOccurred()
             
-            for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].isAlarming {
-                self.prefs.alarms[index].snoozing = true
+            for i in self.prefs.alarms.enumerated() where self.prefs.alarms[i.offset].isAlarming {
+                self.prefs.alarms[i.offset].snoozing = true
             }
+            
             self.snoozeCount += 1
             self.stopAudioPlayer()
             self.alarmDisplayView.isHidden = true
             self.selectedBrightness = Swift.max(TheBestClockPrefs.minimumBrightness, self.prefs.brightnessLevel)
             self.brightnessSliderChanged()
-            for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].snoozing {
-                self.alarmButtons[index].snore()
+            for i in self.prefs.alarms.enumerated() where self.prefs.alarms[i.offset].snoozing {
+                self.alarmButtons[i.offset].snore()
             }
         }
     }
@@ -560,11 +559,11 @@ extension MainScreenViewController {
         self.impactFeedbackGenerator?.impactOccurred()
         self.impactFeedbackGenerator?.prepare()
         self.alarmDisableScreenView.isHidden = true
-        for index in 0..<self.prefs.alarms.count where self.prefs.alarms[index].isAlarming {
-            self.prefs.alarms[index].deferred = true
-            self.prefs.alarms[index].isActive = false
+        for i in self.prefs.alarms.enumerated() where self.prefs.alarms[i.offset].isAlarming {
+            self.prefs.alarms[i.offset].deferred = true
+            self.prefs.alarms[i.offset].isActive = false
             self.prefs.savePrefs()
-            self.alarmButtons[index].alarmRecord.isActive = false
+            self.alarmButtons[i.offset].alarmRecord.isActive = false
         }
         self.snoozeCount = 0
         self.stopAudioPlayer()
@@ -581,13 +580,13 @@ extension MainScreenViewController {
         if -1 == self.currentlyEditingAlarmIndex {
             self.selectionFeedbackGenerator?.selectionChanged()
             self.selectionFeedbackGenerator?.prepare()
-            for index in 0..<self.alarmButtons.count where self.alarmButtons[index] == inSender {
+            for i in self.alarmButtons.enumerated() where self.alarmButtons[i.offset] == inSender {
                 if let alarmRecord = inSender.alarmRecord {
-                    if !alarmRecord.isActive || self.prefs.alarms[index].snoozing {
-                        self.prefs.alarms[index].deferred = true
+                    if !alarmRecord.isActive || self.prefs.alarms[i.offset].snoozing {
+                        self.prefs.alarms[i.offset].deferred = true
                     }
-                    self.prefs.alarms[index].isActive = alarmRecord.isActive
-                    alarmRecord.deferred = self.prefs.alarms[index].deferred
+                    self.prefs.alarms[i.offset].isActive = alarmRecord.isActive
+                    alarmRecord.deferred = self.prefs.alarms[i.offset].deferred
                     self.prefs.savePrefs()
                 }
             }
@@ -738,14 +737,16 @@ extension MainScreenViewController {
      */
     override func viewDidLoad() {
         TheBestClockAppDelegate.delegateObject.theMainController = self
+        
         // We start by setting up our font and color Arrays.
-        for fontFamilyName in UIFont.familyNames {
-            for fontName in UIFont.fontNames(forFamilyName: fontFamilyName) {
-                if self.screenForThese.contains(fontName) {
-                    self.fontSelection.append(fontName)
+        UIFont.familyNames.forEach {
+            UIFont.fontNames(forFamilyName: $0).forEach { fName in
+                if self.screenForThese.contains(fName) {
+                    self.fontSelection.append(fName)
                 }
             }
         }
+        
         // So we have a predictable order.
         self.fontSelection.sort()
         

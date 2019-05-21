@@ -447,9 +447,9 @@ extension MainScreenViewController {
     /**
      */
     func showAllAlarms() {
-        for alarm in self.alarmButtons {
-            alarm.isUserInteractionEnabled = true
-            alarm.isHidden = false
+        self.alarmButtons.forEach {
+            $0.isUserInteractionEnabled = true
+            $0.isHidden = false
         }
     }
     
