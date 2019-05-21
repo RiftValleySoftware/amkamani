@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TheBestClockAlarmSetting Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/TheBestClockAlarmSetting" class="dashAnchor"></a>
+
+    <a title="TheBestClockAlarmSetting Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          AmkaMani Docs
+        </a>
+         (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/RiftValleySoftware/amkamani">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">AmkaMani Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      TheBestClockAlarmSetting Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MainScreenViewController.html">MainScreenViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MainScreenViewController/TimeDateContainer.html">– TimeDateContainer</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MainScreenViewController/SongInfo.html">– SongInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TheBestClockAboutScreenViewController.html">TheBestClockAboutScreenViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TheBestClockAlarmSetting.html">TheBestClockAlarmSetting</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TheBestClockAlarmSetting/AlarmPrefsKeys.html">– AlarmPrefsKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TheBestClockAlarmSetting/AlarmPrefsMode.html">– AlarmPrefsMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TheBestClockAlarmView.html">TheBestClockAlarmView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TheBestClockAppDelegate.html">TheBestClockAppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes.html#/c:@M@AmkaMani@objc(cs)TheBestClockMainDisplayView">TheBestClockMainDisplayView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TheBestClockPrefs.html">TheBestClockPrefs</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TheBestClockPrefs/PrefsKeys.html">– PrefsKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/TheBestClockVerticalBrightnessSliderView.html">TheBestClockVerticalBrightnessSliderView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIColor.html">UIColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIImage.html">UIImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIView.html">UIView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/TheBestClockAlarmViewDelegate.html">TheBestClockAlarmViewDelegate</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>TheBestClockAlarmSetting</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">@objc(TheBestClockAlarmSetting)</span>
+<span class="kd">class</span> <span class="kt">TheBestClockAlarmSetting</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">NSCoding</span></code></pre>
+
+                </div>
+              </div>
+            
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC0F9PrefsKeys33_A6A8BC3B8D1A9C22F9E6A2AD670F0270LLO"></a>
+                    <a name="//apple_ref/swift/Enum/AlarmPrefsKeys" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC0F9PrefsKeys33_A6A8BC3B8D1A9C22F9E6A2AD670F0270LLO">AlarmPrefsKeys</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>These are the keys we use for our alarms dictionary.</p>
+
+                        <a href="../Classes/TheBestClockAlarmSetting/AlarmPrefsKeys.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">enum</span> <span class="kt">AlarmPrefsKeys</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC0F9PrefsModeO"></a>
+                    <a name="//apple_ref/swift/Enum/AlarmPrefsMode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC0F9PrefsModeO">AlarmPrefsMode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>These are the keys we use to specify the alarm sound mode.</p>
+
+                        <a href="../Classes/TheBestClockAlarmSetting/AlarmPrefsMode.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">AlarmPrefsMode</span> <span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Internal%20Constant%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Instance Internal Constant Properties" class="dashAnchor"></a>
+                <a href="#/Instance%20Internal%20Constant%20Properties">
+                  <h3 class="section-name">Instance Internal Constant Properties</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC19snoozeTimeInMinutesSivp"></a>
+                    <a name="//apple_ref/swift/Property/snoozeTimeInMinutes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC19snoozeTimeInMinutesSivp">snoozeTimeInMinutes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The number of minutes we snooze for.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">snoozeTimeInMinutes</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC18alarmTimeInMinutesSivp"></a>
+                    <a name="//apple_ref/swift/Property/alarmTimeInMinutes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC18alarmTimeInMinutesSivp">alarmTimeInMinutes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The length of time an alarm will blare, in minutes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">alarmTimeInMinutes</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Stored%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Instance Stored Properties" class="dashAnchor"></a>
+                <a href="#/Instance%20Stored%20Properties">
+                  <h3 class="section-name">Instance Stored Properties</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC9alarmTimeSivp"></a>
+                    <a name="//apple_ref/swift/Property/alarmTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC9alarmTimeSivp">alarmTime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SAVED IN STATE: The time (HHMM) for the alarm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">alarmTime</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC11isVibrateOnSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isVibrateOn" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC11isVibrateOnSbvp">isVibrateOn</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SAVED IN STATE: True, for vibrate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isVibrateOn</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC17selectedSoundModeAC0f5PrefsJ0Ovp"></a>
+                    <a name="//apple_ref/swift/Property/selectedSoundMode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC17selectedSoundModeAC0f5PrefsJ0Ovp">selectedSoundMode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SAVED IN STATE: The sound mode.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">selectedSoundMode</span><span class="p">:</span> <span class="kt">TheBestClockAlarmSetting</span><span class="o">.</span><span class="kt"><a href="../Classes/TheBestClockAlarmSetting/AlarmPrefsMode.html">AlarmPrefsMode</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC18selectedSoundIndexSivp"></a>
+                    <a name="//apple_ref/swift/Property/selectedSoundIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC18selectedSoundIndexSivp">selectedSoundIndex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SAVED IN STATE: If the sound mode is sounds, the index of the stored sound.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">selectedSoundIndex</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC15selectedSongURLSSvp"></a>
+                    <a name="//apple_ref/swift/Property/selectedSongURL" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC15selectedSongURLSSvp">selectedSongURL</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SAVED IN STATE: If the sound mode is music, the resource URL of the selected song.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">selectedSongURL</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC8isActiveSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isActive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC8isActiveSbvp">isActive</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SAVED IN STATE: True, if the alarm is active.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isActive</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC14lastSnoozeTime10Foundation4DateVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/lastSnoozeTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC14lastSnoozeTime10Foundation4DateVSgvp">lastSnoozeTime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>EPHEMERAL: The time a <q>snooze</q> started.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">lastSnoozeTime</span><span class="p">:</span> <span class="kt">Date</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC14deactivateTime10Foundation4DateVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/deactivateTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC14deactivateTime10Foundation4DateVSgvp">deactivateTime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>EPHEMERAL: The time that an alarm was deactivated, so it doesn&rsquo;t keep going off if we reactivate it.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">deactivateTime</span><span class="p">:</span> <span class="kt">Date</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC14alarmResetTime10Foundation4DateVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/alarmResetTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC14alarmResetTime10Foundation4DateVSgvp">alarmResetTime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>EPHEMERAL: The time to be used as the start of the alarm range. This can be <q>bumped.</q> If nil, then the set alarm time will be used to calculate the range.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">alarmResetTime</span><span class="p">:</span> <span class="kt">Date</span><span class="o">!</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Calculated%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Instance Calculated Properties" class="dashAnchor"></a>
+                <a href="#/Instance%20Calculated%20Properties">
+                  <h3 class="section-name">Instance Calculated Properties</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC8snoozingSbvp"></a>
+                    <a name="//apple_ref/swift/Property/snoozing" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC8snoozingSbvp">snoozing</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">snoozing</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the alarm is currently <q>snoozing.</q></p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC8deferredSbvp"></a>
+                    <a name="//apple_ref/swift/Property/deferred" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC8deferredSbvp">deferred</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This handles <q>deferring</q> an alarm. That prevents it from going off immediately when turned back on.</p>
+
+<p>Basic rule: It should ALWAYS be deferred when activating from the front panel, or when starting/bringing forward the app. It can be reset from the Alarm Editor Screen.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">deferred</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the alarm has been <q>deferred,</q> and should not go off again.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC07currentF4Time10Foundation4DateVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/currentAlarmTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC07currentF4Time10Foundation4DateVSgvp">currentAlarmTime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">currentAlarmTime</span><span class="p">:</span> <span class="kt">Date</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The alarm set, for today, with the possibility of being deferred.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC06todaysF4Time10Foundation4DateVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/todaysAlarmTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC06todaysF4Time10Foundation4DateVSgvp">todaysAlarmTime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">todaysAlarmTime</span><span class="p">:</span> <span class="kt">Date</span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The alarm set, for today.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC10clearStateyyF"></a>
+                    <a name="//apple_ref/swift/Method/clearState()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC10clearStateyyF">clearState()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This just resets the three main <q>ephemeral</q> states.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">clearState</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC12alarmEngaged14withResetAddedSiSb_tF"></a>
+                    <a name="//apple_ref/swift/Method/alarmEngaged(withResetAdded:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC12alarmEngaged14withResetAddedSiSb_tF">alarmEngaged(withResetAdded:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">alarmEngaged</span><span class="p">(</span><span class="nv">withResetAdded</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>withResetAdded</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional Bool (default is false), that, if true, will include a cascading reset time.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>1 if the alarm will be going off now. 0, if the alarm will not go off soon, or -1 if the alarm will go off within the alarm time window from now.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24TheBestClockAlarmSettingC10isAlarmingSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isAlarming" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24TheBestClockAlarmSettingC10isAlarmingSbvp">isAlarming</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isAlarming</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the alarm should be blaring right now.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@AmkaMani@objc(cs)TheBestClockAlarmSetting(im)encodeWithCoder:"></a>
+                    <a name="//apple_ref/swift/Method/encode(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@AmkaMani@objc(cs)TheBestClockAlarmSetting(im)encodeWithCoder:">encode(with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the standard NSCoding saver.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="n">with</span> <span class="nv">aCoder</span><span class="p">:</span> <span class="kt">NSCoder</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>with</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The NSCoder object that will receive the <q>serialized</q> state.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@AmkaMani@objc(cs)TheBestClockAlarmSetting(im)init"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@AmkaMani@objc(cs)TheBestClockAlarmSetting(im)init">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Standard empty init.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">override</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@AmkaMani@objc(cs)TheBestClockAlarmSetting(im)initWithCoder:"></a>
+                    <a name="//apple_ref/swift/Method/init(coder:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@AmkaMani@objc(cs)TheBestClockAlarmSetting(im)initWithCoder:">init(coder:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>NSCoding initializer.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">required</span> <span class="nf">init</span><span class="p">?(</span><span class="n">coder</span> <span class="nv">aDecoder</span><span class="p">:</span> <span class="kt">NSCoder</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The coder that we will get our state from.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external">©2019 The Great Rift Valley Software Company</a></p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
