@@ -13,8 +13,6 @@ You can easily select a font and color scheme, a brightness level, and whether t
 - Built-In Sounds (Like classic alarm clock sounds)
 - Music (From your music library)
 
-[This page covers its operation in great detail.](https://riftvalleysoftware.com/work/ios-apps/amkamani/)
-
 This app is [publicly available on the Apple App Store](https://itunes.apple.com/us/app/amkamani/id1448933103). It is an [Apple iOS-only](https://www.apple.com/ios) app, written in [Swift](https://www.apple.com/swift/).
 
 [This is the basic instruction page for AmkaMani](https://riftvalleysoftware.com/work/ios-apps/amkamani/)
