@@ -1,4 +1,4 @@
-![AmkaMani Icon](icon.png)
+![AmkaMani Icon](https://open-source-docs.riftvalleysoftware.com/docs/AmkaMani/icon.png)
 
 ABOUT AMKAMANI
 =
@@ -55,7 +55,7 @@ Also, you spend a heck of a lot of time in Interface Builder (Storyboard Editor)
 Screen Layout
 -
 The way the app is laid out, is that screens appear over each other. There's really only four screens in the app:
-![AmkaMani Icon](https://riftvalleysoftware.com/AmkaMani-Docs/img/Layout.png)
+![AmkaMani Icon](https://open-source-docs.riftvalleysoftware.com/docs/AmkaMani/img/Layout.png)
 
 The main screen shows the running clock.
 
