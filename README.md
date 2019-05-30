@@ -1,4 +1,4 @@
-![AmkaMani Icon](https://riftvalleysoftware.com/AmkaMani-Docs/icon.png)
+![AmkaMani Icon](https://open-source-docs.riftvalleysoftware.com/docs/AmkaMani/icon.png)
 
 ABOUT AMKAMANI
 =
