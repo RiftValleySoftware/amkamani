@@ -1,4 +1,4 @@
-![AmkaMani Icon](https://open-source-docs.riftvalleysoftware.com/docs/AmkaMani/icon.png)
+![AmkaMani Icon](icon.png)
 
 ABOUT AMKAMANI
 =
@@ -17,7 +17,7 @@ This app is [publicly available on the Apple App Store](https://itunes.apple.com
 
 [This is the basic instruction page for AmkaMani](https://riftvalleysoftware.com/work/ios-apps/amkamani/)
 
-[This page is the detailed documentation page for the AmkaMani Codebase](https://riftvalleysoftware.com/AmkaMani-Docs/)
+[This page is the detailed documentation page for the AmkaMani Codebase](https://open-source-docs.riftvalleysoftware.com/docs/AmkaMani/index.html)
 
 [This is the Codebase for the AmkaMani App](https://github.com/RiftValleySoftware/amkamani)
 
