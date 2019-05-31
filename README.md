@@ -50,7 +50,7 @@ However, it's also a really big, fat, ugly set of source files. I could probably
 
 Also, you spend a heck of a lot of time in Interface Builder (Storyboard Editor). IB is a dog. Not much fun to play with.
 
-**EXPERIMENT RESULTS:** *Don't do that again. Put out your hand, palm up.* **WHACK**
+**EXPERIMENT RESULTS:** *Result Successful. Methodology Not Recommended.*
 
 Screen Layout
 -
