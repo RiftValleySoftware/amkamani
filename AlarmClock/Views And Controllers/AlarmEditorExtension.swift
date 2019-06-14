@@ -380,8 +380,8 @@ extension MainScreenViewController {
         self.songSelectContainerView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
         self.noMusicDisplayView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || !(self.artists.isEmpty || self.songs.isEmpty)
         self.alarmDeactivatedLabel.isHidden = (0 >= self.prefs.alarms[self.currentlyEditingAlarmIndex].alarmEngaged()) || !self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive || !self.prefs.alarms[self.currentlyEditingAlarmIndex].deferred
-        self.alarmEditorVibrateButton.isHidden = "iPad" == UIDevice.current.model   // Hide these on iPads, which don't do vibrate.
-        self.alarmEditorVibrateBeepSwitch.isHidden = "iPad" == UIDevice.current.model
+        self.alarmEditorVibrateButton.isHidden = "iPhone" != UIDevice.current.model   // Hide these on iPads, which don't do vibrate.
+        self.alarmEditorVibrateBeepSwitch.isHidden = "iPhone" != UIDevice.current.model
     }
     
     /* ################################################################## */
