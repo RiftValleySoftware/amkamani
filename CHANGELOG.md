@@ -3,6 +3,8 @@
 - Some refactoring of internal code to make it more efficient.
 - Documentation cleanup for open-sourcing the app.
 - Since the iPod touch also does not support vibrate, I switched the vibrate detection to iPhone-only.
+- Made the alarm flash cover the entire screen (for X phones).
+- There was a bug, in which the deferred alarm state would not show, sometimes. That has been fixed. Additionally, the deferred state is also shown for inactive alarms.
 
 **Version 1.0.1.3000** *(February 11, 2019)*
 - Added a placeholder for an "alarm disable double-tap." Not activating it, as folks may think they are snoozing, when they are actually deactivating.

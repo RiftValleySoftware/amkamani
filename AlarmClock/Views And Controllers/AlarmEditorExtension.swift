@@ -280,12 +280,10 @@ extension MainScreenViewController {
             
             currentAlarm.isActive = true
             currentAlarm.snoozing = false
-            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.isActive = true
-            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.snoozing = false
+            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord = currentAlarm
             self.alarmButtons[self.currentlyEditingAlarmIndex].fullBright = true
-            self.alarmEditorActiveSwitch.isOn = true
             self.showOnlyThisAlarm(self.currentlyEditingAlarmIndex)
-            let time = currentAlarm.alarmTime
+            let time = self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.alarmTime
             let hours = time / 100
             let minutes = time - (hours * 100)
             
@@ -311,7 +309,7 @@ extension MainScreenViewController {
             self.alarmEditorActiveSwitch.tintColor = self.selectedColor
             self.alarmEditorActiveSwitch.onTintColor = self.selectedColor
             self.alarmEditorActiveSwitch.thumbTintColor = self.selectedColor
-            self.alarmEditorActiveSwitch.isOn = currentAlarm.isActive
+            self.alarmEditorActiveSwitch.isOn = self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.isActive
             self.alarmEditorActiveButton.tintColor = self.selectedColor
             if let label = self.alarmEditorActiveButton.titleLabel {
                 label.adjustsFontSizeToFitWidth = true
@@ -322,7 +320,7 @@ extension MainScreenViewController {
             self.alarmEditorVibrateBeepSwitch.thumbTintColor = self.selectedColor
             self.alarmEditorVibrateBeepSwitch.onTintColor = self.selectedColor
             self.alarmEditorVibrateButton.tintColor = self.selectedColor
-            self.alarmEditorVibrateBeepSwitch.isOn = currentAlarm.isVibrateOn
+            self.alarmEditorVibrateBeepSwitch.isOn = self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.isVibrateOn
             if let label = self.alarmEditorVibrateButton.titleLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.baselineAdjustment = .alignCenters
@@ -335,15 +333,15 @@ extension MainScreenViewController {
 
             self.alarmEditSoundModeSelector.tintColor = self.selectedColor
             self.alarmEditSoundModeSelector.setEnabled(.denied != MPMediaLibrary.authorizationStatus(), forSegmentAt: 1)
-            if !self.alarmEditSoundModeSelector.isEnabledForSegment(at: 1) && .music == currentAlarm.selectedSoundMode {
+            if !self.alarmEditSoundModeSelector.isEnabledForSegment(at: 1) && .music == self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode {
                 self.alarmEditSoundModeSelector.selectedSegmentIndex = TheBestClockAlarmSetting.AlarmPrefsMode.silence.rawValue
             } else {
-                self.alarmEditSoundModeSelector.selectedSegmentIndex = currentAlarm.selectedSoundMode.rawValue
+                self.alarmEditSoundModeSelector.selectedSegmentIndex = self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode.rawValue
             }
 
             self.editAlarmPickerView.reloadComponent(0)
             if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-                self.editAlarmPickerView.selectRow(currentAlarm.selectedSoundIndex, inComponent: 0, animated: false)
+                self.editAlarmPickerView.selectRow(self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSoundIndex, inComponent: 0, animated: false)
             } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
                 self.editAlarmPickerView.selectRow(0, inComponent: 0, animated: false)
             }
@@ -379,7 +377,7 @@ extension MainScreenViewController {
         self.musicTestButtonView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
         self.songSelectContainerView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
         self.noMusicDisplayView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || !(self.artists.isEmpty || self.songs.isEmpty)
-        self.alarmDeactivatedLabel.isHidden = (0 >= self.prefs.alarms[self.currentlyEditingAlarmIndex].alarmEngaged()) || !self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive || !self.prefs.alarms[self.currentlyEditingAlarmIndex].deferred
+        self.alarmDeactivatedLabel.isHidden = !self.prefs.alarms[self.currentlyEditingAlarmIndex].deferred
         self.alarmEditorVibrateButton.isHidden = "iPhone" != UIDevice.current.model   // Hide these on iPads, which don't do vibrate.
         self.alarmEditorVibrateBeepSwitch.isHidden = "iPhone" != UIDevice.current.model
     }

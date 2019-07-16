@@ -348,26 +348,31 @@ extension MainScreenViewController {
      - parameter inUIColor: This is the color to flash.
      */
     func flashDisplay(_ inUIColor: UIColor) {
-        self.selectedBrightness = 1.0
-        UIScreen.main.brightness = self.selectedBrightness
-        self.flasherView.backgroundColor = inUIColor
-        self.flasherView.alpha = 0
-        UIView.animate(withDuration: 0.05,
-                       delay: 0,
-                       usingSpringWithDamping: 1.0,
-                       initialSpringVelocity: 0,
-                       options: .allowUserInteraction,
-                       animations: { [unowned self] in
-                        self.flasherView.alpha = 1.0
-            }, completion: nil)
-        UIView.animate(withDuration: 0.7,
-                       delay: 0,
-                       usingSpringWithDamping: 1.0,
-                       initialSpringVelocity: 0,
-                       options: .allowUserInteraction,
-                       animations: { [unowned self] in
-                        self.flasherView.alpha = 0.0
-            }, completion: nil)
+        if let targetView = self.flasherView {
+            self.selectedBrightness = 1.0
+            UIScreen.main.brightness = self.selectedBrightness
+            let oldBackground = targetView.backgroundColor
+            let oldAlpha = targetView.alpha
+            targetView.backgroundColor = inUIColor
+            targetView.alpha = 0
+            UIView.animate(withDuration: 0.05,
+                           delay: 0,
+                           usingSpringWithDamping: 1.0,
+                           initialSpringVelocity: 0,
+                           options: .allowUserInteraction,
+                           animations: { targetView.alpha = 1.0 },
+                           completion: nil)
+            UIView.animate(withDuration: 0.7,
+                           delay: 0,
+                           usingSpringWithDamping: 1.0,
+                           initialSpringVelocity: 0,
+                           options: .allowUserInteraction,
+                           animations: { targetView.alpha = 0.0 },
+                           completion: { _ in
+                            targetView.backgroundColor = oldBackground
+                            targetView.alpha = oldAlpha
+            })
+        }
     }
     
     /* ################################################################## */
