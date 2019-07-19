@@ -14,7 +14,7 @@ import UIKit
 // MARK: - Main Class -
 /* ###################################################################################################################################### */
 /**
- This is a special control that is normally invisible, and apprears when the user starts a pan.
+ This is a special control that is normally invisible, and appears when the user starts a vertical pan.
  We use this to act as a brigthness slider for the clock. The top is the brightest, the bottom is the darkest.
  The view is updated with the current color from the main controller as it is panned.
  */
