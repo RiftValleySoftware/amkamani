@@ -1,4 +1,4 @@
-**Version 1.0.2.2000** *(TBD)*
+**Version 1.0.2.2000** *August 24, 2019*
 - Updated to Swift 5
 - Some refactoring of internal code to make it more efficient.
 - Documentation cleanup for open-sourcing the app.
