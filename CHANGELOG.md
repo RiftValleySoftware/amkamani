@@ -1,3 +1,6 @@
+**Version 1.0.2.2001** *August 26, 2019*
+- After a report of a crash that I couldn't reproduce, I decided to try forcing the request for permission run in the main thread; even though I don't think it needs it.
+
 **Version 1.0.2.2000** *August 24, 2019*
 - Updated to Swift 5
 - Some refactoring of internal code to make it more efficient.

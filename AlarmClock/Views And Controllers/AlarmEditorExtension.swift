@@ -49,15 +49,17 @@ extension MainScreenViewController {
             if .authorized == MPMediaLibrary.authorizationStatus() {    // Already authorized? Head on in!
                 self.loadUpOnMusic()
             } else {    // May I see your ID, sir?
-                MPMediaLibrary.requestAuthorization { [unowned self] status in
-                    switch status {
-                    case.authorized:
-                        self.loadUpOnMusic()
-                        
-                    default:
+                DispatchQueue.main.async {
+                    MPMediaLibrary.requestAuthorization { [unowned self] status in
                         DispatchQueue.main.async {
-                            TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
-                            self.dunLoadin()
+                            switch status {
+                            case.authorized:
+                                self.loadUpOnMusic()
+                                
+                            default:
+                                TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_PERMISSION_DENIED")
+                                self.dunLoadin()
+                            }
                         }
                     }
                 }
