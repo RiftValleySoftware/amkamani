@@ -362,6 +362,14 @@ extension MainScreenViewController {
             UIScreen.main.brightness = 1.0  // Brighten the screen all the way for the editor.
        }
         
+        if #available(iOS 13.0, *) {
+            self.alarmEditSoundModeSelector.selectedSegmentTintColor = self.selectedColor
+            self.alarmEditSoundModeSelector.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: self.selectedColor], for: .normal)
+            if let color = self.view.backgroundColor {
+                self.alarmEditSoundModeSelector.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: color], for: .selected)
+            }
+        }
+
         // Need to do this because of the whacky way we are presenting the editor screen. The underneath controls can "bleed through."
         self.mainNumberDisplayView.isAccessibilityElement = false
         self.dateDisplayLabel.isAccessibilityElement = false

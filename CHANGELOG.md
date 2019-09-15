@@ -1,3 +1,7 @@
+**Version 1.0.2.3000** *September 15, 2019*
+- Tweaked the appearance of the sound selector segmented switch for iOS 13.
+- App Store Release Candidate.
+
 **Version 1.0.2.2001** *August 26, 2019*
 - After a report of a crash that I couldn't reproduce, I decided to try forcing the request for permission run in the main thread; even though I don't think it needs it.
 
