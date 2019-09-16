@@ -1,3 +1,6 @@
+**Version 1.0.2.3001** *September 16, 2019*
+- No change. Apple wanted me to re-release with the latest RC of Xcode.
+
 **Version 1.0.2.3000** *September 15, 2019*
 - Tweaked the appearance of the sound selector segmented switch for iOS 13.
 - App Store Release Candidate.
