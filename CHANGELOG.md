@@ -1,3 +1,7 @@
+**Version 1.1.0.2000** *May 29, 2020*
+- Switched over to using the basic GCD timer, and also switched on Catalyst.
+- Updated a few deprecated archiver calls.
+
 **Version 1.0.2.3001** *September 16, 2019*
 - No change. Apple wanted me to re-release with the latest RC of Xcode.
 

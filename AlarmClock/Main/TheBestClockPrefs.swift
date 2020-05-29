@@ -349,8 +349,9 @@ class TheBestClockPrefs: NSObject {
         loadedPrefs[self.PrefsKeys.selectedFont.rawValue] = 0
         loadedPrefs[self.PrefsKeys.brightnessLevel.rawValue] = 1.0
         for index in 0..<TheBestClockPrefs._numberOfAlarms {
-            let archivedObject = NSKeyedArchiver.archivedData(withRootObject: TheBestClockAlarmSetting())
-            loadedPrefs[TheBestClockPrefs.PrefsKeys.alarms.rawValue + String(index)] = archivedObject
+            if  let archivedObject = try? NSKeyedArchiver.archivedData(withRootObject: TheBestClockAlarmSetting(), requiringSecureCoding: false) {
+                loadedPrefs[TheBestClockPrefs.PrefsKeys.alarms.rawValue + String(index)] = archivedObject
+            }
         }
         UserDefaults.standard.register(defaults: loadedPrefs)
     }
@@ -412,7 +413,7 @@ class TheBestClockPrefs: NSObject {
                     self._alarms.append(TheBestClockAlarmSetting())
                 }
                 if let unarchivedObject = self._loadedPrefs.object(forKey: (type(of: self).PrefsKeys.alarms.rawValue + String(index)) as NSString) as? Data {
-                    if let alarm = NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject) as? TheBestClockAlarmSetting {
+                    if let alarm = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(unarchivedObject) as? TheBestClockAlarmSetting {
                         let oldResetTime = self._alarms[index].alarmResetTime  // This makes sure we preserve any reset in progress. This is not saved in prefs.
                         let oldSnoozeTime = self._alarms[index].lastSnoozeTime  // This makes sure we preserve any snoozing in progress. This is not saved in prefs.
                         let oldDeactivateTime = self._alarms[index].deactivateTime  // This makes sure we preserve any deactivated alarms in progress. This is not saved in prefs.
@@ -639,8 +640,9 @@ class TheBestClockPrefs: NSObject {
     func savePrefs() {
         NSKeyedArchiver.setClassName("TheBestClockAlarmSetting", for: TheBestClockAlarmSetting.self)
         for index in 0..<self._alarms.count {
-            let archivedObject = NSKeyedArchiver.archivedData(withRootObject: self._alarms[index])
-            self._loadedPrefs.setObject(archivedObject, forKey: (type(of: self).PrefsKeys.alarms.rawValue + String(index)) as NSString)
+            if  let archivedObject = try? NSKeyedArchiver.archivedData(withRootObject: self._alarms[index], requiringSecureCoding: false) {
+                self._loadedPrefs.setObject(archivedObject, forKey: (type(of: self).PrefsKeys.alarms.rawValue + String(index)) as NSString)
+            }
         }
         UserDefaults.standard.set(self._loadedPrefs, forKey: type(of: self)._mainPrefsKey)
     }

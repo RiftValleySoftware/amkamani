@@ -383,10 +383,8 @@ extension MainScreenViewController {
         self.updateMainTime()
         self.checkTicker() // This just makes sure we get "instant on," if that's what we selected.
         if nil == self.timer {
-            self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [unowned self] (_) in
-                self.checkTicker()
-            })
-            self.timer.tolerance = 0.1  // 100ms tolerance.
+            self.timer = RVS_BasicGCDTimer(timeIntervalInSeconds: 1.0, delegate: self, leewayInMilliseconds: 100, onlyFireOnce: false, context: nil, queue: nil, isWallTime: true)
+            self.timer.isRunning = true
         }
     }
     
@@ -869,5 +867,20 @@ extension MainScreenViewController {
                 self.openAlarmEditorScreen()
             }
         }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - RVS_BasicGCDTimerDelegate Conformance
+/* ###################################################################################################################################### */
+/* ################################################################## */
+/**
+ This is the callback that is made by the repeating timer.
+ 
+ - parameter: ignored
+ */
+extension MainScreenViewController: RVS_BasicGCDTimerDelegate {
+    func basicGCDTimerCallback(_: RVS_BasicGCDTimer) {
+        checkTicker()
     }
 }
