@@ -383,7 +383,7 @@ extension MainScreenViewController {
         self.updateMainTime()
         self.checkTicker() // This just makes sure we get "instant on," if that's what we selected.
         if nil == self.timer {
-            self.timer = RVS_BasicGCDTimer(timeIntervalInSeconds: 1.0, delegate: self, leewayInMilliseconds: 100, onlyFireOnce: false, context: nil, queue: nil, isWallTime: true)
+            self.timer = RVS_BasicGCDTimer(timeIntervalInSeconds: self.timeIntervalInSeconds, delegate: self, leewayInMilliseconds: self.leewayInMilliseconds, onlyFireOnce: false, context: nil, queue: nil, isWallTime: true)
             self.timer.isRunning = true
         }
     }

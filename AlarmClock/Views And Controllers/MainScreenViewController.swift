@@ -111,6 +111,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let alarmEditorSoundPickerFontSize: CGFloat = 24
     /// This is the base font size for the sound test button.
     let alarmEditorSoundButtonFontSize: CGFloat = 30
+    /// The time interval
+    let timeIntervalInSeconds: TimeInterval = 1.0
+    /// The leeway, in milliseconds
+    let leewayInMilliseconds: Int = 100
 
     /* ################################################################## */
     // MARK: - Instance IB Properties
