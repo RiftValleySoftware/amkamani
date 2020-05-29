@@ -192,3 +192,22 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
         super.cancelTracking(with: inEvent)
     }
 }
+
+/* ###################################################################################################################################### */
+// MARK: - Catalyst Cleaner -
+/* ###################################################################################################################################### */
+/**
+ This allows us to remove the "focus ring" for Catalyst.
+ 
+ Directly from here: https://stackoverflow.com/a/58346000/879365
+ */
+extension TheBestClockVerticalBrightnessSliderView {
+    #if targetEnvironment(macCatalyst)
+        /// Cast to Objective-C type.
+        @objc(_focusRingType)
+        /// Returns 1 (No focus).
+        var focusRingType: UInt {
+            return 1 //NSFocusRingTypeNone
+        }
+    #endif
+}

@@ -111,6 +111,10 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let alarmEditorSoundPickerFontSize: CGFloat = 24
     /// This is the base font size for the sound test button.
     let alarmEditorSoundButtonFontSize: CGFloat = 30
+    /// The time interval
+    let timeIntervalInSeconds: TimeInterval = 1.0
+    /// The leeway, in milliseconds
+    let leewayInMilliseconds: Int = 100
 
     /* ################################################################## */
     // MARK: - Instance IB Properties
@@ -224,7 +228,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
     /// This is the basic background color for the whole kit and kaboodle. It gets darker as the brightness is reduced.
     var backgroundColor: UIColor = UIColor.gray
     /// This is the "heartbeat" of the clock. It's a 1-second repeating timer.
-    var timer: Timer!
+    var timer: RVS_BasicGCDTimer!
     /// This is used to cache the selected main font size. We sort of use it as a semaphore.
     var fontSizeCache: CGFloat = 0
     /// This contains information about music items.

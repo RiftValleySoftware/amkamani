@@ -13,14 +13,8 @@
       <FileRef
          location = "group:.swiftlint.yml">
       </FileRef>
-      <FileRef
-         location = "group:jazzy.sh">
-      </FileRef>
    </Group>
    <FileRef
       location = "group:AlarmClock.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

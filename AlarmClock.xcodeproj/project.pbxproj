@@ -13,6 +13,7 @@
 		D413599F218E764100768430 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D413599E218E764100768430 /* Assets.xcassets */; };
 		D41359A2218E764100768430 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41359A0218E764100768430 /* LaunchScreen.storyboard */; };
 		D41DB3D021C00A4A00481A16 /* RVS_Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41DB3CF21C00A4A00481A16 /* RVS_Utils.swift */; };
+		D41F9A922481995F0090EC12 /* RVS_BasicGCDTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F9A912481995F0090EC12 /* RVS_BasicGCDTimer.swift */; };
 		D422FE3E21922C5E0022423B /* TheBestClockAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */; };
 		D443F5E8219ADDFB002A212A /* AlarmEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */; };
 		D44DA634219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44DA633219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift */; };
@@ -82,14 +83,14 @@
 
 /* Begin PBXFileReference section */
 		67ADC8B37E0BB5AC5821F6D6 /* Pods_TheBestClock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheBestClock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		82D270D278F3C1E6B66A85EC /* Pods-TheBestClock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheBestClock.debug.xcconfig"; path = "Target Support Files/Pods-TheBestClock/Pods-TheBestClock.debug.xcconfig"; sourceTree = "<group>"; };
-		C55EF5B8125BCF2F431A69AF /* Pods-TheBestClock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheBestClock.release.xcconfig"; path = "Target Support Files/Pods-TheBestClock/Pods-TheBestClock.release.xcconfig"; sourceTree = "<group>"; };
 		D4135994218E763F00768430 /* AmkaMani.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmkaMani.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4135997218E763F00768430 /* TheBestClockAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockAppDelegate.swift; sourceTree = "<group>"; };
 		D4135999218E763F00768430 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		D413599E218E764100768430 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D41359A3218E764100768430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D41DB3CF21C00A4A00481A16 /* RVS_Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RVS_Utils.swift; sourceTree = "<group>"; };
+		D41F9A912481995F0090EC12 /* RVS_BasicGCDTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RVS_BasicGCDTimer.swift; path = Carthage/Checkouts/RVS_BasicGCDTimer/RVS_BasicGCDTimer/RVS_BasicGCDTimer.swift; sourceTree = SOURCE_ROOT; };
+		D41F9A9324819B210090EC12 /* AmkaMani.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AmkaMani.entitlements; sourceTree = "<group>"; };
 		D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheBestClockAlarmView.swift; sourceTree = "<group>"; };
 		D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditorExtension.swift; sourceTree = "<group>"; };
 		D44DA633219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheBestClockSpeakerButton.swift; sourceTree = "<group>"; };
@@ -139,21 +140,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A7DE492AABB4E6094A94D6D2 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				82D270D278F3C1E6B66A85EC /* Pods-TheBestClock.debug.xcconfig */,
-				C55EF5B8125BCF2F431A69AF /* Pods-TheBestClock.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		D413598B218E763F00768430 = {
 			isa = PBXGroup;
 			children = (
+				D41F9A9324819B210090EC12 /* AmkaMani.entitlements */,
 				D4135996218E763F00768430 /* AlarmClock */,
 				D4135995218E763F00768430 /* Products */,
-				A7DE492AABB4E6094A94D6D2 /* Pods */,
 				EF02A0F6866AEB1885ED33AE /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -169,6 +161,7 @@
 		D4135996218E763F00768430 /* AlarmClock */ = {
 			isa = PBXGroup;
 			children = (
+				D41F9A90248199500090EC12 /* FromCarthage */,
 				D41359C7218E76A500768430 /* Main */,
 				D41359C8218E76B600768430 /* Views And Controllers */,
 				D41DB3D121C00ADD00481A16 /* Custom Controls */,
@@ -232,6 +225,14 @@
 				D422FE3D21922C5E0022423B /* TheBestClockAlarmView.swift */,
 			);
 			path = "Custom Controls";
+			sourceTree = "<group>";
+		};
+		D41F9A90248199500090EC12 /* FromCarthage */ = {
+			isa = PBXGroup;
+			children = (
+				D41F9A912481995F0090EC12 /* RVS_BasicGCDTimer.swift */,
+			);
+			name = FromCarthage;
 			sourceTree = "<group>";
 		};
 		D4D56C2621B43016003025FF /* Sounds */ = {
@@ -371,7 +372,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PROJECT_DIR}/Pods/SwiftLint/swiftlint\"\n";
+			shellScript = "if test -f \"${PROJECT_DIR}/Meta/SwiftLint/swiftlint\"; then\n    \"${PROJECT_DIR}/Meta/SwiftLint/swiftlint\"\nfi\n";
 		};
 		D4D56C2021B4288E003025FF /* Copy Localizable Files to Settings Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -404,6 +405,7 @@
 				D487C1062191CE2F00FBDC77 /* TheBestClockPrefs.swift in Sources */,
 				D46F84622190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift in Sources */,
 				D44DA634219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift in Sources */,
+				D41F9A922481995F0090EC12 /* RVS_BasicGCDTimer.swift in Sources */,
 				D422FE3E21922C5E0022423B /* TheBestClockAlarmView.swift in Sources */,
 				D49C31FA2195058700598F7E /* TheGreatRiftValleyDrawing.swift in Sources */,
 				D443F5E8219ADDFB002A212A /* AlarmEditorExtension.swift in Sources */,
@@ -648,11 +650,11 @@
 		};
 		D41359BD218E764100768430 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 82D270D278F3C1E6B66A85EC /* Pods-TheBestClock.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AmkaMani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3001;
+				CURRENT_PROJECT_VERSION = 2000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -661,8 +663,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.amkamani;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -671,11 +675,11 @@
 		};
 		D41359BE218E764100768430 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C55EF5B8125BCF2F431A69AF /* Pods-TheBestClock.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AmkaMani.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3001;
+				CURRENT_PROJECT_VERSION = 2000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -684,8 +688,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.amkamani;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
