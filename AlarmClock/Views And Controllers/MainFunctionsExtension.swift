@@ -234,7 +234,7 @@ extension MainScreenViewController {
     func addAlarmView(_ inSubView: TheBestClockAlarmView, percentage inPercentage: CGFloat, previousView inPreviousView: TheBestClockAlarmView!) {
         alarmContainerView.addSubview(inSubView)
         alarmButtons.append(inSubView)
-        inSubView.addTarget(self, action: #selector(type(of: self).alarmActiveStateChanged(_:)), for: .valueChanged)
+        inSubView.addTarget(self, action: #selector(Self.alarmActiveStateChanged(_:)), for: .valueChanged)
         
         inSubView.translatesAutoresizingMaskIntoConstraints = false
         

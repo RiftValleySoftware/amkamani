@@ -110,7 +110,7 @@ class TheBestClockAlarmView: UIControl {
         
         // See if we need to add a gesture recognizer.
         if nil == longPressGestureRecognizer {
-            longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(type(of: self).longPressGesture(_:)))
+            longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(Self.longPressGesture(_:)))
             addGestureRecognizer(longPressGestureRecognizer)
         }
         

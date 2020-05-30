@@ -401,19 +401,19 @@ class TheBestClockPrefs: NSObject {
      - returns: a Bool. True, if the load was successful.
      */
     func loadPrefs() -> Bool {
-        if let temp = UserDefaults.standard.object(forKey: type(of: self)._mainPrefsKey) as? NSDictionary {
+        if let temp = UserDefaults.standard.object(forKey: Self._mainPrefsKey) as? NSDictionary {
             let defaults = UserDefaults.standard
             _loadedPrefs = NSMutableDictionary(dictionary: temp)
-            if let snoozeCount = defaults.value(forKey: type(of: self).PrefsKeys.snoozeCount.rawValue) as? NSNumber {
-                _loadedPrefs.setObject(snoozeCount, forKey: type(of: self).PrefsKeys.snoozeCount.rawValue as NSString)
+            if let snoozeCount = defaults.value(forKey: Self.PrefsKeys.snoozeCount.rawValue) as? NSNumber {
+                _loadedPrefs.setObject(snoozeCount, forKey: Self.PrefsKeys.snoozeCount.rawValue as NSString)
             }
             NSKeyedUnarchiver.setClass(TheBestClockAlarmSetting.self, forClassName: "TheBestClockAlarmSetting")
             // We cycle through the number of alarms that we are supposed to have. We either load saved settings, or we create new empty settings for each alarm.
-            for index in 0..<type(of: self)._numberOfAlarms {
+            for index in 0..<Self._numberOfAlarms {
                 if _alarms.count == index {    // This makes sure that we account for any empty spots (shouldn't happen).
                     _alarms.append(TheBestClockAlarmSetting())
                 }
-                if let unarchivedObject = _loadedPrefs.object(forKey: (type(of: self).PrefsKeys.alarms.rawValue + String(index)) as NSString) as? Data {
+                if let unarchivedObject = _loadedPrefs.object(forKey: (Self.PrefsKeys.alarms.rawValue + String(index)) as NSString) as? Data {
                     if let alarm = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(unarchivedObject) as? TheBestClockAlarmSetting {
                         let oldResetTime = _alarms[index].alarmResetTime  // This makes sure we preserve any reset in progress. This is not saved in prefs.
                         let oldSnoozeTime = _alarms[index].lastSnoozeTime  // This makes sure we preserve any snoozing in progress. This is not saved in prefs.
@@ -429,7 +429,7 @@ class TheBestClockPrefs: NSObject {
             _loadedPrefs = NSMutableDictionary()
         }
         
-        for index in 0..<type(of: self)._numberOfAlarms where _alarms.count == index {
+        for index in 0..<Self._numberOfAlarms where _alarms.count == index {
             _alarms.append(TheBestClockAlarmSetting())
         }
         #if DEBUG
@@ -539,7 +539,7 @@ class TheBestClockPrefs: NSObject {
     var snoozeCount: Int {
         get {
             var ret: Int = 0
-            if let temp = _loadedPrefs.object(forKey: type(of: self).PrefsKeys.snoozeCount.rawValue) as? NSNumber {
+            if let temp = _loadedPrefs.object(forKey: Self.PrefsKeys.snoozeCount.rawValue) as? NSNumber {
                 ret = temp.intValue
             }
             
@@ -549,7 +549,7 @@ class TheBestClockPrefs: NSObject {
         set {
             if loadPrefs() {
                 let value = NSNumber(value: newValue)
-                _loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.snoozeCount.rawValue as NSString)
+                _loadedPrefs.setObject(value, forKey: Self.PrefsKeys.snoozeCount.rawValue as NSString)
                 savePrefs()
             }
         }
@@ -571,7 +571,7 @@ class TheBestClockPrefs: NSObject {
         get {
             var ret: Int = 0
             if loadPrefs() {
-                if let temp = _loadedPrefs.object(forKey: type(of: self).PrefsKeys.selectedColor.rawValue) as? NSNumber {
+                if let temp = _loadedPrefs.object(forKey: Self.PrefsKeys.selectedColor.rawValue) as? NSNumber {
                     ret = temp.intValue
                 }
             }
@@ -582,7 +582,7 @@ class TheBestClockPrefs: NSObject {
         set {
             if loadPrefs() {
                 let value = NSNumber(value: newValue)
-                _loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.selectedColor.rawValue as NSString)
+                _loadedPrefs.setObject(value, forKey: Self.PrefsKeys.selectedColor.rawValue as NSString)
                 savePrefs()
             }
         }
@@ -596,7 +596,7 @@ class TheBestClockPrefs: NSObject {
         get {
             var ret: Int = 0
             if loadPrefs() {
-                if let temp = _loadedPrefs.object(forKey: type(of: self).PrefsKeys.selectedFont.rawValue) as? NSNumber {
+                if let temp = _loadedPrefs.object(forKey: Self.PrefsKeys.selectedFont.rawValue) as? NSNumber {
                     ret = temp.intValue
                 }
             }
@@ -607,7 +607,7 @@ class TheBestClockPrefs: NSObject {
         set {
             if loadPrefs() {
                 let value = NSNumber(value: newValue)
-                _loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.selectedFont.rawValue as NSString)
+                _loadedPrefs.setObject(value, forKey: Self.PrefsKeys.selectedFont.rawValue as NSString)
                 savePrefs()
             }
         }
@@ -621,7 +621,7 @@ class TheBestClockPrefs: NSObject {
         get {
             var ret: CGFloat = 1.0
             if loadPrefs() {
-                if let temp = _loadedPrefs.object(forKey: type(of: self).PrefsKeys.brightnessLevel.rawValue) as? NSNumber {
+                if let temp = _loadedPrefs.object(forKey: Self.PrefsKeys.brightnessLevel.rawValue) as? NSNumber {
                     ret = CGFloat(temp.floatValue)
                 }
             }
@@ -631,13 +631,13 @@ class TheBestClockPrefs: NSObject {
         
         set {
             if loadPrefs() {
-                let value = NSNumber(value: Float(Swift.min(1.0, Swift.max(type(of: self).minimumBrightness, newValue))))   // Make sure we don't go below minimum.
+                let value = NSNumber(value: Float(Swift.min(1.0, Swift.max(Self.minimumBrightness, newValue))))   // Make sure we don't go below minimum.
                 #if DEBUG
-                if let temp = _loadedPrefs.object(forKey: type(of: self).PrefsKeys.brightnessLevel.rawValue) as? NSNumber {
+                if let temp = _loadedPrefs.object(forKey: Self.PrefsKeys.brightnessLevel.rawValue) as? NSNumber {
                     print("Changing stored brightness from \(temp) to \(value)")
                 }
                 #endif
-                _loadedPrefs.setObject(value, forKey: type(of: self).PrefsKeys.brightnessLevel.rawValue as NSString)
+                _loadedPrefs.setObject(value, forKey: Self.PrefsKeys.brightnessLevel.rawValue as NSString)
                 savePrefs()
             }
         }
@@ -651,9 +651,9 @@ class TheBestClockPrefs: NSObject {
         NSKeyedArchiver.setClassName("TheBestClockAlarmSetting", for: TheBestClockAlarmSetting.self)
         for index in 0..<_alarms.count {
             if  let archivedObject = try? NSKeyedArchiver.archivedData(withRootObject: _alarms[index], requiringSecureCoding: false) {
-                _loadedPrefs.setObject(archivedObject, forKey: (type(of: self).PrefsKeys.alarms.rawValue + String(index)) as NSString)
+                _loadedPrefs.setObject(archivedObject, forKey: (Self.PrefsKeys.alarms.rawValue + String(index)) as NSString)
             }
         }
-        UserDefaults.standard.set(_loadedPrefs, forKey: type(of: self)._mainPrefsKey)
+        UserDefaults.standard.set(_loadedPrefs, forKey: Self._mainPrefsKey)
     }
 }

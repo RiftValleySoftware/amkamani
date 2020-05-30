@@ -130,7 +130,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
     /**
      */
     func applicationDidFinishLaunching(_ application: UIApplication) {
-        type(of: self).recordOriginalBrightness()
+        Self.recordOriginalBrightness()
         TheBestClockPrefs.registerDefaults()
     }
     
@@ -139,7 +139,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      We force the main controller to lay out its subviews, which will restore its internal brightness level.
      */
     func applicationDidBecomeActive(_ application: UIApplication) {
-        type(of: self).recordOriginalBrightness()
+        Self.recordOriginalBrightness()
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
         theMainController.startTicker()
         theMainController.view.setNeedsLayout()
@@ -150,7 +150,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      We force the main controller to lay out its subviews, which will restore its internal brightness level.
      */
     func applicationWillEnterForeground(_ application: UIApplication) {
-        type(of: self).recordOriginalBrightness()
+        Self.recordOriginalBrightness()
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
         theMainController.startTicker()
         theMainController.view.setNeedsLayout()
@@ -165,7 +165,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
         theMainController.turnOffDeactivations()
         theMainController.stopTicker()
         theMainController.stopAudioPlayer()
-        type(of: self).restoreOriginalBrightness()
+        Self.restoreOriginalBrightness()
     }
     
     /* ################################################################## */
@@ -177,7 +177,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
         theMainController.turnOffDeactivations()
         theMainController.stopTicker()
         theMainController.stopAudioPlayer()
-        type(of: self).restoreOriginalBrightness()
+        Self.restoreOriginalBrightness()
     }
 
     /* ################################################################## */
@@ -188,6 +188,6 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.isIdleTimerDisabled = false // Put things back the way we found them.
         theMainController.stopTicker()
         theMainController.stopAudioPlayer()
-        type(of: self).restoreOriginalBrightness()
+        Self.restoreOriginalBrightness()
     }
 }
