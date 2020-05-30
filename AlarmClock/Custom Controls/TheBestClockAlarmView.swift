@@ -74,7 +74,7 @@ class TheBestClockAlarmView: UIControl {
             alarmRecord inAlarmRecord: TheBestClockAlarmSetting
         ) {
         super.init(frame: inFrame)
-        self.alarmRecord = inAlarmRecord
+        alarmRecord = inAlarmRecord
     }
     
     /* ################################################################## */
@@ -96,29 +96,29 @@ class TheBestClockAlarmView: UIControl {
     override func layoutSubviews() {
         super.layoutSubviews()
         // We inset slightly horizontally.
-        let frame = self.bounds.insetBy(dx: self.bounds.size.width / 40, dy: 0)
+        let frame = bounds.insetBy(dx: bounds.size.width / 40, dy: 0)
         
         // See if we need to add a label.
-        if nil == self.displayLabel {
-            self.displayLabel = UILabel(frame: frame)
-            self.displayLabel.adjustsFontSizeToFitWidth = true
-            self.displayLabel.textAlignment = .center
-            self.displayLabel.baselineAdjustment = .alignCenters
-            self.displayLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-            self.displayLabel.backgroundColor = UIColor.clear
+        if nil == displayLabel {
+            displayLabel = UILabel(frame: frame)
+            displayLabel.adjustsFontSizeToFitWidth = true
+            displayLabel.textAlignment = .center
+            displayLabel.baselineAdjustment = .alignCenters
+            displayLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+            displayLabel.backgroundColor = UIColor.clear
         }
         
         // See if we need to add a gesture recognizer.
-        if nil == self.longPressGestureRecognizer {
-            self.longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(type(of: self).longPressGesture(_:)))
-            self.addGestureRecognizer(self.longPressGestureRecognizer)
+        if nil == longPressGestureRecognizer {
+            longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(type(of: self).longPressGesture(_:)))
+            addGestureRecognizer(longPressGestureRecognizer)
         }
         
         // Add any accessibility hint. This is static for the button.
-        self.displayLabel.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-CONTAINER-HINT".localizedVariant
-        self.backgroundColor = UIColor.clear
-        self.displayLabel.frame = frame
-        self.addSubview(self.displayLabel)
+        displayLabel.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-CONTAINER-HINT".localizedVariant
+        backgroundColor = UIColor.clear
+        displayLabel.frame = frame
+        addSubview(displayLabel)
     }
     
     /* ################################################################## */
@@ -129,28 +129,28 @@ class TheBestClockAlarmView: UIControl {
      */
     override func draw(_ inRect: CGRect) {
         super.draw(inRect)
-        self.displayLabel.font = UIFont(name: self.fontName, size: self.desiredFontSize)
-        self.displayLabel.text = ""
+        displayLabel.font = UIFont(name: fontName, size: desiredFontSize)
+        displayLabel.text = ""
         var textColor: UIColor
-        let brightness = self.fullBright ? 1.0 : self.brightness
+        let brightness = fullBright ? 1.0 : self.brightness
         var alpha: CGFloat
         
         let activeAlpha = CGFloat(1.0)
         let inactiveAlpha = CGFloat(0.25)
         
-        if self.isTracking, self.isHighlighted {
-            alpha = self.alarmRecord.isActive ? inactiveAlpha : activeAlpha
+        if isTracking, isHighlighted {
+            alpha = alarmRecord.isActive ? inactiveAlpha : activeAlpha
         } else {
-            alpha = self.alarmRecord.isActive ? activeAlpha : inactiveAlpha
+            alpha = alarmRecord.isActive ? activeAlpha : inactiveAlpha
         }
         
-        if nil == self.fontColor {
+        if nil == fontColor {
             textColor = UIColor(white: brightness, alpha: alpha)
         } else {
-            textColor = UIColor(hue: self.fontColor.hsba.h, saturation: 1.0, brightness: brightness, alpha: alpha)
+            textColor = UIColor(hue: fontColor.hsba.h, saturation: 1.0, brightness: brightness, alpha: alpha)
         }
         
-        let time = self.alarmRecord.alarmTime
+        let time = alarmRecord.alarmTime
         let hours = time / 100
         let minutes = time - (hours * 100)
         
@@ -164,24 +164,24 @@ class TheBestClockAlarmView: UIControl {
             dateFormatter.timeStyle = .short
             dateFormatter.dateStyle = .none
             
-            self.displayLabel.text = dateFormatter.string(from: pickerDate)
+            displayLabel.text = dateFormatter.string(from: pickerDate)
         }
         
         // We use the text to create a relevant accessibility label.
-        if let displayText = self.displayLabel?.text {
-            self.displayLabel.accessibilityLabel = displayText + ". " + ("LOCAL-ACCESSIBILITY-ALARM-CONTAINER-O" + (self.alarmRecord.isActive ? "N" : "FF")).localizedVariant
+        if let displayText = displayLabel?.text {
+            displayLabel.accessibilityLabel = displayText + ". " + ("LOCAL-ACCESSIBILITY-ALARM-CONTAINER-O" + (alarmRecord.isActive ? "N" : "FF")).localizedVariant
         }
 
-        if self.alarmRecord.deferred {
-            self.displayLabel.backgroundColor = textColor
-            if let myController = self.delegate as? MainScreenViewController {
-                self.displayLabel.textColor = myController.view.backgroundColor
+        if alarmRecord.deferred {
+            displayLabel.backgroundColor = textColor
+            if let myController = delegate as? MainScreenViewController {
+                displayLabel.textColor = myController.view.backgroundColor
             } else {
-                self.displayLabel.textColor = UIColor.black
+                displayLabel.textColor = UIColor.black
             }
         } else {
-            self.displayLabel.backgroundColor = UIColor.clear
-            self.displayLabel.textColor = textColor
+            displayLabel.backgroundColor = UIColor.clear
+            displayLabel.textColor = textColor
         }
     }
     
@@ -194,7 +194,7 @@ class TheBestClockAlarmView: UIControl {
      */
     override func beginTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let ret = super.beginTracking(inTouch, with: inEvent)
-        self.isHighlighted = true
+        isHighlighted = true
 
         DispatchQueue.main.async {
             self.setNeedsDisplay()
@@ -213,7 +213,7 @@ class TheBestClockAlarmView: UIControl {
     override func continueTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let touchLocation = inTouch.location(in: self)
         
-        self.isHighlighted = self.bounds.contains(touchLocation)
+        isHighlighted = bounds.contains(touchLocation)
 
         DispatchQueue.main.async {
             self.setNeedsDisplay()
@@ -231,10 +231,10 @@ class TheBestClockAlarmView: UIControl {
      */
     override func endTracking(_ inTouch: UITouch?, with inEvent: UIEvent?) {
         if let touchLocation = inTouch?.location(in: self) {
-            if self.bounds.contains(touchLocation) {
-                self.alarmRecord.isActive = !self.alarmRecord.isActive
-                if !self.alarmRecord.isActive {
-                    self.alarmRecord.snoozing = false
+            if bounds.contains(touchLocation) {
+                alarmRecord.isActive = !alarmRecord.isActive
+                if !alarmRecord.isActive {
+                    alarmRecord.snoozing = false
                 }
                 DispatchQueue.main.async {
                     self.sendActions(for: .valueChanged)
@@ -242,7 +242,7 @@ class TheBestClockAlarmView: UIControl {
             }
         }
         
-        self.isHighlighted = false
+        isHighlighted = false
         DispatchQueue.main.async {
             self.setNeedsDisplay()
         }
@@ -257,7 +257,7 @@ class TheBestClockAlarmView: UIControl {
      - parameter with: The cancel event. It is optional.
      */
     override func cancelTracking(with inEvent: UIEvent?) {
-        self.isHighlighted = false
+        isHighlighted = false
         DispatchQueue.main.async {
             self.setNeedsDisplay()
         }
@@ -272,7 +272,7 @@ class TheBestClockAlarmView: UIControl {
      - parameter: ignored.
      */
     @IBAction func longPressGesture(_: UILongPressGestureRecognizer) {
-        self.delegate?.openAlarmEditor(self.index)
+        delegate?.openAlarmEditor(index)
     }
     
     /* ################################################################## */
@@ -282,8 +282,8 @@ class TheBestClockAlarmView: UIControl {
      This is a pulsing of brightness.
      */
     func snore() {
-        let oldAlpha = self.displayLabel.alpha
-        self.displayLabel.alpha = 0.125
+        let oldAlpha = displayLabel.alpha
+        displayLabel.alpha = 0.125
         UIView.animate(withDuration: 0.75,
                        delay: 0,
                        usingSpringWithDamping: 1.0,

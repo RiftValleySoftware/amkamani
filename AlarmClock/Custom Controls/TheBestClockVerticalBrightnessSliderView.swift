@@ -42,52 +42,52 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
      - parameter inRect: ignored
      */
     override func draw(_ inRect: CGRect) {
-        self._gradientLayer?.removeFromSuperlayer()
-        self.backgroundColor = UIColor.clear    // Make sure that our background color is clear.
-        if self.isEnabled && self.isTracking {  // We don't draw the slider unless we are both enabled, and tracking.
-            let drawingBounds = self.bounds.insetBy(dx: self._paddingInDisplayUnits, dy: self._paddingInDisplayUnits)
+        _gradientLayer?.removeFromSuperlayer()
+        backgroundColor = UIColor.clear    // Make sure that our background color is clear.
+        if isEnabled && isTracking {  // We don't draw the slider unless we are both enabled, and tracking.
+            let drawingBounds = bounds.insetBy(dx: _paddingInDisplayUnits, dy: _paddingInDisplayUnits)
             // We will draw a "blunt teardrop" shape, with a rounded top and bottom. Wide at the top, narrow at the bottom. Rounded on both the top and the bottom. No sharp edges.
             let topRightPoint = CGPoint(x: drawingBounds.size.width, y: drawingBounds.midX)
             let arcCenterPoint = CGPoint(x: drawingBounds.midX, y: drawingBounds.midX)
-            let bottomLeftPoint = CGPoint(x: drawingBounds.midX - self._paddingInDisplayUnits, y: drawingBounds.size.height - self._paddingInDisplayUnits)
-            let bottomArcCenterPoint = CGPoint(x: drawingBounds.midX, y: drawingBounds.size.height - self._paddingInDisplayUnits)
+            let bottomLeftPoint = CGPoint(x: drawingBounds.midX - _paddingInDisplayUnits, y: drawingBounds.size.height - _paddingInDisplayUnits)
+            let bottomArcCenterPoint = CGPoint(x: drawingBounds.midX, y: drawingBounds.size.height - _paddingInDisplayUnits)
             
             let path = UIBezierPath()
             path.move(to: topRightPoint)
-            path.addArc(withCenter: arcCenterPoint, radius: drawingBounds.midX - (self._paddingInDisplayUnits * 2), startAngle: 0, endAngle: CGFloat.pi, clockwise: false)
+            path.addArc(withCenter: arcCenterPoint, radius: drawingBounds.midX - (_paddingInDisplayUnits * 2), startAngle: 0, endAngle: CGFloat.pi, clockwise: false)
             path.addLine(to: bottomLeftPoint)
-            path.addArc(withCenter: bottomArcCenterPoint, radius: self._paddingInDisplayUnits, startAngle: CGFloat.pi, endAngle: 0, clockwise: false)
+            path.addArc(withCenter: bottomArcCenterPoint, radius: _paddingInDisplayUnits, startAngle: CGFloat.pi, endAngle: 0, clockwise: false)
             path.addLine(to: topRightPoint)
             path.close()
             
             // We will fill it with a gradient, from whatever the most bright is at the top, to black, at the bottom.
-            self._gradientLayer = CAGradientLayer()
+            _gradientLayer = CAGradientLayer()
             let endColor = UIColor.white == self.endColor ? UIColor(white: 1.0, alpha: 1.0) : UIColor(hue: self.endColor.hsba.h, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-            self._gradientLayer.colors = [UIColor.black.cgColor, endColor.cgColor]
-            self._gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
-            self._gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
-            self._gradientLayer.frame = self.bounds
+            _gradientLayer.colors = [UIColor.black.cgColor, endColor.cgColor]
+            _gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
+            _gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
+            _gradientLayer.frame = bounds
 
             let shape = CAShapeLayer()
             shape.path = path.cgPath
-            self._gradientLayer.mask = shape
-            self.layer.addSublayer(self._gradientLayer)
+            _gradientLayer.mask = shape
+            layer.addSublayer(_gradientLayer)
             
-            if self._firstTime {    // When we first open, we have a little "sproing."
-                self.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+            if _firstTime {    // When we first open, we have a little "sproing."
+                transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
                 UIView.animate(withDuration: 0.125,
                                delay: 0,
                                usingSpringWithDamping: 0.75,
                                initialSpringVelocity: 20,
                                options: .allowUserInteraction,
                                animations: { [unowned self] in
-                                    self.transform = .identity
+                                self.transform = .identity
                                 },
                                completion: nil
                 )
             }
             
-            self._firstTime = false
+            _firstTime = false
         }
     }
     
@@ -102,7 +102,7 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
      */
     override func beginTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let touchLocation = inTouch.location(in: self)
-        self.brightness = (self.bounds.size.height - touchLocation.y) / self.bounds.size.height
+        brightness = (bounds.size.height - touchLocation.y) / bounds.size.height
         
         let ret = super.beginTracking(inTouch, with: inEvent)
         
@@ -125,7 +125,7 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
      */
     override func touchesBegan(_ inTouches: Set<UITouch>, with inEvent: UIEvent?) {
         if let touchLocation = inTouches.first?.location(in: self) {
-            self.brightness = (self.bounds.size.height - touchLocation.y) / self.bounds.size.height
+            brightness = (bounds.size.height - touchLocation.y) / bounds.size.height
             DispatchQueue.main.async {
                 self.sendActions(for: .editingDidBegin)
                 self.sendActions(for: .valueChanged)
@@ -148,7 +148,7 @@ class TheBestClockVerticalBrightnessSliderView: UIControl {
      */
     override func continueTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let touchLocation = inTouch.location(in: self)
-        self.brightness = (self.bounds.size.height - touchLocation.y) / self.bounds.size.height
+        brightness = (bounds.size.height - touchLocation.y) / bounds.size.height
 
         let ret = super.continueTracking(inTouch, with: inEvent)
         

@@ -55,8 +55,8 @@ class TheBestClockSpeakerButton: UIButton {
      */
     override func touchesBegan(_ inTouches: Set<UITouch>, with inEvent: UIEvent?) {
         if let touchLocation = inTouches.first?.location(in: self) {
-            if self.bounds.contains(touchLocation) {
-                self.isHighlighted = true
+            if bounds.contains(touchLocation) {
+                isHighlighted = true
             }
         }
         
@@ -72,8 +72,8 @@ class TheBestClockSpeakerButton: UIButton {
      */
     override func beginTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let touchLocation = inTouch.location(in: self)
-        self.isHighlighted = self.bounds.contains(touchLocation)
-        self.setNeedsDisplay()
+        isHighlighted = bounds.contains(touchLocation)
+        setNeedsDisplay()
         return super.beginTracking(inTouch, with: inEvent)
     }
     
@@ -86,8 +86,8 @@ class TheBestClockSpeakerButton: UIButton {
      */
     override func continueTracking(_ inTouch: UITouch, with inEvent: UIEvent?) -> Bool {
         let touchLocation = inTouch.location(in: self)
-        self.isHighlighted = self.bounds.contains(touchLocation)
-        self.setNeedsDisplay()
+        isHighlighted = bounds.contains(touchLocation)
+        setNeedsDisplay()
         return super.continueTracking(inTouch, with: inEvent)
     }
     
@@ -99,8 +99,8 @@ class TheBestClockSpeakerButton: UIButton {
      - with: The event for the touch. It is optional.
      */
     override func endTracking(_ inTouch: UITouch?, with inEvent: UIEvent?) {
-        self.isHighlighted = false
-        self.setNeedsDisplay()
+        isHighlighted = false
+        setNeedsDisplay()
         return super.endTracking(inTouch, with: inEvent)
     }
 
@@ -113,10 +113,10 @@ class TheBestClockSpeakerButton: UIButton {
      */
     override func touchesEnded(_ inTouches: Set<UITouch>, with inEvent: UIEvent?) {
         if let touchLocation = inTouches.first?.location(in: self) {
-            if self.bounds.contains(touchLocation) {
-                self.isHighlighted = false
-                self.isOn = !self.isOn
-                self.sendActions(for: .valueChanged)
+            if bounds.contains(touchLocation) {
+                isHighlighted = false
+                isOn = !isOn
+                sendActions(for: .valueChanged)
             }
         }
         
@@ -282,10 +282,10 @@ class TheBestClockSpeakerButton: UIButton {
 
         let path = UIBezierPath()
         
-        path.append(self.isOn ? speakerCutoutPath: speakerPath)
+        path.append(isOn ? speakerCutoutPath: speakerPath)
         
-        if self.isOn {
-            path.append(self.isMusic ? notesPath : wavesPath)
+        if isOn {
+            path.append(isMusic ? notesPath : wavesPath)
         }
         
         // We just use this for scaling, so everything stays in the same place, regardless of state.
@@ -294,8 +294,8 @@ class TheBestClockSpeakerButton: UIButton {
         scalingPath.append(wavesPath)
 
         // Match the path to our bounds.
-        let scaleX = self.bounds.width / scalingPath.bounds.size.width
-        let scaleY = self.bounds.height / scalingPath.bounds.size.height
+        let scaleX = bounds.width / scalingPath.bounds.size.width
+        let scaleY = bounds.height / scalingPath.bounds.size.height
         let scale = min(scaleX, scaleY)
         
         let transform: CGAffineTransform = CGAffineTransform.init(scaleX: scale, y: scale)
@@ -306,33 +306,33 @@ class TheBestClockSpeakerButton: UIButton {
         var lineEndColor: UIColor
         var lineStartColor: UIColor
         
-        var brightness: CGFloat = self.isHighlighted || self.isSelected ? 0.75 : 1.0
+        var brightness: CGFloat = isHighlighted || isSelected ? 0.75 : 1.0
         
-        if !self.isEnabled {
-            self.tintColor = UIColor(white: 1.0, alpha: 1.0)
+        if !isEnabled {
+            tintColor = UIColor(white: 1.0, alpha: 1.0)
             brightness = 0.5
         }
         
-        if self.tintColor.isGrayscale {
-            lineEndColor = UIColor(white: self.tintColor.whiteLevel * brightness, alpha: 1.0)
-            lineStartColor = UIColor(white: max(0, (self.tintColor.whiteLevel * brightness) - 0.1), alpha: 1.0)
+        if tintColor.isGrayscale {
+            lineEndColor = UIColor(white: tintColor.whiteLevel * brightness, alpha: 1.0)
+            lineStartColor = UIColor(white: max(0, (tintColor.whiteLevel * brightness) - 0.1), alpha: 1.0)
         } else {
-            lineEndColor = UIColor(hue: self.tintColor.hsba.h, saturation: 1.0, brightness: brightness, alpha: 1.0)
-            lineStartColor = UIColor(hue: self.tintColor.hsba.h, saturation: 1.0, brightness: brightness - 0.1, alpha: 1.0)
+            lineEndColor = UIColor(hue: tintColor.hsba.h, saturation: 1.0, brightness: brightness, alpha: 1.0)
+            lineStartColor = UIColor(hue: tintColor.hsba.h, saturation: 1.0, brightness: brightness - 0.1, alpha: 1.0)
         }
         
-        self._gradientLayer?.removeFromSuperlayer()
+        _gradientLayer?.removeFromSuperlayer()
         
-        self._gradientLayer = CAGradientLayer()
-        self._gradientLayer.colors = [lineStartColor.cgColor, lineEndColor.cgColor]
-        self._gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
-        self._gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
-        self._gradientLayer.frame = self.bounds
+        _gradientLayer = CAGradientLayer()
+        _gradientLayer.colors = [lineStartColor.cgColor, lineEndColor.cgColor]
+        _gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
+        _gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
+        _gradientLayer.frame = bounds
         
         let shape = CAShapeLayer()
         shape.path = path.cgPath
-        self._gradientLayer.mask = shape
+        _gradientLayer.mask = shape
         
-        self.layer.addSublayer(self._gradientLayer)
+        layer.addSublayer(_gradientLayer)
     }
 }

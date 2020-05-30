@@ -25,7 +25,7 @@ extension UIColor {
      */
     var hsba:(h: CGFloat, s: CGFloat, b: CGFloat, a: CGFloat) {
         var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        if self.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
+        if getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
             return (h: h, s: s, b: b, a: a)
         }
         return (h: 0, s: 0, b: 0, a: 0)
@@ -37,7 +37,7 @@ extension UIColor {
      */
     var isGrayscale: Bool {
         var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        if !self.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
+        if !getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
             return true
         }
         return 0 == s   // Saturation of zero means no color.
@@ -49,9 +49,9 @@ extension UIColor {
      */
     var isClear: Bool {
         var white: CGFloat = 0, h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        if !self.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
+        if !getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
             return 0.0 == a
-        } else if self.getWhite(&white, alpha: &a) {
+        } else if getWhite(&white, alpha: &a) {
             return 0.0 == a
         }
         
@@ -64,7 +64,7 @@ extension UIColor {
      */
     var whiteLevel: CGFloat {
         var white: CGFloat = 0, alpha: CGFloat = 0
-        if self.getWhite(&white, alpha: &alpha) {
+        if getWhite(&white, alpha: &alpha) {
             return white
         }
         return 0
@@ -91,8 +91,8 @@ extension String {
      - returns: The string, with only the first letter uppercased.
      */
     var firstUppercased: String {
-        guard let first = self.first else { return "" }
-        return String(first).uppercased() + self.dropFirst()
+        guard let first = first else { return "" }
+        return String(first).uppercased() + dropFirst()
     }
     
     /* ################################################################## */
@@ -105,7 +105,7 @@ extension String {
      */
     var urlEncodedString: String? {
         let customAllowedSet =  CharacterSet.urlQueryAllowed
-        if let ret = self.addingPercentEncoding(withAllowedCharacters: customAllowedSet) {
+        if let ret = addingPercentEncoding(withAllowedCharacters: customAllowedSet) {
             return ret
         } else {
             return ""
@@ -124,13 +124,13 @@ extension UIView {
      - parameter inSubview: The subview we want to add.
      */
     func addContainedView(_ inSubView: UIView) {
-        self.addSubview(inSubView)
+        addSubview(inSubView)
         
         inSubView.translatesAutoresizingMaskIntoConstraints = false
-        inSubView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
-        inSubView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
-        inSubView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
-        inSubView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        inSubView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+        inSubView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
+        inSubView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        inSubView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
     }
     
     /* ################################################################## */
@@ -138,11 +138,11 @@ extension UIView {
      - returns: the first responder view. Nil, if no view is a first responder.
      */
     var currentFirstResponder: UIResponder! {
-        if self.isFirstResponder {
+        if isFirstResponder {
             return self
         }
         
-        for view in self.subviews {
+        for view in subviews {
             if let responder = view.currentFirstResponder {
                 return responder
             }

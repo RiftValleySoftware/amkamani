@@ -59,7 +59,7 @@ class TheBestClockAboutScreenViewController: UIViewController {
      - parameter: The item that called us. Ignored.
      */
     @IBAction func dismissTapped(_: Any) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
     /* ################################################################## */
@@ -74,16 +74,16 @@ class TheBestClockAboutScreenViewController: UIViewController {
     override func viewWillAppear(_ inAnimated: Bool) {
         super.viewWillAppear(inAnimated)
         // Set all the items to use our selected color.
-        self.logoImageControl.baseColor = self.baseColor
-        self.logoImageControl.moonColor = self.baseColor
-        self.theURLButton.tintColor = self.baseColor
-        self.versionLabel.textColor = self.baseColor
-        self.longTextTextarea.textColor = self.baseColor
+        logoImageControl.baseColor = baseColor
+        logoImageControl.moonColor = baseColor
+        theURLButton.tintColor = baseColor
+        versionLabel.textColor = baseColor
+        longTextTextarea.textColor = baseColor
         // The two labels will also use the selected font. The text area will use the system font.
-        self.versionLabel.font = self.baseFont
-        self.theURLButton.titleLabel?.font = UIFont(name: self.baseFont.fontName, size: self._urlButtonFontSize)
-        // The button label will adjust itself.
-        self.theURLButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        versionLabel.font = baseFont
+        theURLButton.titleLabel?.font = UIFont(name: baseFont.fontName, size: _urlButtonFontSize)
+        // The button label will adjust it
+        theURLButton.titleLabel?.adjustsFontSizeToFitWidth = true
 
         // We fish the app version from the bundle.
         var appVersion = ""
@@ -101,8 +101,8 @@ class TheBestClockAboutScreenViewController: UIViewController {
         }
         
         // Set up localized text.
-        self.theURLButton.setTitle(corporateName, for: .normal)
-        self.longTextTextarea.text = self.longTextTextarea.text.localizedVariant
-        self.versionLabel.text = appName + " " + appVersion
+        theURLButton.setTitle(corporateName, for: .normal)
+        longTextTextarea.text = longTextTextarea.text.localizedVariant
+        versionLabel.text = appName + " " + appVersion
     }
 }

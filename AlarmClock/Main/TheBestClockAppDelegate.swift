@@ -49,17 +49,17 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
             var presentedBy = inPresentingViewController
             
             if nil == presentedBy {
-                if let navController = self.delegateObject.window?.rootViewController as? UINavigationController {
+                if let navController = delegateObject.window?.rootViewController as? UINavigationController {
                     presentedBy = navController.topViewController
                 } else {
-                    if let tabController = self.delegateObject.window?.rootViewController as? UITabBarController {
+                    if let tabController = delegateObject.window?.rootViewController as? UITabBarController {
                         if let navController = tabController.selectedViewController as? UINavigationController {
                             presentedBy = navController.topViewController
                         } else {
                             presentedBy = tabController.selectedViewController
                         }
                     } else {
-                        presentedBy = self.delegateObject.window?.rootViewController
+                        presentedBy = delegateObject.window?.rootViewController
                     }
                 }
             }
@@ -81,13 +81,13 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      If the brightness level has not already been recorded, we do so now.
      */
     class func recordOriginalBrightness() {
-        if nil == self.originalScreenBrightness {
-            self.originalScreenBrightness = UIScreen.main.brightness
-            assert(0 <= self.originalScreenBrightness && 1.0 >= self.originalScreenBrightness)
+        if nil == originalScreenBrightness {
+            originalScreenBrightness = UIScreen.main.brightness
+            assert(0 <= originalScreenBrightness && 1.0 >= originalScreenBrightness)
         }
         
         // If the app had backgrounded while an editor was open, then the screen brightness needs to go all the way up again.
-        if let mainController = self.delegateObject.theMainController, -1 < mainController.currentlyEditingAlarmIndex || !mainController.mainPickerContainerView.isHidden {
+        if let mainController = delegateObject.theMainController, -1 < mainController.currentlyEditingAlarmIndex || !mainController.mainPickerContainerView.isHidden {
             UIScreen.main.brightness = 1.0
         }
     }
@@ -97,10 +97,10 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      This restores our recorded brightness level to the screen.
      */
     class func restoreOriginalBrightness() {
-        if nil != self.originalScreenBrightness {
-            assert(0 <= self.originalScreenBrightness && 1.0 >= self.originalScreenBrightness)
-            UIScreen.main.brightness = self.originalScreenBrightness
-            self.originalScreenBrightness = nil
+        if nil != originalScreenBrightness {
+            assert(0 <= originalScreenBrightness && 1.0 >= originalScreenBrightness)
+            UIScreen.main.brightness = originalScreenBrightness
+            originalScreenBrightness = nil
         }
     }
     
@@ -111,7 +111,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      - parameter orientation: The orientation that should be locked.
      */
     class func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
-        self.delegateObject.orientationLock = orientation
+        delegateObject.orientationLock = orientation
     }
     
     /* ################################################################## */
@@ -122,7 +122,7 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      - parameter andRotateTo: The orientation that should be forced.
      */
     class func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation: UIInterfaceOrientation) {
-        self.lockOrientation(orientation)
+        lockOrientation(orientation)
         UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
     }
 
@@ -141,8 +141,8 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         type(of: self).recordOriginalBrightness()
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
-        self.theMainController.startTicker()
-        self.theMainController.view.setNeedsLayout()
+        theMainController.startTicker()
+        theMainController.view.setNeedsLayout()
     }
 
     /* ################################################################## */
@@ -152,8 +152,8 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         type(of: self).recordOriginalBrightness()
         UIApplication.shared.isIdleTimerDisabled = true // This makes sure that we stay awake while this window is up.
-        self.theMainController.startTicker()
-        self.theMainController.view.setNeedsLayout()
+        theMainController.startTicker()
+        theMainController.view.setNeedsLayout()
     }
 
     /* ################################################################## */
@@ -162,9 +162,9 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      */
     func applicationWillTerminate(_ application: UIApplication) {
         UIApplication.shared.isIdleTimerDisabled = false // Put things back the way we found them.
-        self.theMainController.turnOffDeactivations()
-        self.theMainController.stopTicker()
-        self.theMainController.stopAudioPlayer()
+        theMainController.turnOffDeactivations()
+        theMainController.stopTicker()
+        theMainController.stopAudioPlayer()
         type(of: self).restoreOriginalBrightness()
     }
     
@@ -174,9 +174,9 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      */
     func applicationWillResignActive(_ application: UIApplication) {
         UIApplication.shared.isIdleTimerDisabled = false // Put things back the way we found them.
-        self.theMainController.turnOffDeactivations()
-        self.theMainController.stopTicker()
-        self.theMainController.stopAudioPlayer()
+        theMainController.turnOffDeactivations()
+        theMainController.stopTicker()
+        theMainController.stopAudioPlayer()
         type(of: self).restoreOriginalBrightness()
     }
 
@@ -186,8 +186,8 @@ class TheBestClockAppDelegate: UIResponder, UIApplicationDelegate {
      */
     func applicationDidEnterBackground(_ application: UIApplication) {
         UIApplication.shared.isIdleTimerDisabled = false // Put things back the way we found them.
-        self.theMainController.stopTicker()
-        self.theMainController.stopAudioPlayer()
+        theMainController.stopTicker()
+        theMainController.stopAudioPlayer()
         type(of: self).restoreOriginalBrightness()
     }
 }

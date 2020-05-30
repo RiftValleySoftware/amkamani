@@ -25,16 +25,16 @@ extension MainScreenViewController {
     /**
      */
     func showLargeLookupThrobber() {
-        self.wholeScreenThrobber.color = self.selectedColor
-        self.wholeScreenThrobberView.backgroundColor = self.backgroundColor
-        self.wholeScreenThrobberView.isHidden = false
+        wholeScreenThrobber.color = selectedColor
+        wholeScreenThrobberView.backgroundColor = backgroundColor
+        wholeScreenThrobberView.isHidden = false
     }
     
     /* ################################################################## */
     /**
      */
     func hideLargeLookupThrobber() {
-        self.wholeScreenThrobberView.isHidden = true
+        wholeScreenThrobberView.isHidden = true
     }
     
     /* ################################################################## */
@@ -52,49 +52,49 @@ extension MainScreenViewController {
             }
         }
         
-        self.leftBrightnessSlider?.endColor = self.selectedColor
-        self.leftBrightnessSlider?.brightness = self.selectedBrightness
-        self.leftBrightnessSlider?.setNeedsDisplay()
+        leftBrightnessSlider?.endColor = selectedColor
+        leftBrightnessSlider?.brightness = selectedBrightness
+        leftBrightnessSlider?.setNeedsDisplay()
         
-        self.rightBrightnessSlider?.endColor = self.selectedColor
-        self.rightBrightnessSlider?.brightness = self.selectedBrightness
-        self.rightBrightnessSlider?.setNeedsDisplay()
+        rightBrightnessSlider?.endColor = selectedColor
+        rightBrightnessSlider?.brightness = selectedBrightness
+        rightBrightnessSlider?.setNeedsDisplay()
         
         var frame = inContainerView.bounds
         frame.size.height = inContainerView.bounds.height
-        let fontName = self.fontSelection[inIndex]
-        let fontSize = 0 == self.fontSizeCache ? self.mainNumberDisplayView.bounds.size.height : self.fontSizeCache
-        self.fontSizeCache = fontSize
+        let fontName = fontSelection[inIndex]
+        let fontSize = 0 == fontSizeCache ? mainNumberDisplayView.bounds.size.height : fontSizeCache
+        fontSizeCache = fontSize
         
         if 0 < fontSize, let font = UIFont(name: fontName, size: fontSize) {
-            let text = self.currentTimeString.time
+            let text = currentTimeString.time
             
             // We'll have a couple of different colors for our gradient.
             var endColor: UIColor
             var startColor: UIColor
             
-            let brightness = self.mainPickerContainerView.isHidden ? self.selectedBrightness : 1.0
+            let brightness = mainPickerContainerView.isHidden ? selectedBrightness : 1.0
             
-            if 0 == self.selectedColorIndex {   // White just uses...white. No need to get fancy.
+            if 0 == selectedColorIndex {   // White just uses...white. No need to get fancy.
                 endColor = UIColor(white: 0.6 * brightness, alpha: 1.0)
                 startColor = UIColor(white: 1.25 * brightness, alpha: 1.0)
             } else {    // We use HSB to change the brightness, without changing the color.
-                let hue = self.selectedColor.hsba.h
+                let hue = selectedColor.hsba.h
                 endColor = UIColor(hue: hue, saturation: 1.0, brightness: 0.6 * brightness, alpha: 1.0)
                 startColor = UIColor(hue: hue, saturation: 0.85, brightness: 1.25 * brightness, alpha: 1.0)
             }
             
             // The background can get darker than the text.
-            self.backgroundColor = (self.selectedBrightness <= TheBestClockPrefs.minimumBrightness) ? UIColor.black : UIColor(white: 0.25 * self.selectedBrightness, alpha: 1.0)
-            if self.mainPickerContainerView.isHidden, -1 == self.currentlyEditingAlarmIndex { // We don't do this if we are in the appearance or alarm editor.
+            backgroundColor = (selectedBrightness <= TheBestClockPrefs.minimumBrightness) ? UIColor.black : UIColor(white: 0.25 * selectedBrightness, alpha: 1.0)
+            if mainPickerContainerView.isHidden, -1 == currentlyEditingAlarmIndex { // We don't do this if we are in the appearance or alarm editor.
                 TheBestClockAppDelegate.recordOriginalBrightness()
                 UIScreen.main.brightness = brightness    // Also dim the screen.
-            } else if !self.mainPickerContainerView.isHidden {
+            } else if !mainPickerContainerView.isHidden {
                 UIScreen.main.brightness = 1.0    // If we are editing, we get full brightness.
             }
             
             // We create a gradient layer, with our color going from slightly darker, to full brightness.
-            self.view.backgroundColor = self.backgroundColor
+            view.backgroundColor = backgroundColor
             let displayLabelGradient = UIView(frame: frame)
             let gradient = CAGradientLayer()
             gradient.colors = [startColor.cgColor, endColor.cgColor]
@@ -118,7 +118,7 @@ extension MainScreenViewController {
             inContainerView.addContainedView(displayLabelGradient)
             
             inContainerView.mask = displayLabel // This is where the gradient magic happens. The label is used as a mask.
-            inContainerView.accessibilityLabel = self.currentTimeString.time + " " + self.currentTimeString.amPm
+            inContainerView.accessibilityLabel = currentTimeString.time + " " + currentTimeString.amPm
         }
         
         return inContainerView
@@ -129,26 +129,26 @@ extension MainScreenViewController {
      This sets (or clears) the ante meridian label. We use a solid bright text color.
      */
     func setAMPMLabel() {
-        self.amPmLabel.backgroundColor = UIColor.clear
+        amPmLabel.backgroundColor = UIColor.clear
         var textColor: UIColor
-        if 0 == self.selectedColorIndex {
-            textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
+        if 0 == selectedColorIndex {
+            textColor = UIColor(white: selectedBrightness, alpha: 1.0)
         } else {
-            let hue = self.selectedColor.hsba.h
-            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.3 * self.selectedBrightness, alpha: 1.0)
+            let hue = selectedColor.hsba.h
+            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.3 * selectedBrightness, alpha: 1.0)
         }
         
-        if !self.currentTimeString.amPm.isEmpty {
-            self.amPmLabel.isHidden = false
-            self.amPmLabel.font = UIFont(name: self.selectedFontName, size: self.amPmLabelFontSize)
-            self.amPmLabel.text = self.currentTimeString.amPm
-            self.amPmLabel.adjustsFontSizeToFitWidth = true
-            self.amPmLabel.textAlignment = .right
-            self.amPmLabel.baselineAdjustment = .alignCenters
-            self.amPmLabel.textColor = textColor
-            self.amPmLabel.accessibilityLabel = "LOCAL-ACCESSIBILITY-AMPM-LABEL".localizedVariant + " " + self.currentTimeString.amPm
+        if !currentTimeString.amPm.isEmpty {
+            amPmLabel.isHidden = false
+            amPmLabel.font = UIFont(name: selectedFontName, size: amPmLabelFontSize)
+            amPmLabel.text = currentTimeString.amPm
+            amPmLabel.adjustsFontSizeToFitWidth = true
+            amPmLabel.textAlignment = .right
+            amPmLabel.baselineAdjustment = .alignCenters
+            amPmLabel.textColor = textColor
+            amPmLabel.accessibilityLabel = "LOCAL-ACCESSIBILITY-AMPM-LABEL".localizedVariant + " " + currentTimeString.amPm
         } else {
-            self.amPmLabel.isHidden = true
+            amPmLabel.isHidden = true
         }
     }
     
@@ -157,20 +157,20 @@ extension MainScreenViewController {
      This sets the date label. We use a solid bright text color.
      */
     func setDateDisplayLabel() {
-        self.dateDisplayLabel.backgroundColor = UIColor.clear
+        dateDisplayLabel.backgroundColor = UIColor.clear
         var textColor: UIColor
-        if 0 == self.selectedColorIndex {
-            textColor = UIColor(white: self.selectedBrightness, alpha: 1.0)
+        if 0 == selectedColorIndex {
+            textColor = UIColor(white: selectedBrightness, alpha: 1.0)
         } else {
-            let hue = self.selectedColor.hsba.h
-            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.4 * self.selectedBrightness, alpha: 1.0)
+            let hue = selectedColor.hsba.h
+            textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.4 * selectedBrightness, alpha: 1.0)
         }
         
-        self.dateDisplayLabel.font = UIFont(name: self.selectedFontName, size: self.dateLabelFontSize)
-        self.dateDisplayLabel.text = self.currentTimeString.date
-        self.dateDisplayLabel.adjustsFontSizeToFitWidth = true
-        self.dateDisplayLabel.textAlignment = .center
-        self.dateDisplayLabel.textColor = textColor
+        dateDisplayLabel.font = UIFont(name: selectedFontName, size: dateLabelFontSize)
+        dateDisplayLabel.text = currentTimeString.date
+        dateDisplayLabel.adjustsFontSizeToFitWidth = true
+        dateDisplayLabel.textAlignment = .center
+        dateDisplayLabel.textColor = textColor
     }
     
     /* ################################################################## */
@@ -181,22 +181,22 @@ extension MainScreenViewController {
      */
     func setUpAlarms() {
         // Take out the trash.
-        self.alarmContainerView.subviews.forEach {
+        alarmContainerView.subviews.forEach {
             $0.removeFromSuperview()
         }
         
-        let alarms = self.prefs.alarms
-        self.alarmButtons = []
+        let alarms = prefs.alarms
+        alarmButtons = []
         
         if !alarms.isEmpty {
-            self.alarmContainerView.isAccessibilityElement = false  // This prevents the container from interfering with the alarm buttons.
+            alarmContainerView.isAccessibilityElement = false  // This prevents the container from interfering with the alarm buttons.
             let percentage = CGFloat(1) / CGFloat(alarms.count)   // This will be used for our auto-layout stuff.
             var prevButton: TheBestClockAlarmView!
             var index = 0
             
             alarms.forEach {
                 let alarmButton = TheBestClockAlarmView(alarmRecord: $0)
-                self.addAlarmView(alarmButton, percentage: percentage, previousView: prevButton)
+                addAlarmView(alarmButton, percentage: percentage, previousView: prevButton)
                 alarmButton.delegate = self
                 alarmButton.index = index
                 alarmButton.alarmRecord.deferred = true  // We start off deactivated, so we don't start blaring immediately.
@@ -204,7 +204,7 @@ extension MainScreenViewController {
                 prevButton = alarmButton
             }
             
-            self.updateAlarms()
+            updateAlarms()
         }
     }
     
@@ -213,11 +213,11 @@ extension MainScreenViewController {
      This updates the alarm buttons to reflect the brightness, color and font.
      */
     func updateAlarms() {
-        self.alarmButtons.forEach {
-            $0.brightness = self.selectedBrightness
-            $0.fontColor = 0 == self.selectedColorIndex ? nil : self.selectedColor
-            $0.fontName = self.selectedFontName
-            $0.desiredFontSize = self.alarmsFontSize
+        alarmButtons.forEach {
+            $0.brightness = selectedBrightness
+            $0.fontColor = 0 == selectedColorIndex ? nil : selectedColor
+            $0.fontName = selectedFontName
+            $0.desiredFontSize = alarmsFontSize
         }
     }
     
@@ -232,8 +232,8 @@ extension MainScreenViewController {
      - parameter previousView: If there was a view to the left, this is it.
      */
     func addAlarmView(_ inSubView: TheBestClockAlarmView, percentage inPercentage: CGFloat, previousView inPreviousView: TheBestClockAlarmView!) {
-        self.alarmContainerView.addSubview(inSubView)
-        self.alarmButtons.append(inSubView)
+        alarmContainerView.addSubview(inSubView)
+        alarmButtons.append(inSubView)
         inSubView.addTarget(self, action: #selector(type(of: self).alarmActiveStateChanged(_:)), for: .valueChanged)
         
         inSubView.translatesAutoresizingMaskIntoConstraints = false
@@ -244,7 +244,7 @@ extension MainScreenViewController {
             leftConstraint = NSLayoutConstraint(item: inSubView,
                                                 attribute: .left,
                                                 relatedBy: .equal,
-                                                toItem: self.alarmContainerView,
+                                                toItem: alarmContainerView,
                                                 attribute: .left,
                                                 multiplier: 1.0,
                                                 constant: 0)
@@ -258,25 +258,25 @@ extension MainScreenViewController {
                                                 constant: 0)
         }
         
-        self.alarmContainerView.addConstraints([leftConstraint,
+        alarmContainerView.addConstraints([leftConstraint,
                                                 NSLayoutConstraint(item: inSubView,
                                                                    attribute: .top,
                                                                    relatedBy: .equal,
-                                                                   toItem: self.alarmContainerView,
+                                                                   toItem: alarmContainerView,
                                                                    attribute: .top,
                                                                    multiplier: 1.0,
                                                                    constant: 0),
                                                 NSLayoutConstraint(item: inSubView,
                                                                    attribute: .bottom,
                                                                    relatedBy: .equal,
-                                                                   toItem: self.alarmContainerView,
+                                                                   toItem: alarmContainerView,
                                                                    attribute: .bottom,
                                                                    multiplier: 1.0,
                                                                    constant: 0),
                                                 NSLayoutConstraint(item: inSubView,
                                                                    attribute: .width,
                                                                    relatedBy: .equal,
-                                                                   toItem: self.alarmContainerView,
+                                                                   toItem: alarmContainerView,
                                                                    attribute: .width,
                                                                    multiplier: inPercentage,
                                                                    constant: 1)])
@@ -295,22 +295,22 @@ extension MainScreenViewController {
         var noAlarms = true // If we find an active alarm, this is made false.
         
         // If we have an active alarm, then we throw the switch, iGor.
-        self.prefs.alarms.forEach {
-            if $0.isActive, $0.isAlarming, (self.prefs.noSnoozeLimit || !$0.snoozing || ($0.snoozing && self.snoozeCount <= self.prefs.snoozeCount)) {
+        prefs.alarms.forEach {
+            if $0.isActive, $0.isAlarming, (prefs.noSnoozeLimit || !$0.snoozing || ($0.snoozing && snoozeCount <= prefs.snoozeCount)) {
                 noAlarms = false
-                self.alarmSounded = true
-                self.alarmDisableScreenView.isHidden = false
+                alarmSounded = true
+                alarmDisableScreenView.isHidden = false
                 if !soundOnly { // See if we want to be a flasher.
-                    self.flashDisplay(self.selectedColor)
+                    flashDisplay(selectedColor)
                 }
-                self.aooGah(index) // Play a sound and/or vibrate.
+                aooGah(index) // Play a sound and/or vibrate.
             } else if $0.isActive, $0.snoozing {  // If we have a snoozing alarm, then it will "snore."
-                if !self.prefs.noSnoozeLimit, self.snoozeCount > self.prefs.snoozeCount {
-                    self.snoozeCount = 0
+                if !prefs.noSnoozeLimit, snoozeCount > prefs.snoozeCount {
+                    snoozeCount = 0
                     $0.snoozing = false
                     $0.deferred = true
                 } else {
-                    self.alarmButtons[index].snore()
+                    alarmButtons[index].snore()
                 }
             }
             
@@ -318,9 +318,9 @@ extension MainScreenViewController {
         }
         
         // If we are in hush time, then we shouldn't be talking. We don't do this if we are in the Alarm Editor (where the test would be running).
-        if noAlarms, self.alarmSounded, 0 > self.currentlyEditingAlarmIndex {
-            self.alarmSounded = false
-            self.stopAudioPlayer()
+        if noAlarms, alarmSounded, 0 > currentlyEditingAlarmIndex {
+            alarmSounded = false
+            stopAudioPlayer()
         }
     }
     
@@ -333,12 +333,12 @@ extension MainScreenViewController {
     func aooGah(_ inIndex: Int) {
         UIApplication.shared.isIdleTimerDisabled = false // Toggle this to "wake" the touch sensor. The system can put it into a "resting" mode, so two touches are required.
         UIApplication.shared.isIdleTimerDisabled = true
-        self.alarmDisplayView.isHidden = false
-        if self.prefs.alarms[inIndex].isVibrateOn {
+        alarmDisplayView.isHidden = false
+        if prefs.alarms[inIndex].isVibrateOn {
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
         }
         
-        self.playSound(inIndex)
+        playSound(inIndex)
     }
     
     /* ################################################################## */
@@ -348,9 +348,9 @@ extension MainScreenViewController {
      - parameter inUIColor: This is the color to flash.
      */
     func flashDisplay(_ inUIColor: UIColor) {
-        if let targetView = self.flasherView {
-            self.selectedBrightness = 1.0
-            UIScreen.main.brightness = self.selectedBrightness
+        if let targetView = flasherView {
+            selectedBrightness = 1.0
+            UIScreen.main.brightness = selectedBrightness
             let oldBackground = targetView.backgroundColor
             let oldAlpha = targetView.alpha
             targetView.backgroundColor = inUIColor
@@ -380,11 +380,11 @@ extension MainScreenViewController {
      This starts our regular 1-second ticker.
      */
     func startTicker() {
-        self.updateMainTime()
-        self.checkTicker() // This just makes sure we get "instant on," if that's what we selected.
-        if nil == self.timer {
-            self.timer = RVS_BasicGCDTimer(timeIntervalInSeconds: self.timeIntervalInSeconds, delegate: self, leewayInMilliseconds: self.leewayInMilliseconds, onlyFireOnce: false, context: nil, queue: nil, isWallTime: true)
-            self.timer.isRunning = true
+        updateMainTime()
+        checkTicker() // This just makes sure we get "instant on," if that's what we selected.
+        if nil == timer {
+            timer = RVS_BasicGCDTimer(timeIntervalInSeconds: timeIntervalInSeconds, delegate: self, leewayInMilliseconds: leewayInMilliseconds, onlyFireOnce: false, context: nil, queue: nil, isWallTime: true)
+            timer.isRunning = true
         }
     }
     
@@ -393,9 +393,9 @@ extension MainScreenViewController {
      This stops our regular 1-second ticker.
      */
     func stopTicker() {
-        if nil != self.timer {
-            self.timer.invalidate()
-            self.timer = nil
+        if nil != timer {
+            timer.invalidate()
+            timer = nil
         }
     }
     
@@ -404,10 +404,10 @@ extension MainScreenViewController {
      This simply redraws the main time and the two adjacent labels.
      */
     func updateMainTime() {
-        _ = self.createDisplayView(self.mainNumberDisplayView, index: self.selectedFontIndex)
-        self.setAMPMLabel()
-        self.setDateDisplayLabel()
-        self.updateAlarms()
+        _ = createDisplayView(mainNumberDisplayView, index: selectedFontIndex)
+        setAMPMLabel()
+        setDateDisplayLabel()
+        updateAlarms()
     }
     
     /* ################################################################## */
@@ -426,16 +426,16 @@ extension MainScreenViewController {
      This is called at load time, to add the various localized accessibility labels and hints to our elements on the main display screen.
      */
     func setUpMainScreenAccessibility() {
-        self.mainNumberDisplayView.accessibilityHint = "LOCAL-ACCESSIBILITY-HINT-MAIN-TIME".localizedVariant
-        self.dateDisplayLabel.accessibilityLabel = self.dateDisplayLabel.text ?? ""
-        self.leftBrightnessSlider.accessibilityLabel = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER".localizedVariant
-        self.leftBrightnessSlider.accessibilityHint = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT".localizedVariant
-        self.rightBrightnessSlider.accessibilityLabel = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER".localizedVariant
-        self.rightBrightnessSlider.accessibilityHint = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT".localizedVariant
-        self.alarmContainerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-CONTAINER".localizedVariant
-        self.alarmContainerView.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-CONTAINER-HINT".localizedVariant
-        self.alarmDisplayView.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-DISPLAY".localizedVariant
-        self.alarmDisplayView.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-DISPLAY-HINT".localizedVariant
+        mainNumberDisplayView.accessibilityHint = "LOCAL-ACCESSIBILITY-HINT-MAIN-TIME".localizedVariant
+        dateDisplayLabel.accessibilityLabel = dateDisplayLabel.text ?? ""
+        leftBrightnessSlider.accessibilityLabel = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER".localizedVariant
+        leftBrightnessSlider.accessibilityHint = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT".localizedVariant
+        rightBrightnessSlider.accessibilityLabel = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER".localizedVariant
+        rightBrightnessSlider.accessibilityHint = "LOCAL-ACCESSIBILITY-BRIGHTNESS-SLIDER-HINT".localizedVariant
+        alarmContainerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-CONTAINER".localizedVariant
+        alarmContainerView.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-CONTAINER-HINT".localizedVariant
+        alarmDisplayView.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-DISPLAY".localizedVariant
+        alarmDisplayView.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-DISPLAY-HINT".localizedVariant
     }
     
     /* ################################################################## */
@@ -443,12 +443,12 @@ extension MainScreenViewController {
      This is called at load time, to add the various localized accessibility labels and hints to our elements in the Appearance Editor screen.
      */
     func setUpAppearanceEditorAccessibility() {
-        self.colorDisplayPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-COLOR-PICKER-LABEL".localizedVariant
-        self.colorDisplayPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-COLOR-PICKER-HINT".localizedVariant
-        self.fontDisplayPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-FONT-SELECTOR-LABEL".localizedVariant
-        self.fontDisplayPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-FONT-SELECTOR-HINT".localizedVariant
-        self.infoButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-INFO-BUTTON-LABEL".localizedVariant
-        self.infoButton.accessibilityHint = "LOCAL-ACCESSIBILITY-INFO-BUTTON-HINT".localizedVariant
+        colorDisplayPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-COLOR-PICKER-LABEL".localizedVariant
+        colorDisplayPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-COLOR-PICKER-HINT".localizedVariant
+        fontDisplayPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-FONT-SELECTOR-LABEL".localizedVariant
+        fontDisplayPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-FONT-SELECTOR-HINT".localizedVariant
+        infoButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-INFO-BUTTON-LABEL".localizedVariant
+        infoButton.accessibilityHint = "LOCAL-ACCESSIBILITY-INFO-BUTTON-HINT".localizedVariant
     }
     
     /* ################################################################## */
@@ -456,32 +456,32 @@ extension MainScreenViewController {
      This is called at load time, to add the various localized accessibility labels and hints to our elements in the Alarm Editor screen.
      */
     func setUpAlarmEditorAccessibility() {
-        self.alarmEditorActiveSwitch.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-LABEL".localizedVariant
-        self.alarmEditorActiveSwitch.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-HINT".localizedVariant
-        self.alarmEditorActiveButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-LABEL".localizedVariant
-        self.alarmEditorActiveButton.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-HINT".localizedVariant
-        self.alarmEditorVibrateBeepSwitch.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-LABEL".localizedVariant
-        self.alarmEditorVibrateBeepSwitch.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-HINT".localizedVariant
-        self.alarmEditorVibrateButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-LABEL".localizedVariant
-        self.alarmEditorVibrateButton.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-HINT".localizedVariant
-        self.editAlarmTimeDatePicker.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-LABEL".localizedVariant
-        self.editAlarmTimeDatePicker.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-HINT".localizedVariant
-        self.alarmEditSoundModeSelector.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-MODE-LABEL".localizedVariant
-        self.alarmEditSoundModeSelector.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-MODE-HINT".localizedVariant
-        self.editAlarmPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-EDIT-PICKER-LABEL".localizedVariant
-        self.editAlarmPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-PICKER-HINT".localizedVariant
-        self.songSelectionPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-LABEL".localizedVariant
-        self.songSelectionPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-HINT".localizedVariant
-        self.editAlarmTestSoundButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-LABEL".localizedVariant
-        self.editAlarmTestSoundButton.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-HINT".localizedVariant
-        self.musicTestButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-LABEL".localizedVariant
-        self.musicTestButton.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-HINT".localizedVariant
+        alarmEditorActiveSwitch.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-LABEL".localizedVariant
+        alarmEditorActiveSwitch.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-HINT".localizedVariant
+        alarmEditorActiveButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-LABEL".localizedVariant
+        alarmEditorActiveButton.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-ENABLE-SWITCH-HINT".localizedVariant
+        alarmEditorVibrateBeepSwitch.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-LABEL".localizedVariant
+        alarmEditorVibrateBeepSwitch.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-HINT".localizedVariant
+        alarmEditorVibrateButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-LABEL".localizedVariant
+        alarmEditorVibrateButton.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-VIBRATE-SWITCH-HINT".localizedVariant
+        editAlarmTimeDatePicker.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-LABEL".localizedVariant
+        editAlarmTimeDatePicker.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-DATE-PICKER-HINT".localizedVariant
+        alarmEditSoundModeSelector.accessibilityLabel = "LOCAL-ACCESSIBILITY-ALARM-MODE-LABEL".localizedVariant
+        alarmEditSoundModeSelector.accessibilityHint = "LOCAL-ACCESSIBILITY-ALARM-MODE-HINT".localizedVariant
+        editAlarmPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-EDIT-PICKER-LABEL".localizedVariant
+        editAlarmPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-PICKER-HINT".localizedVariant
+        songSelectionPickerView.accessibilityLabel = "LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-LABEL".localizedVariant
+        songSelectionPickerView.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-SONG-PICKER-HINT".localizedVariant
+        editAlarmTestSoundButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-LABEL".localizedVariant
+        editAlarmTestSoundButton.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-SOUND-TEST-BUTTON-HINT".localizedVariant
+        musicTestButton.accessibilityLabel = "LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-LABEL".localizedVariant
+        musicTestButton.accessibilityHint = "LOCAL-ACCESSIBILITY-EDIT-SONG-TEST-BUTTON-HINT".localizedVariant
         
         for trailer in ["Speaker", "Music", "Nothing"].enumerated() {
             let imageName = trailer.element
             if let image = UIImage(named: imageName) {
                 image.accessibilityLabel = ("LGV_TIMER-ACCESSIBILITY-SEGMENTED-AUDIO-MODE-" + trailer.element + "-LABEL").localizedVariant
-                self.alarmEditSoundModeSelector.setImage(image, forSegmentAt: trailer.offset)
+                alarmEditSoundModeSelector.setImage(image, forSegmentAt: trailer.offset)
             }
         }
     }
@@ -492,14 +492,14 @@ extension MainScreenViewController {
      */
     func setInfoButtonColor() {
         var textColor: UIColor
-        if 0 == self.selectedColorIndex {
+        if 0 == selectedColorIndex {
             textColor = UIColor(white: 1.0, alpha: 1.0)
         } else {
-            let hue = self.selectedColor.hsba.h
+            let hue = selectedColor.hsba.h
             textColor = UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         }
         
-        self.infoButton.tintColor = textColor
+        infoButton.tintColor = textColor
     }
     
     /* ################################################################## */
@@ -509,14 +509,14 @@ extension MainScreenViewController {
      It resets all the "deactivations" snoozes.
      */
     func turnOffDeactivations() {
-        self.alarmDisableScreenView.isHidden = true
-        for i in self.prefs.alarms.enumerated() {
-            if self.prefs.alarms[i.offset].snoozing || !self.prefs.alarms[i.offset].isActive {
-                self.prefs.alarms[i.offset].deferred = false
-                self.prefs.alarms[i.offset].snoozing = false
+        alarmDisableScreenView.isHidden = true
+        for i in prefs.alarms.enumerated() {
+            if prefs.alarms[i.offset].snoozing || !prefs.alarms[i.offset].isActive {
+                prefs.alarms[i.offset].deferred = false
+                prefs.alarms[i.offset].snoozing = false
             }
         }
-        self.snoozeCount = 0
+        snoozeCount = 0
     }
 
     /* ################################################################## */
@@ -528,24 +528,24 @@ extension MainScreenViewController {
      - parameter: ignored
      */
     @IBAction func hitTheSnooze(_: UITapGestureRecognizer) {
-        self.alarmDisableScreenView.isHidden = true
-        if !self.prefs.noSnoozeLimit, self.snoozeCount == self.prefs.snoozeCount {
-            self.shutUpAlready()
+        alarmDisableScreenView.isHidden = true
+        if !prefs.noSnoozeLimit, snoozeCount == prefs.snoozeCount {
+            shutUpAlready()
         } else {
-            self.impactFeedbackGenerator?.prepare()
-            self.impactFeedbackGenerator?.impactOccurred()
+            impactFeedbackGenerator?.prepare()
+            impactFeedbackGenerator?.impactOccurred()
             
-            for i in self.prefs.alarms.enumerated() where self.prefs.alarms[i.offset].isAlarming {
-                self.prefs.alarms[i.offset].snoozing = true
+            for i in prefs.alarms.enumerated() where prefs.alarms[i.offset].isAlarming {
+                prefs.alarms[i.offset].snoozing = true
             }
             
-            self.snoozeCount += 1
-            self.stopAudioPlayer()
-            self.alarmDisplayView.isHidden = true
-            self.selectedBrightness = Swift.max(TheBestClockPrefs.minimumBrightness, self.prefs.brightnessLevel)
-            self.brightnessSliderChanged()
-            for i in self.prefs.alarms.enumerated() where self.prefs.alarms[i.offset].snoozing {
-                self.alarmButtons[i.offset].snore()
+            snoozeCount += 1
+            stopAudioPlayer()
+            alarmDisplayView.isHidden = true
+            selectedBrightness = Swift.max(TheBestClockPrefs.minimumBrightness, prefs.brightnessLevel)
+            brightnessSliderChanged()
+            for i in prefs.alarms.enumerated() where prefs.alarms[i.offset].snoozing {
+                alarmButtons[i.offset].snore()
             }
         }
     }
@@ -557,20 +557,20 @@ extension MainScreenViewController {
      - parameter: ignored (Can be omitted)
      */
     @IBAction func shutUpAlready(_: Any! = nil) {
-        self.impactFeedbackGenerator?.impactOccurred()
-        self.impactFeedbackGenerator?.prepare()
-        self.impactFeedbackGenerator?.impactOccurred()
-        self.impactFeedbackGenerator?.prepare()
-        self.alarmDisableScreenView.isHidden = true
-        for i in self.prefs.alarms.enumerated() where self.prefs.alarms[i.offset].isAlarming {
-            self.prefs.alarms[i.offset].deferred = true
-            self.prefs.alarms[i.offset].isActive = false
-            self.prefs.savePrefs()
-            self.alarmButtons[i.offset].alarmRecord.isActive = false
+        impactFeedbackGenerator?.impactOccurred()
+        impactFeedbackGenerator?.prepare()
+        impactFeedbackGenerator?.impactOccurred()
+        impactFeedbackGenerator?.prepare()
+        alarmDisableScreenView.isHidden = true
+        for i in prefs.alarms.enumerated() where prefs.alarms[i.offset].isAlarming {
+            prefs.alarms[i.offset].deferred = true
+            prefs.alarms[i.offset].isActive = false
+            prefs.savePrefs()
+            alarmButtons[i.offset].alarmRecord.isActive = false
         }
-        self.snoozeCount = 0
-        self.stopAudioPlayer()
-        self.alarmDisplayView.isHidden = true
+        snoozeCount = 0
+        stopAudioPlayer()
+        alarmDisplayView.isHidden = true
     }
     
     /* ################################################################## */
@@ -580,20 +580,20 @@ extension MainScreenViewController {
      - parameter inSender: The alarm button that was hit.
      */
     @IBAction func alarmActiveStateChanged(_ inSender: TheBestClockAlarmView) {
-        if -1 == self.currentlyEditingAlarmIndex {
-            self.selectionFeedbackGenerator?.selectionChanged()
-            self.selectionFeedbackGenerator?.prepare()
-            for i in self.alarmButtons.enumerated() where self.alarmButtons[i.offset] == inSender {
+        if -1 == currentlyEditingAlarmIndex {
+            selectionFeedbackGenerator?.selectionChanged()
+            selectionFeedbackGenerator?.prepare()
+            for i in alarmButtons.enumerated() where alarmButtons[i.offset] == inSender {
                 if let alarmRecord = inSender.alarmRecord {
-                    if !alarmRecord.isActive || self.prefs.alarms[i.offset].snoozing {
-                        self.prefs.alarms[i.offset].deferred = true
+                    if !alarmRecord.isActive || prefs.alarms[i.offset].snoozing {
+                        prefs.alarms[i.offset].deferred = true
                     }
-                    self.prefs.alarms[i.offset].isActive = alarmRecord.isActive
-                    alarmRecord.deferred = self.prefs.alarms[i.offset].deferred
-                    self.prefs.savePrefs()
+                    prefs.alarms[i.offset].isActive = alarmRecord.isActive
+                    alarmRecord.deferred = prefs.alarms[i.offset].deferred
+                    prefs.savePrefs()
                 }
             }
-            self.checkTicker() // This just makes sure we get "instant on," if that's what we selected.
+            checkTicker() // This just makes sure we get "instant on," if that's what we selected.
         }
     }
     
@@ -605,22 +605,22 @@ extension MainScreenViewController {
      */
     @IBAction func brightnessSliderChanged(_ inSlider: TheBestClockVerticalBrightnessSliderView! = nil) {
         var newBrightness: CGFloat = 1.0
-        let oldBrighness = self.selectedBrightness
+        let oldBrighness = selectedBrightness
         
         if nil != inSlider {
-            self.selectedBrightness = Swift.max(TheBestClockPrefs.minimumBrightness, Swift.min(inSlider.brightness, 1.0))
+            selectedBrightness = Swift.max(TheBestClockPrefs.minimumBrightness, Swift.min(inSlider.brightness, 1.0))
         }
         
-        if Int(oldBrighness * 100) != Int(self.selectedBrightness * 100) {  // Only tick for fairly significant changes.
-            self.selectionFeedbackGenerator?.selectionChanged()
-            self.selectionFeedbackGenerator?.prepare()
+        if Int(oldBrighness * 100) != Int(selectedBrightness * 100) {  // Only tick for fairly significant changes.
+            selectionFeedbackGenerator?.selectionChanged()
+            selectionFeedbackGenerator?.prepare()
         }
         
-        newBrightness = Swift.min(1.0, Swift.max(TheBestClockPrefs.minimumBrightness, self.selectedBrightness))
-        self.prefs?.brightnessLevel = newBrightness
+        newBrightness = Swift.min(1.0, Swift.max(TheBestClockPrefs.minimumBrightness, selectedBrightness))
+        prefs?.brightnessLevel = newBrightness
         TheBestClockAppDelegate.recordOriginalBrightness()
         UIScreen.main.brightness = newBrightness    // Also dim the screen.
-        self.updateMainTime()
+        updateMainTime()
     }
     
     /* ################################################################## */
@@ -630,12 +630,12 @@ extension MainScreenViewController {
      - parameter inSlider: The slider object that called this
      */
     @IBAction func brightnessSliderOpened(_ inSlider: TheBestClockVerticalBrightnessSliderView) {
-        self.impactFeedbackGenerator?.impactOccurred()
-        self.impactFeedbackGenerator?.prepare()
-        if inSlider == self.rightBrightnessSlider {
-            self.leftBrightnessSlider.isEnabled = false
+        impactFeedbackGenerator?.impactOccurred()
+        impactFeedbackGenerator?.prepare()
+        if inSlider == rightBrightnessSlider {
+            leftBrightnessSlider.isEnabled = false
         } else {
-            self.rightBrightnessSlider.isEnabled = false
+            rightBrightnessSlider.isEnabled = false
         }
     }
     
@@ -646,10 +646,10 @@ extension MainScreenViewController {
      - parameter: ignored
      */
     @IBAction func brightnessSliderClosed(_: Any) {
-        self.impactFeedbackGenerator?.impactOccurred()
-        self.impactFeedbackGenerator?.prepare()
-        self.leftBrightnessSlider.isEnabled = true
-        self.rightBrightnessSlider.isEnabled = true
+        impactFeedbackGenerator?.impactOccurred()
+        impactFeedbackGenerator?.prepare()
+        leftBrightnessSlider.isEnabled = true
+        rightBrightnessSlider.isEnabled = true
     }
     
     /* ################################################################## */
@@ -661,26 +661,26 @@ extension MainScreenViewController {
      - parameter: ignored
      */
     @IBAction func openAppearanceEditor(_: Any) {
-        self.stopTicker()
-        self.impactFeedbackGenerator?.impactOccurred()
-        self.impactFeedbackGenerator?.prepare()
-        self.fontDisplayPickerView.delegate = self
-        self.fontDisplayPickerView.dataSource = self
-        self.colorDisplayPickerView.delegate = self
-        self.colorDisplayPickerView.dataSource = self
-        self.mainPickerContainerView.backgroundColor = self.backgroundColor
-        self.fontDisplayPickerView.backgroundColor = self.backgroundColor
-        self.colorDisplayPickerView.backgroundColor = self.backgroundColor
-        self.fontDisplayPickerView.selectRow(self.selectedFontIndex, inComponent: 0, animated: false)
-        self.colorDisplayPickerView.selectRow(self.selectedColorIndex, inComponent: 0, animated: false)
-        self.mainPickerContainerView.isHidden = false
+        stopTicker()
+        impactFeedbackGenerator?.impactOccurred()
+        impactFeedbackGenerator?.prepare()
+        fontDisplayPickerView.delegate = self
+        fontDisplayPickerView.dataSource = self
+        colorDisplayPickerView.delegate = self
+        colorDisplayPickerView.dataSource = self
+        mainPickerContainerView.backgroundColor = backgroundColor
+        fontDisplayPickerView.backgroundColor = backgroundColor
+        colorDisplayPickerView.backgroundColor = backgroundColor
+        fontDisplayPickerView.selectRow(selectedFontIndex, inComponent: 0, animated: false)
+        colorDisplayPickerView.selectRow(selectedColorIndex, inComponent: 0, animated: false)
+        mainPickerContainerView.isHidden = false
         
         // Need to do this because of the whacky way we are presenting the editor screen. The underneath controls can "bleed through."
-        self.mainNumberDisplayView.isAccessibilityElement = false
-        self.dateDisplayLabel.isAccessibilityElement = false
-        self.amPmLabel.isAccessibilityElement = false
-        self.leftBrightnessSlider.isAccessibilityElement = false
-        self.rightBrightnessSlider.isAccessibilityElement = false
+        mainNumberDisplayView.isAccessibilityElement = false
+        dateDisplayLabel.isAccessibilityElement = false
+        amPmLabel.isAccessibilityElement = false
+        leftBrightnessSlider.isAccessibilityElement = false
+        rightBrightnessSlider.isAccessibilityElement = false
     }
     
     /* ################################################################## */
@@ -690,7 +690,7 @@ extension MainScreenViewController {
      - parameter: ignored
      */
     @IBAction func openInfo(_: Any) {
-        self.performSegue(withIdentifier: "open-info", sender: nil)
+        performSegue(withIdentifier: "open-info", sender: nil)
     }
     
     /* ################################################################## */
@@ -700,22 +700,22 @@ extension MainScreenViewController {
      - parameter: ignored
      */
     @IBAction func closeAppearanceEditor(_: Any) {
-        self.impactFeedbackGenerator?.impactOccurred()
-        self.impactFeedbackGenerator?.prepare()
-        self.fontDisplayPickerView.delegate = nil
-        self.fontDisplayPickerView.dataSource = nil
-        self.colorDisplayPickerView.delegate = nil
-        self.colorDisplayPickerView.dataSource = nil
-        self.fontSizeCache = 0
-        self.mainPickerContainerView.isHidden = true
+        impactFeedbackGenerator?.impactOccurred()
+        impactFeedbackGenerator?.prepare()
+        fontDisplayPickerView.delegate = nil
+        fontDisplayPickerView.dataSource = nil
+        colorDisplayPickerView.delegate = nil
+        colorDisplayPickerView.dataSource = nil
+        fontSizeCache = 0
+        mainPickerContainerView.isHidden = true
         
-        self.mainNumberDisplayView.isAccessibilityElement = true
-        self.dateDisplayLabel.isAccessibilityElement = true
-        self.amPmLabel.isAccessibilityElement = true
-        self.leftBrightnessSlider.isAccessibilityElement = true
-        self.rightBrightnessSlider.isAccessibilityElement = true
+        mainNumberDisplayView.isAccessibilityElement = true
+        dateDisplayLabel.isAccessibilityElement = true
+        amPmLabel.isAccessibilityElement = true
+        leftBrightnessSlider.isAccessibilityElement = true
+        rightBrightnessSlider.isAccessibilityElement = true
         
-        self.startTicker()
+        startTicker()
     }
     
     /* ################################################################## */
@@ -724,10 +724,10 @@ extension MainScreenViewController {
     /**
      */
     func setProperScreenBrightness() {
-        if -1 < self.currentlyEditingAlarmIndex || !self.mainPickerContainerView.isHidden {
+        if -1 < currentlyEditingAlarmIndex || !mainPickerContainerView.isHidden {
             UIScreen.main.brightness = 1.0  // Brighten the screen all the way for the editors.
         } else {
-            self.updateMainTime()   // Otherwise, just use the set brightness.
+            updateMainTime()   // Otherwise, just use the set brightness.
         }
     }
     
@@ -744,55 +744,55 @@ extension MainScreenViewController {
         // We start by setting up our font and color Arrays.
         UIFont.familyNames.forEach {
             UIFont.fontNames(forFamilyName: $0).forEach { fName in
-                if self.screenForThese.contains(fName) {
-                    self.fontSelection.append(fName)
+                if screenForThese.contains(fName) {
+                    fontSelection.append(fName)
                 }
             }
         }
         
         // So we have a predictable order.
-        self.fontSelection.sort()
+        fontSelection.sort()
         
         // We add this to the beginning.
-        self.fontSelection.insert(contentsOf: ["Let's Go Digital"], at: 0)
-        self.fontSelection.append(contentsOf: ["AnglicanText", "Canterbury", "CelticHand"])
+        fontSelection.insert(contentsOf: ["Let's Go Digital"], at: 0)
+        fontSelection.append(contentsOf: ["AnglicanText", "Canterbury", "CelticHand"])
         
         // Pick up our beeper sounds.
-        self.soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil)
+        soundSelection = Bundle.main.paths(forResourcesOfType: "mp3", inDirectory: nil)
         
         // The first index is white.
-        self.colorSelection = [UIColor.white]
+        colorSelection = [UIColor.white]
         // We generate a series of colors, fully saturated, from red (orangeish) to red (purpleish).
         for hue: CGFloat in stride(from: 0.0, to: 1.0, by: 0.05) {
             let color = UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-            self.colorSelection.append(color)
+            colorSelection.append(color)
         }
         
         // Set up our persistent prefs, reading in any previously stored prefs.
-        self.prefs = TheBestClockPrefs()
-        self.selectedFontIndex = self.prefs.selectedFont
-        self.selectedColorIndex = self.prefs.selectedColor
-        self.selectedBrightness = Swift.max(TheBestClockPrefs.minimumBrightness, self.prefs.brightnessLevel)
-        self.updateMainTime()   // This will update the time. It will also set up our various labels and background colors.
-        self.setInfoButtonColor()
-        self.noMusicAvailableLabel.text = self.noMusicAvailableLabel.text?.localizedVariant
-        self.alarmDeactivatedLabel.text = self.alarmDeactivatedLabel.text?.localizedVariant
-        self.musicLookupLabel.text = self.musicLookupLabel.text?.localizedVariant
-        self.alarmEditorActiveButton.setTitle(self.alarmEditorActiveButton.title(for: .normal)?.localizedVariant, for: .normal)
-        self.alarmEditorVibrateButton.setTitle(self.alarmEditorVibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
-        self.snoozeGestureRecogninzer.require(toFail: self.shutUpAlreadyDoubleTapRecognizer)
-        self.snoozeGestureRecogninzer.require(toFail: self.shutUpAlreadyLongPressGestureRecognizer)
+        prefs = TheBestClockPrefs()
+        selectedFontIndex = prefs.selectedFont
+        selectedColorIndex = prefs.selectedColor
+        selectedBrightness = Swift.max(TheBestClockPrefs.minimumBrightness, prefs.brightnessLevel)
+        updateMainTime()   // This will update the time. It will also set up our various labels and background colors.
+        setInfoButtonColor()
+        noMusicAvailableLabel.text = noMusicAvailableLabel.text?.localizedVariant
+        alarmDeactivatedLabel.text = alarmDeactivatedLabel.text?.localizedVariant
+        musicLookupLabel.text = musicLookupLabel.text?.localizedVariant
+        alarmEditorActiveButton.setTitle(alarmEditorActiveButton.title(for: .normal)?.localizedVariant, for: .normal)
+        alarmEditorVibrateButton.setTitle(alarmEditorVibrateButton.title(for: .normal)?.localizedVariant, for: .normal)
+        snoozeGestureRecogninzer.require(toFail: shutUpAlreadyDoubleTapRecognizer)
+        snoozeGestureRecogninzer.require(toFail: shutUpAlreadyLongPressGestureRecognizer)
         // Set up accessibility labels and hints.
-        self.setUpMainScreenAccessibility()
-        self.setUpAppearanceEditorAccessibility()
-        self.setUpAlarmEditorAccessibility()
-        self.setUpAlarms()
-        self.alarmDisableScreenView.isHidden = true
-        self.impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-        self.impactFeedbackGenerator?.prepare()
-        self.selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-        self.selectionFeedbackGenerator?.prepare()
-        self.setNeedsUpdateOfHomeIndicatorAutoHidden()
+        setUpMainScreenAccessibility()
+        setUpAppearanceEditorAccessibility()
+        setUpAlarmEditorAccessibility()
+        setUpAlarms()
+        alarmDisableScreenView.isHidden = true
+        impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        impactFeedbackGenerator?.prepare()
+        selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator?.prepare()
+        setNeedsUpdateOfHomeIndicatorAutoHidden()
     }
     
     /* ################################################################## */
@@ -802,13 +802,13 @@ extension MainScreenViewController {
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.fontSizeCache = 0
-        self.setProperScreenBrightness()
-        if self.mainPickerContainerView.isHidden, -1 == self.currentlyEditingAlarmIndex { // We don't do this if we are in the appearance editor.
-            UIScreen.main.brightness = self.selectedBrightness    // Dim the screen.
+        fontSizeCache = 0
+        setProperScreenBrightness()
+        if mainPickerContainerView.isHidden, -1 == currentlyEditingAlarmIndex { // We don't do this if we are in the appearance editor.
+            UIScreen.main.brightness = selectedBrightness    // Dim the screen.
         } else {
-            if 0 <= self.currentlyEditingAlarmIndex, self.prefs.alarms.count > self.currentlyEditingAlarmIndex {
-                if self.alarmEditorMinimumHeight > UIScreen.main.bounds.size.height || self.alarmEditorMinimumHeight > UIScreen.main.bounds.size.width {
+            if 0 <= currentlyEditingAlarmIndex, prefs.alarms.count > currentlyEditingAlarmIndex {
+                if alarmEditorMinimumHeight > UIScreen.main.bounds.size.height || alarmEditorMinimumHeight > UIScreen.main.bounds.size.width {
                     TheBestClockAppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
                 }
             }
@@ -823,10 +823,10 @@ extension MainScreenViewController {
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.fontSizeCache = 0
-        self.startTicker()
-        self.updateMainTime()
-        self.setProperScreenBrightness()
+        fontSizeCache = 0
+        startTicker()
+        updateMainTime()
+        setProperScreenBrightness()
     }
     
     /* ################################################################## */
@@ -834,7 +834,7 @@ extension MainScreenViewController {
      When the view will disappear, we stop the caffiene drip, and the timer.
      */
     override func viewWillDisappear(_ animated: Bool) {
-        self.stopTicker()
+        stopTicker()
         super.viewWillDisappear(animated)
     }
     
@@ -844,9 +844,9 @@ extension MainScreenViewController {
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? TheBestClockAboutScreenViewController {
-            destination.view.backgroundColor = self.view.backgroundColor
-            destination.baseColor = self.selectedColor
-            destination.baseFont = UIFont(name: self.selectedFontName, size: 30)
+            destination.view.backgroundColor = view.backgroundColor
+            destination.baseColor = selectedColor
+            destination.baseFont = UIFont(name: selectedFontName, size: 30)
         }
     }
     
@@ -859,12 +859,12 @@ extension MainScreenViewController {
      - parameter inAlarmIndex: 0-2. The index of the alarm to be edited.
      */
     func openAlarmEditor(_ inAlarmIndex: Int) {
-        if 0 <= inAlarmIndex, self.prefs.alarms.count > inAlarmIndex {
-            if -1 == self.currentlyEditingAlarmIndex {
-                self.currentlyEditingAlarmIndex = inAlarmIndex
-                self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive = true
-                self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.isActive = true
-                self.openAlarmEditorScreen()
+        if 0 <= inAlarmIndex, prefs.alarms.count > inAlarmIndex {
+            if -1 == currentlyEditingAlarmIndex {
+                currentlyEditingAlarmIndex = inAlarmIndex
+                prefs.alarms[currentlyEditingAlarmIndex].isActive = true
+                alarmButtons[currentlyEditingAlarmIndex].alarmRecord.isActive = true
+                openAlarmEditorScreen()
             }
         }
     }
