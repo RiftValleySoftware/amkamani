@@ -29,14 +29,14 @@ extension MainScreenViewController {
      - parameter forceReload: If true (default is false), then the entire music library will be reloaded, even if we already have it.
      */
     func loadMediaLibrary(displayWholeScreenThrobber inDisplayWholeScreenThrobber: Bool = false, forceReload inForceReload: Bool = false) {
-        if self.artists.isEmpty || inForceReload { // If we are already loaded up, we don't need to do this (unless forced).
-            self.isLoadin = false
-            self.editAlarmTimeDatePicker.isEnabled = false
-            self.alarmEditorActiveButton.isEnabled = false
-            self.alarmEditorVibrateButton.isEnabled = false
-            self.alarmEditorVibrateBeepSwitch.isEnabled = false
-            self.alarmEditorActiveSwitch.isEnabled = false
-            self.alarmEditSoundModeSelector.isEnabled = false
+        if artists.isEmpty || inForceReload { // If we are already loaded up, we don't need to do this (unless forced).
+            isLoadin = false
+            editAlarmTimeDatePicker.isEnabled = false
+            alarmEditorActiveButton.isEnabled = false
+            alarmEditorVibrateButton.isEnabled = false
+            alarmEditorVibrateBeepSwitch.isEnabled = false
+            alarmEditorActiveSwitch.isEnabled = false
+            alarmEditSoundModeSelector.isEnabled = false
             if inDisplayWholeScreenThrobber {
                 DispatchQueue.main.async {
                     self.showLargeLookupThrobber()
@@ -47,7 +47,7 @@ extension MainScreenViewController {
                 }
             }
             if .authorized == MPMediaLibrary.authorizationStatus() {    // Already authorized? Head on in!
-                self.loadUpOnMusic()
+                loadUpOnMusic()
             } else {    // May I see your ID, sir?
                 DispatchQueue.main.async {
                     MPMediaLibrary.requestAuthorization { [unowned self] status in
@@ -89,19 +89,19 @@ extension MainScreenViewController {
      This is called after the music has been loaded. It sets up the Alarm Editor.
      */
     func dunLoadin() {
-        self.isLoadin = false
-        self.editAlarmPickerView.reloadComponent(0)
-        self.songSelectionPickerView.reloadComponent(0)
-        self.selectSong()
-        self.showHideItems()
-        self.editAlarmTimeDatePicker.isEnabled = true
-        self.alarmEditorActiveButton.isEnabled = true
-        self.alarmEditorVibrateButton.isEnabled = true
-        self.alarmEditorVibrateBeepSwitch.isEnabled = true
-        self.alarmEditorActiveSwitch.isEnabled = true
-        self.alarmEditSoundModeSelector.isEnabled = true
-        self.hideLargeLookupThrobber()
-        self.hideLookupThrobber()
+        isLoadin = false
+        editAlarmPickerView.reloadComponent(0)
+        songSelectionPickerView.reloadComponent(0)
+        selectSong()
+        showHideItems()
+        editAlarmTimeDatePicker.isEnabled = true
+        alarmEditorActiveButton.isEnabled = true
+        alarmEditorVibrateButton.isEnabled = true
+        alarmEditorVibrateBeepSwitch.isEnabled = true
+        alarmEditorActiveSwitch.isEnabled = true
+        alarmEditSoundModeSelector.isEnabled = true
+        hideLargeLookupThrobber()
+        hideLookupThrobber()
     }
     
     /* ################################################################## */
@@ -112,8 +112,8 @@ extension MainScreenViewController {
      */
     func loadSongData(_ inSongs: [MPMediaItemCollection]) {
         var songList: [SongInfo] = []
-        self.songs = [:]
-        self.artists = []
+        songs = [:]
+        artists = []
         
         // We just read in every damn song we have, then we set up an "index" Dictionary that sorts by artist name, then each artist element has a list of songs.
         // We sort the artists and songs alphabetically. Primitive, but sufficient.
@@ -149,24 +149,24 @@ extension MainScreenViewController {
         
         // We just create a big fat, honkin' Dictionary of songs; sorted by the artist name for each song.
         for song in songList {
-            if nil == self.songs[song.artistName] {
-                self.songs[song.artistName] = []
+            if nil == songs[song.artistName] {
+                songs[song.artistName] = []
             }
-            self.songs[song.artistName]?.append(song)
+            songs[song.artistName]?.append(song)
         }
         
         // We create the index, and sort the songs and keys.
-        for artist in self.songs.keys {
-            if var sortedSongs = self.songs[artist] {
+        for artist in songs.keys {
+            if var sortedSongs = songs[artist] {
                 sortedSongs.sort(by: { a, b in
                     return a.songTitle < b.songTitle
                 })
-                self.songs[artist] = sortedSongs
+                songs[artist] = sortedSongs
             }
-            self.artists.append(artist)    // This will be our artist key array.
+            artists.append(artist)    // This will be our artist key array.
         }
         
-        self.artists.sort()
+        artists.sort()
     }
     
     /* ################################################################## */
@@ -176,43 +176,43 @@ extension MainScreenViewController {
      - parameter inAlarmIndex: This is the index of the alarm that we want to use to play the sound.
      */
     func playSound(_ inAlarmIndex: Int) {
-        if nil == self.audioPlayer {
+        if nil == audioPlayer {
             var soundUrl: URL!
             
             // We do a check here, to make sure that, if we are in music mode, we have authorization, and a valid URI. If not, we switch to sound mode.
             // The idea is that it's really important that the alarm go off; even if it is not the one chosen by the user.
             // Also, we can't have an authorization request pop up here. Something needs to happen.
             // We will accept an authorization AND either a valid saved URI OR a valid default URI. Otherwise, we switch over to sound mode, temporarily.
-            if .music == self.prefs.alarms[inAlarmIndex].selectedSoundMode
+            if .music == prefs.alarms[inAlarmIndex].selectedSoundMode
                 && (
                     .authorized != MPMediaLibrary.authorizationStatus()
                     || (
-                        nil == URL(string: self.prefs.alarms[inAlarmIndex].selectedSongURL.urlEncodedString ?? "") && nil == URL(string: self.findSongURL(artistIndex: 0, songIndex: 0).urlEncodedString ?? "")
+                        nil == URL(string: prefs.alarms[inAlarmIndex].selectedSongURL.urlEncodedString ?? "") && nil == URL(string: findSongURL(artistIndex: 0, songIndex: 0).urlEncodedString ?? "")
                     )
                 ) {
                 // We use the sound URI, without forcing the alarm to change its saved mode.
-                soundUrl = URL(string: self.soundSelection[self.prefs.alarms[inAlarmIndex].selectedSoundIndex].urlEncodedString ?? "")
+                soundUrl = URL(string: soundSelection[prefs.alarms[inAlarmIndex].selectedSoundIndex].urlEncodedString ?? "")
                 
                 if nil == soundUrl {    // One last fallback. The first sound in the list.
-                    soundUrl = URL(string: self.soundSelection[0].urlEncodedString ?? "")
+                    soundUrl = URL(string: soundSelection[0].urlEncodedString ?? "")
                 }
             }
             
             if nil == soundUrl {    // Assuming we didn't "fail over" to a sound.
                 // Standard sound. We're kinda screwed, if the sound URI is bad.
-                if .sounds == self.prefs.alarms[inAlarmIndex].selectedSoundMode, let soundUri = URL(string: self.soundSelection[self.prefs.alarms[inAlarmIndex].selectedSoundIndex].urlEncodedString ?? "") {
+                if .sounds == prefs.alarms[inAlarmIndex].selectedSoundMode, let soundUri = URL(string: soundSelection[prefs.alarms[inAlarmIndex].selectedSoundIndex].urlEncodedString ?? "") {
                     soundUrl = soundUri
                 // Music, and valid saved song URI
-                } else if .music == self.prefs.alarms[inAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let songURI = URL(string: self.prefs.alarms[inAlarmIndex].selectedSongURL.urlEncodedString ?? "") {
+                } else if .music == prefs.alarms[inAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let songURI = URL(string: prefs.alarms[inAlarmIndex].selectedSongURL.urlEncodedString ?? "") {
                     soundUrl = songURI
                 // Music, but the saved song URI is invalid, so we switch to the default one.
-                }  else if .music == self.prefs.alarms[inAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let defaultSongURI = URL(string: self.findSongURL(artistIndex: 0, songIndex: 0).urlEncodedString ?? "") {
+                }  else if .music == prefs.alarms[inAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let defaultSongURI = URL(string: findSongURL(artistIndex: 0, songIndex: 0).urlEncodedString ?? "") {
                     soundUrl = defaultSongURI
                 }
             }
             
             if nil != soundUrl {
-                self.playThisSound(soundUrl)
+                playThisSound(soundUrl)
             }
         }
     }
@@ -225,12 +225,12 @@ extension MainScreenViewController {
      */
     func playThisSound(_ inSoundURL: URL) {
         do {
-            if nil == self.audioPlayer {
+            if nil == audioPlayer {
                 try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) // This line ensures that the sound will play, even with the ringer off.
-                try self.audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
-                self.audioPlayer?.numberOfLoops = -1   // Repeat indefinitely
+                try audioPlayer = AVAudioPlayer(contentsOf: inSoundURL)
+                audioPlayer?.numberOfLoops = -1   // Repeat indefinitely
             }
-            self.audioPlayer?.play()
+            audioPlayer?.play()
         } catch {
             TheBestClockAppDelegate.reportError(heading: "ERROR_HEADER_MEDIA", text: "ERROR_TEXT_MEDIA_CANNOT_CREATE_AVPLAYER")
         }
@@ -241,7 +241,7 @@ extension MainScreenViewController {
      If the audio player is going, this pauses it. Nothing happens if no audio player is going.
      */
     func pauseAudioPlayer() {
-        self.audioPlayer?.pause()
+        audioPlayer?.pause()
         DispatchQueue.main.async {
             self.musicTestButton.isOn = true
         }
@@ -252,8 +252,8 @@ extension MainScreenViewController {
      This terminates the audio player. Nothing happens if no audio player is going.
      */
     func stopAudioPlayer() {
-        self.audioPlayer?.stop()
-        self.audioPlayer = nil
+        audioPlayer?.stop()
+        audioPlayer = nil
         DispatchQueue.main.async {
             self.musicTestButton.isOn = true
         }
@@ -266,26 +266,26 @@ extension MainScreenViewController {
      This opens the editor screen for a selected alarm.
      */
     func openAlarmEditorScreen() {
-        self.stopTicker()
-        self.impactFeedbackGenerator?.impactOccurred()
-        self.impactFeedbackGenerator?.prepare()
-        if 0 <= self.currentlyEditingAlarmIndex, self.prefs.alarms.count > self.currentlyEditingAlarmIndex {
-            if .music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode {   // We do this here, because it can take a little while for things to catch up, and we can get no throbber if we wait until just before we load the media.
-                self.showLookupThrobber()
+        stopTicker()
+        impactFeedbackGenerator?.impactOccurred()
+        impactFeedbackGenerator?.prepare()
+        if 0 <= currentlyEditingAlarmIndex, prefs.alarms.count > currentlyEditingAlarmIndex {
+            if .music == prefs.alarms[currentlyEditingAlarmIndex].selectedSoundMode {   // We do this here, because it can take a little while for things to catch up, and we can get no throbber if we wait until just before we load the media.
+                showLookupThrobber()
             }
             
-            if self.alarmEditorMinimumHeight > UIScreen.main.bounds.size.height || self.alarmEditorMinimumHeight > UIScreen.main.bounds.size.width {
+            if alarmEditorMinimumHeight > UIScreen.main.bounds.size.height || alarmEditorMinimumHeight > UIScreen.main.bounds.size.width {
                 TheBestClockAppDelegate.lockOrientation(.portrait, andRotateTo: .portrait)
             }
             
-            let currentAlarm = self.prefs.alarms[self.currentlyEditingAlarmIndex]
+            let currentAlarm = prefs.alarms[currentlyEditingAlarmIndex]
             
             currentAlarm.isActive = true
             currentAlarm.snoozing = false
-            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord = currentAlarm
-            self.alarmButtons[self.currentlyEditingAlarmIndex].fullBright = true
-            self.showOnlyThisAlarm(self.currentlyEditingAlarmIndex)
-            let time = self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.alarmTime
+            alarmButtons[currentlyEditingAlarmIndex].alarmRecord = currentAlarm
+            alarmButtons[currentlyEditingAlarmIndex].fullBright = true
+            showOnlyThisAlarm(currentlyEditingAlarmIndex)
+            let time = alarmButtons[currentlyEditingAlarmIndex].alarmRecord.alarmTime
             let hours = time / 100
             let minutes = time - (hours * 100)
             
@@ -295,63 +295,70 @@ extension MainScreenViewController {
             
             let userCalendar = Calendar.current
             if let pickerDate = userCalendar.date(from: dateComponents) {
-                self.editAlarmTimeDatePicker.setDate(pickerDate, animated: false)
+                editAlarmTimeDatePicker.setDate(pickerDate, animated: false)
             }
-            let flashColor = (0 != self.selectedColorIndex ? self.selectedColor : UIColor.white)
-            self.editAlarmScreenMaskView.backgroundColor = self.view.backgroundColor
+            let flashColor = (0 != selectedColorIndex ? selectedColor : UIColor.white)
+            editAlarmScreenMaskView.backgroundColor = view.backgroundColor
             let flashImage = UIImage(color: flashColor.withAlphaComponent(0.5))
-            self.dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .focused)
-            self.dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .selected)
-            self.dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .highlighted)
+            dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .focused)
+            dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .selected)
+            dismissAlarmEditorButton.setBackgroundImage(flashImage, for: .highlighted)
 
-            self.alarmDeactivatedLabel.textColor = self.selectedColor
-            self.musicLookupLabel.textColor = self.selectedColor
-            self.noMusicAvailableLabel.textColor = self.selectedColor
+            alarmDeactivatedLabel.textColor = selectedColor
+            musicLookupLabel.textColor = selectedColor
+            noMusicAvailableLabel.textColor = selectedColor
 
-            self.alarmEditorActiveSwitch.tintColor = self.selectedColor
-            self.alarmEditorActiveSwitch.onTintColor = self.selectedColor
-            self.alarmEditorActiveSwitch.thumbTintColor = self.selectedColor
-            self.alarmEditorActiveSwitch.isOn = self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.isActive
-            self.alarmEditorActiveButton.tintColor = self.selectedColor
-            if let label = self.alarmEditorActiveButton.titleLabel {
+            alarmEditorActiveSwitch.tintColor = selectedColor
+            alarmEditorActiveSwitch.onTintColor = selectedColor
+            alarmEditorActiveSwitch.thumbTintColor = selectedColor
+            alarmEditorActiveSwitch.isOn = alarmButtons[currentlyEditingAlarmIndex].alarmRecord.isActive
+            alarmEditorActiveButton.tintColor = selectedColor
+            if let label = alarmEditorActiveButton.titleLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.baselineAdjustment = .alignCenters
             }
 
-            self.alarmEditorVibrateBeepSwitch.tintColor = self.selectedColor
-            self.alarmEditorVibrateBeepSwitch.thumbTintColor = self.selectedColor
-            self.alarmEditorVibrateBeepSwitch.onTintColor = self.selectedColor
-            self.alarmEditorVibrateButton.tintColor = self.selectedColor
-            self.alarmEditorVibrateBeepSwitch.isOn = self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.isVibrateOn
-            if let label = self.alarmEditorVibrateButton.titleLabel {
+            alarmEditorVibrateBeepSwitch.tintColor = selectedColor
+            alarmEditorVibrateBeepSwitch.thumbTintColor = selectedColor
+            alarmEditorVibrateBeepSwitch.onTintColor = selectedColor
+            alarmEditorVibrateButton.tintColor = selectedColor
+            alarmEditorVibrateBeepSwitch.isOn = alarmButtons[currentlyEditingAlarmIndex].alarmRecord.isVibrateOn
+            if let label = alarmEditorVibrateButton.titleLabel {
                 label.adjustsFontSizeToFitWidth = true
                 label.baselineAdjustment = .alignCenters
             }
             
-            self.musicTestButton.tintColor = self.selectedColor
-            self.musicTestButton.isOn = true
-            self.editAlarmTestSoundButton.tintColor = self.selectedColor
-            self.editAlarmTestSoundButton.isOn = true
+            musicTestButton.tintColor = selectedColor
+            musicTestButton.isOn = true
+            editAlarmTestSoundButton.tintColor = selectedColor
+            editAlarmTestSoundButton.isOn = true
 
-            self.alarmEditSoundModeSelector.tintColor = self.selectedColor
-            self.alarmEditSoundModeSelector.setEnabled(.denied != MPMediaLibrary.authorizationStatus(), forSegmentAt: 1)
-            if !self.alarmEditSoundModeSelector.isEnabledForSegment(at: 1) && .music == self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode {
-                self.alarmEditSoundModeSelector.selectedSegmentIndex = TheBestClockAlarmSetting.AlarmPrefsMode.silence.rawValue
+            alarmEditSoundModeSelector.tintColor = selectedColor
+            alarmEditSoundModeSelector.setEnabled(.denied != MPMediaLibrary.authorizationStatus(), forSegmentAt: 1)
+            if !alarmEditSoundModeSelector.isEnabledForSegment(at: 1) && .music == alarmButtons[currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode {
+                alarmEditSoundModeSelector.selectedSegmentIndex = TheBestClockAlarmSetting.AlarmPrefsMode.silence.rawValue
             } else {
-                self.alarmEditSoundModeSelector.selectedSegmentIndex = self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode.rawValue
-            }
-
-            self.editAlarmPickerView.reloadComponent(0)
-            if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-                self.editAlarmPickerView.selectRow(self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSoundIndex, inComponent: 0, animated: false)
-            } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-                self.editAlarmPickerView.selectRow(0, inComponent: 0, animated: false)
+                alarmEditSoundModeSelector.selectedSegmentIndex = alarmButtons[currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode.rawValue
             }
             
-            self.showHideItems()
-            self.editAlarmScreenContainer.isHidden = false
-            self.editAlarmTimeDatePicker.setValue(self.selectedColor, forKey: "textColor")
-            self.setupAlarmEditPickers()
+            if #available(iOS 13.0, *) {
+                alarmEditSoundModeSelector.selectedSegmentTintColor = selectedColor
+                alarmEditSoundModeSelector.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+                alarmEditSoundModeSelector.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.lightGray], for: .disabled)
+                alarmEditSoundModeSelector.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: selectedColor], for: .normal)
+            }
+
+            editAlarmPickerView.reloadComponent(0)
+            if 0 == alarmEditSoundModeSelector.selectedSegmentIndex {
+                editAlarmPickerView.selectRow(alarmButtons[currentlyEditingAlarmIndex].alarmRecord.selectedSoundIndex, inComponent: 0, animated: false)
+            } else if 1 == alarmEditSoundModeSelector.selectedSegmentIndex {
+                editAlarmPickerView.selectRow(0, inComponent: 0, animated: false)
+            }
+            
+            showHideItems()
+            editAlarmScreenContainer.isHidden = false
+            editAlarmTimeDatePicker.setValue(selectedColor, forKey: "textColor")
+            setupAlarmEditPickers()
             // This nasty little hack, is because it is possible to get the alarm to display as inactive when it is, in fact, active.
             Timer.scheduledTimer(withTimeInterval: 0.125, repeats: false) { [unowned self] _ in
                 DispatchQueue.main.async {
@@ -363,49 +370,55 @@ extension MainScreenViewController {
        }
         
         if #available(iOS 13.0, *) {
-            self.alarmEditSoundModeSelector.selectedSegmentTintColor = self.selectedColor
-            self.alarmEditSoundModeSelector.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: self.selectedColor], for: .normal)
-            if let color = self.view.backgroundColor {
-                self.alarmEditSoundModeSelector.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: color], for: .selected)
+            alarmEditSoundModeSelector.selectedSegmentTintColor = selectedColor
+            alarmEditSoundModeSelector.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: selectedColor], for: .normal)
+            if let color = view.backgroundColor {
+                alarmEditSoundModeSelector.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: color], for: .selected)
             }
         }
 
         // Need to do this because of the whacky way we are presenting the editor screen. The underneath controls can "bleed through."
-        self.mainNumberDisplayView.isAccessibilityElement = false
-        self.dateDisplayLabel.isAccessibilityElement = false
-        self.amPmLabel.isAccessibilityElement = false
-        self.leftBrightnessSlider.isAccessibilityElement = false
-        self.rightBrightnessSlider.isAccessibilityElement = false
+        mainNumberDisplayView.isAccessibilityElement = false
+        dateDisplayLabel.isAccessibilityElement = false
+        amPmLabel.isAccessibilityElement = false
+        leftBrightnessSlider.isAccessibilityElement = false
+        rightBrightnessSlider.isAccessibilityElement = false
     }
     
     /* ################################################################## */
     /**
      */
     func showHideItems() {
-        self.editPickerContainerView.isHidden = .silence == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || (.music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode && (self.songs.isEmpty || self.artists.isEmpty))
-        self.testSoundContainerView.isHidden = .sounds != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode
-        self.musicTestButtonView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
-        self.songSelectContainerView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || self.songs.isEmpty || self.artists.isEmpty
-        self.noMusicDisplayView.isHidden = .music != self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode || !(self.artists.isEmpty || self.songs.isEmpty)
-        self.alarmDeactivatedLabel.isHidden = !self.prefs.alarms[self.currentlyEditingAlarmIndex].deferred
-        self.alarmEditorVibrateButton.isHidden = "iPhone" != UIDevice.current.model   // Hide these on iPads, which don't do vibrate.
-        self.alarmEditorVibrateBeepSwitch.isHidden = "iPhone" != UIDevice.current.model
+        editPickerContainerView.isHidden = .silence == prefs.alarms[currentlyEditingAlarmIndex].selectedSoundMode || (.music == prefs.alarms[currentlyEditingAlarmIndex].selectedSoundMode && (songs.isEmpty || artists.isEmpty))
+        testSoundContainerView.isHidden = .sounds != prefs.alarms[currentlyEditingAlarmIndex].selectedSoundMode
+        musicTestButtonView.isHidden = .music != prefs.alarms[currentlyEditingAlarmIndex].selectedSoundMode || songs.isEmpty || artists.isEmpty
+        songSelectContainerView.isHidden = .music != prefs.alarms[currentlyEditingAlarmIndex].selectedSoundMode || songs.isEmpty || artists.isEmpty
+        noMusicDisplayView.isHidden = .music != prefs.alarms[currentlyEditingAlarmIndex].selectedSoundMode || !(artists.isEmpty || songs.isEmpty)
+        alarmDeactivatedLabel.isHidden = !prefs.alarms[currentlyEditingAlarmIndex].deferred
+        alarmEditorVibrateButton.isHidden = "iPhone" != UIDevice.current.model   // Hide these on iPads, which don't do vibrate.
+        alarmEditorVibrateBeepSwitch.isHidden = "iPhone" != UIDevice.current.model
+        #if targetEnvironment(macCatalyst)  // Catalyst won't allow us to access the music library. Boo!
+            self.alarmEditSoundModeSelector.setEnabled(false, forSegmentAt: 1)
+            var segmentIndex = self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode.rawValue
+            segmentIndex = segmentIndex == TheBestClockAlarmSetting.AlarmPrefsMode.music.rawValue ? TheBestClockAlarmSetting.AlarmPrefsMode.silence.rawValue : segmentIndex
+            self.alarmEditSoundModeSelector.selectedSegmentIndex = segmentIndex
+        #endif
     }
     
     /* ################################################################## */
     /**
      */
     func showLookupThrobber() {
-        self.musicLookupThrobber.color = self.selectedColor
-        self.musicLookupThrobberView.backgroundColor = self.backgroundColor
-        self.musicLookupThrobberView.isHidden = false
+        musicLookupThrobber.color = selectedColor
+        musicLookupThrobberView.backgroundColor = backgroundColor
+        musicLookupThrobberView.isHidden = false
     }
     
     /* ################################################################## */
     /**
      */
     func hideLookupThrobber() {
-        self.musicLookupThrobberView.isHidden = true
+        musicLookupThrobberView.isHidden = true
     }
     
     /* ################################################################## */
@@ -414,6 +427,7 @@ extension MainScreenViewController {
     func selectSong() {
         DispatchQueue.main.async {
             if -1 < self.currentlyEditingAlarmIndex, 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
+                var segmentIndex = self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode.rawValue
                 if .authorized == MPMediaLibrary.authorizationStatus() {
                     self.alarmEditSoundModeSelector.setEnabled(true, forSegmentAt: 1)
                     self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode = .music
@@ -423,13 +437,13 @@ extension MainScreenViewController {
                     self.songSelectionPickerView.selectRow(indexes.songIndex, inComponent: 0, animated: true)
                     self.pickerView(self.songSelectionPickerView, didSelectRow: self.songSelectionPickerView.selectedRow(inComponent: 0), inComponent: 0)
                 } else {
-                    self.alarmEditSoundModeSelector.setEnabled(.denied != MPMediaLibrary.authorizationStatus(), forSegmentAt: 1)
-                    if !self.alarmEditSoundModeSelector.isEnabledForSegment(at: 1) && .music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode {
-                        self.alarmEditSoundModeSelector.selectedSegmentIndex = TheBestClockAlarmSetting.AlarmPrefsMode.silence.rawValue
-                    } else {
-                        self.alarmEditSoundModeSelector.selectedSegmentIndex = self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode.rawValue
-                    }
+                        self.alarmEditSoundModeSelector.setEnabled(.denied != MPMediaLibrary.authorizationStatus(), forSegmentAt: 1)
+                        if  !self.alarmEditSoundModeSelector.isEnabledForSegment(at: 1),
+                            .music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode {
+                            segmentIndex = TheBestClockAlarmSetting.AlarmPrefsMode.silence.rawValue
+                        }
                 }
+                self.alarmEditSoundModeSelector.selectedSegmentIndex = segmentIndex
             }
         }
     }
@@ -438,7 +452,7 @@ extension MainScreenViewController {
     /**
      */
     func showOnlyThisAlarm(_ inIndex: Int) {
-        for alarm in self.alarmButtons where alarm.index != inIndex {
+        for alarm in alarmButtons where alarm.index != inIndex {
             alarm.isUserInteractionEnabled = false
             alarm.isHidden = true
         }
@@ -448,14 +462,14 @@ extension MainScreenViewController {
     /**
      */
     func refreshAlarm(_ inIndex: Int) {
-        self.alarmButtons[inIndex].setNeedsDisplay()
+        alarmButtons[inIndex].setNeedsDisplay()
     }
     
     /* ################################################################## */
     /**
      */
     func showAllAlarms() {
-        self.alarmButtons.forEach {
+        alarmButtons.forEach {
             $0.isUserInteractionEnabled = true
             $0.isHidden = false
         }
@@ -465,11 +479,11 @@ extension MainScreenViewController {
     /**
      */
     func findSongInfo(_ inURL: String = "") -> (artistIndex: Int, songIndex: Int) {
-        for artistInfo in self.songs {
+        for artistInfo in songs {
             var songIndex: Int = 0
             for song in artistInfo.value {
                 if inURL == song.resourceURI {
-                    if let artistIndex = self.artists.firstIndex(of: song.artistName) {
+                    if let artistIndex = artists.firstIndex(of: song.artistName) {
                         return (artistIndex: Int(artistIndex), songIndex: songIndex)
                     }
                 }
@@ -486,9 +500,9 @@ extension MainScreenViewController {
     func findSongURL(artistIndex: Int, songIndex: Int) -> String {
         var ret = ""
         
-        if !self.artists.isEmpty, !self.songs.isEmpty {
-            let artistName = self.artists[artistIndex]
-            if let songInfo = self.songs[artistName], 0 <= songIndex, songIndex < songInfo.count {
+        if !artists.isEmpty, !songs.isEmpty {
+            let artistName = artists[artistIndex]
+            if let songInfo = songs[artistName], 0 <= songIndex, songIndex < songInfo.count {
                 ret = songInfo[songIndex].resourceURI
             }
         }
@@ -500,8 +514,8 @@ extension MainScreenViewController {
     /**
      */
     func setupAlarmEditPickers() {
-        if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-            self.loadMediaLibrary()
+        if 1 == alarmEditSoundModeSelector.selectedSegmentIndex {
+            loadMediaLibrary()
         } else {
             DispatchQueue.main.async {
                 if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
@@ -516,73 +530,73 @@ extension MainScreenViewController {
     /**
      */
     @IBAction func soundModeChanged(_ sender: UISegmentedControl) {
-        self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
-        self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: self.alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
-        self.showHideItems()
-        if .music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode {   // We do this here, because it can take a little while for things to catch up, and we can get no throbber if we wait until just before we load the media.
-            self.showLookupThrobber()
+        prefs.alarms[currentlyEditingAlarmIndex].selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
+        alarmButtons[currentlyEditingAlarmIndex].alarmRecord.selectedSoundMode = TheBestClockAlarmSetting.AlarmPrefsMode(rawValue: alarmEditSoundModeSelector.selectedSegmentIndex) ?? .silence
+        showHideItems()
+        if .music == prefs.alarms[currentlyEditingAlarmIndex].selectedSoundMode {   // We do this here, because it can take a little while for things to catch up, and we can get no throbber if we wait until just before we load the media.
+            showLookupThrobber()
         }
-        self.stopAudioPlayer()
-        self.setupAlarmEditPickers()
+        stopAudioPlayer()
+        setupAlarmEditPickers()
     }
     
     /* ################################################################## */
     /**
      */
     @IBAction func activeSwitchChanged(_ inSwitch: UISwitch) {
-        let wasInactive = !self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive
-        self.prefs.alarms[self.currentlyEditingAlarmIndex].isActive = inSwitch.isOn
-        self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.isActive = inSwitch.isOn
+        let wasInactive = !prefs.alarms[currentlyEditingAlarmIndex].isActive
+        prefs.alarms[currentlyEditingAlarmIndex].isActive = inSwitch.isOn
+        alarmButtons[currentlyEditingAlarmIndex].alarmRecord.isActive = inSwitch.isOn
         if wasInactive && inSwitch.isOn {   // This allows us to reset the state by turning the alarm off and then on again. Just like The IT Crowd.
             // We toggle the deactivated state, so the user can set the alarm to go off later, in case it isn't set to do that.
-            self.prefs.alarms[self.currentlyEditingAlarmIndex].deferred = !self.prefs.alarms[self.currentlyEditingAlarmIndex].deferred
-            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.deferred = self.prefs.alarms[self.currentlyEditingAlarmIndex].deferred  // We reset the deactivated state
+            prefs.alarms[currentlyEditingAlarmIndex].deferred = !prefs.alarms[currentlyEditingAlarmIndex].deferred
+            alarmButtons[currentlyEditingAlarmIndex].alarmRecord.deferred = prefs.alarms[currentlyEditingAlarmIndex].deferred  // We reset the deactivated state
         }
-        self.showHideItems()
-        self.refreshAlarm(self.currentlyEditingAlarmIndex)
+        showHideItems()
+        refreshAlarm(currentlyEditingAlarmIndex)
     }
     
     /* ################################################################## */
     /**
      */
     @IBAction func activeButtonHit(_ sender: Any) {
-        self.alarmEditorActiveSwitch.setOn(!self.alarmEditorActiveSwitch.isOn, animated: true)
-        self.alarmEditorActiveSwitch.sendActions(for: .valueChanged)
-        self.refreshAlarm(self.currentlyEditingAlarmIndex)
+        alarmEditorActiveSwitch.setOn(!alarmEditorActiveSwitch.isOn, animated: true)
+        alarmEditorActiveSwitch.sendActions(for: .valueChanged)
+        refreshAlarm(currentlyEditingAlarmIndex)
     }
     
     /* ################################################################## */
     /**
      */
     @IBAction func vibrateSwitchChanged(_ inSwitch: UISwitch) {
-        self.prefs.alarms[self.currentlyEditingAlarmIndex].isVibrateOn = inSwitch.isOn
-        self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.isVibrateOn = inSwitch.isOn
+        prefs.alarms[currentlyEditingAlarmIndex].isVibrateOn = inSwitch.isOn
+        alarmButtons[currentlyEditingAlarmIndex].alarmRecord.isVibrateOn = inSwitch.isOn
     }
     
     /* ################################################################## */
     /**
      */
     @IBAction func vibrateButtonHit(_ sender: Any) {
-        self.alarmEditorVibrateBeepSwitch.setOn(!self.alarmEditorVibrateBeepSwitch.isOn, animated: true)
-        self.alarmEditorVibrateBeepSwitch.sendActions(for: .valueChanged)
+        alarmEditorVibrateBeepSwitch.setOn(!alarmEditorVibrateBeepSwitch.isOn, animated: true)
+        alarmEditorVibrateBeepSwitch.sendActions(for: .valueChanged)
     }
     
     /* ################################################################## */
     /**
      */
     @IBAction func testSoundButtonHit(_ inSender: TheBestClockSpeakerButton) {
-        if !inSender.isOn, (nil == self.audioPlayer || !(audioPlayer?.isPlaying ?? false)) {
-            let soundIndex = self.editAlarmPickerView.selectedRow(inComponent: 0)
-            if let soundURLString = self.soundSelection[soundIndex].urlEncodedString, let soundUrl = URL(string: soundURLString) {
-                if self.alarmEditorVibrateBeepSwitch.isOn {
+        if !inSender.isOn, (nil == audioPlayer || !(audioPlayer?.isPlaying ?? false)) {
+            let soundIndex = editAlarmPickerView.selectedRow(inComponent: 0)
+            if let soundURLString = soundSelection[soundIndex].urlEncodedString, let soundUrl = URL(string: soundURLString) {
+                if alarmEditorVibrateBeepSwitch.isOn {
                     AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
                 }
-                self.playThisSound(soundUrl)
+                playThisSound(soundUrl)
             }
         } else if audioPlayer?.isPlaying ?? false {
-            self.pauseAudioPlayer()
+            pauseAudioPlayer()
         } else {
-            self.stopAudioPlayer()
+            stopAudioPlayer()
         }
     }
     
@@ -590,23 +604,23 @@ extension MainScreenViewController {
     /**
      */
     @IBAction func testSongButtonHit(_ inSender: TheBestClockSpeakerButton) {
-        if !inSender.isOn, (nil == self.audioPlayer || !(audioPlayer?.isPlaying ?? false)) {
+        if !inSender.isOn, (nil == audioPlayer || !(audioPlayer?.isPlaying ?? false)) {
             var soundUrl: URL!
             
-            if .music == self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let songURI = URL(string: self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSongURL) {
+            if .music == prefs.alarms[currentlyEditingAlarmIndex].selectedSoundMode, .authorized == MPMediaLibrary.authorizationStatus(), let songURI = URL(string: prefs.alarms[currentlyEditingAlarmIndex].selectedSongURL) {
                 soundUrl = songURI
             }
             
             if nil != soundUrl {
-                if self.alarmEditorVibrateBeepSwitch.isOn {
+                if alarmEditorVibrateBeepSwitch.isOn {
                     AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
                 }
-                self.playThisSound(soundUrl)
+                playThisSound(soundUrl)
             }
         } else if audioPlayer?.isPlaying ?? false {
-            self.pauseAudioPlayer()
+            pauseAudioPlayer()
         } else {
-            self.stopAudioPlayer()
+            stopAudioPlayer()
         }
     }
     
@@ -614,7 +628,7 @@ extension MainScreenViewController {
     /**
      */
     @IBAction func alarmTimeDatePickerChanged(_ inDatePicker: UIDatePicker) {
-        if 0 <= self.currentlyEditingAlarmIndex, self.prefs.alarms.count > self.currentlyEditingAlarmIndex {
+        if 0 <= currentlyEditingAlarmIndex, prefs.alarms.count > currentlyEditingAlarmIndex {
             let date = inDatePicker.date
             
             let calendar = Calendar.current
@@ -624,12 +638,12 @@ extension MainScreenViewController {
             
             let time = hour * 100 + minutes
 
-            self.prefs.alarms[self.currentlyEditingAlarmIndex].alarmTime = time
-            self.prefs.alarms[self.currentlyEditingAlarmIndex].clearState()
-            self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord = self.prefs.alarms[self.currentlyEditingAlarmIndex]
+            prefs.alarms[currentlyEditingAlarmIndex].alarmTime = time
+            prefs.alarms[currentlyEditingAlarmIndex].clearState()
+            alarmButtons[currentlyEditingAlarmIndex].alarmRecord = prefs.alarms[currentlyEditingAlarmIndex]
             
-            self.alarmDeactivatedLabel.isHidden = true
-            self.refreshAlarm(self.currentlyEditingAlarmIndex)
+            alarmDeactivatedLabel.isHidden = true
+            refreshAlarm(currentlyEditingAlarmIndex)
         }
     }
     
@@ -638,26 +652,26 @@ extension MainScreenViewController {
      This closes the alarm editor screen, making sure that everything is put back where it belongs.
      */
     @IBAction func closeAlarmEditorScreen(_ sender: Any! = nil) {
-        self.impactFeedbackGenerator?.impactOccurred()
-        self.impactFeedbackGenerator?.prepare()
+        impactFeedbackGenerator?.impactOccurred()
+        impactFeedbackGenerator?.prepare()
         TheBestClockAppDelegate.lockOrientation(.all)
-        if 0 <= self.currentlyEditingAlarmIndex, self.alarmButtons.count > self.currentlyEditingAlarmIndex {
-            self.alarmButtons[self.currentlyEditingAlarmIndex].fullBright = false
+        if 0 <= currentlyEditingAlarmIndex, alarmButtons.count > currentlyEditingAlarmIndex {
+            alarmButtons[currentlyEditingAlarmIndex].fullBright = false
         }
-        self.stopAudioPlayer()
-        self.prefs.savePrefs() // We commit the changes we made, here.
-        self.currentlyEditingAlarmIndex = -1
-        self.editAlarmScreenContainer.isHidden = true
-        self.showAllAlarms()
-        self.snoozeCount = 0
-        self.alarmSounded = false
+        stopAudioPlayer()
+        prefs.savePrefs() // We commit the changes we made, here.
+        currentlyEditingAlarmIndex = -1
+        editAlarmScreenContainer.isHidden = true
+        showAllAlarms()
+        snoozeCount = 0
+        alarmSounded = false
 
-        self.mainNumberDisplayView.isAccessibilityElement = true
-        self.dateDisplayLabel.isAccessibilityElement = true
-        self.amPmLabel.isAccessibilityElement = true
-        self.leftBrightnessSlider.isAccessibilityElement = true
-        self.rightBrightnessSlider.isAccessibilityElement = true
+        mainNumberDisplayView.isAccessibilityElement = true
+        dateDisplayLabel.isAccessibilityElement = true
+        amPmLabel.isAccessibilityElement = true
+        leftBrightnessSlider.isAccessibilityElement = true
+        rightBrightnessSlider.isAccessibilityElement = true
 
-        self.startTicker()
+        startTicker()
     }
 }

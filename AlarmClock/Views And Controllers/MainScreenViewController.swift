@@ -305,7 +305,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      - returns the selected color.
      */
     var selectedColor: UIColor {
-        return self.colorSelection[self.selectedColorIndex]
+        return colorSelection[selectedColorIndex]
     }
     
     /* ################################################################## */
@@ -313,7 +313,7 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      - returns the selected font name.
      */
     var selectedFontName: String {
-        return self.fontSelection[self.selectedFontIndex]
+        return fontSelection[selectedFontIndex]
     }
     
     /* ################################################################## */
@@ -337,19 +337,19 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      - parameter inPickerView: The UIPickerView being queried.
      */
     func pickerView(_ inPickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if self.colorDisplayPickerView == inPickerView {
-            return self.colorSelection.count
-        } else if self.fontDisplayPickerView == inPickerView {
-            return self.fontSelection.count
-        } else if self.editAlarmPickerView == inPickerView {
-            if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-                return self.soundSelection.count
-            } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-                return self.artists.count
+        if colorDisplayPickerView == inPickerView {
+            return colorSelection.count
+        } else if fontDisplayPickerView == inPickerView {
+            return fontSelection.count
+        } else if editAlarmPickerView == inPickerView {
+            if 0 == alarmEditSoundModeSelector.selectedSegmentIndex {
+                return soundSelection.count
+            } else if 1 == alarmEditSoundModeSelector.selectedSegmentIndex {
+                return artists.count
             }
-        } else if !self.artists.isEmpty, !self.songs.isEmpty, 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex, self.songSelectionPickerView == inPickerView {
-            let artistName = self.artists[self.editAlarmPickerView.selectedRow(inComponent: 0)]
-            if let songList = self.songs[artistName] {
+        } else if !artists.isEmpty, !songs.isEmpty, 1 == alarmEditSoundModeSelector.selectedSegmentIndex, songSelectionPickerView == inPickerView {
+            let artistName = artists[editAlarmPickerView.selectedRow(inComponent: 0)]
+            if let songList = songs[artistName] {
                 return songList.count
             }
         }
@@ -363,11 +363,11 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      - parameter inPickerView: The UIPickerView being queried.
      */
     func pickerView(_ inPickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        if self.colorDisplayPickerView == inPickerView {
+        if colorDisplayPickerView == inPickerView {
             return 80
-        } else if self.fontDisplayPickerView == inPickerView {
+        } else if fontDisplayPickerView == inPickerView {
             return inPickerView.bounds.size.height * 0.4
-        } else if self.editAlarmPickerView == inPickerView || self.songSelectionPickerView == inPickerView {
+        } else if editAlarmPickerView == inPickerView || songSelectionPickerView == inPickerView {
             return 40
         }
         return 0
@@ -380,48 +380,48 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      - parameter inPickerView: The UIPickerView being queried.
      */
     func pickerView(_ inPickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing inView: UIView?) -> UIView {
-        let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: inPickerView.bounds.size.width, height: self.pickerView(inPickerView, rowHeightForComponent: component)))
+        let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: inPickerView.bounds.size.width, height: pickerView(inPickerView, rowHeightForComponent: component)))
         var ret = inView ?? UIView(frame: frame)    // See if we can reuse an old view.
         if nil == inView {
             // Color picker is simple color squares.
-            if self.colorDisplayPickerView == inPickerView {
+            if colorDisplayPickerView == inPickerView {
                 let insetView = UIView(frame: frame.insetBy(dx: inPickerView.bounds.size.width * 0.01, dy: inPickerView.bounds.size.width * 0.01))
-                insetView.backgroundColor = self.colorSelection[row]
+                insetView.backgroundColor = colorSelection[row]
                 ret.addSubview(insetView)
-            } else if self.fontDisplayPickerView == inPickerView {    // We send generated times for the font selector.
-                let frame = CGRect(x: 0, y: 0, width: inPickerView.bounds.size.width, height: self.pickerView(inPickerView, rowHeightForComponent: component))
+            } else if fontDisplayPickerView == inPickerView {    // We send generated times for the font selector.
+                let frame = CGRect(x: 0, y: 0, width: inPickerView.bounds.size.width, height: pickerView(inPickerView, rowHeightForComponent: component))
                 let reusingView = nil != inView ? inView!: UIView(frame: frame)
-                self.fontSizeCache = self.pickerView(inPickerView, rowHeightForComponent: 0)
-                ret = self.createDisplayView(reusingView, index: row)
-            } else if self.editAlarmPickerView == inPickerView {
+                fontSizeCache = pickerView(inPickerView, rowHeightForComponent: 0)
+                ret = createDisplayView(reusingView, index: row)
+            } else if editAlarmPickerView == inPickerView {
                 let label = UILabel(frame: frame)
-                label.font = UIFont.systemFont(ofSize: self.alarmEditorSoundPickerFontSize)
+                label.font = UIFont.systemFont(ofSize: alarmEditorSoundPickerFontSize)
                 label.adjustsFontSizeToFitWidth = true
                 label.textAlignment = .center
-                label.textColor = self.selectedColor
+                label.textColor = selectedColor
                 label.backgroundColor = UIColor.clear
                 var text = ""
                 
-                if 0 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-                    let pathString = URL(fileURLWithPath: self.soundSelection[row]).lastPathComponent
+                if 0 == alarmEditSoundModeSelector.selectedSegmentIndex {
+                    let pathString = URL(fileURLWithPath: soundSelection[row]).lastPathComponent
                     text = pathString.localizedVariant
-                } else if 1 == self.alarmEditSoundModeSelector.selectedSegmentIndex {
-                    text = self.artists[row]
+                } else if 1 == alarmEditSoundModeSelector.selectedSegmentIndex {
+                    text = artists[row]
                 }
                 
                 label.text = text
                 
                 ret.addSubview(label)
-            } else if self.songSelectionPickerView == inPickerView {
-                let artistName = self.artists[self.editAlarmPickerView.selectedRow(inComponent: 0)]
-                if let songs = self.songs[artistName] {
+            } else if songSelectionPickerView == inPickerView {
+                let artistName = artists[editAlarmPickerView.selectedRow(inComponent: 0)]
+                if let songs = songs[artistName] {
                     let selectedRow = max(0, min(songs.count - 1, row))
                     let song = songs[selectedRow]
                     let label = UILabel(frame: frame)
-                    label.font = UIFont.systemFont(ofSize: self.alarmEditorSoundPickerFontSize)
+                    label.font = UIFont.systemFont(ofSize: alarmEditorSoundPickerFontSize)
                     label.adjustsFontSizeToFitWidth = true
                     label.textAlignment = .center
-                    label.textColor = self.selectedColor
+                    label.textColor = selectedColor
                     label.backgroundColor = UIColor.clear
                     label.text = song.songTitle
                     ret.addSubview(label)
@@ -440,36 +440,36 @@ class MainScreenViewController: UIViewController, UIPickerViewDelegate, UIPicker
      - parameter inPickerView: The UIPickerView being queried.
      */
     func pickerView(_ inPickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if self.colorDisplayPickerView == inPickerView {
-            self.selectedColorIndex = row
-            self.prefs?.selectedColor = self.selectedColorIndex
-            self.setInfoButtonColor()
-            self.fontDisplayPickerView.reloadComponent(0)
-        } else if self.fontDisplayPickerView == inPickerView {
-            self.selectedFontIndex = row
-            self.prefs?.selectedFont = self.selectedFontIndex
-        } else if self.editAlarmPickerView == inPickerView, 0 <= self.currentlyEditingAlarmIndex {
-            self.stopAudioPlayer()
-            self.editAlarmTestSoundButton.isOn = true
-            let currentAlarm = self.prefs.alarms[self.currentlyEditingAlarmIndex]
+        if colorDisplayPickerView == inPickerView {
+            selectedColorIndex = row
+            prefs?.selectedColor = selectedColorIndex
+            setInfoButtonColor()
+            fontDisplayPickerView.reloadComponent(0)
+        } else if fontDisplayPickerView == inPickerView {
+            selectedFontIndex = row
+            prefs?.selectedFont = selectedFontIndex
+        } else if editAlarmPickerView == inPickerView, 0 <= currentlyEditingAlarmIndex {
+            stopAudioPlayer()
+            editAlarmTestSoundButton.isOn = true
+            let currentAlarm = prefs.alarms[currentlyEditingAlarmIndex]
             if .sounds == currentAlarm.selectedSoundMode {
                 currentAlarm.selectedSoundIndex = row
-                self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSoundIndex = row
+                alarmButtons[currentlyEditingAlarmIndex].alarmRecord.selectedSoundIndex = row
             } else {
-                self.songSelectionPickerView.reloadComponent(0)
-                self.songSelectionPickerView.selectRow(0, inComponent: 0, animated: true)
-                let songURL = self.findSongURL(artistIndex: self.editAlarmPickerView.selectedRow(inComponent: 0), songIndex: 0)
-                if !songURL.isEmpty, 0 <= self.currentlyEditingAlarmIndex {
-                    self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSongURL = songURL
-                    self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSongURL = songURL
+                songSelectionPickerView.reloadComponent(0)
+                songSelectionPickerView.selectRow(0, inComponent: 0, animated: true)
+                let songURL = findSongURL(artistIndex: editAlarmPickerView.selectedRow(inComponent: 0), songIndex: 0)
+                if !songURL.isEmpty, 0 <= currentlyEditingAlarmIndex {
+                    prefs.alarms[currentlyEditingAlarmIndex].selectedSongURL = songURL
+                    alarmButtons[currentlyEditingAlarmIndex].alarmRecord.selectedSongURL = songURL
                 }
             }
-        } else if self.songSelectionPickerView == inPickerView {
-            self.stopAudioPlayer()
-            let songURL = self.findSongURL(artistIndex: self.editAlarmPickerView.selectedRow(inComponent: 0), songIndex: row)
-            if !songURL.isEmpty, 0 <= self.currentlyEditingAlarmIndex {
-                self.prefs.alarms[self.currentlyEditingAlarmIndex].selectedSongURL = songURL
-                self.alarmButtons[self.currentlyEditingAlarmIndex].alarmRecord.selectedSongURL = songURL
+        } else if songSelectionPickerView == inPickerView {
+            stopAudioPlayer()
+            let songURL = findSongURL(artistIndex: editAlarmPickerView.selectedRow(inComponent: 0), songIndex: row)
+            if !songURL.isEmpty, 0 <= currentlyEditingAlarmIndex {
+                prefs.alarms[currentlyEditingAlarmIndex].selectedSongURL = songURL
+                alarmButtons[currentlyEditingAlarmIndex].alarmRecord.selectedSongURL = songURL
             }
         }
     }
