@@ -98,9 +98,6 @@
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/String.html">String</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/UIColor.html">UIColor</a>
               </li>
               <li class="nav-group-task">
@@ -124,7 +121,7 @@
       <article class="main-content">
 
         <section class="section">
-          <div class="section-content">
+          <div class="section-content top-matter">
             <h1>TheBestClockAlarmSetting</h1>
               <div class="declaration">
                 <div class="language">
@@ -203,9 +200,11 @@
               <div class="task-name-container">
                 <a name="/Instance%20Internal%20Constant%20Properties"></a>
                 <a name="//apple_ref/swift/Section/Instance Internal Constant Properties" class="dashAnchor"></a>
-                <a href="#/Instance%20Internal%20Constant%20Properties">
-                  <h3 class="section-name">Instance Internal Constant Properties</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Internal%20Constant%20Properties"></a>
+                  <h3 class="section-name"><p>Instance Internal Constant Properties</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -268,9 +267,11 @@
               <div class="task-name-container">
                 <a name="/Instance%20Stored%20Properties"></a>
                 <a name="//apple_ref/swift/Section/Instance Stored Properties" class="dashAnchor"></a>
-                <a href="#/Instance%20Stored%20Properties">
-                  <h3 class="section-name">Instance Stored Properties</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Stored%20Properties"></a>
+                  <h3 class="section-name"><p>Instance Stored Properties</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -347,7 +348,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">selectedSoundMode</span><span class="p">:</span> <span class="kt">TheBestClockAlarmSetting</span><span class="o">.</span><span class="kt"><a href="../Classes/TheBestClockAlarmSetting/AlarmPrefsMode.html">AlarmPrefsMode</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">selectedSoundMode</span><span class="p">:</span> <span class="kt"><a href="../Classes/TheBestClockAlarmSetting/AlarmPrefsMode.html">AlarmPrefsMode</a></span></code></pre>
 
                         </div>
                       </div>
@@ -448,7 +449,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>EPHEMERAL: The time a <q>snooze</q> started.</p>
+                        <p>EPHEMERAL: The time a &ldquo;snooze&rdquo; started.</p>
 
                       </div>
                       <div class="declaration">
@@ -502,7 +503,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>EPHEMERAL: The time to be used as the start of the alarm range. This can be <q>bumped.</q> If nil, then the set alarm time will be used to calculate the range.</p>
+                        <p>EPHEMERAL: The time to be used as the start of the alarm range. This can be &ldquo;bumped.&rdquo; If nil, then the set alarm time will be used to calculate the range.</p>
 
                       </div>
                       <div class="declaration">
@@ -522,9 +523,11 @@
               <div class="task-name-container">
                 <a name="/Instance%20Calculated%20Properties"></a>
                 <a name="//apple_ref/swift/Section/Instance Calculated Properties" class="dashAnchor"></a>
-                <a href="#/Instance%20Calculated%20Properties">
-                  <h3 class="section-name">Instance Calculated Properties</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Calculated%20Properties"></a>
+                  <h3 class="section-name"><p>Instance Calculated Properties</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -552,7 +555,7 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>True, if the alarm is currently <q>snoozing.</q></p>
+                        <p>True, if the alarm is currently &ldquo;snoozing.&rdquo;</p>
                       </div>
                     </section>
                   </div>
@@ -570,7 +573,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This handles <q>deferring</q> an alarm. That prevents it from going off immediately when turned back on.</p>
+                        <p>This handles &ldquo;deferring&rdquo; an alarm. That prevents it from going off immediately when turned back on.</p>
 
 <p>Basic rule: It should ALWAYS be deferred when activating from the front panel, or when starting/bringing forward the app. It can be reset from the Alarm Editor Screen.</p>
 
@@ -585,7 +588,7 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>True, if the alarm has been <q>deferred,</q> and should not go off again.</p>
+                        <p>True, if the alarm has been &ldquo;deferred,&rdquo; and should not go off again.</p>
                       </div>
                     </section>
                   </div>
@@ -663,7 +666,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This just resets the three main <q>ephemeral</q> states.</p>
+                        <p>This just resets the three main &ldquo;ephemeral&rdquo; states.</p>
 
                       </div>
                       <div class="declaration">
@@ -792,7 +795,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The NSCoder object that will receive the <q>serialized</q> state.</p>
+                                  <p>The NSCoder object that will receive the &ldquo;serialized&rdquo; state.</p>
                                 </div>
                               </td>
                             </tr>
@@ -884,7 +887,7 @@
     </div>
     <section class="footer">
       <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external">©2019 The Great Rift Valley Software Company</a></p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

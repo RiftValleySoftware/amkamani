@@ -11,6 +11,7 @@
 import UIKit
 import MediaPlayer
 import AVKit
+import RVS_BasicGCDTimer
 
 /* ###################################################################################################################################### */
 // MARK: - Main Functions Extension -
@@ -873,13 +874,13 @@ extension MainScreenViewController {
 /* ###################################################################################################################################### */
 // MARK: - RVS_BasicGCDTimerDelegate Conformance
 /* ###################################################################################################################################### */
-/* ################################################################## */
-/**
- This is the callback that is made by the repeating timer.
- 
- - parameter: ignored
- */
 extension MainScreenViewController: RVS_BasicGCDTimerDelegate {
+    /* ################################################################## */
+    /**
+     This is the callback that is made by the repeating timer.
+     
+     - parameter: ignored
+     */
     func basicGCDTimerCallback(_: RVS_BasicGCDTimer) {
         checkTicker()
     }

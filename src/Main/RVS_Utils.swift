@@ -74,48 +74,6 @@ extension UIColor {
 /* ###################################################################################################################################### */
 /**
  */
-extension String {
-    /* ################################################################## */
-    /**
-     - returns: the localized string (main bundle) for this string.
-     */
-    var localizedVariant: String {
-        return NSLocalizedString(self, comment: "")
-    }
-    
-    /* ################################################################## */
-    /**
-     This extension lets us uppercase only the first letter of the string (used for weekdays).
-     From here: https://stackoverflow.com/a/28288340/879365
-     
-     - returns: The string, with only the first letter uppercased.
-     */
-    var firstUppercased: String {
-        guard let first = first else { return "" }
-        return String(first).uppercased() + dropFirst()
-    }
-    
-    /* ################################################################## */
-    /**
-     The following calculated property comes from this: http://stackoverflow.com/a/27736118/879365
-     
-     This extension function cleans up a URI string.
-     
-     - returns: a string, cleaned for URI.
-     */
-    var urlEncodedString: String? {
-        let customAllowedSet =  CharacterSet.urlQueryAllowed
-        if let ret = addingPercentEncoding(withAllowedCharacters: customAllowedSet) {
-            return ret
-        } else {
-            return ""
-        }
-    }
-}
-
-/* ###################################################################################################################################### */
-/**
- */
 extension UIView {
     /* ################################################################## */
     /**

@@ -1,3 +1,6 @@
+**Version 1.1.1.3000** *June 26, 2020*
+- Changed over to SPM.
+
 **Version 1.1.0.2000** *May 29, 2020*
 - Switched over to using the basic GCD timer, and also switched on Catalyst.
 - Updated a few deprecated archiver calls.
