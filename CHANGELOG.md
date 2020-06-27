@@ -1,3 +1,6 @@
+**Version 1.1.1.3001** *June 27, 2020*
+- No change. Needed to resubmit to App Store.
+
 **Version 1.1.1.3000** *June 26, 2020*
 - Changed over to SPM.
 
