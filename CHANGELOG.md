@@ -1,3 +1,12 @@
+**Version 1.2.0.3000** *July 5, 2020*
+- Updated the dependencies to the latest versions.
+
+**Version 1.1.1.3001** *June 27, 2020*
+- No change. Needed to resubmit to App Store.
+
+**Version 1.1.1.3000** *June 26, 2020*
+- Changed over to SPM.
+
 **Version 1.1.0.2000** *May 29, 2020*
 - Switched over to using the basic GCD timer, and also switched on Catalyst.
 - Updated a few deprecated archiver calls.

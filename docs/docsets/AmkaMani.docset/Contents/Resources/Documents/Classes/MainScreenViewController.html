@@ -98,9 +98,6 @@
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/String.html">String</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/UIColor.html">UIColor</a>
               </li>
               <li class="nav-group-task">
@@ -124,17 +121,18 @@
       <article class="main-content">
 
         <section class="section">
-          <div class="section-content">
+          <div class="section-content top-matter">
             <h1>MainScreenViewController</h1>
               <div class="declaration">
                 <div class="language">
                   <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">MainScreenViewController</span> <span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span><span class="p">,</span> <span class="kt"><a href="../Protocols/TheBestClockAlarmViewDelegate.html">TheBestClockAlarmViewDelegate</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MainScreenViewController</span><span class="p">:</span> <span class="kt">RVS_BasicGCDTimerDelegate</span></code></pre>
 
                 </div>
               </div>
             <p>The entire app is basically handled by this one big fat View Controller. The idea is that users don&rsquo;t leave the context to do their settings.</p>
 
-<p>There are two <q>screens</q> that appear: The Appearance Editor (font, color), and the Alarm Editor (alarm time, activation, sound). These are actually
+<p>There are two &ldquo;screens&rdquo; that appear: The Appearance Editor (font, color), and the Alarm Editor (alarm time, activation, sound). These are actually
 hidden screens that appear over the main display screen.</p>
 
 <p>Yeah, it&rsquo;s a big ugly mess. Read the README to find out why the app is configured this way.</p>
@@ -148,9 +146,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Instance%20Types%20and%20Structs"></a>
                 <a name="//apple_ref/swift/Section/Instance Types and Structs" class="dashAnchor"></a>
-                <a href="#/Instance%20Types%20and%20Structs">
-                  <h3 class="section-name">Instance Types and Structs</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Types%20and%20Structs"></a>
+                  <h3 class="section-name"><p>Instance Types and Structs</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -215,9 +215,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Instance%20Constant%20Properties"></a>
                 <a name="//apple_ref/swift/Section/Instance Constant Properties" class="dashAnchor"></a>
-                <a href="#/Instance%20Constant%20Properties">
-                  <h3 class="section-name">Instance Constant Properties</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Constant%20Properties"></a>
+                  <h3 class="section-name"><p>Instance Constant Properties</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -409,15 +411,71 @@ hidden screens that appear over the main display screen.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24MainScreenViewControllerC21timeIntervalInSecondsSdvp"></a>
+                    <a name="//apple_ref/swift/Property/timeIntervalInSeconds" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24MainScreenViewControllerC21timeIntervalInSecondsSdvp">timeIntervalInSeconds</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The time interval</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">timeIntervalInSeconds</span><span class="p">:</span> <span class="kt">TimeInterval</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24MainScreenViewControllerC20leewayInMillisecondsSivp"></a>
+                    <a name="//apple_ref/swift/Property/leewayInMilliseconds" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24MainScreenViewControllerC20leewayInMillisecondsSivp">leewayInMilliseconds</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The leeway, in milliseconds</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">leewayInMilliseconds</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
               <div class="task-name-container">
                 <a name="/Instance%20IB%20Properties"></a>
                 <a name="//apple_ref/swift/Section/Instance IB Properties" class="dashAnchor"></a>
-                <a href="#/Instance%20IB%20Properties">
-                  <h3 class="section-name">Instance IB Properties</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20IB%20Properties"></a>
+                  <h3 class="section-name"><p>Instance IB Properties</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -797,7 +855,7 @@ hidden screens that appear over the main display screen.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is the <q>invisible</q> button that we use to dismiss the alarm editor.</p>
+                        <p>This is the &ldquo;invisible&rdquo; button that we use to dismiss the alarm editor.</p>
 
                       </div>
                       <div class="declaration">
@@ -825,7 +883,7 @@ hidden screens that appear over the main display screen.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is a <q>partial mask</q> view for our alarm editor screen.</p>
+                        <p>This is a &ldquo;partial mask&rdquo; view for our alarm editor screen.</p>
 
                       </div>
                       <div class="declaration">
@@ -853,7 +911,7 @@ hidden screens that appear over the main display screen.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is the little <q>more info</q> button that is displayed at the bottom of the setup screen.</p>
+                        <p>This is the little &ldquo;more info&rdquo; button that is displayed at the bottom of the setup screen.</p>
 
                       </div>
                       <div class="declaration">
@@ -881,7 +939,7 @@ hidden screens that appear over the main display screen.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This switch will denote the <q>active</q> state of the alarm.</p>
+                        <p>This switch will denote the &ldquo;active&rdquo; state of the alarm.</p>
 
                       </div>
                       <div class="declaration">
@@ -1077,7 +1135,7 @@ hidden screens that appear over the main display screen.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is the <q>STOP</q> long press gesture recognizer.</p>
+                        <p>This is the &ldquo;STOP&rdquo; long press gesture recognizer.</p>
 
                       </div>
                       <div class="declaration">
@@ -1105,7 +1163,7 @@ hidden screens that appear over the main display screen.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is the <q>STOP</q> double-tap gesture recognizer.</p>
+                        <p>This is the &ldquo;STOP&rdquo; double-tap gesture recognizer.</p>
 
                       </div>
                       <div class="declaration">
@@ -1133,7 +1191,7 @@ hidden screens that appear over the main display screen.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is the <q>snooze</q> tap gesture recognizer.</p>
+                        <p>This is the &ldquo;snooze&rdquo; tap gesture recognizer.</p>
 
                       </div>
                       <div class="declaration">
@@ -1574,9 +1632,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Instance%20Properties"></a>
                 <a name="//apple_ref/swift/Section/Instance Properties" class="dashAnchor"></a>
-                <a href="#/Instance%20Properties">
-                  <h3 class="section-name">Instance Properties</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Properties"></a>
+                  <h3 class="section-name"><p>Instance Properties</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -1835,7 +1895,7 @@ hidden screens that appear over the main display screen.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>These are URL Strings of the various sound files we have for the <q>sounds</q> setting.</p>
+                        <p>These are URL Strings of the various sound files we have for the &ldquo;sounds&rdquo; setting.</p>
 
                       </div>
                       <div class="declaration">
@@ -1879,9 +1939,9 @@ hidden screens that appear over the main display screen.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8AmkaMani24MainScreenViewControllerC5timerSo7NSTimerCSgvp"></a>
+                    <a name="/s:8AmkaMani24MainScreenViewControllerC5timerXevp"></a>
                     <a name="//apple_ref/swift/Property/timer" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8AmkaMani24MainScreenViewControllerC5timerSo7NSTimerCSgvp">timer</a>
+                    <a class="token" href="#/s:8AmkaMani24MainScreenViewControllerC5timerXevp">timer</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1889,14 +1949,14 @@ hidden screens that appear over the main display screen.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is the <q>heartbeat</q> of the clock. It&rsquo;s a 1-second repeating timer.</p>
+                        <p>This is the &ldquo;heartbeat&rdquo; of the clock. It&rsquo;s a 1-second repeating timer.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">timer</span><span class="p">:</span> <span class="kt">Timer</span><span class="o">!</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">timer</span><span class="p">:</span> <span class="kt">RVS_BasicGCDTimer</span><span class="o">!</span></code></pre>
 
                         </div>
                       </div>
@@ -1950,7 +2010,7 @@ hidden screens that appear over the main display screen.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">songs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="p">[</span><span class="kt">MainScreenViewController</span><span class="o">.</span><span class="kt"><a href="../Classes/MainScreenViewController/SongInfo.html">SongInfo</a></span><span class="p">]]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">songs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/MainScreenViewController/SongInfo.html">SongInfo</a></span><span class="p">]]</span></code></pre>
 
                         </div>
                       </div>
@@ -2051,7 +2111,7 @@ hidden screens that appear over the main display screen.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This records the number of snoozes. We use this if we don&rsquo;t have <q>forever snooze</q> on.</p>
+                        <p>This records the number of snoozes. We use this if we don&rsquo;t have &ldquo;forever snooze&rdquo; on.</p>
 
                       </div>
                       <div class="declaration">
@@ -2105,7 +2165,7 @@ hidden screens that appear over the main display screen.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This will provide haptic/audio feedback for selection <q>ticks.</q></p>
+                        <p>This will provide haptic/audio feedback for selection &ldquo;ticks.&rdquo;</p>
 
                       </div>
                       <div class="declaration">
@@ -2152,9 +2212,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Instance%20Override%20Calculated%20Properties"></a>
                 <a name="//apple_ref/swift/Section/Instance Override Calculated Properties" class="dashAnchor"></a>
-                <a href="#/Instance%20Override%20Calculated%20Properties">
-                  <h3 class="section-name">Instance Override Calculated Properties</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Override%20Calculated%20Properties"></a>
+                  <h3 class="section-name"><p>Instance Override Calculated Properties</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -2189,9 +2251,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Instance%20Calculated%20Properties"></a>
                 <a name="//apple_ref/swift/Section/Instance Calculated Properties" class="dashAnchor"></a>
-                <a href="#/Instance%20Calculated%20Properties">
-                  <h3 class="section-name">Instance Calculated Properties</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Calculated%20Properties"></a>
+                  <h3 class="section-name"><p>Instance Calculated Properties</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -2279,9 +2343,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Instance%20UIPickerView%20Delegate%20and%20Datasource%20Methods"></a>
                 <a name="//apple_ref/swift/Section/Instance UIPickerView Delegate and Datasource Methods" class="dashAnchor"></a>
-                <a href="#/Instance%20UIPickerView%20Delegate%20and%20Datasource%20Methods">
-                  <h3 class="section-name">Instance UIPickerView Delegate and Datasource Methods</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20UIPickerView%20Delegate%20and%20Datasource%20Methods"></a>
+                  <h3 class="section-name"><p>Instance UIPickerView Delegate and Datasource Methods</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -2524,9 +2590,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Media%20Methods"></a>
                 <a name="//apple_ref/swift/Section/Media Methods" class="dashAnchor"></a>
-                <a href="#/Media%20Methods">
-                  <h3 class="section-name">Media Methods</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Media%20Methods"></a>
+                  <h3 class="section-name"><p>Media Methods</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -2565,7 +2633,7 @@ hidden screens that appear over the main display screen.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>If true (default is false), then the <q>big</q> throbber screen will show while this is loading.</p>
+                                  <p>If true (default is false), then the &ldquo;big&rdquo; throbber screen will show while this is loading.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2839,9 +2907,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Alarm%20Editor%20Methods"></a>
                 <a name="//apple_ref/swift/Section/Alarm Editor Methods" class="dashAnchor"></a>
-                <a href="#/Alarm%20Editor%20Methods">
-                  <h3 class="section-name">Alarm Editor Methods</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Alarm%20Editor%20Methods"></a>
+                  <h3 class="section-name"><p>Alarm Editor Methods</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -3381,9 +3451,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Instance%20Main%20Display%20Methods"></a>
                 <a name="//apple_ref/swift/Section/Instance Main Display Methods" class="dashAnchor"></a>
-                <a href="#/Instance%20Main%20Display%20Methods">
-                  <h3 class="section-name">Instance Main Display Methods</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Main%20Display%20Methods"></a>
+                  <h3 class="section-name"><p>Instance Main Display Methods</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -3525,9 +3597,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Alarm%20Strip%20Methods"></a>
                 <a name="//apple_ref/swift/Section/Alarm Strip Methods" class="dashAnchor"></a>
-                <a href="#/Alarm%20Strip%20Methods">
-                  <h3 class="section-name">Alarm Strip Methods</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Alarm%20Strip%20Methods"></a>
+                  <h3 class="section-name"><p>Alarm Strip Methods</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -3662,9 +3736,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Running%20Clock%20and%20Alarm%20Methods"></a>
                 <a name="//apple_ref/swift/Section/Running Clock and Alarm Methods" class="dashAnchor"></a>
-                <a href="#/Running%20Clock%20and%20Alarm%20Methods">
-                  <h3 class="section-name">Running Clock and Alarm Methods</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Running%20Clock%20and%20Alarm%20Methods"></a>
+                  <h3 class="section-name"><p>Running Clock and Alarm Methods</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -4007,7 +4083,7 @@ hidden screens that appear over the main display screen.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is called to update the color of the <q>info</q> button in the Appearance Editor.</p>
+                        <p>This is called to update the color of the &ldquo;info&rdquo; button in the Appearance Editor.</p>
 
                       </div>
                       <div class="declaration">
@@ -4036,7 +4112,7 @@ hidden screens that appear over the main display screen.</p>
                       <div class="abstract">
                         <p>This is called when the app is reactivated.</p>
 
-<p>It resets all the <q>deactivations</q> snoozes.</p>
+<p>It resets all the &ldquo;deactivations&rdquo; snoozes.</p>
 
                       </div>
                       <div class="declaration">
@@ -4056,9 +4132,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Instance%20IBAction%20Methods"></a>
                 <a name="//apple_ref/swift/Section/Instance IBAction Methods" class="dashAnchor"></a>
-                <a href="#/Instance%20IBAction%20Methods">
-                  <h3 class="section-name">Instance IBAction Methods</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20IBAction%20Methods"></a>
+                  <h3 class="section-name"><p>Instance IBAction Methods</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -4292,9 +4370,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Appearance%20Editor%20Methods"></a>
                 <a name="//apple_ref/swift/Section/Appearance Editor Methods" class="dashAnchor"></a>
-                <a href="#/Appearance%20Editor%20Methods">
-                  <h3 class="section-name">Appearance Editor Methods</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Appearance%20Editor%20Methods"></a>
+                  <h3 class="section-name"><p>Appearance Editor Methods</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -4387,9 +4467,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Instance%20Methods"></a>
                 <a name="//apple_ref/swift/Section/Instance Methods" class="dashAnchor"></a>
-                <a href="#/Instance%20Methods">
-                  <h3 class="section-name">Instance Methods</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Methods"></a>
+                  <h3 class="section-name"><p>Instance Methods</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -4424,9 +4506,11 @@ hidden screens that appear over the main display screen.</p>
               <div class="task-name-container">
                 <a name="/Instance%20Superclass%20Overrides"></a>
                 <a name="//apple_ref/swift/Section/Instance Superclass Overrides" class="dashAnchor"></a>
-                <a href="#/Instance%20Superclass%20Overrides">
-                  <h3 class="section-name">Instance Superclass Overrides</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Superclass%20Overrides"></a>
+                  <h3 class="section-name"><p>Instance Superclass Overrides</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -4471,7 +4555,7 @@ We use this to initialize most of our settings.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>This is called when we are about to layout our views (like when we rotate).
-We redraw everything, and force a new font size setting by zeroing the <q>cache.</q></p>
+We redraw everything, and force a new font size setting by zeroing the &ldquo;cache.&rdquo;</p>
 
                       </div>
                       <div class="declaration">
@@ -4499,7 +4583,7 @@ We redraw everything, and force a new font size setting by zeroing the <q>cache.
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>This is called when the view is about to appear.
-We make sure that we redraw everything with a zeroed cache, and start the <q>don&rsquo;t sleep</q> thingy.
+We make sure that we redraw everything with a zeroed cache, and start the &ldquo;don&rsquo;t sleep&rdquo; thingy.
 We also start a one-second timer.</p>
 
                       </div>
@@ -4574,9 +4658,11 @@ We also start a one-second timer.</p>
               <div class="task-name-container">
                 <a name="/Instance%20Alarm%20Editor%20Delegate%20Methods"></a>
                 <a name="//apple_ref/swift/Section/Instance Alarm Editor Delegate Methods" class="dashAnchor"></a>
-                <a href="#/Instance%20Alarm%20Editor%20Delegate%20Methods">
-                  <h3 class="section-name">Instance Alarm Editor Delegate Methods</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Alarm%20Editor%20Delegate%20Methods"></a>
+                  <h3 class="section-name"><p>Instance Alarm Editor Delegate Methods</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -4627,6 +4713,46 @@ We also start a one-second timer.</p>
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/RVS_BasicGCDTimerDelegate%20Conformance"></a>
+                <a name="//apple_ref/swift/Section/RVS_BasicGCDTimerDelegate Conformance" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/RVS_BasicGCDTimerDelegate%20Conformance"></a>
+                  <h3 class="section-name"><p>RVS_BasicGCDTimerDelegate Conformance</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8AmkaMani24MainScreenViewControllerC21basicGCDTimerCallbackyXeXeF"></a>
+                    <a name="//apple_ref/swift/Method/basicGCDTimerCallback(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8AmkaMani24MainScreenViewControllerC21basicGCDTimerCallbackyXeXeF">basicGCDTimerCallback(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the callback that is made by the repeating timer.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">basicGCDTimerCallback</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">RVS_BasicGCDTimer</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -4634,7 +4760,7 @@ We also start a one-second timer.</p>
     </div>
     <section class="footer">
       <p><a class="link" href="https://riftvalleysoftware.com" target="_blank" rel="external">©2019 The Great Rift Valley Software Company</a></p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
