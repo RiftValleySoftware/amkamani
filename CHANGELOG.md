@@ -1,3 +1,6 @@
+**Version 1.2.0.3000** *July 5, 2020*
+- Updated the dependencies to the latest versions.
+
 **Version 1.1.1.3001** *June 27, 2020*
 - No change. Needed to resubmit to App Store.
 

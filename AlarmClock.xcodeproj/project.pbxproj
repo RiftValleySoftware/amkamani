@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D40999B824A68090006D8EC8 /* RVS-BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D40999B724A68090006D8EC8 /* RVS-BasicGCDTimer */; };
-		D40999B924A68090006D8EC8 /* RVS-BasicGCDTimer in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D40999B724A68090006D8EC8 /* RVS-BasicGCDTimer */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		D40999BD24A680E4006D8EC8 /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D40999BC24A680E4006D8EC8 /* RVS-Generic-Swift-Toolbox */; };
-		D40999BE24A680E4006D8EC8 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D40999BC24A680E4006D8EC8 /* RVS-Generic-Swift-Toolbox */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		D40999C224A6827A006D8EC8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D40999C124A6827A006D8EC8 /* Default-568h@2x.png */; };
 		D4135998218E763F00768430 /* TheBestClockAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4135997218E763F00768430 /* TheBestClockAppDelegate.swift */; };
 		D413599A218E763F00768430 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4135999218E763F00768430 /* MainScreenViewController.swift */; };
@@ -22,6 +18,8 @@
 		D443F5E8219ADDFB002A212A /* AlarmEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443F5E7219ADDFB002A212A /* AlarmEditorExtension.swift */; };
 		D44DA634219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44DA633219FC1F800DA20D3 /* TheBestClockSpeakerButton.swift */; };
 		D458720521A0B0EA00919A23 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D458720421A0B0EA00919A23 /* Settings.bundle */; };
+		D459A9BD24B2271E00DDCC0A /* RVS-Generic-Swift-Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D459A9BC24B2271E00DDCC0A /* RVS-Generic-Swift-Toolbox */; };
+		D459A9C024B2273400DDCC0A /* RVS-BasicGCDTimer in Frameworks */ = {isa = PBXBuildFile; productRef = D459A9BF24B2273400DDCC0A /* RVS-BasicGCDTimer */; };
 		D46F84602190CA1F0026C9AD /* TheBestClockMainDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F845F2190CA1F0026C9AD /* TheBestClockMainDisplayView.swift */; };
 		D46F84622190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46F84612190D3B90026C9AD /* TheBestClockVerticalBrightnessSliderView.swift */; };
 		D487C1062191CE2F00FBDC77 /* TheBestClockPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D487C1052191CE2E00FBDC77 /* TheBestClockPrefs.swift */; };
@@ -50,18 +48,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D40999BA24A68090006D8EC8 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				D40999BE24A680E4006D8EC8 /* RVS-Generic-Swift-Toolbox in Embed Frameworks */,
-				D40999B924A68090006D8EC8 /* RVS-BasicGCDTimer in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D4D56C1F21B42877003025FF /* Copy Fonts */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -145,8 +131,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D40999BD24A680E4006D8EC8 /* RVS-Generic-Swift-Toolbox in Frameworks */,
-				D40999B824A68090006D8EC8 /* RVS-BasicGCDTimer in Frameworks */,
+				D459A9C024B2273400DDCC0A /* RVS-BasicGCDTimer in Frameworks */,
+				D459A9BD24B2271E00DDCC0A /* RVS-Generic-Swift-Toolbox in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,7 +266,6 @@
 				D4D56C3B21B43034003025FF /* Copy Sounds */,
 				D4135992218E763F00768430 /* Resources */,
 				D44EA83121C01A5A00696E19 /* Frameworks */,
-				D40999BA24A68090006D8EC8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -288,8 +273,8 @@
 			);
 			name = AmkaMani;
 			packageProductDependencies = (
-				D40999B724A68090006D8EC8 /* RVS-BasicGCDTimer */,
-				D40999BC24A680E4006D8EC8 /* RVS-Generic-Swift-Toolbox */,
+				D459A9BC24B2271E00DDCC0A /* RVS-Generic-Swift-Toolbox */,
+				D459A9BF24B2273400DDCC0A /* RVS-BasicGCDTimer */,
 			);
 			productName = TheBestClock;
 			productReference = D4135994218E763F00768430 /* AmkaMani.app */;
@@ -324,8 +309,8 @@
 			);
 			mainGroup = D413598B218E763F00768430;
 			packageReferences = (
-				D40999B624A68090006D8EC8 /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */,
-				D40999BB24A680E4006D8EC8 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
+				D459A9BB24B2271E00DDCC0A /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
+				D459A9BE24B2273400DDCC0A /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */,
 			);
 			productRefGroup = D4135995218E763F00768430 /* Products */;
 			projectDirPath = "";
@@ -657,7 +642,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3001;
+				CURRENT_PROJECT_VERSION = 3000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -666,7 +651,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.amkamani;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -682,7 +667,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3001;
+				CURRENT_PROJECT_VERSION = 3000;
 				DEVELOPMENT_TEAM = KSAUGZFWP2;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -691,7 +676,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.riftvalleysoftware.amkamani;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -725,34 +710,34 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D40999B624A68090006D8EC8 /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:RiftValleySoftware/RVS_BasicGCDTimer.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.1;
-			};
-		};
-		D40999BB24A680E4006D8EC8 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
+		D459A9BB24B2271E00DDCC0A /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_Generic_Swift_Toolbox.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.1;
+				minimumVersion = 1.3.0;
+			};
+		};
+		D459A9BE24B2273400DDCC0A /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:RiftValleySoftware/RVS_BasicGCDTimer.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D40999B724A68090006D8EC8 /* RVS-BasicGCDTimer */ = {
+		D459A9BC24B2271E00DDCC0A /* RVS-Generic-Swift-Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D40999B624A68090006D8EC8 /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
-			productName = "RVS-BasicGCDTimer";
-		};
-		D40999BC24A680E4006D8EC8 /* RVS-Generic-Swift-Toolbox */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D40999BB24A680E4006D8EC8 /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			package = D459A9BB24B2271E00DDCC0A /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
 			productName = "RVS-Generic-Swift-Toolbox";
+		};
+		D459A9BF24B2273400DDCC0A /* RVS-BasicGCDTimer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D459A9BE24B2273400DDCC0A /* XCRemoteSwiftPackageReference "RVS_BasicGCDTimer" */;
+			productName = "RVS-BasicGCDTimer";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
